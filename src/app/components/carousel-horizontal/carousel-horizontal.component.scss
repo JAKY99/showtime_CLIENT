@@ -1,0 +1,30 @@
+@import "src/styles";
+
+.trending-image{
+  max-width: 200px;
+  border-radius: 20px
+}
+
+.trending-item-content{
+  display: flex;
+  justify-content: center;
+}
+
+app-carousel-horizontal .trending-carousel-indicator {
+  max-width: 4px;
+  max-height: 4px;
+  border-radius: 100px!important;
+
+}
+
+app-carousel-horizontal .p-carousel-indicator.p-highlight button{
+  background-color: $secondary-color!important;
+}
+
+app-carousel-horizontal .p-carousel-indicators{
+  margin-top: 1rem;
+}
+
+.p-carousel-items-container{
+  gap: 0;
+}

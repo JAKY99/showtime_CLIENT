@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {UserService} from "../../services/user/user.service";
 import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class HomePageComponent implements OnInit {
 
