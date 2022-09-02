@@ -1,1 +1,10 @@
+@import "src/styles";
+
+.app-home-page{
+  background-color: $main-color;
+}
+
+.overflow-auto{
+  overflow-x: hidden!important;
+}
 
