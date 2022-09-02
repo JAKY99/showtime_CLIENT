@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-deploy-client":"npm i && ng build --base-href /client/"
+    "build-deploy-client":"ng build --base-href /client/"
   },
   "private": true,
   "dependencies": {
