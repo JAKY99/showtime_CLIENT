@@ -1,0 +1,13 @@
+<div class="no-connection-wrapper"
+     *ngIf="model"
+     [className]="!isClosing ?
+     ' no-connection-wrapper'
+     : 'no-connection-wrapper fadeoutleft animation-duration-300'">
+  <span class="no-connection-text">
+    No connection detected.
+  </span>
+  <div class="actions flex justify-content-end">
+    <button (click)="refreshComponent()" pButton type="button" label="Refresh" class="p-button-text"></button>
+    <button (click)="close()" pButton type="button" label="Close" class="p-button-text"></button>
+  </div>
+</div>

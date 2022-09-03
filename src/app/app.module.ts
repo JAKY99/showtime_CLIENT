@@ -31,6 +31,9 @@ import {MultiSelectModule} from "primeng/multiselect";
 import { LogoComponent } from './components/logo/logo.component';
 import { CarouselHorizontalComponent } from './components/carousel-horizontal/carousel-horizontal.component';
 import {CarouselModule} from "primeng/carousel";
+import { SwiperModule } from 'swiper/angular';
+import { CarouselImageListComponent } from './components/carousel-image-list/carousel-image-list.component';
+import { NoConnectionComponent } from './components/no-connection/no-connection.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,8 @@ import {CarouselModule} from "primeng/carousel";
     HomePageComponent,
     LogoComponent,
     CarouselHorizontalComponent,
+    CarouselImageListComponent,
+    NoConnectionComponent,
   ],
   imports: [
     HttpClientModule,
@@ -64,7 +69,8 @@ import {CarouselModule} from "primeng/carousel";
     BreadcrumbModule,
     TableModule,
     MultiSelectModule,
-    CarouselModule
+    CarouselModule,
+    SwiperModule
   ],
   providers: [
     {

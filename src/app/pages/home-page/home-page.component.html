@@ -1,8 +1,20 @@
-<div class="app-logo h-full overflow-auto">
+<div class="app-home-page h-full overflow-auto">
   <app-logo style="font-size: 0.7rem"> </app-logo>
 
   <div class="trending-section">
-    <h2>Trending</h2>
+    <h2 class="m-5 mb-4 text-white text-base">Trending</h2>
     <app-carousel-horizontal carouselTitle="Trending"></app-carousel-horizontal>
+  </div>
+  <div class="in-theaters">
+    <h2 class="m-5 mb-3 text-white text-base">Movies in theaters</h2>
+    <app-carousel-image-list [items]="moviesInTheaters"></app-carousel-image-list>
+  </div>
+  <div class="top-rated">
+    <h2 class="m-5 mb-3 text-white text-base">Top Rated</h2>
+    <app-carousel-image-list [items]="topRated"></app-carousel-image-list>
+  </div>
+  <div class="upcoming">
+    <h2 class="m-5 mb-3 text-white text-base">Upcoming</h2>
+    <app-carousel-image-list [items]="upComing"></app-carousel-image-list>
   </div>
 </div>

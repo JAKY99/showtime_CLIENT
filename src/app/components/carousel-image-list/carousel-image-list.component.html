@@ -1,0 +1,13 @@
+<div class="swiper-container">
+    <swiper
+      [slidesPerView]="2.5"
+      [spaceBetween]="20"
+      [freeMode]="true"
+      class="swiper"
+    >
+      <ng-template swiperSlide *ngFor="let item of items"><img
+        src="{{globalConstants.TMDB_IMAGE_BASE_URL + '/w500/' + item.poster_path}}"
+        [alt]="item.original_title"
+        class="movie-image" /></ng-template>
+    </swiper>
+</div>

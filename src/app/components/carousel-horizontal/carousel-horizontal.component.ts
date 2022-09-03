@@ -38,8 +38,7 @@ export class CarouselHorizontalComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.trendingService.fetchTrendings().toPromise().then(resp => {
-      this.trendings = resp.results;
+      this.trendings = resp.results.slice(0,9);
     });
   }
-
 }
