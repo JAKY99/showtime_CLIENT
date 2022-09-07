@@ -3,18 +3,18 @@
 
   <div class="trending-section">
     <h2 class="m-5 mb-4 text-white text-base">Trending</h2>
-    <app-carousel-horizontal carouselTitle="Trending"></app-carousel-horizontal>
+    <app-carousel #trendings [items]="trendingsList"></app-carousel>
   </div>
   <div class="in-theaters">
     <h2 class="m-5 mb-3 text-white text-base">Movies in theaters</h2>
-    <app-carousel-image-list [items]="moviesInTheaters"></app-carousel-image-list>
+    <app-carousel-image-list #moviesInTheatersRef [items]="moviesInTheaters"></app-carousel-image-list>
   </div>
   <div class="top-rated">
     <h2 class="m-5 mb-3 text-white text-base">Top Rated</h2>
-    <app-carousel-image-list [items]="topRated"></app-carousel-image-list>
+    <app-carousel-image-list #topRatedRef [items]="topRated"></app-carousel-image-list>
   </div>
   <div class="upcoming">
     <h2 class="m-5 mb-3 text-white text-base">Upcoming</h2>
-    <app-carousel-image-list [items]="upComing"></app-carousel-image-list>
+    <app-carousel-image-list #upComingRef [items]="upComing"></app-carousel-image-list>
   </div>
 </div>

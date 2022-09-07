@@ -13,6 +13,8 @@ SwiperCore.use([FreeMode]);
 })
 export class CarouselImageListComponent implements OnInit {
 
+  isLoading: boolean = true;
+
   @Input() items: any[] = [];
 
   globalConstants = GlobalConstants;

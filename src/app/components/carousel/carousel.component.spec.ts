@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CarouselHorizontalComponent } from './carousel-horizontal.component';
+import { CarouselComponent } from './carousel.component';
 
 describe('CarouselHorizontalComponent', () => {
-  let component: CarouselHorizontalComponent;
-  let fixture: ComponentFixture<CarouselHorizontalComponent>;
+  let component: CarouselComponent;
+  let fixture: ComponentFixture<CarouselComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CarouselHorizontalComponent ]
+      declarations: [ CarouselComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CarouselHorizontalComponent);
+    fixture = TestBed.createComponent(CarouselComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

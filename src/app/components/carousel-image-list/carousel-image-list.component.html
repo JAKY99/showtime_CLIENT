@@ -1,7 +1,7 @@
 <div class="swiper-container">
     <swiper
-      [slidesPerView]="2.5"
-      [spaceBetween]="20"
+      [slidesPerView]="2.3"
+      [spaceBetween]="5"
       [freeMode]="true"
       class="swiper"
     >
@@ -10,4 +10,7 @@
         [alt]="item.original_title"
         class="movie-image" /></ng-template>
     </swiper>
+  <div class="skeleton flex gap-4" *ngIf="isLoading">
+    <p-skeleton class="movie-image"></p-skeleton>
+  </div>
 </div>

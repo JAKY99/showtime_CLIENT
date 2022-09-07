@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 })
 export class NoConnectionComponent implements OnInit {
 
-  model: boolean = true;
+  @Input() model: boolean = true;
   isClosing: boolean = false;
 
   constructor(private  router: Router) { }
