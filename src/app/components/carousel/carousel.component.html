@@ -1,34 +1,22 @@
 <div class="swiper-container">
-  <swiper
-    [effect]="'coverflow'"
-    [grabCursor]="true"
-    [centeredSlides]="true"
-    [slidesPerView]="2"
-    [spaceBetween]="30"
-    [coverflowEffect]="{
-      rotate: -20,
-      stretch: 0,
-      depth: 100,
-      modifier: 1
-    }"
-    [pagination]="{
-      dynamicBullets: true
-    }"
-    class="mySwiper"
+  <swiper *ngIf="!isLoading"
+    [config]="swiperConfig"
   >
-    <ng-template swiperSlide *ngFor="let item of items">
+    <ng-template swiperSlide *ngFor="let item of items; let i = index">
+      <p-badge styleClass="rank-number" [value]="(i + 1).toString()"></p-badge>
       <img
       src="{{globalConstants.TMDB_IMAGE_BASE_URL + '/w500/' + item.poster_path}}"
       [alt]="item.original_title"
       class="swiper-image" />
     </ng-template>
   </swiper>
-  <div class="skeleton flex gap-4" *ngIf="isLoading">
-    <p-skeleton width="130px" height="200px"></p-skeleton>
-    <p-skeleton width="130px" height="200px"></p-skeleton>
-    <p-skeleton width="130px" height="200px"></p-skeleton>
-  </div>
-  <div class="pagination" slot="pagination">
-
-  </div>
+  <swiper *ngIf="isLoading"
+    [config]="swiperConfig"
+  >
+    <ng-template swiperSlide *ngFor="let number of [0,1,2,3,4,5,6]">
+      <div class="skeleton">
+        <p-skeleton width="195px" height="295px"></p-skeleton>
+      </div>
+    </ng-template>
+  </swiper>
 </div>

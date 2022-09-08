@@ -1,20 +1,28 @@
 <div class="app-home-page h-full overflow-auto">
   <app-logo style="font-size: 0.7rem"> </app-logo>
 
-  <div class="trending-section">
+  <div class="trending-section carousel-container">
     <h2 class="m-5 mb-4 text-white text-base">Trending</h2>
     <app-carousel #trendings [items]="trendingsList"></app-carousel>
   </div>
-  <div class="in-theaters">
+  <div class="in-theaters-movie carousel-container">
     <h2 class="m-5 mb-3 text-white text-base">Movies in theaters</h2>
     <app-carousel-image-list #moviesInTheatersRef [items]="moviesInTheaters"></app-carousel-image-list>
   </div>
-  <div class="top-rated">
-    <h2 class="m-5 mb-3 text-white text-base">Top Rated</h2>
-    <app-carousel-image-list #topRatedRef [items]="topRated"></app-carousel-image-list>
+  <div class="top-rated-movie carousel-container">
+    <h2 class="m-5 mb-3 text-white text-base">Top Rated Movies</h2>
+    <app-carousel-image-list #topRatedMoviesRef [items]="topRatedMovies"></app-carousel-image-list>
   </div>
-  <div class="upcoming">
-    <h2 class="m-5 mb-3 text-white text-base">Upcoming</h2>
-    <app-carousel-image-list #upComingRef [items]="upComing"></app-carousel-image-list>
+  <div class="upcoming carousel-container">
+    <h2 class="m-5 mb-3 text-white text-base">Upcoming Movies</h2>
+    <app-carousel-image-list #upComingRef [items]="upComingMovies"></app-carousel-image-list>
+  </div>
+  <div class="top-rated-tv carousel-container">
+    <h2 class="m-5 mb-3 text-white text-base">Top Rated Series</h2>
+    <app-carousel-image-list #topRatedTvRef [items]="topRatedTv"></app-carousel-image-list>
+  </div>
+  <div class="popular-tv carousel-container">
+    <h2 class="m-5 mb-3 text-white text-base">Popular Series</h2>
+    <app-carousel-image-list #popularTvRef [items]="popularTv"></app-carousel-image-list>
   </div>
 </div>

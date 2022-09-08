@@ -8,3 +8,26 @@
   overflow-x: hidden!important;
 }
 
+@media screen and (min-width: 768px) {
+  .app-home-page{
+
+    .carousel-container{
+      h2{
+        font-size: $font-medium!important;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .app-home-page{
+
+    .carousel-container{
+      h2{
+        font-size: $font-big!important;
+      }
+    }
+  }
+}
+
+

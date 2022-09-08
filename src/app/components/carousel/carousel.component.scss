@@ -8,12 +8,19 @@ app-carousel {
   .swiper {
     width: 100%;
     height: 100%;
+
+    .rank-number{
+      background-color: $secondary-color;
+      position: absolute;
+      left: .5rem;
+      top: .5rem;
+    }
   }
 
   .swiper-image {
     width: auto;
     max-width: 50vw;
-    height: 100%;
+    height: auto;
     max-height: 35vh;
     border-radius: 10px;
   }
@@ -31,6 +38,32 @@ app-carousel {
 
   .swiper-slide-shadow-left,.swiper-slide-shadow-right{
     display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  app-carousel {
+    .swiper-container {
+      padding: 0 4rem;
+      overflow: visible!important;
+    }
+
+    .swiper{
+      overflow: visible;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  app-carousel {
+    .swiper-container {
+      padding: 0 4rem;
+      overflow: visible!important;
+    }
+
+    .swiper{
+      overflow: visible;
+    }
   }
 }
 
