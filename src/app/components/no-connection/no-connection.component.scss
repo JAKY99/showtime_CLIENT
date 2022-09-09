@@ -1,0 +1,19 @@
+@import "src/styles";
+
+.no-connection-wrapper{
+  background-color: $secondary-color;
+  padding: $margin-default;
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+
+  .no-connection-text{
+    color: $white;
+  }
+
+  .actions{
+    .p-button-text{
+      color: $white!important;
+    }
+  }
+}

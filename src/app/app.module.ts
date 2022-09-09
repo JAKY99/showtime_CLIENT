@@ -28,6 +28,13 @@ import {RippleModule} from "primeng/ripple";
 import {BreadcrumbModule} from "primeng/breadcrumb";
 import {TableModule} from "primeng/table";
 import {MultiSelectModule} from "primeng/multiselect";
+import { LogoComponent } from './components/logo/logo.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import {CarouselModule} from "primeng/carousel";
+import { SwiperModule } from 'swiper/angular';
+import { CarouselImageListComponent } from './components/carousel-image-list/carousel-image-list.component';
+import { NoConnectionComponent } from './components/no-connection/no-connection.component';
+import {SkeletonModule} from "primeng/skeleton";
 
 @NgModule({
   declarations: [
@@ -35,6 +42,10 @@ import {MultiSelectModule} from "primeng/multiselect";
     LoginFormComponent,
     LoginPageComponent,
     HomePageComponent,
+    LogoComponent,
+    CarouselComponent,
+    CarouselImageListComponent,
+    NoConnectionComponent,
   ],
   imports: [
     HttpClientModule,
@@ -59,6 +70,9 @@ import {MultiSelectModule} from "primeng/multiselect";
     BreadcrumbModule,
     TableModule,
     MultiSelectModule,
+    CarouselModule,
+    SwiperModule,
+    SkeletonModule
   ],
   providers: [
     {

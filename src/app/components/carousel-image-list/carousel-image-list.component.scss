@@ -1,0 +1,45 @@
+@import "swiper/swiper-bundle.min.css";
+@import "src/styles.scss";
+
+app-carousel-image-list .swiper-container{
+  padding: 1rem;
+}
+
+app-carousel-image-list .swiper{
+  overflow: unset;
+}
+
+app-carousel-image-list .swiper::-webkit-scrollbar {
+  display: none;
+}
+
+app-carousel-image-list .movie-image{
+  width: auto;
+  max-width: 50vw;
+  height: 100%;
+  max-height: 50vh;
+  border-radius: 10px
+}
+
+app-carousel-image-list .swiper {
+  width: 100%;
+  height: 100%;
+}
+
+app-carousel-image-list .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+  app-carousel-image-list .swiper-container{
+
+  }
+}
+@media screen and (min-width: 1024px) {
+  app-carousel-image-list .swiper-container{
+
+  }
+}
