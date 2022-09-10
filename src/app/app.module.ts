@@ -34,7 +34,13 @@ import {CarouselModule} from "primeng/carousel";
 import { SwiperModule } from 'swiper/angular';
 import { CarouselImageListComponent } from './components/carousel-image-list/carousel-image-list.component';
 import { NoConnectionComponent } from './components/no-connection/no-connection.component';
-import {SkeletonModule} from "primeng/skeleton";
+import { SkeletonModule } from "primeng/skeleton";
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MoviesPageComponent } from './pages/movies-page/movies-page.component';
+import { SeriesPageComponent } from './pages/series-page/series-page.component';
+import { SocialPageComponent } from './pages/social-page/social-page.component';
+import { ProfilPageComponent } from './pages/profil-page/profil-page.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +52,11 @@ import {SkeletonModule} from "primeng/skeleton";
     CarouselComponent,
     CarouselImageListComponent,
     NoConnectionComponent,
+    NavbarComponent,
+    MoviesPageComponent,
+    SeriesPageComponent,
+    SocialPageComponent,
+    ProfilPageComponent,
   ],
   imports: [
     HttpClientModule,
@@ -72,7 +83,8 @@ import {SkeletonModule} from "primeng/skeleton";
     MultiSelectModule,
     CarouselModule,
     SwiperModule,
-    SkeletonModule
+    SkeletonModule,
+    FontAwesomeModule
   ],
   providers: [
     {

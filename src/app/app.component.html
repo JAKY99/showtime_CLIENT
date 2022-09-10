@@ -1,3 +1,4 @@
 <app-no-connection [model]="false"></app-no-connection>
 <router-outlet></router-outlet>
+<app-navbar *ngIf="this.router.url != '/login'"></app-navbar>
 <p-blockUI [blocked]="blockedDocument"></p-blockUI>

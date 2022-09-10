@@ -1,11 +1,15 @@
 $main-color: #2E3441;
 $secondary-color: #F65C63;
 $white: #FFFFFF;
+$navbar-bg: rgba(0, 0, 0, 0.7);
 
 $margin-small: .5rem;
 $margin-default: 1rem;
 $margin-big: 2rem;
 
+$font-small-3: .4rem;
+$font-small-2: .6rem;
+$font-small: .8rem;
 $font-default: 1rem;
 $font-medium: 1.3rem;
 $font-big: 1.5rem;
@@ -14,7 +18,19 @@ $font-big-2: 1.8rem;
 
 * {
   font-family: Lato, sans-serif;
-  font-weight: 600;
+}
+
+*.unselectable {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+
+  /*
+    Introduced in Internet Explorer 10.
+    See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+  */
+  -ms-user-select: none;
+  user-select: none;
 }
 
 
