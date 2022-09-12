@@ -3,7 +3,7 @@
       [config]="swiperConfig"
     >
       <ng-template swiperSlide *ngFor="let item of items"><img
-        src="{{globalConstants.TMDB_IMAGE_BASE_URL + '/w500/' + item.poster_path}}"
+        src="{{globalConstants.TMDB_IMAGE_BASE_URL + '/w300/' + item.poster_path}}"
         [alt]="item.original_title"
         class="movie-image" /></ng-template>
     </swiper>

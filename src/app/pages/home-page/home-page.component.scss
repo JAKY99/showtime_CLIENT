@@ -2,6 +2,10 @@
 
 .app-home-page{
   background-color: $main-color;
+
+  .carousel-container:last-child{
+    margin-bottom: 5rem;
+  }
 }
 
 .overflow-auto{
