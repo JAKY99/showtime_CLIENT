@@ -41,6 +41,18 @@ import { MoviesPageComponent } from './pages/movies-page/movies-page.component';
 import { SeriesPageComponent } from './pages/series-page/series-page.component';
 import { SocialPageComponent } from './pages/social-page/social-page.component';
 import { ProfilPageComponent } from './pages/profil-page/profil-page.component';
+import { MovieDetailsPageComponent } from './pages/movie-details-page/movie-details-page.component';
+import { ImageComponent } from './components/image/image.component';
+import { TagComponent } from './components/tag/tag.component';
+import { DescriptionComponent } from './components/description/description.component';
+import { CarouselActorsListComponent } from './components/carousel-actors-list/carousel-actors-list.component';
+import {ProgressSpinnerModule} from "primeng/progressspinner";
+import { WatchProvidersComponent } from './components/watch-providers/watch-providers.component';
+import {AutoCompleteModule} from "primeng/autocomplete";
+import {DropdownModule} from "primeng/dropdown";
+import {TabViewModule} from "primeng/tabview";
+import { GoBackComponent } from './components/go-back/go-back.component';
+import {TabMenuModule} from "primeng/tabmenu";
 
 @NgModule({
   declarations: [
@@ -57,35 +69,47 @@ import { ProfilPageComponent } from './pages/profil-page/profil-page.component';
     SeriesPageComponent,
     SocialPageComponent,
     ProfilPageComponent,
+    MovieDetailsPageComponent,
+    ImageComponent,
+    TagComponent,
+    DescriptionComponent,
+    CarouselActorsListComponent,
+    WatchProvidersComponent,
+    GoBackComponent,
   ],
-  imports: [
-    HttpClientModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    SidebarModule,
-    ButtonModule,
-    MenubarModule,
-    InputTextModule,
-    CardModule,
-    FormsModule,
-    PasswordModule,
-    DividerModule,
-    ReactiveFormsModule,
-    ToastModule,
-    BlockUIModule,
-    AvatarModule,
-    BadgeModule,
-    SlideMenuModule,
-    RippleModule,
-    BreadcrumbModule,
-    TableModule,
-    MultiSelectModule,
-    CarouselModule,
-    SwiperModule,
-    SkeletonModule,
-    FontAwesomeModule
-  ],
+    imports: [
+        HttpClientModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        SidebarModule,
+        ButtonModule,
+        MenubarModule,
+        InputTextModule,
+        CardModule,
+        FormsModule,
+        PasswordModule,
+        DividerModule,
+        ReactiveFormsModule,
+        ToastModule,
+        BlockUIModule,
+        AvatarModule,
+        BadgeModule,
+        SlideMenuModule,
+        RippleModule,
+        BreadcrumbModule,
+        TableModule,
+        MultiSelectModule,
+        CarouselModule,
+        SwiperModule,
+        SkeletonModule,
+        FontAwesomeModule,
+        ProgressSpinnerModule,
+        AutoCompleteModule,
+        DropdownModule,
+        TabViewModule,
+        TabMenuModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

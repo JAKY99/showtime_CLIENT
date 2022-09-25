@@ -2,6 +2,7 @@ $main-color: #2E3441;
 $secondary-color: #F65C63;
 $white: #FFFFFF;
 $navbar-bg: rgba(0, 0, 0, 0.7);
+$divider-color: #4C5364;
 
 $margin-small: .5rem;
 $margin-default: 1rem;
@@ -15,6 +16,12 @@ $font-medium: 1.3rem;
 $font-big: 1.5rem;
 $font-big-2: 1.8rem;
 
+.secondary-text-color{
+  color: $secondary-color;
+}
+.secondary-bg-color{
+  background-color: $secondary-color;
+}
 
 * {
   font-family: Lato, sans-serif;
@@ -24,13 +31,82 @@ $font-big-2: 1.8rem;
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
-
-  /*
-    Introduced in Internet Explorer 10.
-    See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
-  */
   -ms-user-select: none;
   user-select: none;
 }
+
+.st-icon{
+  color: $white;
+  font-size: 1.5rem;
+
+  &-small-2{
+    font-size: .8rem;
+  }
+
+  &-small-1{
+    font-size: 1rem;
+  }
+
+  &-small{
+    font-size: 1.2rem;
+  }
+
+  &-big{
+    font-size: 1.8rem;
+  }
+
+  &.checked{
+    color: $secondary-color;
+  }
+}
+
+.p-tabview .p-tabview-nav{
+  background-color: transparent;
+  border: none;
+}
+
+.p-tabview-nav{
+  justify-content: space-between;
+  gap: 0;
+  border-bottom: 1px solid $white!important;
+  padding: 0;
+}
+
+.p-tabview .p-tabview-nav li{
+  width: 100%;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link{
+  background-color: transparent;
+  color: $white;
+  outline: none;
+  border: none;
+  font-weight: 500;
+  font-size: $font-small;
+  justify-content: center;
+}
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link{
+  background-color: transparent;
+  border-color: $secondary-color;
+  color: $secondary-color;
+}
+
+.p-tabview .p-tabview-nav .p-tabview-ink-bar{
+  background-color: $secondary-color;
+}
+
+.p-tabview .p-tabview-panels{
+  background-color: transparent;
+  padding: 1.2rem 0;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight{
+  outline: none!important;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+  box-shadow: none;
+}
+
 
 

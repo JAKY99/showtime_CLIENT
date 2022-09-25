@@ -2,11 +2,15 @@ import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {UserService} from "../../services/user/user.service";
 import {MessageService} from "primeng/api";
 import {MovieService} from "../../services/movie/movie.service";
-import {UserLocationDatasService} from "../../services/geo/user-location-datas.service";
-import {CarouselImageListComponent} from "../../components/carousel-image-list/carousel-image-list.component";
 import {TrendingService} from "../../services/trending/trending.service";
-import {CarouselComponent} from "../../components/carousel/carousel.component";
 import {TvService} from "../../services/tv/tv.service";
+import {CarouselComponent} from "../../components/carousel/carousel.component";
+import {CarouselImageListComponent} from "../../components/carousel-image-list/carousel-image-list.component";
+import {UserLocationDatasService} from "../../services/geo/user-location-datas.service";
+import {TrendingModel} from "../../models/trendings/trending-model";
+import {MovieDetailsModel} from "../../models/movie/movie-details-model";
+import {TvDetails} from "../../models/tv/tv-details";
+
 
 @Component({
   selector: 'app-home-page',
@@ -24,17 +28,16 @@ export class HomePageComponent implements OnInit {
   @ViewChild('topRatedTvRef') topRatedTvChild : CarouselImageListComponent | undefined;
   @ViewChild('popularTvRef') popularTvChild : CarouselImageListComponent | undefined;
 
-  trendingsList: any[] = [];
-  moviesInTheaters: any[] = [];
-  newMovies: any[] = [];
-  topRatedMovies: any[] = [];
-  topRatedTv: any[] = [];
-  upComingMovies: any[] = [];
-  popularTv: any[] = [];
+  trendingsList: TrendingModel[] = [];
+  moviesInTheaters: MovieDetailsModel[] = [];
+  newMovies: MovieDetailsModel[] = [];
+  topRatedMovies: MovieDetailsModel[] = [];
+  topRatedTv: TvDetails[] = [];
+  upComingMovies: MovieDetailsModel[] = [];
+  popularTv: TvDetails[] = [];
   userLocationData = {
-    country: {
-      iso_code: ""
-    }
+    ipv4: "",
+    country_code2: ""
   };
 
   constructor(
@@ -43,7 +46,7 @@ export class HomePageComponent implements OnInit {
     private movieService: MovieService,
     private tvService: TvService,
     private trendingService: TrendingService,
-    private userGeoService: UserLocationDatasService
+    private userGeoService: UserLocationDatasService,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -56,7 +59,7 @@ export class HomePageComponent implements OnInit {
       // @ts-ignore
       this.trendingsChild?.isLoading = false;
     });
-    this.movieService.fetchInTheaters(this.userLocationData.country.iso_code).toPromise()
+    this.movieService.fetchInTheaters(this.userLocationData.country_code2).toPromise()
       .then(resp => {
         this.moviesInTheaters = resp.results;
         // @ts-ignore

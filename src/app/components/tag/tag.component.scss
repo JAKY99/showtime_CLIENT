@@ -1,0 +1,61 @@
+@import "./src/styles";
+
+.app-tag{
+  border-color: $secondary-color;
+  color: $secondary-color;
+  border-style: solid;
+  border-width: 1px;
+  padding: .3rem 1rem;
+  text-align: center;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem;
+  font-weight: 400;
+
+  &.full{
+    background-color: $secondary-color;
+    color: $white;
+  }
+
+  &.border-radius{
+    border-radius: 3px;
+  }
+
+  &.rounded{
+    border-radius: 100px;
+  }
+
+  &.small-size-2{
+    min-width: 4rem;
+    height: auto;
+    font-size: $font-small-2;
+  }
+  &.small-size{
+    width: 5rem;
+    height: auto;
+    font-size: $font-small-2;
+  }
+  &.default-size{
+    width: 6rem;
+    height: auto;
+    font-size: $font-small;
+  }
+  &.big-size{
+    width: 8rem;
+    height: auto;
+    font-size: $font-default;
+  }
+
+  .custom-spinner{
+    width: 10px;
+    height: 10px;
+  }
+
+  .p-progress-spinner-circle {
+    stroke: $white !important;
+  }
+
+}
+

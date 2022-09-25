@@ -1,0 +1,19 @@
+@import "src/styles";
+
+app-image{
+  .container{
+    position: relative;
+    .icon{
+      position: absolute;
+      width: auto;
+      max-width: 2rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $secondary-color;
+      padding: .5rem .7rem;
+      border-radius: 50%;
+      backdrop-filter: blur(10px);
+    }
+  }
+}

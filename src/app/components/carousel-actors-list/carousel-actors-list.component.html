@@ -1,0 +1,40 @@
+<div class="swiper-container">
+  <swiper
+    [config]="swiperConfig"
+    *ngIf="!isLoading"
+  >
+    <ng-template swiperSlide *ngFor="let actor of casts">
+      <div class="actor-container">
+        <div class="img-container">
+          <img *ngIf="actor.profile_path"
+               width="60px" height="60px"
+               [src]="getImageCompletePath(actor.profile_path, '500')"
+               [alt]="actor.original_name"
+               class="actor-image"
+          >
+          <div *ngIf="!actor.profile_path" class="no-img actor-image">
+            <fa-icon [icon]="faUser"></fa-icon>
+          </div>
+        </div>
+        <div class="actor-infos">
+          <span class="name">{{actor.original_name}}</span>
+          <span class="role">{{actor.known_for_department}}</span>
+        </div>
+      </div>
+    </ng-template>
+  </swiper>
+
+  <div class="skeleton flex gap-4" *ngIf="isLoading">
+    <div *ngFor="let i of [1,2,3]">
+      <div class="flex align-content-center mb-3">
+        <p-skeleton shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+        <div>
+          <p-skeleton width="5rem" height=".6rem" styleClass="mb-2"></p-skeleton>
+          <p-skeleton width="2rem" height=".5rem" styleClass="mb-2"></p-skeleton>
+          <p-skeleton height=".5rem"></p-skeleton>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
