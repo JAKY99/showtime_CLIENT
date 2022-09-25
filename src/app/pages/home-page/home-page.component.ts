@@ -7,6 +7,9 @@ import {TvService} from "../../services/tv/tv.service";
 import {CarouselComponent} from "../../components/carousel/carousel.component";
 import {CarouselImageListComponent} from "../../components/carousel-image-list/carousel-image-list.component";
 import {UserLocationDatasService} from "../../services/geo/user-location-datas.service";
+import {TrendingModel} from "../../models/trendings/trending-model";
+import {MovieDetailsModel} from "../../models/movie/movie-details-model";
+import {TvDetails} from "../../models/tv/tv-details";
 
 
 @Component({
@@ -25,13 +28,13 @@ export class HomePageComponent implements OnInit {
   @ViewChild('topRatedTvRef') topRatedTvChild : CarouselImageListComponent | undefined;
   @ViewChild('popularTvRef') popularTvChild : CarouselImageListComponent | undefined;
 
-  trendingsList: any[] = [];
-  moviesInTheaters: any[] = [];
-  newMovies: any[] = [];
-  topRatedMovies: any[] = [];
-  topRatedTv: any[] = [];
-  upComingMovies: any[] = [];
-  popularTv: any[] = [];
+  trendingsList: TrendingModel[] = [];
+  moviesInTheaters: MovieDetailsModel[] = [];
+  newMovies: MovieDetailsModel[] = [];
+  topRatedMovies: MovieDetailsModel[] = [];
+  topRatedTv: TvDetails[] = [];
+  upComingMovies: MovieDetailsModel[] = [];
+  popularTv: TvDetails[] = [];
   userLocationData = {
     ipv4: "",
     country_code2: ""
@@ -49,7 +52,6 @@ export class HomePageComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.userGeoService.fetchLocationData().toPromise()
       .then(resp => {
-        console.log(resp)
         this.userLocationData = resp;
       })
     this.trendingService.fetchAllTrendings().toPromise().then(resp => {

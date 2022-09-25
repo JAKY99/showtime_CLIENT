@@ -4,10 +4,11 @@
   >
     <ng-template swiperSlide *ngFor="let item of items; let i = index">
       <p-badge styleClass="rank-number" [value]="(i + 1).toString()"></p-badge>
-      <img
-      src="{{globalConstants.TMDB_IMAGE_BASE_URL + '/w300/' + item.poster_path}}"
-      [alt]="item.original_title"
-      class="swiper-image" />
+      <app-image class="swiper-image" [imagePath]="item.poster_path"
+                 [imageTitle]="item.original_title"
+                 imageSize="500"
+                 (click)="goToMovieDetails(item.id)"
+      ></app-image>
     </ng-template>
   </swiper>
   <swiper *ngIf="isLoading"

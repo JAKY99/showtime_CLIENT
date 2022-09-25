@@ -7,6 +7,7 @@ import {MoviesPageComponent} from "./pages/movies-page/movies-page.component";
 import {SeriesPageComponent} from "./pages/series-page/series-page.component";
 import {SocialPageComponent} from "./pages/social-page/social-page.component";
 import {ProfilPageComponent} from "./pages/profil-page/profil-page.component";
+import {MovieDetailsPageComponent} from "./pages/movie-details-page/movie-details-page.component";
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent},
@@ -16,30 +17,35 @@ const routes: Routes = [
       {
         path: '',
         component: HomePageComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
       }
     ]
   },
   {
     path:'movies',
     component: MoviesPageComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path:'series',
     component: SeriesPageComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path:'social',
     component: SocialPageComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path:'profil',
     component: ProfilPageComponent,
-    canActivate: [AuthGuard]
-  }
+    //canActivate: [AuthGuard]
+  },
+  {
+    path:'movie/:id',
+    component: MovieDetailsPageComponent,
+    //canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

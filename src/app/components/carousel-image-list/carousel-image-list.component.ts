@@ -1,9 +1,12 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {GlobalConstants} from "../../common/constants/global-constants";
 
-import SwiperCore, { FreeMode, Navigation } from "swiper";
+import SwiperCore, { FreeMode, Navigation, Lazy } from "swiper";
+import {Router} from "@angular/router";
+import {MovieDetailsModel} from "../../models/movie/movie-details-model";
+import {TvDetails} from "../../models/tv/tv-details";
 
-SwiperCore.use([FreeMode, Navigation]);
+SwiperCore.use([FreeMode, Navigation, Lazy]);
 
 @Component({
   selector: 'app-carousel-image-list',
@@ -22,7 +25,7 @@ export class CarouselImageListComponent implements OnInit {
     slidesPerView: 2.3,
     spaceBetween: 5,
     freeMode: true,
-    grabCursor: true,
+    lazy: true,
     breakpoints: {
       768:{
         slidesPerView: 4,
@@ -37,8 +40,18 @@ export class CarouselImageListComponent implements OnInit {
     }
   };
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  // @ts-ignore
+  goToContentDetails(content: Object<any>){
+    console.log(content)
+    if (content.original_name){
+      this.router.navigateByUrl('/tv/' + content.id);
+    }else{
+      this.router.navigateByUrl('/movie/' + content.id);
+    }
   }
 }

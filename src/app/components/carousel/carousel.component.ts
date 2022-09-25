@@ -1,6 +1,8 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {GlobalConstants} from "../../common/constants/global-constants";
 import SwiperCore, {EffectCoverflow, Navigation, Pagination} from "swiper";
+import {Router} from "@angular/router";
+import {TrendingModel} from "../../models/trendings/trending-model";
 
 SwiperCore.use([EffectCoverflow,Pagination, Navigation]);
 
@@ -14,7 +16,7 @@ export class CarouselComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  @Input() items: any[] = [1,2,3];
+  @Input() items: Array<TrendingModel> = [];
 
   globalConstants = GlobalConstants;
 
@@ -58,9 +60,13 @@ export class CarouselComponent implements OnInit {
     }
   };
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
    ngOnInit(): void {
+  }
+
+  goToMovieDetails(idMovie: number){
+    this.router.navigateByUrl('/movie/' + idMovie).then();
   }
 }

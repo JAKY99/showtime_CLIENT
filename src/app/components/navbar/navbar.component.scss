@@ -20,7 +20,19 @@ app-navbar {
     align-items: center;
     gap: 1rem;
 
+    .background-blur{
+      z-index: 1;
+      backdrop-filter: blur(10px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px 8px 18px 18px;
+    }
+
     .nav-button{
+      z-index: 666;
       color: $white;
       display: flex;
       flex-direction: column;

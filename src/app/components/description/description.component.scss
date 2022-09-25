@@ -1,0 +1,10 @@
+@import "./src/styles";
+
+.app-description{
+  .description-paragraph{
+    margin: 0;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+  }
+}

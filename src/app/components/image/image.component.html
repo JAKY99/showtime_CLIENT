@@ -1,0 +1,7 @@
+<div class="container">
+  <img
+    src="{{globalConstants.TMDB_IMAGE_BASE_URL + getImageSize() + imagePath}}"
+    [alt]="imageTitle"
+  />
+  <fa-icon class="icon" *ngIf="icon" [icon]="icon"></fa-icon>
+</div>

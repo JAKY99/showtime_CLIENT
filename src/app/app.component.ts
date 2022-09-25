@@ -23,7 +23,11 @@ export class AppComponent {
     this.blockedDocument = !this.blockedDocument;
   }
 
-  isRouteLogin(){
-    return this.router.url == '/login';
+  isNavbarShown(){
+    return this.router.url.includes('/movies') ||
+      this.router.url.includes('/home') ||
+      this.router.url.includes('/series') ||
+      this.router.url.includes('/social') ||
+      this.router.url.includes('/profil');
   }
 }
