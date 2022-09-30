@@ -1,0 +1,131 @@
+@import "./src/styles";
+
+#app-tv-details-page{
+  background-color: $main-color;
+  overflow-x: hidden;
+
+  .p-divider{
+    margin: .2rem 0;
+    &.p-divider-horizontal:before{
+      border-color: $divider-color!important;
+    }
+  }
+
+  .backdrop-section{
+    .backdrop-img{
+      img{
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .watched-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .7rem 1rem;
+
+    .tv-actions-icon{
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      .st-icon{
+        color: $white;
+      }
+
+      .bookmark{
+        position: relative;
+        .badge{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          top: -3px;
+          left: -3px;
+          width: .6rem;
+          height: .6rem;
+          font-size: $font-small-3;
+          color: $white;
+          font-weight: 700;
+          background-color: $secondary-color;
+          border-radius: 100px;
+        }
+      }
+    }
+  }
+
+  .primary-infos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.2rem;
+    padding: .7rem 1rem;
+
+    .title-row{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .tv-title{
+      margin: 0;
+      color: $white;
+    }
+
+    .sub-row{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: $margin-default;
+
+      .rate{
+        &-icon{
+          color: $secondary-color;
+
+          &-container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+
+            .rate-number{
+              color: $secondary-color;
+              font-weight: 400;
+              font-size: $font-small;
+            }
+          }
+        }
+      }
+
+      .tv-year-container{
+        color: $white;
+        font-weight: 400;
+        font-size: $font-small;
+      }
+
+      .tags-infos-container{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: $margin-small;
+      }
+    }
+  }
+  .tab-view-section {
+
+    .tags-view-tab {
+      display: inline-block;
+      margin-right: $margin-small;
+      margin-bottom: $margin-small;
+    }
+    .overview{
+      font-size: 0.8rem;
+      color: $white;
+      text-align: justify;
+    }
+  }
+
+}
+

@@ -1,0 +1,97 @@
+<div id="app-tv-details-page" class="h-full">
+  <app-go-back *ngIf="!loading.tv"></app-go-back>
+  <div class="backdrop-section">
+    <app-image *ngIf="!loading.tv" class="backdrop-img" [imagePath]="tv.backdrop_path"
+               [imageTitle]="tv.name"
+               imageSize="original"
+    ></app-image>
+    <p-skeleton *ngIf="loading.tv" width="100%" height="14rem"></p-skeleton>
+  </div>
+
+  <div class="watched-section">
+    <div class="status">
+
+      <app-tag
+        title="Not seen"
+        [size]="2"
+        [rounded]="true"
+        icon="fa-regular fa-eye"
+      >
+      </app-tag>
+
+    </div>
+    <div class="tv-actions-icon">
+      <div class="bookmark">
+        <fa-icon class="bookmark-icon st-icon st-icon-small" [icon]="faBookmark"></fa-icon>
+        <span *ngIf="userTv.bookmark.length" class="badge">{{userTv.bookmark.length}}</span>
+      </div>
+      <i class="fa-solid fa-circle-check watched-status-check st-icon"></i>
+    </div>
+  </div>
+
+  <p-divider styleClass="p-divider"></p-divider>
+
+  <div class="primary-infos">
+    <div class="title-row">
+      <div>
+        <h2 *ngIf="!loading.tv" class="tv-title">{{tv.name}}</h2>
+        <p-skeleton *ngIf="loading.tv" width="8rem" height="1.2rem" styleClass="mb-2"></p-skeleton>
+      </div>
+    </div>
+
+    <div class="sub-row">
+      <div class="rate-icon-container">
+        <fa-icon class="rate-icon st-icon-small-2" [icon]="faStarHalfStroke"></fa-icon>
+        <span *ngIf="!loading.tv" class="rate-number">{{getRateFormated()}}</span>
+        <p-skeleton *ngIf="loading.tv" width="1.5rem" height=".5rem" styleClass="secondary-bg-color"></p-skeleton>
+        <fa-icon class="rate-icon st-icon-small-2" [icon]="faChevronRight"></fa-icon>
+      </div>
+      <div class="tv-year-container">
+        <span *ngIf="!loading.tv">{{getTvYear()}}</span>
+        <p-skeleton *ngIf="loading.tv" width="1.5rem" height=".5rem"></p-skeleton>
+      </div>
+      <div class="tags-infos-container">
+        <app-tag
+          [size]="1"
+          [title]="tv.status"
+          [rounded]="true"
+        ></app-tag>
+        <app-tag
+          [size]="1"
+          [title]="tv.original_language"
+          [rounded]="true"
+          [upperCase]="true"
+        ></app-tag>
+      </div>
+    </div>
+
+
+    <div class="tab-view-section" *ngIf="!loading.tv">
+      <p-tabView (onChange)="handleChangeTabView($event)">
+        <p-tabPanel header="About">
+          <div class="tags-view-tab" *ngFor="let genre of tv.genres">
+            <app-tag
+              [size]="1"
+              [title]="genre.name"
+              [borderRadius]="true"
+            ></app-tag>
+          </div>
+          <p class="overview">{{tv.overview}}</p>
+
+          <div class="actors-list" *ngIf="tv.credits">
+            <app-carousel-actors-list [items]="tv.credits"></app-carousel-actors-list>
+          </div>
+        </p-tabPanel>
+
+        <p-tabPanel header="Episodes">
+          Content 2
+        </p-tabPanel>
+
+      </p-tabView>
+
+    </div>
+
+  </div>
+</div>
+
+

@@ -3,7 +3,7 @@
     [config]="swiperConfig"
     *ngIf="!isLoading"
   >
-    <ng-template swiperSlide *ngFor="let actor of casts">
+    <ng-template swiperSlide *ngFor="let actor of MovieCasts">
       <div class="actor-container">
         <div class="img-container">
           <img *ngIf="actor.profile_path"

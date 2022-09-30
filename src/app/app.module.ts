@@ -53,6 +53,8 @@ import {DropdownModule} from "primeng/dropdown";
 import {TabViewModule} from "primeng/tabview";
 import { GoBackComponent } from './components/go-back/go-back.component';
 import {TabMenuModule} from "primeng/tabmenu";
+import { TvDetailsPageComponent } from './pages/tv-details-page/tv-details-page.component';
+import { TruncatedDescriptionComponent } from './components/truncated-description/truncated-description.component';
 import { DialogModule } from 'primeng/dialog';
 import { LazyImgDirective } from './lazy-img.directive';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
@@ -80,6 +82,8 @@ import { PosterImageComponent } from './components/poster-image/poster-image.com
     CarouselActorsListComponent,
     WatchProvidersComponent,
     GoBackComponent,
+    TvDetailsPageComponent,
+    TruncatedDescriptionComponent,
     LazyImgDirective,
     PosterImageComponent,
   ],

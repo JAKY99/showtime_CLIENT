@@ -8,6 +8,7 @@ import {SeriesPageComponent} from "./pages/series-page/series-page.component";
 import {SocialPageComponent} from "./pages/social-page/social-page.component";
 import {ProfilPageComponent} from "./pages/profil-page/profil-page.component";
 import {MovieDetailsPageComponent} from "./pages/movie-details-page/movie-details-page.component";
+import {TvDetailsPageComponent} from "./pages/tv-details-page/tv-details-page.component";
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent},
@@ -45,6 +46,11 @@ const routes: Routes = [
     path:'movie/:id',
     component: MovieDetailsPageComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path:'tv/:id',
+    component: TvDetailsPageComponent,
+    //canActivate: [AuthGuard]
   },
 ];
 
