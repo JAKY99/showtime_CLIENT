@@ -5,6 +5,7 @@ import {ProductionCompany} from "../common/production-company";
 import {ProductionCountry} from "../common/production-country";
 import {TvSeasonDetails} from "./tv-season-details";
 import {SpokenLanguage} from "../common/spoken-language";
+import {TvCredits} from "./tv-credits";
 
 export interface TvDetails {
   "backdrop_path": string,
@@ -48,5 +49,6 @@ export interface TvDetails {
   "tagline": string,
   "type": string,
   "vote_average": number,
-  "vote_count": number
+  "vote_count": number,
+  "credits": TvCredits
 }

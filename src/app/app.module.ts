@@ -53,6 +53,8 @@ import {DropdownModule} from "primeng/dropdown";
 import {TabViewModule} from "primeng/tabview";
 import { GoBackComponent } from './components/go-back/go-back.component';
 import {TabMenuModule} from "primeng/tabmenu";
+import { TvDetailsPageComponent } from './pages/tv-details-page/tv-details-page.component';
+import { TruncatedDescriptionComponent } from './components/truncated-description/truncated-description.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,8 @@ import {TabMenuModule} from "primeng/tabmenu";
     CarouselActorsListComponent,
     WatchProvidersComponent,
     GoBackComponent,
+    TvDetailsPageComponent,
+    TruncatedDescriptionComponent,
   ],
     imports: [
         HttpClientModule,

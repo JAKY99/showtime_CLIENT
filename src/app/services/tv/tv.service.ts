@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {GlobalConstants} from "../../common/constants/global-constants";
+import {TvDetails} from "../../models/tv/tv-details";
+import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +42,22 @@ export class TvService {
       GlobalConstants.TMDB_KEY +
       "&language=en-US&page=1";
     return this.http.get<any>(url);
+  }
+
+  fetchTvDetails(tvId: number, responseToAppend?: Array<string>): Observable <TvDetails>{
+    let url = GlobalConstants.TMDB_BASE_URL +
+      "tv/"+tvId+"?api_key=" +
+      GlobalConstants.TMDB_KEY +
+      "&language=en-US"
+
+    if (responseToAppend){
+      url += "&append_to_response=";
+      responseToAppend.forEach((x, index) => {
+        url += x;
+        if (index != responseToAppend.length -1) url += ','
+      })
+    }
+
+    return this.http.get<TvDetails>(url);
   }
 }

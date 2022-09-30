@@ -1,1 +1,11 @@
-<p>series-page works!</p>
+<div id="app-movie-details-page" class="h-full">
+  <app-go-back *ngIf="!loading.tv"></app-go-back>
+  <div class="backdrop-section">
+<!--    <app-image *ngIf="!loading.tv" class="backdrop-img" -->
+<!--               [imagePath]="topRatedTv.backdrop_path"-->
+<!--               imageSize="original"-->
+<!--    ></app-image>-->
+    <p-skeleton *ngIf="loading.tv" width="100%" height="14rem"></p-skeleton>
+  </div>
+</div>
+

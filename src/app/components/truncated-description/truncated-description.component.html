@@ -1,0 +1,10 @@
+<div>
+  <p #ellipsisRef
+     ellipsis="ellipsis"
+     [ngClass]="{ 'line-clamp': !showMore }">
+    This product was not very satisfactory. I was disappointed with a lot of things. But the
+    biggest was its shoddy packaging. I received damaged goods. Please beware of sellers on this site, not all of
+    them are trusted!
+  </p>
+  <span class="more" *ngIf="!showMoreButton" (click)="showComplete()">Show more</span>
+</div>
