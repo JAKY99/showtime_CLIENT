@@ -7,6 +7,7 @@ import {faBookmark, faStarHalfStroke, faChevronRight, faPlay} from "@fortawesome
 import {stringToDate} from "../../js/date-helper";
 import {MovieSimilar} from "../../models/movie/movie-similar";
 import {CarouselImageListComponent} from "../../components/carousel-image-list/carousel-image-list.component";
+import {DialogModule} from 'primeng/dialog';
 
 @Component({
   selector: 'app-movie-details-page',
@@ -63,8 +64,9 @@ export class MovieDetailsPageComponent implements OnInit {
         this.loading.watchProviders = false;
       }
     )
+    
   }
-
+ 
   getRateFormated(): number {
     // @ts-ignore
     return Math.round(this.movie.vote_average * 10) / 10
@@ -113,4 +115,43 @@ export class MovieDetailsPageComponent implements OnInit {
     }
   }
 
+  async generateViewModal(e: any) {
+    
+  }
+  ViewedStatus='Viewed';
+  displayModal=false;
+
+  displayBasic=false;
+
+  displayBasic2=false;
+
+  displayMaximizable=false;
+
+  displayPosition=false;
+
+  position="";
+  showModalDialog() {
+    this.displayModal = true;
+}
+
+showBasicDialog() {
+    this.displayBasic = true;
+}
+
+showBasicDialog2() {
+    this.displayBasic2 = true;
+}
+
+showMaximizableDialog() {
+    this.displayMaximizable = true;
+}
+
+showPositionDialog(e:any,position: string) {
+    console.log(e.target.className=="fa-solid fa-circle-check watched-status-check st-icon");
+    if(e.target.className!=="fa-solid fa-circle-check watched-status-check st-icon"){
+      this.ViewedStatus='Reviewed';
+    }
+    this.position = position;
+    this.displayPosition = true;
+}
 }

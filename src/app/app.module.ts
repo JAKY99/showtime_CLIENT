@@ -53,6 +53,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {TabViewModule} from "primeng/tabview";
 import { GoBackComponent } from './components/go-back/go-back.component';
 import {TabMenuModule} from "primeng/tabmenu";
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import {TabMenuModule} from "primeng/tabmenu";
         AutoCompleteModule,
         DropdownModule,
         TabViewModule,
-        TabMenuModule
+        TabMenuModule,
+        DialogModule
     ],
   providers: [
     {
