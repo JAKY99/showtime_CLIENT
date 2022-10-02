@@ -65,14 +65,11 @@ export class MovieDetailsPageComponent implements OnInit {
     await this.movieService.fetchMovieWatchedStatus(+this.route.snapshot.paramMap.get('id')).subscribe( 
       (resp) => {
         resp.body.filter((movie:any) => {
-          console.log(movie.id)
          return movie.id == this.route.snapshot.paramMap.get('id')
         });
         setTimeout(()=> {
           this.userMovie.viewInfo.checked=resp.body.filter((movie:any) => movie.id == this.route.snapshot.paramMap.get('id')).length?'checked':'';
           this.ViewedStatus = [...resp.body.filter((movie:any) => movie.id == this.route.snapshot.paramMap.get('id'))].length?true:false;
-          console.log(this.userMovie.viewInfo.checked);
-          console.log(this.ViewedStatus);
         }, 500)
       }
     )
@@ -195,7 +192,6 @@ async showPositionDialog(e:any,position: string) {
     if(this.ViewedStatus){
       this.position = position;
       this.displayPosition = true;
-      console.log('showPositionDialog');
     }else{
       // @ts-ignore
       await this.movieService.addMovieToWatchedList(+this.route.snapshot.paramMap.get('id'),this.movie.original_title).subscribe( 
