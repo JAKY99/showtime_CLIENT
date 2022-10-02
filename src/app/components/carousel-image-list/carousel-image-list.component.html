@@ -3,11 +3,7 @@
       [config]="swiperConfig"
     >
       <ng-template swiperSlide *ngFor="let item of items">
-        <app-image class="movie-image" [imagePath]="item.poster_path"
-                   [imageTitle]="item.original_title"
-                   imageSize="300"
-                   (click)="goToContentDetails(item)"
-        ></app-image>
+        <app-poster-image [item]="item" (click)="goToContentDetails(item)"></app-poster-image>
       </ng-template>
     </swiper>
   <div class="skeleton flex gap-1" *ngIf="isLoading">

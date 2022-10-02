@@ -54,6 +54,9 @@ import {TabViewModule} from "primeng/tabview";
 import { GoBackComponent } from './components/go-back/go-back.component';
 import {TabMenuModule} from "primeng/tabmenu";
 import { DialogModule } from 'primeng/dialog';
+import { LazyImgDirective } from './lazy-img.directive';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { PosterImageComponent } from './components/poster-image/poster-image.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +80,8 @@ import { DialogModule } from 'primeng/dialog';
     CarouselActorsListComponent,
     WatchProvidersComponent,
     GoBackComponent,
+    LazyImgDirective,
+    PosterImageComponent,
   ],
     imports: [
         HttpClientModule,
@@ -110,7 +115,8 @@ import { DialogModule } from 'primeng/dialog';
         DropdownModule,
         TabViewModule,
         TabMenuModule,
-        DialogModule
+        DialogModule,
+        LazyLoadImageModule
     ],
   providers: [
     {

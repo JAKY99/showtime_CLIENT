@@ -20,6 +20,8 @@ export class CarouselImageListComponent implements OnInit {
 
   @Input() items: any[] = [];
 
+  imgState: string = "";
+
   globalConstants = GlobalConstants;
   swiperConfig: any = {
     slidesPerView: 2.3,
