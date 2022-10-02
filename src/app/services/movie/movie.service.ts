@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient,HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {GlobalConstants} from "../../common/constants/global-constants";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
+import {TokenStorageService} from "../token-storage.service";
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  observe: 'response'
+};
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class MovieService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private tokenStorage: TokenStorageService){}
 
   fetchInTheaters(countryIso: string): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL +
@@ -72,4 +79,32 @@ export class MovieService {
 
     return this.http.get<any>(url);
   }
+
+  fetchMovieWatchedStatus(movieId: number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isMovieInWatchlist/`
+    return this.http.post<any>(url, {
+      movieId: movieId,
+      userMail: this.tokenStorage.getClientUsername()
+    // @ts-ignore
+    }, httpOptions);
+  }
+  addMovieToWatchedList(movieId: number,movieName : string): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/addMovieInWatchlist/`
+    return this.http.post<any>(url, {
+      movieId: movieId,
+      movieName: movieName,
+      userMail: this.tokenStorage.getClientUsername()
+    // @ts-ignore
+    }, httpOptions);
+  }
+  removeMovieToWatchedList(movieId: number,movieName : string): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/removeMovieInWatchlist/`
+    return this.http.post<any>(url, {
+      movieId: movieId,
+      movieName: movieName,
+      userMail: this.tokenStorage.getClientUsername()
+    // @ts-ignore
+    }, httpOptions);
+  }
+  
 }

@@ -8,6 +8,7 @@ import {stringToDate} from "../../js/date-helper";
 import {MovieSimilar} from "../../models/movie/movie-similar";
 import {CarouselImageListComponent} from "../../components/carousel-image-list/carousel-image-list.component";
 import {DialogModule} from 'primeng/dialog';
+import {UserService } from "../../services/user/user.service";
 
 @Component({
   selector: 'app-movie-details-page',
@@ -35,7 +36,10 @@ export class MovieDetailsPageComponent implements OnInit {
   similarMovies: MovieSimilar[] = [];
 
   userMovie = {
-    bookmark: []
+    bookmark: [],
+    viewInfo: {
+      checked: '',
+    }
   }
 
   // @ts-ignore
@@ -55,8 +59,23 @@ export class MovieDetailsPageComponent implements OnInit {
           this.loading.movie = false;
         }, 100)
       }
+     
     )
-
+     // @ts-ignore
+    await this.movieService.fetchMovieWatchedStatus(+this.route.snapshot.paramMap.get('id')).subscribe( 
+      (resp) => {
+        resp.body.filter((movie:any) => {
+          console.log(movie.id)
+         return movie.id == this.route.snapshot.paramMap.get('id')
+        });
+        setTimeout(()=> {
+          this.userMovie.viewInfo.checked=resp.body.filter((movie:any) => movie.id == this.route.snapshot.paramMap.get('id')).length?'checked':'';
+          this.ViewedStatus = [...resp.body.filter((movie:any) => movie.id == this.route.snapshot.paramMap.get('id'))].length?true:false;
+          console.log(this.userMovie.viewInfo.checked);
+          console.log(this.ViewedStatus);
+        }, 500)
+      }
+    )
     // @ts-ignore
     await this.movieService.fetchWatchProviders(+this.route.snapshot.paramMap.get('id')).subscribe(
       (resp) => {
@@ -66,7 +85,19 @@ export class MovieDetailsPageComponent implements OnInit {
     )
     
   }
- 
+  
+  async regenViewInfo(){
+
+    // @ts-ignore
+    await this.movieService.fetchMovieWatchedStatus(+this.route.snapshot.paramMap.get('id')).subscribe( 
+      (resp) => {
+        
+        this.userMovie.viewInfo.checked=resp.body.filter((movie:any) => movie.id == this.route.snapshot.paramMap.get('id')).length?'checked':'';
+        this.ViewedStatus = [...resp.body.filter((movie:any) => movie.id == this.route.snapshot.paramMap.get('id'))].length?true:false;
+      }
+    )
+
+  }
   getRateFormated(): number {
     // @ts-ignore
     return Math.round(this.movie.vote_average * 10) / 10
@@ -81,6 +112,9 @@ export class MovieDetailsPageComponent implements OnInit {
     this.isWatchProvidersEmpty = $event;
   }
 
+  getIsWatchedInfo(){
+    
+  }
   getYoutubeTrailers() {
     return this.movie.videos.results.filter(
       x => x.type.toLowerCase() == 'trailer' &&
@@ -118,7 +152,7 @@ export class MovieDetailsPageComponent implements OnInit {
   async generateViewModal(e: any) {
     
   }
-  ViewedStatus='Viewed';
+  ViewedStatus=false;
   displayModal=false;
 
   displayBasic=false;
@@ -145,13 +179,33 @@ showBasicDialog2() {
 showMaximizableDialog() {
     this.displayMaximizable = true;
 }
-
-showPositionDialog(e:any,position: string) {
-    console.log(e.target.className=="fa-solid fa-circle-check watched-status-check st-icon");
-    if(e.target.className!=="fa-solid fa-circle-check watched-status-check st-icon"){
-      this.ViewedStatus='Reviewed';
+async removeMovieFromViewInfo(){
+ // @ts-ignore
+ await this.movieService.removeMovieToWatchedList(+this.route.snapshot.paramMap.get('id'),this.movie.original_title).subscribe( 
+  (resp) => {
+    setTimeout(()=> {
+      this.displayPosition = false;
+      this.regenViewInfo();
+    }, 100)
+  }
+)
+}
+async showPositionDialog(e:any,position: string) {
+  
+    if(this.ViewedStatus){
+      this.position = position;
+      this.displayPosition = true;
+      console.log('showPositionDialog');
+    }else{
+      // @ts-ignore
+      await this.movieService.addMovieToWatchedList(+this.route.snapshot.paramMap.get('id'),this.movie.original_title).subscribe( 
+        (resp) => {
+          setTimeout(()=> {
+            this.regenViewInfo();
+          }, 100)
+        }
+      )
     }
-    this.position = position;
-    this.displayPosition = true;
+    
 }
 }
