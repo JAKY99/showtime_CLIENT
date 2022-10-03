@@ -75,12 +75,8 @@ export class MovieDetailsPageComponent implements OnInit {
          return movie.id == this.route.snapshot.paramMap.get('id')
         });
         setTimeout(()=> {
-          this.userMovie.viewInfo.checked=resp.body.filter((movie:any) => 
-                                                                          movie.id == this.route.snapshot.paramMap.get('id')).length?
-                                                                                                                                      'checked':'';
-          this.ViewedStatus = [...resp.body.filter((movie:any) =>
-                                                                 movie.id == this.route.snapshot.paramMap.get('id'))].length?
-                                                                                                                              true:false;
+          this.userMovie.viewInfo.checked=resp.body?'checked':'';
+          this.ViewedStatus =resp.body
         }, 500)
       }
     )
@@ -100,9 +96,8 @@ export class MovieDetailsPageComponent implements OnInit {
     await this.movieService.fetchMovieWatchedStatus(+this.route.snapshot.paramMap.get('id')).subscribe( 
       (resp) => {
         
-        this.userMovie.viewInfo.checked=resp.body.filter((movie:any) => movie.id == this.route.snapshot.paramMap.get('id')).length?'checked':'';
-        this.ViewedStatus = [...resp.body.filter((movie:any) => movie.id == this.route.snapshot.paramMap.get('id'))].length?true:false;
-      }
+        this.userMovie.viewInfo.checked=resp.body?'checked':'';
+        this.ViewedStatus =resp.body}
     )
 
   }
