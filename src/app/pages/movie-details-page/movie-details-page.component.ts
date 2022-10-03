@@ -26,7 +26,14 @@ export class MovieDetailsPageComponent implements OnInit {
   faStarHalfStroke = faStarHalfStroke;
   faChevronRight = faChevronRight;
   faPlay = faPlay;
+  ViewedStatus=false;
+  displayModal=false;
+  displayBasic=false;
+  displayBasic2=false;
+  displayMaximizable=false;
+  displayPosition=false;
 
+  position="";
   globalConstants = GlobalConstants;
   // @ts-ignore
   movie: MovieDetailsModel = {};
@@ -146,22 +153,7 @@ export class MovieDetailsPageComponent implements OnInit {
     }
   }
 
-  async generateViewModal(e: any) {
-    
-  }
-  ViewedStatus=false;
-  displayModal=false;
-
-  displayBasic=false;
-
-  displayBasic2=false;
-
-  displayMaximizable=false;
-
-  displayPosition=false;
-
-  position="";
-  showModalDialog() {
+showModalDialog() {
     this.displayModal = true;
 }
 
