@@ -71,9 +71,6 @@ export class MovieDetailsPageComponent implements OnInit {
      // @ts-ignore
     await this.movieService.fetchMovieWatchedStatus(+this.route.snapshot.paramMap.get('id')).subscribe( 
       (resp) => {
-        resp.body.filter((movie:any) => {
-         return movie.id == this.route.snapshot.paramMap.get('id')
-        });
         setTimeout(()=> {
           this.userMovie.viewInfo.checked=resp.body?'checked':'';
           this.ViewedStatus =resp.body
