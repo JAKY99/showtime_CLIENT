@@ -75,8 +75,12 @@ export class MovieDetailsPageComponent implements OnInit {
          return movie.id == this.route.snapshot.paramMap.get('id')
         });
         setTimeout(()=> {
-          this.userMovie.viewInfo.checked=resp.body.filter((movie:any) => movie.id == this.route.snapshot.paramMap.get('id')).length?'checked':'';
-          this.ViewedStatus = [...resp.body.filter((movie:any) => movie.id == this.route.snapshot.paramMap.get('id'))].length?true:false;
+          this.userMovie.viewInfo.checked=resp.body.filter((movie:any) => 
+                                                                          movie.id == this.route.snapshot.paramMap.get('id')).length?
+                                                                                                                                      'checked':'';
+          this.ViewedStatus = [...resp.body.filter((movie:any) =>
+                                                                 movie.id == this.route.snapshot.paramMap.get('id'))].length?
+                                                                                                                              true:false;
         }, 500)
       }
     )
