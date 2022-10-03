@@ -32,6 +32,7 @@ export class MovieDetailsPageComponent implements OnInit {
   displayBasic2=false;
   displayMaximizable=false;
   displayPosition=false;
+  seenStatus='Not Seen';
 
   position="";
   globalConstants = GlobalConstants;
@@ -74,6 +75,7 @@ export class MovieDetailsPageComponent implements OnInit {
         setTimeout(()=> {
           this.userMovie.viewInfo.checked=resp.body?'checked':'';
           this.ViewedStatus =resp.body
+          this.seenStatus = resp.body?'Seen':'Not Seen'
         }, 500)
       }
     )
@@ -94,7 +96,9 @@ export class MovieDetailsPageComponent implements OnInit {
       (resp) => {
         
         this.userMovie.viewInfo.checked=resp.body?'checked':'';
-        this.ViewedStatus =resp.body}
+        this.ViewedStatus =resp.body
+        this.seenStatus = resp.body?'Seen':'Not Seen'
+      }
     )
 
   }
