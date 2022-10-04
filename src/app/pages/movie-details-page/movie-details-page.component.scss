@@ -183,5 +183,24 @@
       }
     }
   }
+  .p-dialog-header{
+    display: none;
+    background-color: $main-color;
+    color: $white;
+  }
+  .p-dialog-content{
+    background-color: $main-color;
+    color: $white;
+  }
+  .p-dialog-footer{
+    display: flex;
+    flex-direction: column;
+    background-color: $main-color;
+    color: $white;
+  }
+  .p-dialog .p-dialog-footer button {
+    margin-top: 10px;
+    
+  }
 }
 

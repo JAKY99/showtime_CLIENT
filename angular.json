@@ -81,6 +81,26 @@
               ],
               "outputHashing": "all"
             },
+            "local": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "10mb",
+                  "maximumError": "10mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -103,6 +123,9 @@
             },
             "development": {
               "browserTarget": "showtime-WEB:build:development"
+            },
+            "local": {
+              "browserTarget": "showtime-WEB:build:local"
             }
           },
           "defaultConfiguration": "development"
