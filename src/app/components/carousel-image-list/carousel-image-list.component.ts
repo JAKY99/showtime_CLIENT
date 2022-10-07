@@ -49,7 +49,6 @@ export class CarouselImageListComponent implements OnInit {
 
   // @ts-ignore
   goToContentDetails(content: Object<any>){
-    console.log(content)
     if (content.original_name){
       this.router.navigateByUrl('/tv/' + content.id);
     }else{

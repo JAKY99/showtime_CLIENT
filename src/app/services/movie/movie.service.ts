@@ -94,8 +94,7 @@ export class MovieService {
       movieId: movieId,
       movieName: movieName,
       userMail: this.tokenStorage.getClientUsername()
-    // @ts-ignore
-    }, httpOptions);
+    });
   }
   removeMovieToWatchedList(movieId: number,movieName : string): Observable<any>{
     let url = `${GlobalConstants.API_URL}/api/v1/user/removeMovieInWatchlist/`
@@ -103,8 +102,16 @@ export class MovieService {
       movieId: movieId,
       movieName: movieName,
       userMail: this.tokenStorage.getClientUsername()
-    // @ts-ignore
-    }, httpOptions);
+    });
   }
-  
+
+  increaseWatchedNumber(movieId: number,movieName : string): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/increaseWatchedNumber/`
+    return this.http.post<any>(url, {
+      movieId: movieId,
+      movieName: movieName,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
 }

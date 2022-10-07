@@ -3,12 +3,10 @@ import {MovieService} from "../../services/movie/movie.service";
 import {ActivatedRoute} from "@angular/router";
 import {GlobalConstants} from "../../common/constants/global-constants";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
-import {faBookmark, faStarHalfStroke, faChevronRight, faPlay} from "@fortawesome/free-solid-svg-icons";
+import {faBookmark, faStarHalfStroke, faChevronRight, faPlay, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {stringToDate} from "../../js/date-helper";
 import {MovieSimilar} from "../../models/movie/movie-similar";
 import {CarouselImageListComponent} from "../../components/carousel-image-list/carousel-image-list.component";
-import {DialogModule} from 'primeng/dialog';
-import {UserService } from "../../services/user/user.service";
 
 @Component({
   selector: 'app-movie-details-page',
@@ -22,19 +20,15 @@ export class MovieDetailsPageComponent implements OnInit {
 
   @ViewChild('similarMoviesRef') similarMoviesChild : CarouselImageListComponent | undefined;
 
-  faBookmark = faBookmark;
-  faStarHalfStroke = faStarHalfStroke;
-  faChevronRight = faChevronRight;
-  faPlay = faPlay;
-  ViewedStatus=false;
-  displayModal=false;
-  displayBasic=false;
-  displayBasic2=false;
-  displayMaximizable=false;
-  displayPosition=false;
-  seenStatus='Not Seen';
+  faBookmark: IconDefinition = faBookmark;
+  faStarHalfStroke: IconDefinition = faStarHalfStroke;
+  faChevronRight: IconDefinition = faChevronRight;
+  faPlay: IconDefinition = faPlay;
+  viewedStatus: boolean = false;
+  viewedDialogShown: boolean = false;
+  viewedDialogPosition: string = "bottom";
+  seenStatus: string = 'Not Seen';
 
-  position="";
   globalConstants = GlobalConstants;
   // @ts-ignore
   movie: MovieDetailsModel = {};
@@ -67,18 +61,11 @@ export class MovieDetailsPageComponent implements OnInit {
           this.loading.movie = false;
         }, 100)
       }
-     
+
     )
-     // @ts-ignore
-    await this.movieService.fetchMovieWatchedStatus(+this.route.snapshot.paramMap.get('id')).subscribe( 
-      (resp) => {
-        setTimeout(()=> {
-          this.userMovie.viewInfo.checked=resp.body?'checked':'';
-          this.ViewedStatus =resp.body
-          this.seenStatus = resp.body?'Seen':'Not Seen'
-        }, 500)
-      }
-    )
+
+    await this.fetchWatchedInfos();
+
     // @ts-ignore
     await this.movieService.fetchWatchProviders(+this.route.snapshot.paramMap.get('id')).subscribe(
       (resp) => {
@@ -86,25 +73,23 @@ export class MovieDetailsPageComponent implements OnInit {
         this.loading.watchProviders = false;
       }
     )
-    
-  }
-  
-  async regenViewInfo(){
 
+  }
+
+  async fetchWatchedInfos(){
     // @ts-ignore
-    await this.movieService.fetchMovieWatchedStatus(+this.route.snapshot.paramMap.get('id')).subscribe( 
+    await this.movieService.fetchMovieWatchedStatus(+this.route.snapshot.paramMap.get('id')).subscribe(
       (resp) => {
-        
-        this.userMovie.viewInfo.checked=resp.body?'checked':'';
-        this.ViewedStatus =resp.body
-        this.seenStatus = resp.body?'Seen':'Not Seen'
+        this.userMovie.viewInfo.checked=resp.body ? 'checked' : '';
+        this.viewedStatus = resp.body;
+        this.seenStatus = resp.body ? 'Seen' : 'Not Seen';
       }
     )
 
   }
   getRateFormated(): number {
     // @ts-ignore
-    return Math.round(this.movie.vote_average * 10) / 10
+    return Math.round(this.movie.vote_average * 10) / 10;
   }
 
   getMovieYear(){
@@ -116,9 +101,6 @@ export class MovieDetailsPageComponent implements OnInit {
     this.isWatchProvidersEmpty = $event;
   }
 
-  getIsWatchedInfo(){
-    
-  }
   getYoutubeTrailers() {
     return this.movie.videos.results.filter(
       x => x.type.toLowerCase() == 'trailer' &&
@@ -153,47 +135,32 @@ export class MovieDetailsPageComponent implements OnInit {
     }
   }
 
-showModalDialog() {
-    this.displayModal = true;
-}
-
-showBasicDialog() {
-    this.displayBasic = true;
-}
-
-showBasicDialog2() {
-    this.displayBasic2 = true;
-}
-
-showMaximizableDialog() {
-    this.displayMaximizable = true;
-}
 async removeMovieFromViewInfo(){
- // @ts-ignore
- await this.movieService.removeMovieToWatchedList(+this.route.snapshot.paramMap.get('id'),this.movie.original_title).subscribe( 
-  (resp) => {
-    setTimeout(()=> {
-      this.displayPosition = false;
-      this.regenViewInfo();
-    }, 100)
-  }
-)
+ await this.movieService.removeMovieToWatchedList(
+  // @ts-ignore
+   +this.route.snapshot.paramMap.get('id'),this.movie.original_title
+   ).subscribe(
+    (resp) => {
+      this.viewedDialogShown = false;
+      this.fetchWatchedInfos();
+    }
+  )
 }
-async showPositionDialog(e:any,position: string) {
-  
-    if(this.ViewedStatus){
-      this.position = position;
-      this.displayPosition = true;
+async increaseWatchedNumber(){
+
+}
+async showViewedDialog() {
+    if(this.viewedStatus){
+      this.viewedDialogShown = true;
     }else{
-      // @ts-ignore
-      await this.movieService.addMovieToWatchedList(+this.route.snapshot.paramMap.get('id'),this.movie.original_title).subscribe( 
+      await this.movieService.addMovieToWatchedList(
+        // @ts-ignore
+        +this.route.snapshot.paramMap.get('id'),this.movie.title
+      ).subscribe(
         (resp) => {
-          setTimeout(()=> {
-            this.regenViewInfo();
-          }, 100)
+            this.fetchWatchedInfos();
         }
       )
     }
-    
-}
+  }
 }
