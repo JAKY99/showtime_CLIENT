@@ -23,43 +23,43 @@
         <fa-icon class="bookmark-icon st-icon st-icon-small" [icon]="faBookmark"></fa-icon>
         <span *ngIf="userMovie.bookmark.length" class="badge">{{userMovie.bookmark.length}}</span>
       </div>
-        <i (click)="showPositionDialog($event,'bottom-left')"  [class]="userMovie.viewInfo.checked" class="fa-solid fa-circle-check watched-status-check st-icon"></i>
+        <i (click)="showViewedDialog()"
+           [class]="userMovie.viewInfo.checked"
+           class="fa-solid fa-circle-check watched-status-check st-icon"></i>
     </div>
   </div>
-  <p-dialog header="" [closeOnEscape]="true" [dismissableMask]="true"  [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width:'100vw',margin: 0}" [baseZIndex]="10000"
-    [draggable]="false" [resizable]="false">
-        <ng-template pTemplate="footer">
-           <button
-            icon="pi pi-check"
-            (click)="displayPosition=false"
-            _ngcontent-iyi-c17="" 
-            pbutton="" pripple="" 
-            type="button" label="Danger" 
-            class="p-element p-ripple 
-            
-            p-button-danger 
-            p-button 
-            p-component" 
-            ng-reflect-label="Danger">
-            <span class="p-button-label">Reviewed</span>
-            <span class="p-ink" style="height: 86px; width: 86px; top: -31.7188px; left: -16px;margin-top:10px;"></span>
-          </button>
-          <button 
-          icon="pi pi-times"
-          (click)="removeMovieFromViewInfo()"
-          _ngcontent-iyi-c17="" 
-            pbutton="" pripple="" 
-            type="button" label="Danger" 
-            class="p-element p-ripple 
-            p-button-danger 
-            p-button 
-            p-component" 
-            ng-reflect-label="Danger">
-            <span class="p-button-label">Not viewed</span>
-            <span class="p-ink" style="height: 86px; width: 86px; top: -31.7188px; left: -16px;margin-top:10px;"></span>
-          </button>
-        </ng-template>
-</p-dialog>
+  <p-dialog
+    styleClass="viewed-dialog"
+    [closeOnEscape]="true"
+    [dismissableMask]="true"
+    [(visible)]="viewedDialogShown"
+    [position]="viewedDialogPosition"
+    [modal]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+    closeIcon=""
+  >
+    <ng-template pTemplate="header">
+      Mark as ...
+    </ng-template>
+    <button
+      pButton pRipple
+      type="button"
+      label="Seen again (not implemented yet)"
+      icon="pi pi-plus"
+      class="p-button-text viewed-dialog-btn"
+      (click)="increaseWatchedNumber()"
+    ></button>
+    <button
+      pButton pRipple
+      type="button"
+      label="Not seen"
+      class="p-button-text viewed-dialog-btn"
+      icon="pi pi-eye-slash"
+      (click)="removeMovieFromViewInfo()"
+    ></button>
+  </p-dialog>
 
   <p-divider styleClass="p-divider"></p-divider>
 

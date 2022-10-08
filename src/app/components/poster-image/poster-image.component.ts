@@ -26,7 +26,6 @@ export class PosterImageComponent implements OnInit {
   }
 
   imageStateChange($event: string) {
-    console.log($event)
     this.imageState = $event;
   }
 

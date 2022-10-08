@@ -17,7 +17,8 @@ export class NoConnectionComponent implements OnInit {
   }
 
   refreshComponent(){
-    this.router.navigateByUrl(this.router.url).then(r => console.log('here'))
+    this.router.navigateByUrl(this.router.url).then(r => {
+    })
   }
 
   close(){

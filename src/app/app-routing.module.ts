@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {HomePageComponent} from "./pages/home-page/home-page.component";
 import {LoginPageComponent} from "./pages/login-page/login-page.component";
-import {AuthGuard} from "./auth.guard"; 
+import {AuthGuard} from "./auth.guard";
 import {MoviesPageComponent} from "./pages/movies-page/movies-page.component";
 import {SeriesPageComponent} from "./pages/series-page/series-page.component";
 import {SocialPageComponent} from "./pages/social-page/social-page.component";
@@ -17,34 +17,34 @@ const routes: Routes = [
       {
         path: '',
         component: HomePageComponent,
-        //canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       }
     ]
   },
   {
     path:'movies',
     component: MoviesPageComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path:'series',
     component: SeriesPageComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path:'social',
     component: SocialPageComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path:'profil',
     component: ProfilPageComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path:'movie/:id',
     component: MovieDetailsPageComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
 ];
 

@@ -184,13 +184,25 @@
     }
   }
   .p-dialog-header{
-    display: none;
     background-color: $main-color;
     color: $white;
+    border-radius: 0;
+    padding: $margin-default;
+    font-weight: bold;
   }
   .p-dialog-content{
     background-color: $main-color;
     color: $white;
+    padding: $margin-default 0!important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: $margin-small;
+
+    button{
+      text-align: left;
+      color: $white;
+    }
   }
   .p-dialog-footer{
     display: flex;
@@ -198,9 +210,12 @@
     background-color: $main-color;
     color: $white;
   }
-  .p-dialog .p-dialog-footer button {
-    margin-top: 10px;
-    
+  .p-dialog {
+    width: 100%;
+    margin: 0;
+  }
+  .p-dialog .p-dialog-header .p-dialog-header-icon {
+    pointer-events: none;
   }
 }
 
