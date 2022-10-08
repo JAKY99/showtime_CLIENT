@@ -4,7 +4,7 @@ import {HomePageComponent} from "./pages/home-page/home-page.component";
 import {LoginPageComponent} from "./pages/login-page/login-page.component";
 import {AuthGuard} from "./auth.guard";
 import {MoviesPageComponent} from "./pages/movies-page/movies-page.component";
-import {SeriesPageComponent} from "./pages/series-page/series-page.component";
+import {TvPageComponent} from "./pages/tv-page/tv-page.component";
 import {SocialPageComponent} from "./pages/social-page/social-page.component";
 import {ProfilPageComponent} from "./pages/profil-page/profil-page.component";
 import {MovieDetailsPageComponent} from "./pages/movie-details-page/movie-details-page.component";
@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path:'series',
-    component: SeriesPageComponent,
+    component: TvPageComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -50,7 +50,7 @@ const routes: Routes = [
   {
     path:'tv/:id',
     component: TvDetailsPageComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
 ];
 

@@ -38,7 +38,7 @@ import { SkeletonModule } from "primeng/skeleton";
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MoviesPageComponent } from './pages/movies-page/movies-page.component';
-import { SeriesPageComponent } from './pages/series-page/series-page.component';
+import { TvPageComponent } from './pages/tv-page/tv-page.component';
 import { SocialPageComponent } from './pages/social-page/social-page.component';
 import { ProfilPageComponent } from './pages/profil-page/profil-page.component';
 import { MovieDetailsPageComponent } from './pages/movie-details-page/movie-details-page.component';
@@ -72,7 +72,7 @@ import { PosterImageComponent } from './components/poster-image/poster-image.com
     NoConnectionComponent,
     NavbarComponent,
     MoviesPageComponent,
-    SeriesPageComponent,
+    TvPageComponent,
     SocialPageComponent,
     ProfilPageComponent,
     MovieDetailsPageComponent,

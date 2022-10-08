@@ -3,11 +3,11 @@ import {TvService} from "../../services/tv/tv.service";
 import {TvDetails} from "../../models/tv/tv-details";
 
 @Component({
-  selector: 'app-series-page',
-  templateUrl: './series-page.component.html',
-  styleUrls: ['./series-page.component.scss']
+  selector: 'app-tv-page',
+  templateUrl: './tv-page.component.html',
+  styleUrls: ['./tv-page.component.scss']
 })
-export class SeriesPageComponent implements OnInit {
+export class TvPageComponent implements OnInit {
 
   topRatedTv: TvDetails[] = [];
 
