@@ -1,5 +1,4 @@
 import {Component, OnInit, ChangeDetectorRef, ViewChild} from '@angular/core';
-import { EllipsisDirective } from 'ngx-ellipsis';
 
 @Component({
   selector: 'app-truncated-description',
@@ -8,7 +7,6 @@ import { EllipsisDirective } from 'ngx-ellipsis';
 })
 export class TruncatedDescriptionComponent implements OnInit {
 
-  @ViewChild(EllipsisDirective) ellipsisRef: EllipsisDirective | undefined;
 
   showMore = false;
 
@@ -24,11 +22,7 @@ export class TruncatedDescriptionComponent implements OnInit {
   }
 
   showComplete() {
-    if (this.ellipsisRef) {
-      this.showMore = true;
-      this.cd.detectChanges();
-      this.ellipsisRef.applyEllipsis();
-    }
+
   }
 
 }
