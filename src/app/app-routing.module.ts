@@ -52,6 +52,11 @@ const routes: Routes = [
     component: TvDetailsPageComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path:'tv/:id',
+    component: TvDetailsPageComponent,
+    //canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({
