@@ -1,0 +1,16 @@
+.one-episode {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  app-image {
+    width: 48%;
+    img {
+      width: 100%;
+    }
+  }
+  .infos-episode{
+    width: 48%;
+    height: auto;
+  }
+}

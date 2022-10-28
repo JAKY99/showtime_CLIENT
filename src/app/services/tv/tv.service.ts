@@ -44,6 +44,28 @@ export class TvService {
     return this.http.get<any>(url);
   }
 
+  fetchWatchProviders(tvId: number): Observable<any>{
+    let url = GlobalConstants.TMDB_BASE_URL + "tv/"+ tvId +
+      "/watch/providers?api_key=" + GlobalConstants.TMDB_KEY;
+
+    return this.http.get<any>(url);
+  }
+
+  fetchTvBySeasonAndEpisode(tvId: number , seasonNumber : number, episodeNumber : number): Observable<any>{
+    let url = GlobalConstants.TMDB_BASE_URL + "tv/"+ tvId +
+      "/season/" +seasonNumber + "/episode/" +
+      episodeNumber + " ?api_key=" + GlobalConstants.TMDB_KEY;
+
+    return this.http.get<any>(url);
+  }
+
+  fetchTvBySeason(tvId: number , seasonNumber : number): Observable<any>{
+    let url = GlobalConstants.TMDB_BASE_URL + "tv/"+ tvId +
+      "/season/" + seasonNumber + " ?api_key=" + GlobalConstants.TMDB_KEY;
+
+    return this.http.get<any>(url);
+  }
+
   fetchTvDetails(tvId: number, responseToAppend?: Array<string>): Observable <TvDetails>{
     let url = GlobalConstants.TMDB_BASE_URL +
       "tv/"+tvId+"?api_key=" +

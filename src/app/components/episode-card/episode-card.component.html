@@ -1,0 +1,12 @@
+<div class="one-episode">
+  <app-image class="poster-image" [imagePath]="item.still_path"
+             [imageTitle]="item.name"
+             imageSize="500"
+             (imgStateEvent)="imageStateChange($event)"
+             [isLazy] = "false"
+  ></app-image>
+  <div class="infos-episode">
+      <h3>Season {{item.season_number}} - Episode {{item.episode_number}}</h3>
+      <p class="overview-episode" >{{item.name}}</p>
+  </div>
+</div>

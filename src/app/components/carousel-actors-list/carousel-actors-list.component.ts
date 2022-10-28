@@ -30,6 +30,7 @@ export class CarouselActorsListComponent implements OnInit {
   MovieCasts: Array<MovieCreditsCast > = [];
   TvCasts: Array<TvCreditsCast> = [];
 
+
   globalConstants = GlobalConstants;
   swiperConfig: any = {
     slidesPerView: 2.2,
@@ -55,9 +56,13 @@ export class CarouselActorsListComponent implements OnInit {
   }
 
   getItems() {
+
     let arrayToReturn: any[] = [];
     // @ts-ignore
-    arrayToReturn.push(this.items?.crew?.find(x => x.department === "Directing"))
+    if(this.items?.crew?.find(x => x.department === "Directing")){
+      // @ts-ignore
+      arrayToReturn.push(this.items?.crew?.find(x => x.department === "Directing"))
+    }
 
     this.items.cast?.splice(0,19).forEach(x => {
       arrayToReturn.push(x);

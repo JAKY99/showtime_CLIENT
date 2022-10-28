@@ -81,10 +81,17 @@
           <div class="actors-list" *ngIf="tv.credits">
             <app-carousel-actors-list [items]="tv.credits"></app-carousel-actors-list>
           </div>
+
+          <div class="available-on-platform" *ngIf="!loading.watchProviders && !isWatchProvidersEmpty">
+            <app-watch-providers [items]="watchProviders" (noData)="WatchProvidersEmpty($event)"></app-watch-providers>
+          </div>
+
         </p-tabPanel>
 
         <p-tabPanel header="Episodes">
-          Content 2
+
+          <app-episode-card [item]="oneEpisode" ></app-episode-card>
+
         </p-tabPanel>
 
       </p-tabView>

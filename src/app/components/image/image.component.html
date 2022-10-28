@@ -1,8 +1,12 @@
 <div class="container">
-  <img
+
+  <img *ngIf="isLazy"
     [lazyLoad]="globalConstants.TMDB_IMAGE_BASE_URL + getImageSize() + imagePath"
     defaultImage="/assets/loading-bg.png"
     (onStateChange)="imgStateChange($event)"
+  />
+  <img *ngIf="!isLazy"
+    [src]="globalConstants.TMDB_IMAGE_BASE_URL + getImageSize() + imagePath"
   />
   <fa-icon class="icon" *ngIf="icon" [icon]="icon"></fa-icon>
 </div>

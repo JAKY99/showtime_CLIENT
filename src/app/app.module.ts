@@ -59,6 +59,7 @@ import { DialogModule } from 'primeng/dialog';
 import { LazyImgDirective } from './lazy-img.directive';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { PosterImageComponent } from './components/poster-image/poster-image.component';
+import { EpisodeCardComponent } from './components/episode-card/episode-card.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { PosterImageComponent } from './components/poster-image/poster-image.com
     TruncatedDescriptionComponent,
     LazyImgDirective,
     PosterImageComponent,
+    EpisodeCardComponent,
   ],
     imports: [
         HttpClientModule,

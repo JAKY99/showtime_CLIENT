@@ -15,6 +15,7 @@ export class ImageComponent implements OnInit {
 
   globalConstants = GlobalConstants;
 
+  @Input() isLazy: boolean = true;
   @Input() imagePath: string | null = "";
   @Input() imageTitle: string | null = "";
   @Input() imageSize: string = "300";

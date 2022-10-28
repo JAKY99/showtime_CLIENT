@@ -10,6 +10,7 @@ export class PosterImageComponent implements OnInit {
 
   constructor() { }
 
+
   @Input() item: {
     name: string;
     title: string;
