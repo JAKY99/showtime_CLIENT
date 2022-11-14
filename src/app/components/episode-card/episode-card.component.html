@@ -6,7 +6,10 @@
              [isLazy] = "false"
   ></app-image>
   <div class="infos-episode">
-      <h3>Season {{item.season_number}} - Episode {{item.episode_number}}</h3>
+    <h4 class="episode-title">Season <span class="red">{{item.season_number}}</span> - Episode <span class="red">{{item.episode_number}}</span></h4>
+    <div class="title-episode-card">
       <p class="overview-episode" >{{item.name}}</p>
+      <i class="fa-solid fa-circle-check watched-status-check st-icon"></i>
+    </div>
   </div>
 </div>

@@ -89,9 +89,17 @@
         </p-tabPanel>
 
         <p-tabPanel header="Episodes">
+          <h3>Next Episode</h3>
+          <app-episode-card
+          [item]="lastEpisode">
 
-          <app-episode-card [item]="oneEpisode" ></app-episode-card>
+          </app-episode-card>
 
+          <h3>All Episodes</h3>
+          <app-accordion-seasons
+            [nbSeasons]="tv.number_of_seasons"
+            [tvId]="tv.id" >
+          </app-accordion-seasons>
         </p-tabPanel>
 
       </p-tabView>

@@ -14,9 +14,12 @@ export class EpisodeCardComponent implements OnInit {
   // @ts-ignore
   @Input() item : TvEpisodeDetails ;
 
+
   imageState: string = "setup";
 
   ngOnInit(): void {
+    // @ts-ignore
+    return this.todayDate;
   }
 
   imageStateChange($event: string) {

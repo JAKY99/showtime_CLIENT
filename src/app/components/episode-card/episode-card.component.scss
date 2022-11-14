@@ -3,6 +3,13 @@
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
+  background-color: #4C5364;
+  color: white;
+  padding-right: 1em;
+  border-radius: 5px;
+  -webkit-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.5);
+  box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.5);
+  margin-bottom: 1em;
   app-image {
     width: 48%;
     img {
@@ -12,5 +19,20 @@
   .infos-episode{
     width: 48%;
     height: auto;
+    .episode-title{
+      margin-top: 0;
+    }
   }
+  .overview-episode{
+    font-size: 0.7em;
+  }
+  .title-episode-card{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.red{
+  color: #F65C63;
 }

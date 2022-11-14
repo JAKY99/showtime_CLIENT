@@ -32,7 +32,7 @@ export class TvDetailsPageComponent implements OnInit {
   // @ts-ignore
   tv:TvDetails = {};
   // @ts-ignore
-  oneEpisode: TvEpisodeDetails = {} ;
+  lastEpisode: TvEpisodeDetails = {} ;
 
   userTv = {
     bookmark: [],
@@ -53,7 +53,6 @@ export class TvDetailsPageComponent implements OnInit {
     await this.tvService.fetchTvDetails(+this.route.snapshot.paramMap.get('id'),
       ['credits']).subscribe(
       (resp) => {
-        console.log(resp)
         setTimeout(()=> {
           this.tv = resp;
           this.loading.tv = false;
@@ -65,11 +64,11 @@ export class TvDetailsPageComponent implements OnInit {
     // au dernier episode vu par le client
     // @ts-ignore
     await this.tvService.fetchTvBySeasonAndEpisode(+this.route.snapshot.paramMap.get('id'),
-      1, 1).subscribe(
+      1, 2).subscribe(
       (resp) => {
-        console.log(resp);
+        // console.log(resp);
         setTimeout(() => {
-          this.oneEpisode = resp;
+          this.lastEpisode = resp;
         }, 100);
       }
     );
@@ -82,8 +81,6 @@ export class TvDetailsPageComponent implements OnInit {
       }
     )
   }
-
-
 
   getRateFormated(): number {
     // @ts-ignore

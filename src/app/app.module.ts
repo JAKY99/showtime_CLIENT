@@ -60,6 +60,8 @@ import { LazyImgDirective } from './lazy-img.directive';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { PosterImageComponent } from './components/poster-image/poster-image.component';
 import { EpisodeCardComponent } from './components/episode-card/episode-card.component';
+import { AccordionSeasonsComponent } from './components/accordion-seasons/accordion-seasons.component';
+import {AccordionModule} from "primeng/accordion";
 
 @NgModule({
   declarations: [
@@ -90,6 +92,7 @@ import { EpisodeCardComponent } from './components/episode-card/episode-card.com
     LazyImgDirective,
     PosterImageComponent,
     EpisodeCardComponent,
+    AccordionSeasonsComponent,
   ],
     imports: [
         HttpClientModule,
@@ -124,7 +127,8 @@ import { EpisodeCardComponent } from './components/episode-card/episode-card.com
         TabViewModule,
         TabMenuModule,
         DialogModule,
-        LazyLoadImageModule
+        LazyLoadImageModule,
+        AccordionModule
     ],
   providers: [
     {
