@@ -147,7 +147,13 @@ async removeMovieFromViewInfo(){
   )
 }
 async increaseWatchedNumber(){
-
+  // @ts-ignore
+  await this.movieService.increaseWatchedNumber(+this.route.snapshot.paramMap.get('id')).subscribe(
+    (resp) => {
+      this.viewedDialogShown = false;
+      this.fetchWatchedInfos();
+    }
+  )
 }
 async showViewedDialog() {
     if(this.viewedStatus){
