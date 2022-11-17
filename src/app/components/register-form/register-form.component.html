@@ -1,0 +1,50 @@
+<div class="flex flex-column justify-content-center gap-4">
+  <div class="register-header text-center">
+    <h1 class="title"><span class="text-white">Show</span>Time</h1>
+  </div>
+  <form class="flex flex-column justify-content-center gap-4" (ngSubmit)="submitLogin()">
+    <div [formGroup]="registerForm" class="flex flex-column justify-content-center gap-4">
+      
+      <div class="flex flex-column text-center gap-1">
+        <label for="register-input-email" class="uppercase text-white text-sm">Email</label>
+        <input id="register-input-email"
+                formControlName="email"
+                type="text"
+                (ngModelChange)="check()"
+                pInputText
+        />
+      </div>       
+      <div class="flex flex-column text-center gap-1">
+        <label for="register-input-password" class="uppercase text-white text-sm">Password</label>
+        <p-password id="register-input-password"
+        formControlName="password"
+        [toggleMask]="true"
+        [feedback]="false"
+        styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+        (ngModelChange)="check()"
+         ></p-password>
+        
+      </div>
+      <div class="flex flex-column text-center gap-1">
+        <label for="register-input-password" class="uppercase text-white text-sm">Repeat Password</label>
+        <p-password id="register-input-password"
+        formControlName="repeatpassword"
+        [toggleMask]="true"
+        [feedback]="false"
+        styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+        (ngModelChange)="check()"
+         ></p-password>
+        <p class="text-white text-sm" routerLink="/login" >Got an account?</p>
+      </div>
+    </div>
+    <div class="flex justify-content-center">
+      <button pButton
+              type="submit"
+              label="Sign up"
+              [loading]="isLoading"
+              [disabled]="isLoginFailed"
+      ></button>
+    </div>
+  </form>
+  <p-toast position="bottom-center"></p-toast>
+</div>

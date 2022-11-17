@@ -10,65 +10,81 @@ import {Router} from "@angular/router";
 import {ClientErrorsEnum} from "../../common/enums/http-status-codes/client-errors-enum";
 
 @Component({
-  selector: 'app-login-form',
-  templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss']
+  selector: 'app-reset-password-form',
+  templateUrl: './reset-password-form.component.html',
+  styleUrls: ['./reset-password-form.component.scss']
 })
-export class LoginFormComponent implements OnInit {
-  @Input() changeFormType: any;
+export class ResetPasswordFormComponent implements OnInit {
   private header: HttpHeaders | undefined;
-  public loginForm: FormGroup;
+  public resetForm: FormGroup;
   public isLoading: boolean = false;
   private isLoggedIn: boolean = false;
+
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
               private messageService: MessageService,
               private router: Router) {
-    this.loginForm = new FormGroup({});
+    this.resetForm = new FormGroup({});
   }
-  
+
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.router.navigate(['/home']).then(r => r);
     }
 
-    this.loginForm = new FormGroup({
+    this.resetForm = new FormGroup({
       email: new FormControl('',[
         Validators.required,
         Validators.email,
         emailValidator(GlobalRegex.emailRegex)
-      ]),
-      password: new FormControl('', Validators.required)
+      ])
     });
-    
-  }
 
+  }
   get email(){
-    return this.loginForm.get('email')?.value;
+    return this.resetForm.get('email')?.value;
   }
-  get password(){
-    return this.loginForm.get('password')?.value;
-  }
-  submitLogin(): void {
+  
+  submitReset(): void {
     this.isLoading = true;
-    this.authService.login(this.email, this.password).toPromise()
+    this.authService.reset(this.email).toPromise()
       .then(response => {
         this.header = response.headers;
         // @ts-ignore
-        this.tokenStorage.saveToken(this.header.get('Authorization'));
-        this.router.navigate(['/home']).then();
+        console.log(response);
         this.isLoading = false;
+        switch (parseInt(response.body)) {
+          case 403:
+            this.addSingleToast(
+              'error',
+              'Reset password',
+              'A reset password link has already been sent to your email address. Please check your email and follow the instructions.',
+              true
+            )
+            break;
+          case 200:
+            this.addSingleToast(
+              'success',
+              'Reset password',
+              'Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder.',
+              true
+            )
+            break;
+          default:
+            this.addSingleToast(
+              'error',
+              'Reset password',
+              'An error occurred while trying to reset your password. Please try again later.',
+              true
+            )
+            break;
+        }
       })
       .catch(err => {
-        if (err.status === ClientErrorsEnum.ClientErrorForbidden){
-          this.addSingleToast(
-            'error',
-            'Authentication error',
-            'The email or password you entered is incorrect',
-            true
-          )
-        }
+        
+        
+        
         this.isLoading = false;
       });
   }

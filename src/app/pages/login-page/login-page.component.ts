@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation,ChangeDetectorRef} from '@angular/core';
 
 @Component({
   selector: 'app-login-page',
@@ -7,10 +7,18 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class LoginPageComponent implements OnInit {
-
-  constructor() { }
+  public formType: string = "reset";
+  constructor(private ref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+  }
+  ngOnChanges(formType : string): void {
+    console.log(formType);
+    this.ref.detectChanges();
+  }
+  public changeFormType(): void {
+    console.log(this.formType);
+    this.formType =this.formType==="login" ? "reset" : "login";
   }
 
 }

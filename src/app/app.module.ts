@@ -57,12 +57,25 @@ import { DialogModule } from 'primeng/dialog';
 import { LazyImgDirective } from './lazy-img.directive';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { PosterImageComponent } from './components/poster-image/poster-image.component';
+import { ResetPasswordFormComponent } from './components/reset-password-form/reset-password-form.component';
+import { ResetPageComponent } from './pages/reset-page/reset-page.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
+import { ChangePasswordFormComponent } from './components/change-password-form/change-password-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
+    ResetPasswordFormComponent,
     LoginPageComponent,
+    ResetPageComponent,
+    RegisterFormComponent,
+    RegisterPageComponent,
+    ResetPageComponent,
+    ChangePasswordPageComponent,
+    ChangePasswordFormComponent,
     HomePageComponent,
     LogoComponent,
     CarouselComponent,
