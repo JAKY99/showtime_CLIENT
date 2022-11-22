@@ -10,7 +10,8 @@ import {TvEpisodeDetails} from "../../models/tv/tv-episode-details";
 })
 export class EpisodeCardComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
   // @ts-ignore
   @Input() item : TvEpisodeDetails ;
 
@@ -18,6 +19,7 @@ export class EpisodeCardComponent implements OnInit {
   imageState: string = "setup";
 
   ngOnInit(): void {
+
     // @ts-ignore
     return this.todayDate;
   }

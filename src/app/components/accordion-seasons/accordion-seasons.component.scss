@@ -1,0 +1,33 @@
+::ng-deep {
+  .p-accordion .p-accordion-header {
+    padding-bottom: 1em;
+
+    .p-accordion-header-link {
+      background: #4C5364 !important;
+      color: white !important;
+      border: none;
+    }
+  }
+  .p-toggleable-content{
+    position: relative;
+  }
+
+  .p-accordion .p-accordion-content {
+    border: none;
+    background: none;
+    padding: 0;
+    padding-top: 1em;
+  }
+}
+.progressionBar{
+  color: red;
+  background-color: red;
+  height: .3rem;
+  position: absolute;
+  width: 100% ;
+  right: 0;
+  left: 0;
+  top: -22px;
+}
+
+

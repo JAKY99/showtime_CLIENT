@@ -34,7 +34,7 @@ export class AccordionSeasonsComponent implements OnInit {
       // @ts-ignore
       await this.tvService.fetchTvBySeason(this.tvId,i+1).subscribe(
         (resp) => {
-          console.log(resp)
+          // console.log(resp)
           setTimeout(()=> {
             this.tvSeasonDetails = resp;
             this.allSeasons.push(this.tvSeasonDetails);
@@ -42,11 +42,6 @@ export class AccordionSeasonsComponent implements OnInit {
         }
       )
     }
-
-
-    // par ici il faut que je recup le nb de saisons -> pour chaque son nb d'ep
-    // et pour chaque saison je display un onglet de l'accordion
-    // et pour chaque episode je display une card
   }
 
 }

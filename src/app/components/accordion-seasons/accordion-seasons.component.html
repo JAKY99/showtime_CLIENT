@@ -1,9 +1,11 @@
 <p-accordion [multiple]="false">
-  <p-accordionTab *ngFor="let season of allSeasons" header="{{season.name}}">
+  <p-accordionTab *ngFor="let season of allSeasons" header="{{season.name}}" >
+    <hr class="progressionBar ">
     <ng-container *ngFor="let episode of tvSeasonDetails.episodes">
       <app-episode-card *ngIf="todayDate > episode.air_date"
         [item]="episode">
       </app-episode-card>
     </ng-container>
+
   </p-accordionTab>
 </p-accordion>

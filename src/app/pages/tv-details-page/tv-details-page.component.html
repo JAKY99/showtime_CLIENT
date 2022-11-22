@@ -107,6 +107,23 @@
     </div>
 
   </div>
+
+  <div class="tab-view-section2" *ngIf="!loading.tv">
+    <p-tabView (onChange)="handleChangeTabView2($event)">
+      <p-tabPanel header="Comments">
+        Content 2
+      </p-tabPanel>
+      <p-tabPanel header="More like this">
+        <div class="similar-tv">
+          <h2 class="text-white no-margin">Similar Series</h2>
+          <app-carousel-image-list #similarTvRef [items]="similarTv"></app-carousel-image-list>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+
+
+
 </div>
 
 

@@ -51,6 +51,14 @@ export class TvService {
     return this.http.get<any>(url);
   }
 
+  fetchSimilarTv(tvId: number): Observable<any>{
+    let url = GlobalConstants.TMDB_BASE_URL + "/tv/"+ tvId +
+      "/similar?api_key="+ GlobalConstants.TMDB_KEY+"&language=en-US&page=1"
+
+    return this.http.get<any>(url);
+  }
+
+
   fetchTvBySeasonAndEpisode(tvId: number , seasonNumber : number, episodeNumber : number): Observable<any>{
     let url = GlobalConstants.TMDB_BASE_URL + "tv/"+ tvId +
       "/season/" +seasonNumber + "/episode/" +

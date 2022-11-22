@@ -5,20 +5,21 @@
   align-items: center;
   background-color: #4C5364;
   color: white;
-  padding-right: 1em;
   border-radius: 5px;
   -webkit-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.5);
   box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.5);
   margin-bottom: 1em;
+  overflow: hidden;
   app-image {
-    width: 48%;
+    width: 40%;
     img {
       width: 100%;
     }
   }
   .infos-episode{
-    width: 48%;
+    width: 60%;
     height: auto;
+    padding: .5rem 1rem .5rem;
     .episode-title{
       margin-top: 0;
     }

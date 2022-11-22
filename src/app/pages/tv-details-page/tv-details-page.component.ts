@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TvService} from "../../services/tv/tv.service";
 import {ActivatedRoute} from "@angular/router";
 import {TvDetails} from "../../models/tv/tv-details";
@@ -6,6 +6,8 @@ import {GlobalConstants} from "../../common/constants/global-constants";
 import {faBookmark, faStarHalfStroke, faChevronRight, faPlay} from "@fortawesome/free-solid-svg-icons";
 import {stringToDate} from "../../js/date-helper";
 import {TvEpisodeDetails} from "../../models/tv/tv-episode-details";
+import {CarouselImageListComponent} from "../../components/carousel-image-list/carousel-image-list.component";
+import {TvSimilar} from "../../models/tv/tv-similar";
 
 @Component({
   selector: 'app-tv-details-page',
@@ -16,9 +18,10 @@ import {TvEpisodeDetails} from "../../models/tv/tv-episode-details";
 
 export class TvDetailsPageComponent implements OnInit {
 
-
-
   constructor( private tvService : TvService, private route : ActivatedRoute) { }
+
+  @ViewChild('similarTvRef') similarTvChild : CarouselImageListComponent | undefined;
+
 
   faBookmark = faBookmark;
   faStarHalfStroke = faStarHalfStroke;
@@ -33,6 +36,9 @@ export class TvDetailsPageComponent implements OnInit {
   tv:TvDetails = {};
   // @ts-ignore
   lastEpisode: TvEpisodeDetails = {} ;
+
+  // @ts-ignore
+  similarTv: TvSimilar[] = [];
 
   userTv = {
     bookmark: [],
@@ -53,6 +59,7 @@ export class TvDetailsPageComponent implements OnInit {
     await this.tvService.fetchTvDetails(+this.route.snapshot.paramMap.get('id'),
       ['credits']).subscribe(
       (resp) => {
+        console.log(resp)
         setTimeout(()=> {
           this.tv = resp;
           this.loading.tv = false;
@@ -92,6 +99,7 @@ export class TvDetailsPageComponent implements OnInit {
     return stringToDate(this.tv.first_air_date).getFullYear();
   }
 
+
   WatchProvidersEmpty($event: any){
     this.isWatchProvidersEmpty = $event;
   }
@@ -103,7 +111,24 @@ export class TvDetailsPageComponent implements OnInit {
     }
     //tab: comments
     if (e.index === 1){
+
       // fetch async sur les episodes
+    }
+  }
+  async handleChangeTabView2(e: any) {
+    //tab: Comments
+    if (e.index === 0){
+
+    }
+    //tab: Similars
+    if (e.index === 1){
+      // @ts-ignore
+      await this.tvService.fetchSimilarTv(+this.route.snapshot.paramMap.get('id')).toPromise()
+        .then((resp) => {
+          this.similarTv = resp.results;
+        });
+      // @ts-ignore
+      this.similarTvChild?.isLoading = false;
     }
   }
 }

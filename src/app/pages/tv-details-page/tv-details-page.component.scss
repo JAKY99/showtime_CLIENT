@@ -20,6 +20,11 @@
     }
   }
 
+  h3{
+    color: white;
+    padding: 1em;
+  }
+
   .watched-section{
     display: flex;
     justify-content: space-between;
@@ -124,6 +129,56 @@
       font-size: 0.8rem;
       color: $white;
       text-align: justify;
+    }
+    .actors-list{
+      margin: 2rem 0;
+    }
+    .available-on-platform{
+      .stream-subscription, .buy{
+        margin: 2rem 0;
+      }
+    }
+
+  }
+  .tab-view-section2{
+    padding: .7rem 1rem;
+    margin-bottom: $margin-big;
+
+    .trailers{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      .trailer{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: $margin-small;
+        margin-bottom: $margin-default;
+        color: $white;
+        position: relative;
+        .trailer-img{
+          img{
+            width: 40vw;
+            height: 10vh;
+            border-radius: 10px;
+            background-size: cover;
+          }
+        }
+        .title{
+          margin-left: $margin-default;
+          align-self: flex-start;
+        }
+      }
+    }
+
+    .similar-movies{
+      h2 {
+        font-size: $font-default;
+        padding: 0 1rem;
+        &.no-margin {
+          margin-top: 0;
+        }
+      }
     }
   }
 
