@@ -6,6 +6,7 @@
       background: #4C5364 !important;
       color: white !important;
       border: none;
+      overflow: hidden;
     }
   }
   .p-toggleable-content{
@@ -18,16 +19,39 @@
     padding: 0;
     padding-top: 1em;
   }
+  .seasonName{
+    font-size: 1.2rem
+  }
+  .p-progressbar .p-progressbar-value{
+    background: #F65C63;
+  }
 }
 .progressionBar{
-  color: red;
-  background-color: red;
-  height: .3rem;
+  height: 9px;
   position: absolute;
   width: 100% ;
   right: 0;
   left: 0;
-  top: -22px;
+  bottom: -2px;
 }
 
+.accordionSeries {
+  .flexer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row wrap;
+    width: 100%;
+  }
+  .seasonName{
+    width: 50%;
+  }
+  .seenCounter{
+    width: 50%;
+    justify-content: flex-end;
+    .epCount{
+      margin-right: 1rem;
+    }
+  }
+}
 

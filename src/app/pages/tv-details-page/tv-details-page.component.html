@@ -25,7 +25,6 @@
         <fa-icon class="bookmark-icon st-icon st-icon-small" [icon]="faBookmark"></fa-icon>
         <span *ngIf="userTv.bookmark.length" class="badge">{{userTv.bookmark.length}}</span>
       </div>
-      <i class="fa-solid fa-circle-check watched-status-check st-icon"></i>
     </div>
   </div>
 
@@ -75,6 +74,7 @@
               [title]="genre.name"
               [borderRadius]="true"
             ></app-tag>
+
           </div>
           <p class="overview">{{tv.overview}}</p>
 

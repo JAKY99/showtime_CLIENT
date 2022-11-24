@@ -1,11 +1,27 @@
-<p-accordion [multiple]="false">
-  <p-accordionTab *ngFor="let season of allSeasons" header="{{season.name}}" >
-    <hr class="progressionBar ">
-    <ng-container *ngFor="let episode of tvSeasonDetails.episodes">
-      <app-episode-card *ngIf="todayDate > episode.air_date"
-        [item]="episode">
-      </app-episode-card>
-    </ng-container>
+<p-accordion class="accordionSeries" [multiple]="false" (onOpen)="onTabOpen($event)">
+  <ng-container *ngFor="let season of allSeasons">
+  <p-accordionTab *ngIf="season.episodes.length > 1" id="season-{{season.season_number}}">
+
+    <ng-template pTemplate="header">
+      <div class="flexer">
+        <h2 class="seasonName">{{season.name}}</h2>
+        <div class="flexer seenCounter">
+          <p class="epCount"> {{episodesSeen}} / {{season.episodes.length}}</p>
+          <i class="fa-solid fa-circle-check watched-status-check st-icon"></i>
+        </div>
+      </div>
+
+      <p-progressBar class="progressionBar" [value]="episodesSeen/season.episodes.length*100"></p-progressBar>
+    </ng-template>
+    <ng-template pTemplate="content">
+
+      <ng-container *ngFor="let episode of season.episodes">
+        <app-episode-card *ngIf="todayDate > episode.air_date"
+          [item]="episode">
+        </app-episode-card>
+      </ng-container>
+    </ng-template>
 
   </p-accordionTab>
+  </ng-container>
 </p-accordion>

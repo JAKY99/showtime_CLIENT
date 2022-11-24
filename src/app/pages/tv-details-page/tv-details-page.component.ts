@@ -22,14 +22,12 @@ export class TvDetailsPageComponent implements OnInit {
 
   @ViewChild('similarTvRef') similarTvChild : CarouselImageListComponent | undefined;
 
-
   faBookmark = faBookmark;
   faStarHalfStroke = faStarHalfStroke;
   faChevronRight = faChevronRight;
   faPlay = faPlay;
   watchProviders: [] = [];
   isWatchProvidersEmpty = false;
-
 
   globalConstants = GlobalConstants;
   // @ts-ignore

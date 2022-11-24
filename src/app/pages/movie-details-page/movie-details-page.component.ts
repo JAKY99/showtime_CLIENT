@@ -129,9 +129,9 @@ export class MovieDetailsPageComponent implements OnInit {
       await this.movieService.fetchSimilarMovies(+this.route.snapshot.paramMap.get('id')).toPromise()
         .then((resp) => {
           this.similarMovies = resp.results;
-        });
-      // @ts-ignore
-      this.similarMoviesChild?.isLoading = false;
+          // @ts-ignore
+          this.similarMoviesChild?.isLoading = false;
+        })
     }
   }
 

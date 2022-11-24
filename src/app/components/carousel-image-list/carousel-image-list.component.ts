@@ -3,8 +3,6 @@ import {GlobalConstants} from "../../common/constants/global-constants";
 
 import SwiperCore, { FreeMode, Navigation, Lazy } from "swiper";
 import {Router} from "@angular/router";
-import {MovieDetailsModel} from "../../models/movie/movie-details-model";
-import {TvDetails} from "../../models/tv/tv-details";
 
 SwiperCore.use([FreeMode, Navigation, Lazy]);
 
