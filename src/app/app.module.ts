@@ -63,12 +63,25 @@ import { EpisodeCardComponent } from './components/episode-card/episode-card.com
 import { AccordionSeasonsComponent } from './components/accordion-seasons/accordion-seasons.component';
 import {AccordionModule} from "primeng/accordion";
 import {ProgressBarModule} from "primeng/progressbar";
+import { ResetPasswordFormComponent } from './components/reset-password-form/reset-password-form.component';
+import { ResetPageComponent } from './pages/reset-page/reset-page.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
+import { ChangePasswordFormComponent } from './components/change-password-form/change-password-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
+    ResetPasswordFormComponent,
     LoginPageComponent,
+    ResetPageComponent,
+    RegisterFormComponent,
+    RegisterPageComponent,
+    ResetPageComponent,
+    ChangePasswordPageComponent,
+    ChangePasswordFormComponent,
     HomePageComponent,
     LogoComponent,
     CarouselComponent,

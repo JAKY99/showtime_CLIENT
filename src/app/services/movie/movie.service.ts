@@ -106,7 +106,7 @@ export class MovieService {
   }
 
   increaseWatchedNumber(movieId: number,movieName : string): Observable<any>{
-    let url = `${GlobalConstants.API_URL}/api/v1/user/increaseWatchedNumber/`
+    let url = `${GlobalConstants.API_URL}/api/v1/user/addMovieInWatchlist/`
     return this.http.post<any>(url, {
       movieId: movieId,
       movieName: movieName,

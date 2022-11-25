@@ -28,5 +28,6 @@ export enum ClientErrorsEnum {
   ClientErrorUnprocessableEntity = 422,
   ClientErrorUnsupportedMediaType = 415,
   ClientErrorUpgradeRequired = 426,
-  ClientErrorURITooLong = 414
+  ClientErrorURITooLong = 414,
+  ClientErrorServerError = 500,
 }
