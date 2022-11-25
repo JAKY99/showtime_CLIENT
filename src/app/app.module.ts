@@ -38,7 +38,7 @@ import { SkeletonModule } from "primeng/skeleton";
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MoviesPageComponent } from './pages/movies-page/movies-page.component';
-import { SeriesPageComponent } from './pages/series-page/series-page.component';
+import { TvPageComponent } from './pages/tv-page/tv-page.component';
 import { SocialPageComponent } from './pages/social-page/social-page.component';
 import { ProfilPageComponent } from './pages/profil-page/profil-page.component';
 import { MovieDetailsPageComponent } from './pages/movie-details-page/movie-details-page.component';
@@ -53,10 +53,16 @@ import {DropdownModule} from "primeng/dropdown";
 import {TabViewModule} from "primeng/tabview";
 import { GoBackComponent } from './components/go-back/go-back.component';
 import {TabMenuModule} from "primeng/tabmenu";
+import { TvDetailsPageComponent } from './pages/tv-details-page/tv-details-page.component';
+import { TruncatedDescriptionComponent } from './components/truncated-description/truncated-description.component';
 import { DialogModule } from 'primeng/dialog';
 import { LazyImgDirective } from './lazy-img.directive';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { PosterImageComponent } from './components/poster-image/poster-image.component';
+import { EpisodeCardComponent } from './components/episode-card/episode-card.component';
+import { AccordionSeasonsComponent } from './components/accordion-seasons/accordion-seasons.component';
+import {AccordionModule} from "primeng/accordion";
+import {ProgressBarModule} from "primeng/progressbar";
 import { ResetPasswordFormComponent } from './components/reset-password-form/reset-password-form.component';
 import { ResetPageComponent } from './pages/reset-page/reset-page.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
@@ -83,7 +89,7 @@ import { ChangePasswordFormComponent } from './components/change-password-form/c
     NoConnectionComponent,
     NavbarComponent,
     MoviesPageComponent,
-    SeriesPageComponent,
+    TvPageComponent,
     SocialPageComponent,
     ProfilPageComponent,
     MovieDetailsPageComponent,
@@ -93,44 +99,52 @@ import { ChangePasswordFormComponent } from './components/change-password-form/c
     CarouselActorsListComponent,
     WatchProvidersComponent,
     GoBackComponent,
+    TvDetailsPageComponent,
+    TruncatedDescriptionComponent,
+    TvDetailsPageComponent,
+    TruncatedDescriptionComponent,
     LazyImgDirective,
     PosterImageComponent,
+    EpisodeCardComponent,
+    AccordionSeasonsComponent,
   ],
-    imports: [
-        HttpClientModule,
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        SidebarModule,
-        ButtonModule,
-        MenubarModule,
-        InputTextModule,
-        CardModule,
-        FormsModule,
-        PasswordModule,
-        DividerModule,
-        ReactiveFormsModule,
-        ToastModule,
-        BlockUIModule,
-        AvatarModule,
-        BadgeModule,
-        SlideMenuModule,
-        RippleModule,
-        BreadcrumbModule,
-        TableModule,
-        MultiSelectModule,
-        CarouselModule,
-        SwiperModule,
-        SkeletonModule,
-        FontAwesomeModule,
-        ProgressSpinnerModule,
-        AutoCompleteModule,
-        DropdownModule,
-        TabViewModule,
-        TabMenuModule,
-        DialogModule,
-        LazyLoadImageModule
-    ],
+  imports: [
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    SidebarModule,
+    ButtonModule,
+    MenubarModule,
+    InputTextModule,
+    CardModule,
+    FormsModule,
+    PasswordModule,
+    DividerModule,
+    ReactiveFormsModule,
+    ToastModule,
+    BlockUIModule,
+    AvatarModule,
+    BadgeModule,
+    SlideMenuModule,
+    RippleModule,
+    BreadcrumbModule,
+    TableModule,
+    MultiSelectModule,
+    CarouselModule,
+    SwiperModule,
+    SkeletonModule,
+    FontAwesomeModule,
+    ProgressSpinnerModule,
+    AutoCompleteModule,
+    DropdownModule,
+    TabViewModule,
+    TabMenuModule,
+    DialogModule,
+    LazyLoadImageModule,
+    AccordionModule,
+    ProgressBarModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

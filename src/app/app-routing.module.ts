@@ -5,10 +5,11 @@ import {LoginPageComponent} from "./pages/login-page/login-page.component";
 import {ResetPageComponent} from "./pages/reset-page/reset-page.component";
 import {AuthGuard} from "./auth.guard";
 import {MoviesPageComponent} from "./pages/movies-page/movies-page.component";
-import {SeriesPageComponent} from "./pages/series-page/series-page.component";
+import {TvPageComponent} from "./pages/tv-page/tv-page.component";
 import {SocialPageComponent} from "./pages/social-page/social-page.component";
 import {ProfilPageComponent} from "./pages/profil-page/profil-page.component";
 import {MovieDetailsPageComponent} from "./pages/movie-details-page/movie-details-page.component";
+import {TvDetailsPageComponent} from "./pages/tv-details-page/tv-details-page.component";
 import{RegisterPageComponent} from "./pages/register-page/register-page.component";
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 const routes: Routes = [
@@ -34,7 +35,7 @@ const routes: Routes = [
   },
   {
     path:'series',
-    component: SeriesPageComponent,
+    component: TvPageComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -51,6 +52,16 @@ const routes: Routes = [
     path:'movie/:id',
     component: MovieDetailsPageComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path:'tv/:id',
+    component: TvDetailsPageComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'tv/:id',
+    component: TvDetailsPageComponent,
+    //canActivate: [AuthGuard]
   },
 ];
 
