@@ -40,7 +40,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MoviesPageComponent } from './pages/movies-page/movies-page.component';
 import { TvPageComponent } from './pages/tv-page/tv-page.component';
 import { SocialPageComponent } from './pages/social-page/social-page.component';
-import { ProfilPageComponent } from './pages/profil-page/profil-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { MovieDetailsPageComponent } from './pages/movie-details-page/movie-details-page.component';
 import { ImageComponent } from './components/image/image.component';
 import { TagComponent } from './components/tag/tag.component';
@@ -68,6 +68,12 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 import { ChangePasswordFormComponent } from './components/change-password-form/change-password-form.component';
+import { ProfileAvatarComponent } from './components/profile-avatar/profile-avatar.component';
+import { ProfileTopSectionComponent } from './components/profile-top-section/profile-top-section.component';
+import { ProfileSocialInfosComponent } from './components/profile-social-infos/profile-social-infos.component';
+import { ProfileStatsCarouselComponent } from './components/profile-stats-carousel/profile-stats-carousel.component';
+import { ProfileStatTimeComponent } from './components/profile-stat-time/profile-stat-time.component';
+import { ProfileStatNumberComponent } from './components/profile-stat-number/profile-stat-number.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +96,7 @@ import { ChangePasswordFormComponent } from './components/change-password-form/c
     MoviesPageComponent,
     TvPageComponent,
     SocialPageComponent,
-    ProfilPageComponent,
+    ProfilePageComponent,
     MovieDetailsPageComponent,
     ImageComponent,
     TagComponent,
@@ -101,6 +107,12 @@ import { ChangePasswordFormComponent } from './components/change-password-form/c
     TvDetailsPageComponent,
     LazyImgDirective,
     PosterImageComponent,
+    ProfileAvatarComponent,
+    ProfileTopSectionComponent,
+    ProfileSocialInfosComponent,
+    ProfileStatsCarouselComponent,
+    ProfileStatTimeComponent,
+    ProfileStatNumberComponent,
     EpisodeCardComponent,
     AccordionSeasonsComponent,
   ],

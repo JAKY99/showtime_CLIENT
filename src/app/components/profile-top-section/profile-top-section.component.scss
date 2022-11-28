@@ -1,0 +1,29 @@
+@import "src/styles";
+
+.top-banner-section{
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 35vh;
+
+  .user-profile-background{
+    img{
+      width: 100%;
+      transform: scale(1.2);
+      border-bottom-left-radius: 50%;
+      border-bottom-right-radius: 50%;
+    }
+  }
+
+  .app-profile-avatar{
+    position: absolute;
+    align-self: flex-end;
+  }
+}
+.user-basic-infos{
+  color: $white;
+  display: flex;
+  justify-content: center;
+}
+
+

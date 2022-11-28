@@ -16,13 +16,12 @@ export class CarouselComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  @Input() items: Array<TrendingModel> = [];
+  @Input() items: any[] = [];
 
   globalConstants = GlobalConstants;
 
   swiperConfig: any = {
     effect:"coverflow",
-    grabCursor: true,
     centeredSlides:true,
     spaceBetween: 30,
     slidesPerView: 2,

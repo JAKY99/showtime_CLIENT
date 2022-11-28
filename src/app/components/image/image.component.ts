@@ -20,6 +20,7 @@ export class ImageComponent implements OnInit {
   @Input() imageTitle: string | null = "";
   @Input() imageSize: string = "300";
   @Input() icon: IconProp | undefined;
+  @Input() lazyLoading: boolean = true;
 
   @Output() imgStateEvent = new EventEmitter<string>();
 
@@ -64,8 +65,8 @@ export class ImageComponent implements OnInit {
         // `event.data` is the error in this case
         break;
       case 'finally':
-        // The last event before cleaning up
         this.lazyFinished = true;
+        // The last event before cleaning up
         break;
     }
 

@@ -7,7 +7,7 @@ import {AuthGuard} from "./auth.guard";
 import {MoviesPageComponent} from "./pages/movies-page/movies-page.component";
 import {TvPageComponent} from "./pages/tv-page/tv-page.component";
 import {SocialPageComponent} from "./pages/social-page/social-page.component";
-import {ProfilPageComponent} from "./pages/profil-page/profil-page.component";
+import {ProfilePageComponent} from "./pages/profile-page/profile-page.component";
 import {MovieDetailsPageComponent} from "./pages/movie-details-page/movie-details-page.component";
 import {TvDetailsPageComponent} from "./pages/tv-details-page/tv-details-page.component";
 import{RegisterPageComponent} from "./pages/register-page/register-page.component";
@@ -44,8 +44,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path:'profil',
-    component: ProfilPageComponent,
+    path:'profile',
+    component: ProfilePageComponent,
     canActivate: [AuthGuard]
   },
   {

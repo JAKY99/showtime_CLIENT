@@ -48,9 +48,14 @@ export class CarouselImageListComponent implements OnInit {
   // @ts-ignore
   goToContentDetails(content: Object<any>){
     if (content.original_name){
-      this.router.navigateByUrl('/tv/' + content.id);
+      this.redirectTo('/tv/' + content.id);
     }else{
-      this.router.navigateByUrl('/movie/' + content.id);
+      this.redirectTo('/movie/' + content.id);
     }
+  }
+
+  redirectTo(uri:string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigate([uri]));
   }
 }

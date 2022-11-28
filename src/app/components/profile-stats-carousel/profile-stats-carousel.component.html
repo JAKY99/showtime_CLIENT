@@ -1,0 +1,18 @@
+<div class="swiper-container">
+  <swiper
+    [config]="swiperConfig"
+  >
+    <ng-template swiperSlide>
+      <app-profile-stat-time title="tv time"></app-profile-stat-time>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-profile-stat-number title="episodes watched"></app-profile-stat-number>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-profile-stat-time title="movie time"></app-profile-stat-time>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-profile-stat-number title="movies watched"></app-profile-stat-number>
+    </ng-template>
+  </swiper>
+</div>

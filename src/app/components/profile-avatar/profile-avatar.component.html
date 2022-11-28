@@ -1,0 +1,6 @@
+<div class="profile-avatar">
+  <img *ngIf="!isLoading" src="https://i.pravatar.cc/300" alt="user-profile-picture">
+  <div *ngIf="isLoading" class="avatar-style">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</div>
