@@ -1,8 +1,11 @@
 @import "src/styles";
 
 app-image{
+
   .container{
     position: relative;
+    overflow: hidden;
+
     .icon{
       position: absolute;
       width: auto;

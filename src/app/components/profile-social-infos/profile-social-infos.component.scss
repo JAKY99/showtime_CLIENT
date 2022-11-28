@@ -1,0 +1,25 @@
+@import "src/styles";
+
+.user-social-infos{
+  color: $white;
+  display: flex;
+  justify-content: center;
+  gap: 1.8rem;
+
+  .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .3rem;
+    margin-bottom: $margin-default;
+
+    .label{
+      color: #A6A6A6;
+      font-weight: 300;
+    }
+
+    .value{
+      font-weight: bold;
+    }
+  }
+}

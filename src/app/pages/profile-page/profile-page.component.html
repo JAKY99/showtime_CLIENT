@@ -1,0 +1,56 @@
+<div class="app-profile-page h-full">
+  <app-profile-top-section></app-profile-top-section>
+  <app-profile-social-infos></app-profile-social-infos>
+  <app-profile-stats-carousel></app-profile-stats-carousel>
+
+  <div class="tab-view-section">
+    <p-tabView (onChange)="handleChangeTabView($event)">
+      <p-tabPanel header="Series" class="series-panel">
+        <div class="last-watched carousel-container">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">Last watched</h2>
+            <span class="see-all-btn">See all</span>
+          </div>
+          <app-carousel-image-list #lastWatchedSeriesRef [items]="lastWatchedSeries"></app-carousel-image-list>
+        </div>
+        <div class="favorites carousel-container">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">Favorites</h2>
+            <span class="see-all-btn">See all</span>
+          </div>
+          <app-carousel-image-list #favoritesSeriesRef [items]="favoritesSeries"></app-carousel-image-list>
+        </div>
+        <div class="watchlist carousel-container">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">Watchlist</h2>
+            <span class="see-all-btn">See all</span>
+          </div>
+          <app-carousel-image-list #watchlistSeriesRef [items]="watchlistSeries"></app-carousel-image-list>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Movies" class="movies-panel">
+        <div class="last-watched carousel-container">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">Last watched</h2>
+            <span class="see-all-btn">See all</span>
+          </div>
+          <app-carousel-image-list #lastWatchedMoviesRef [items]="lastWatchedMovies"></app-carousel-image-list>
+        </div>
+        <div class="favorites carousel-container">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">Favorites</h2>
+            <span class="see-all-btn">See all</span>
+          </div>
+          <app-carousel-image-list #favoritesMoviesRef [items]="favoritesMovies"></app-carousel-image-list>
+        </div>
+        <div class="watchlist carousel-container">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">Watchlist</h2>
+            <span class="see-all-btn">See all</span>
+          </div>
+          <app-carousel-image-list #watchlistMoviesRef [items]="watchlistMovies"></app-carousel-image-list>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

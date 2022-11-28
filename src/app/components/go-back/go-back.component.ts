@@ -2,6 +2,7 @@ import {Component, HostListener, OnInit, Renderer2, ViewEncapsulation} from '@an
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
+import {NavigationService} from "../../services/navigation/navigation.service";
 
 @Component({
   selector: 'app-go-back',
@@ -14,7 +15,7 @@ export class GoBackComponent implements OnInit {
   constructor(
     private router: Router,
     private location: Location,
-    private renderer2: Renderer2
+    private navigationService: NavigationService
   ) {}
 
   faArrowLeft = faArrowLeft;
@@ -23,8 +24,7 @@ export class GoBackComponent implements OnInit {
   }
 
   back(): void {
-    // @ts-ignore
-    this.location.back();
+    this.navigationService.back();
   }
 
 }

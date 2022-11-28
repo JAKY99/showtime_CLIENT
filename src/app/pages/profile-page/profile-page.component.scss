@@ -1,0 +1,25 @@
+@import "src/styles";
+
+.app-profile-page {
+  background-color: $main-color;
+  overflow-x: hidden;
+}
+
+.tab-view-section {
+  padding: .7rem 1rem;
+  margin-bottom: 4rem;
+
+  .carousel-container{
+    .header-title{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: $margin-default;
+
+      .see-all-btn{
+        color: $secondary-color;
+        font-weight: bold;
+      }
+    }
+  }
+}
