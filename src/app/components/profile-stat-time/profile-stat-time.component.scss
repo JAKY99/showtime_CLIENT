@@ -10,11 +10,13 @@
   justify-content: flex-start;
   width: 100%;
   gap: $margin-small;
-  min-height: 11vh;
+  min-height: 90px;
+  max-height: 90px;
 
   .title{
     text-transform: uppercase;
     font-weight: bold;
+    text-align: center;
   }
 
   .time-container{
