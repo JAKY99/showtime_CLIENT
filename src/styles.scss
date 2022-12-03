@@ -17,6 +17,25 @@ $font-medium: 1.3rem;
 $font-big: 1.5rem;
 $font-big-2: 1.8rem;
 
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}
+
+.p-divider{
+  margin: .2rem 0;
+  &.p-divider-horizontal:before{
+    border-color: $divider-color!important;
+  }
+}
+
 .secondary-text-color{
   color: $secondary-color;
 }
