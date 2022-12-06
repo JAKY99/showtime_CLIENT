@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {NavigationService} from "../../services/navigation/navigation.service";
 
+
 @Component({
   selector: 'app-go-back',
   templateUrl: './go-back.component.html',

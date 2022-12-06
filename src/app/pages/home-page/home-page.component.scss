@@ -3,6 +3,29 @@
 .app-home-page{
   background-color: $main-color;
 
+  .top-header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .search-icon-action{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+
+    .options-icon-action{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+  }
+
   .carousel-container:last-child{
     margin-bottom: 5rem;
   }

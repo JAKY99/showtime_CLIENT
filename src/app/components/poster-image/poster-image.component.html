@@ -1,7 +1,6 @@
-<div>
-  <app-image class="poster-image" [imagePath]="item.poster_path"
-             [imageTitle]="item.title ? item.title : item.name"
-             imageSize="300"
-             (imgStateEvent)="imageStateChange($event)"
-  ></app-image>
-</div>
+<app-image class="poster-image" [imagePath]="item.poster_path"
+           [imageTitle]="item.title ? item.title : item.name"
+           imageSize="300"
+           (imgStateEvent)="imageStateChange($event)"
+           [ngClass]="borderRadius ? 'radius' : ''"
+></app-image>

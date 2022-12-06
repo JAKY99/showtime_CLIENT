@@ -20,7 +20,18 @@ app-image{
     }
   }
 
-    .hide{
-      display: none!important;
-    }
+  .hide{
+    display: none!important;
+  }
+
+  .title{
+    color: $white;
+    font-weight: bold;
+    width: 90%;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform:  translate(-50%, -50%);
+  }
 }

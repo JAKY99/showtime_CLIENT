@@ -10,6 +10,8 @@ import {UserLocationDatasService} from "../../services/geo/user-location-datas.s
 import {TrendingModel} from "../../models/trendings/trending-model";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 import {TvDetails} from "../../models/tv/tv-details";
+import {faEllipsisVertical, faSearch} from "@fortawesome/free-solid-svg-icons";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -27,6 +29,9 @@ export class HomePageComponent implements OnInit {
 
   @ViewChild('topRatedTvRef') topRatedTvChild : CarouselImageListComponent | undefined;
   @ViewChild('popularTvRef') popularTvChild : CarouselImageListComponent | undefined;
+
+  faSearch = faSearch;
+  faEllipsisVertical = faEllipsisVertical;
 
   trendingsList: TrendingModel[] = [];
   moviesInTheaters: MovieDetailsModel[] = [];
@@ -47,6 +52,7 @@ export class HomePageComponent implements OnInit {
     private tvService: TvService,
     private trendingService: TrendingService,
     private userGeoService: UserLocationDatasService,
+    private router: Router
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -93,6 +99,11 @@ export class HomePageComponent implements OnInit {
 
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
     this.messageService.add({severity:severity, summary:title, detail:details, sticky: sticky});
+  }
+
+  redirectTo(uri:string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigate([uri]));
   }
 
 }

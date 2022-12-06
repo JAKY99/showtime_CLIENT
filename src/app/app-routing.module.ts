@@ -12,6 +12,7 @@ import {MovieDetailsPageComponent} from "./pages/movie-details-page/movie-detail
 import {TvDetailsPageComponent} from "./pages/tv-details-page/tv-details-page.component";
 import{RegisterPageComponent} from "./pages/register-page/register-page.component";
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
+import {MainSearchPageComponent} from "./pages/main-search-page/main-search-page.component";
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent},
@@ -61,7 +62,12 @@ const routes: Routes = [
   {
     path:'tv/:id',
     component: TvDetailsPageComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'search',
+    component: MainSearchPageComponent,
+    canActivate: [AuthGuard]
   },
 ];
 

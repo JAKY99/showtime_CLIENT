@@ -1,0 +1,34 @@
+@import "src/styles";
+
+.p-dialog-content{
+  background-color: $main-color;
+  color: $white;
+  padding: $margin-default!important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $margin-small;
+  border-radius: 0 0 10px 10px;
+
+  button{
+    text-align: left;
+    color: $white;
+  }
+}
+.p-dialog-footer{
+  display: flex;
+  flex-direction: column;
+  background-color: $main-color;
+  color: $white;
+}
+.p-dialog {
+  width: 100%;
+  margin: 0!important;
+
+  .p-dialog-header{
+    padding: $margin-small;
+    border-radius: 0;
+  }
+}
+
+
