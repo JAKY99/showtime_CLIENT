@@ -3,6 +3,8 @@ $secondary-color: #F65C63;
 $white: #FFFFFF;
 $navbar-bg: rgba(0, 0, 0, 0.7);
 $divider-color: #4C5364;
+$input-bg-color: #F1F1F1;
+$input-text-color: #4c5364;
 
 $margin-small: .5rem;
 $margin-default: 1rem;
@@ -34,6 +36,11 @@ $font-big-2: 1.8rem;
   &.p-divider-horizontal:before{
     border-color: $divider-color!important;
   }
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }
 
 .secondary-text-color{
@@ -126,6 +133,69 @@ $font-big-2: 1.8rem;
 
 .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
   box-shadow: none;
+}
+
+.p-inputtext{
+  &:enabled:hover{
+   border-color: transparent;
+  }
+  &:enabled:focus{
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none;
+    border-color: transparent;
+  }
+}
+
+.p-button{
+
+  &.st-secondary-btn{
+    background-color: $secondary-color;
+    border: none;
+
+    &:enabled:focus{
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    &:enabled:focus{
+      background: $secondary-color;
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  &.p-button-text{
+    &.primary{
+      background-color: $secondary-color;
+      color: $white;
+      text-align: center;
+    }
+
+    &:enabled:active{
+      background: $input-bg-color;
+      color: $secondary-color;
+      border-color: transparent;
+    }
+    &:enabled:focus{
+      background: $input-bg-color;
+      color: $secondary-color;
+      border-color: transparent;
+      box-shadow: none;
+    }
+    &:enabled:hover{
+      background: $input-bg-color;
+      color: $secondary-color;
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+}
+
+.p-divider{
+  &.p-divider-horizontal:before{
+    border-color: $divider-color!important;
+  }
 }
 
 

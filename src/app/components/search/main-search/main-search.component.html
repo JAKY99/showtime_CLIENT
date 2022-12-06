@@ -1,0 +1,22 @@
+<div class="main-search">
+  <form (ngSubmit)="multiSearch(true)">
+    <div class="back-arrow" (click)="goBack()">
+      <i class="fa-solid fa-arrow-left"></i>
+    </div>
+    <div class="search-input-container">
+      <span class="p-input-icon-left">
+        <i class="fa fa-search"></i>
+        <input type="text" pInputText placeholder="Search movies, series..."
+               [(ngModel)]="search.searchGlobalValue" name="globalSearch"/>
+      </span>
+    </div>
+      <div class="grid-1">
+        <button icon="fa fa-sort" pButton type="button" label="Sort by"
+                class="p-button p-button-text"></button>
+      </div>
+      <div class="grid-2">
+        <button icon="fa fa-filter" pButton type="button" label="Filter by"
+                class="p-button p-button-text"></button>
+      </div>
+  </form>
+</div>

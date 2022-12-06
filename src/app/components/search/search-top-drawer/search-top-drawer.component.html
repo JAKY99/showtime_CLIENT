@@ -1,0 +1,17 @@
+<p-dialog
+  styleClass="viewed-dialog"
+  class="shadow-3"
+  [closeOnEscape]="true"
+  [dismissableMask]="true"
+  [(visible)]="isSearchTopDrawerShown"
+  [position]="viewedDialogPosition"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  closeIcon="pi pi-times-circle"
+  transitionOptions="200ms cubic-bezier(0, 0, 0.2, 1)"
+>
+  <app-main-search></app-main-search>
+</p-dialog>

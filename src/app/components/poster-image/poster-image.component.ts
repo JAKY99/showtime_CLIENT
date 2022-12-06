@@ -10,6 +10,7 @@ export class PosterImageComponent implements OnInit {
 
   constructor() { }
 
+  @Input() borderRadius: boolean = true;
 
   @Input() item: {
     name: string;

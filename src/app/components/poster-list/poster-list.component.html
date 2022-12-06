@@ -1,0 +1,5 @@
+<div class="poster-list">
+  <ng-container *ngFor="let item of items">
+    <app-poster-image [item]="item" [borderRadius]="false" (click)="goToContentDetails(item)"></app-poster-image>
+  </ng-container>
+</div>

@@ -5,13 +5,20 @@ app-poster-image {
   .poster-image {
     position: relative;
 
-    img {
-      width: auto;
-      height: 100%;
+    &.radius img{
       border-radius: 10px;
-      max-height: 100%;
-      max-width: 100%;
-      object-fit: contain;
+    }
+
+    .container{
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
     }
   }
 }

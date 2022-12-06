@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -19,7 +19,7 @@ import {AuthInterceptor} from "./helpers/auth.interceptor";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
 import {AuthGuard} from "./auth.guard";
-import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
+import {JWT_OPTIONS, JwtHelperService} from '@auth0/angular-jwt';
 import {BlockUIModule} from "primeng/blockui";
 import {AvatarModule} from "primeng/avatar";
 import {BadgeModule} from "primeng/badge";
@@ -28,52 +28,56 @@ import {RippleModule} from "primeng/ripple";
 import {BreadcrumbModule} from "primeng/breadcrumb";
 import {TableModule} from "primeng/table";
 import {MultiSelectModule} from "primeng/multiselect";
-import { LogoComponent } from './components/logo/logo.component';
-import { CarouselComponent } from './components/carousel/carousel.component';
+import {LogoComponent} from './components/logo/logo.component';
+import {CarouselComponent} from './components/carousel/carousel.component';
 import {CarouselModule} from "primeng/carousel";
-import { SwiperModule } from 'swiper/angular';
-import { CarouselImageListComponent } from './components/carousel-image-list/carousel-image-list.component';
-import { NoConnectionComponent } from './components/no-connection/no-connection.component';
-import { SkeletonModule } from "primeng/skeleton";
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MoviesPageComponent } from './pages/movies-page/movies-page.component';
-import { TvPageComponent } from './pages/tv-page/tv-page.component';
-import { SocialPageComponent } from './pages/social-page/social-page.component';
-import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
-import { MovieDetailsPageComponent } from './pages/movie-details-page/movie-details-page.component';
-import { ImageComponent } from './components/image/image.component';
-import { TagComponent } from './components/tag/tag.component';
-import { DescriptionComponent } from './components/description/description.component';
-import { CarouselActorsListComponent } from './components/carousel-actors-list/carousel-actors-list.component';
+import {SwiperModule} from 'swiper/angular';
+import {CarouselImageListComponent} from './components/carousel-image-list/carousel-image-list.component';
+import {NoConnectionComponent} from './components/no-connection/no-connection.component';
+import {SkeletonModule} from "primeng/skeleton";
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {MoviesPageComponent} from './pages/movies-page/movies-page.component';
+import {TvPageComponent} from './pages/tv-page/tv-page.component';
+import {SocialPageComponent} from './pages/social-page/social-page.component';
+import {ProfilePageComponent} from './pages/profile-page/profile-page.component';
+import {MovieDetailsPageComponent} from './pages/movie-details-page/movie-details-page.component';
+import {ImageComponent} from './components/image/image.component';
+import {TagComponent} from './components/tag/tag.component';
+import {DescriptionComponent} from './components/description/description.component';
+import {CarouselActorsListComponent} from './components/carousel-actors-list/carousel-actors-list.component';
 import {ProgressSpinnerModule} from "primeng/progressspinner";
-import { WatchProvidersComponent } from './components/watch-providers/watch-providers.component';
+import {WatchProvidersComponent} from './components/watch-providers/watch-providers.component';
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {DropdownModule} from "primeng/dropdown";
 import {TabViewModule} from "primeng/tabview";
-import { GoBackComponent } from './components/go-back/go-back.component';
+import {GoBackComponent} from './components/go-back/go-back.component';
 import {TabMenuModule} from "primeng/tabmenu";
-import { TvDetailsPageComponent } from './pages/tv-details-page/tv-details-page.component';
-import { DialogModule } from 'primeng/dialog';
-import { LazyImgDirective } from './lazy-img.directive';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { PosterImageComponent } from './components/poster-image/poster-image.component';
-import { EpisodeCardComponent } from './components/episode-card/episode-card.component';
-import { AccordionSeasonsComponent } from './components/accordion-seasons/accordion-seasons.component';
+import {TvDetailsPageComponent} from './pages/tv-details-page/tv-details-page.component';
+import {DialogModule} from 'primeng/dialog';
+import {LazyImgDirective} from './lazy-img.directive';
+import {LazyLoadImageModule} from 'ng-lazyload-image';
+import {PosterImageComponent} from './components/poster-image/poster-image.component';
+import {EpisodeCardComponent} from './components/episode-card/episode-card.component';
+import {AccordionSeasonsComponent} from './components/accordion-seasons/accordion-seasons.component';
 import {AccordionModule} from "primeng/accordion";
 import {ProgressBarModule} from "primeng/progressbar";
-import { ResetPasswordFormComponent } from './components/reset-password-form/reset-password-form.component';
-import { ResetPageComponent } from './pages/reset-page/reset-page.component';
-import { RegisterFormComponent } from './components/register-form/register-form.component';
-import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
-import { ChangePasswordFormComponent } from './components/change-password-form/change-password-form.component';
-import { ProfileAvatarComponent } from './components/profile-avatar/profile-avatar.component';
-import { ProfileTopSectionComponent } from './components/profile-top-section/profile-top-section.component';
-import { ProfileSocialInfosComponent } from './components/profile-social-infos/profile-social-infos.component';
-import { ProfileStatsCarouselComponent } from './components/profile-stats-carousel/profile-stats-carousel.component';
-import { ProfileStatTimeComponent } from './components/profile-stat-time/profile-stat-time.component';
-import { ProfileStatNumberComponent } from './components/profile-stat-number/profile-stat-number.component';
+import {ResetPasswordFormComponent} from './components/reset-password-form/reset-password-form.component';
+import {ResetPageComponent} from './pages/reset-page/reset-page.component';
+import {RegisterFormComponent} from './components/register-form/register-form.component';
+import {RegisterPageComponent} from './pages/register-page/register-page.component';
+import {ChangePasswordPageComponent} from './pages/change-password-page/change-password-page.component';
+import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
+import {ProfileAvatarComponent} from './components/profile-avatar/profile-avatar.component';
+import {ProfileTopSectionComponent} from './components/profile-top-section/profile-top-section.component';
+import {ProfileSocialInfosComponent} from './components/profile-social-infos/profile-social-infos.component';
+import {ProfileStatsCarouselComponent} from './components/profile-stats-carousel/profile-stats-carousel.component';
+import {ProfileStatTimeComponent} from './components/profile-stat-time/profile-stat-time.component';
+import {ProfileStatNumberComponent} from './components/profile-stat-number/profile-stat-number.component';
+import {SearchTopDrawerComponent} from './components/search/search-top-drawer/search-top-drawer.component';
+import {MainSearchComponent} from './components/search/main-search/main-search.component';
+import { MainSearchPageComponent } from './pages/main-search-page/main-search-page.component';
+import { PosterListComponent } from './components/poster-list/poster-list.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +119,10 @@ import { ProfileStatNumberComponent } from './components/profile-stat-number/pro
     ProfileStatNumberComponent,
     EpisodeCardComponent,
     AccordionSeasonsComponent,
+    SearchTopDrawerComponent,
+    MainSearchComponent,
+    MainSearchPageComponent,
+    PosterListComponent,
   ],
   imports: [
     HttpClientModule,
