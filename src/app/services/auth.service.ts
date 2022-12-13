@@ -29,6 +29,7 @@ export class AuthService {
     return this.http.post<any>(url, {
       username: username,
       password: password
+
     // @ts-ignore
     }, httpOptions);
   }
@@ -46,7 +47,7 @@ export class AuthService {
     // @ts-ignore
     }, httpOptions);
   }
- 
+
   changePassword(token: string,username:string ,password:string): Observable<any> {
     let url = GlobalConstants.API_URL + "/api/v1/registration/reset/password";
     return this.http.post<any>(url, {
