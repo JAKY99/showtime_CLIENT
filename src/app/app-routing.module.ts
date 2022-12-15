@@ -25,7 +25,7 @@ const routes: Routes = [
       {
         path: '',
         component: HomePageComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
       }
     ]
   },
@@ -47,17 +47,17 @@ const routes: Routes = [
   {
     path:'profile',
     component: ProfilePageComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path:'movie/:id',
     component: MovieDetailsPageComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path:'tv/:id',
     component: TvDetailsPageComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path:'tv/:id',

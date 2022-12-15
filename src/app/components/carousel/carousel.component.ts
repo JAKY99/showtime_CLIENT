@@ -65,7 +65,17 @@ export class CarouselComponent implements OnInit {
    ngOnInit(): void {
   }
 
-  goToMovieDetails(idMovie: number){
-    this.router.navigateByUrl('/movie/' + idMovie).then();
+  // @ts-ignore
+  goToContentDetails(content: Object<any>){
+    if (content.original_name){
+      this.redirectTo('/tv/' + content.id);
+    }else{
+      this.redirectTo('/movie/' + content.id);
+    }
+  }
+
+  redirectTo(uri:string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigate([uri]));
   }
 }

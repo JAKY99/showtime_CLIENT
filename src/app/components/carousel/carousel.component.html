@@ -4,7 +4,7 @@
   >
     <ng-template swiperSlide *ngFor="let item of items; let i = index">
       <p-badge styleClass="rank-number" [value]="(i + 1).toString()"></p-badge>
-      <app-poster-image [item]="item" (click)="goToMovieDetails(item.id)"></app-poster-image>
+      <app-poster-image [item]="item" (click)="goToContentDetails(item)"></app-poster-image>
     </ng-template>
   </swiper>
   <swiper *ngIf="isLoading"
