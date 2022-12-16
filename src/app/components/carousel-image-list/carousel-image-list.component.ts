@@ -47,7 +47,7 @@ export class CarouselImageListComponent implements OnInit {
 
   // @ts-ignore
   goToContentDetails(content: Object<any>){
-    if (content.media_type === "tv"){
+    if (content.original_name){
       this.redirectTo('/tv/' + content.id);
     }else{
       this.redirectTo('/movie/' + content.id);
