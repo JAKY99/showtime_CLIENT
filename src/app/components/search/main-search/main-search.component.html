@@ -10,13 +10,13 @@
                [(ngModel)]="search.searchGlobalValue" name="globalSearch"/>
       </span>
     </div>
-      <div class="grid-1">
-        <button icon="fa fa-sort" pButton type="button" label="Sort by"
-                class="p-button p-button-text"></button>
-      </div>
-      <div class="grid-2">
-        <button icon="fa fa-filter" pButton type="button" label="Filter by"
-                class="p-button p-button-text"></button>
-      </div>
   </form>
+<!--  <div class="filter-container">
+    <button icon="fa fa-sort" pButton type="button" label="Sort by"
+            class="p-button p-button-text" (click)="openSortDrawer()"></button>
+    <button icon="fa fa-filter" pButton type="button" label="Filter by"
+            class="p-button p-button-text"></button>
+  </div>-->
 </div>
+
+<app-sort-drawer #sortDrawerRef (sortEventEmitter)="applySort($event)"></app-sort-drawer>

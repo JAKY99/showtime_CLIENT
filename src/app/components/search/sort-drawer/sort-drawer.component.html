@@ -1,0 +1,19 @@
+<div id="app-sort-drawer">
+  <p-dialog id="sort-drawer" [(visible)]="displayModal" [modal]="true"
+            [draggable]="false" [resizable]="false" [position]="sortDrawerPosition"
+            [closeIcon]="''" [dismissableMask]="true"
+  >
+    <ng-template pTemplate="header">
+      <div>
+        <span class="title">Sort by</span>
+      </div>
+      <div>
+        <button pButton pRipple type="button" label="Done" class="p-button-text" (click)="done()"></button>
+      </div>
+    </ng-template>
+    <div *ngFor="let sortItem of sortItems" class="field-checkbox">
+      <label [for]="sortItem.key">{{sortItem.name}}</label>
+      <p-radioButton [inputId]="sortItem.key" name="category" [value]="sortItem" [(ngModel)]="selectedSort"></p-radioButton>
+    </div>
+  </p-dialog>
+</div>

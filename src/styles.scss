@@ -198,5 +198,24 @@ $font-big-2: 1.8rem;
   }
 }
 
+.p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
+  border-color: $secondary-color;
+}
+
+.p-radiobutton .p-radiobutton-box.p-highlight{
+  border-color: $secondary-color;
+  background: $secondary-color;
+}
+
+.p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+  border-color: $secondary-color;
+  background: $secondary-color;
+}
+
+.p-radiobutton .p-radiobutton-box:not(.p-disabled).p-focus {
+  box-shadow: none;
+  border-color: transparent;
+}
+
 
 

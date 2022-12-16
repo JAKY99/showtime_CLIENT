@@ -1,6 +1,6 @@
 <p-accordion class="accordionSeries" [multiple]="false" (onOpen)="onTabOpen($event)">
   <ng-container *ngFor="let season of allSeasons">
-  <p-accordionTab *ngIf="season.episodes.length > 1" id="season-{{season.season_number}}">
+  <p-accordionTab *ngIf="season.episodes.length > 1" id="season-{{season.season_number}}" [cache]="true">
 
     <ng-template pTemplate="header">
       <div class="flexer">

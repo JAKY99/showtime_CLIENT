@@ -1,15 +1,19 @@
 <div class="one-episode">
-  <app-image class="poster-image" [imagePath]="item.still_path"
-             [imageTitle]="item.name"
-             imageSize="500"
-             (imgStateEvent)="imageStateChange($event)"
-             [isLazy] = "false"
-  ></app-image>
+  <div class="image-container">
+    <app-image class="poster-image" [imagePath]="item.still_path"
+               [imageTitle]="item.name"
+               imageSize="500"
+               (imgStateEvent)="imageStateChange($event)"
+               [lazyLoading] = "false"
+    ></app-image>
+  </div>
   <div class="infos-episode">
     <h4 class="episode-title">Episode <span class="red">{{item.episode_number}}</span> - Season <span class="red">{{item.season_number}}</span> </h4>
     <div class="title-episode-card">
       <p class="overview-episode" >{{item.name}}</p>
-      <i class="fa-solid fa-circle-check watched-status-check st-icon"></i>
     </div>
+  </div>
+  <div class="view-info">
+      <i class="fa-solid fa-circle-check watched-status-check st-icon"></i>
   </div>
 </div>

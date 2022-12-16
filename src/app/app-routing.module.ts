@@ -60,11 +60,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path:'tv/:id',
-    component: TvDetailsPageComponent,
-    canActivate: [AuthGuard]
-  },
-  {
     path:'search',
     component: MainSearchPageComponent,
     canActivate: [AuthGuard]

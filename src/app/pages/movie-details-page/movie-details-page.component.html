@@ -25,7 +25,9 @@
       </div>
         <i (click)="showViewedDialog()"
            [class]="userMovie.viewInfo.checked"
+           *ngIf="!loading.userViewInfo"
            class="fa-solid fa-circle-check watched-status-check st-icon"></i>
+      <p-progressSpinner *ngIf="loading.userViewInfo" [style]="{width: '1.5rem', height: '1.5rem'}"></p-progressSpinner>
     </div>
   </div>
   <p-dialog
