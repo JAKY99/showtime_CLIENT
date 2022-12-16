@@ -48,7 +48,8 @@ export class MovieDetailsPageComponent implements OnInit {
   loading = {
     movie: true,
     actors: true,
-    watchProviders: true
+    watchProviders: true,
+    userViewInfo: true
   }
 
   async ngOnInit(): Promise<void> {
@@ -83,6 +84,7 @@ export class MovieDetailsPageComponent implements OnInit {
         this.userMovie.viewInfo.checked=resp.body ? 'checked' : '';
         this.viewedStatus = resp.body;
         this.seenStatus = resp.body ? 'Seen' : 'Not Seen';
+        this.loading.userViewInfo = false;
       }
     )
 

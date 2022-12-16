@@ -30,4 +30,14 @@ export class SearchService {
     url += `search/multi?api_key=${GlobalConstants.TMDB_KEY}&language=en-US&query=${searchText}&page=${page}&include_adult=false`;
     return this.http.get<any>(url);
   }
+
+  multiSearchFilters(searchText: string, page: number, sort: string = ""): Observable<any>{
+    let url = `${GlobalConstants.TMDB_BASE_URL}`;
+    url += `discover/movie?api_key=${GlobalConstants.TMDB_KEY}&language=en-US`;
+    if (sort){
+      url += `&sort_by=release_date.asc`;
+    }
+    url += `&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`;
+    return this.http.get<any>(url);
+  }
 }

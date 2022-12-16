@@ -1,11 +1,11 @@
-<div class="main-search-page p-2 h-full overflow-auto">
+<div class="main-search-page p-2 pt-4 h-full overflow-auto">
   <app-main-search #mainSearchRef (resultsEmitterEvent)="getMainSearchResults($event)"
                    (resultsMoreEmitterEvent)="getMainSearchMoreResults($event)"
   (isLoading)="manageLoading($event)"></app-main-search>
   <p-divider></p-divider>
-  <h2 class="m-3 mb-3 ml-0 text-white text-base"
+  <h2 class="m-3 mb-4 ml-0 text-white text-base"
       *ngIf="totalResults === 0">Trending this week</h2>
-  <h2 class="m-3 mb-3 ml-0 text-white text-base"
+  <h2 class="m-3 mb-4 ml-0 text-white text-base"
       *ngIf="totalResults != 0">Results: {{totalResults}}</h2>
   <app-poster-list [items]="mainSearchResults.length ? mainSearchResults : trendingResults"></app-poster-list>
   <div class="text-center mt-4 mb-4" *ngIf="mainSearchResults.length">

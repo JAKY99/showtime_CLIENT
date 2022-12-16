@@ -2,9 +2,9 @@
 
 .main-search{
   form{
-    padding: 0 1rem 0 0;
+    padding: 0 $margin-default;
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     grid-template-columns: 30px 1fr 1fr;
     grid-gap: $margin-default;
 
@@ -71,4 +71,16 @@
 .p-button.p-button-text {
   background-color: $input-bg-color;
   color: $input-text-color;
+}
+
+.filter-container{
+  margin: $margin-default 0;
+  padding: 0 $margin-default;
+  display: flex;
+  justify-content: space-between;
+  gap: $margin-default;
+
+  button{
+    width: 100%;
+  }
 }
