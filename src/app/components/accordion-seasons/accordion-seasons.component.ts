@@ -1,13 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {TvService} from "../../services/tv/tv.service";
 import {TvSeasonDetails} from "../../models/tv/tv-season-details";
 import {formatDate} from "@angular/common";
-import {ProgressBarModule} from 'primeng/progressbar';
 
 @Component({
   selector: 'app-accordion-seasons',
   templateUrl: './accordion-seasons.component.html',
-  styleUrls: ['./accordion-seasons.component.scss']
+  styleUrls: ['./accordion-seasons.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AccordionSeasonsComponent implements OnInit {
 
@@ -18,7 +18,7 @@ export class AccordionSeasonsComponent implements OnInit {
   // @ts-ignore
   @Input() tvId : number;
 
-  episodesSeen: number = 5;
+  episodesSeen: number = 3;
 
   // @ts-ignore
   tvSeasonDetails:TvSeasonDetails = {};
@@ -28,14 +28,8 @@ export class AccordionSeasonsComponent implements OnInit {
   loading = {
     seasons: true,
   }
-  todayDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
 
-  onTabOpen(e : any) {
-    var index = e.index;
-    // scroll to element
-    var element = document.getElementById("season-"+index);
-    element?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-  }
+  todayDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
 
   async ngOnInit(): Promise <void> {
 

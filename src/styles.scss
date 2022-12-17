@@ -217,5 +217,9 @@ $font-big-2: 1.8rem;
   border-color: transparent;
 }
 
+.p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus{
+  box-shadow: none;
+}
+
 
 

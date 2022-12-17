@@ -1,12 +1,23 @@
-::ng-deep {
-  .p-accordion .p-accordion-header {
-    padding-bottom: 1em;
+@import "src/styles";
 
-    .p-accordion-header-link {
-      background: #4C5364 !important;
-      color: white !important;
-      border: none;
-      overflow: hidden;
+.accordionSeries {
+
+  .p-accordion{
+    .p-accordion-header {
+
+      margin: $margin-small 0;
+
+      .p-accordion-header-link {
+        background: $divider-color !important;
+        color: $white !important;
+        border: none;
+        overflow: hidden;
+        padding: $margin-small $margin-default;
+
+        .p-accordion-toggle-icon{
+          font-size: $font-small-2;
+        }
+      }
     }
   }
   .p-toggleable-content{
@@ -17,22 +28,30 @@
     border: none;
     background: none;
     padding: 0;
-    padding-top: 1em;
+    margin-bottom: $margin-big;
+    margin-top: $margin-default;
+    display: flex;
+    flex-direction: column;
+    gap: $margin-default;
   }
   .seasonName{
-    font-size: 1.2rem
+    font-size: $font-default
   }
-  .p-progressbar .p-progressbar-value{
-    background: #F65C63;
+  .p-progressbar {
+    border-radius: 0;
+
+    .p-progressbar-value {
+      background: $secondary-color;
+    }
   }
 }
 .progressionBar{
-  height: 9px;
+  height: 3px;
   position: absolute;
   width: 100% ;
   right: 0;
   left: 0;
-  bottom: -2px;
+  bottom: 0;
 }
 
 .accordionSeries {
@@ -51,6 +70,7 @@
     justify-content: flex-end;
     .epCount{
       margin-right: 1rem;
+      font-weight: 400;
     }
   }
 }

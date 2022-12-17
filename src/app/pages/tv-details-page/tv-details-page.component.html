@@ -66,7 +66,7 @@
 
 
     <div class="tab-view-section" *ngIf="!loading.tv">
-      <p-tabView (onChange)="handleChangeTabView($event)">
+      <p-tabView (onChange)="handleChangeTabView($event)" [activeIndex]="1">
         <p-tabPanel header="About">
           <div class="tags-view-tab" *ngFor="let genre of tv.genres">
             <app-tag
@@ -89,13 +89,12 @@
         </p-tabPanel>
 
         <p-tabPanel header="Episodes">
-          <h3>Next Episode</h3>
+          <h2 class="m-1 mb-3 mt-3 text-white text-base">Watch Next</h2>
           <app-episode-card
-          [item]="lastEpisode">
-
+            [item]="lastEpisode">
           </app-episode-card>
 
-          <h3>All Episodes</h3>
+          <h2 class="m-1 mb-3 mt-5 text-white text-base">All Episodes</h2>
           <app-accordion-seasons
             [nbSeasons]="tv.number_of_seasons"
             [tvId]="tv.id" >
