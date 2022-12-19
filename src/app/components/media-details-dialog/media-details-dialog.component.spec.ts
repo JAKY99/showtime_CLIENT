@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TvDetailsPageComponent } from './tv-details-page.component';
+import { MediaDetailsDialogComponent } from './media-details-dialog.component';
 
-describe('TvDetailsPageComponent', () => {
-  let component: TvDetailsPageComponent;
-  let fixture: ComponentFixture<TvDetailsPageComponent>;
+describe('MovieDetailsDialogComponent', () => {
+  let component: MediaDetailsDialogComponent;
+  let fixture: ComponentFixture<MediaDetailsDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TvDetailsPageComponent ]
+      declarations: [ MediaDetailsDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TvDetailsPageComponent);
+    fixture = TestBed.createComponent(MediaDetailsDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,5 +1,4 @@
-<div id="app-tv-details-page" class="h-full">
-  <app-go-back *ngIf="!loading.tv"></app-go-back>
+<div id="app-tv-details" class="h-full">
   <div class="backdrop-section">
     <app-image *ngIf="!loading.tv" class="backdrop-img" [imagePath]="tv.backdrop_path"
                [imageTitle]="tv.name"
@@ -83,7 +82,7 @@
           </div>
 
           <div class="available-on-platform" *ngIf="!loading.watchProviders && !isWatchProvidersEmpty">
-            <app-watch-providers [items]="watchProviders" (noData)="WatchProvidersEmpty($event)"></app-watch-providers>
+            <app-watch-providers [items]="watchProviders" (noData)="WatchProvidersEmpty($event)" [rentProviders]="false" [buyProviders]="false"></app-watch-providers>
           </div>
 
         </p-tabPanel>

@@ -10,10 +10,14 @@
   <div class="infos-episode">
     <h4 class="episode-title">Episode <span class="red">{{item.episode_number}}</span> - Season <span class="red">{{item.season_number}}</span> </h4>
     <div class="title-episode-card">
-      <p class="overview-episode" >{{item.name}}</p>
+      <p class="overview-episode" *ngIf="todayDate >= item.air_date">{{item.name}}</p>
+      <div *ngIf="todayDate < item.air_date">
+        <p class="overview-episode">Available :</p>
+        <p class="overview-episode">{{item.air_date}}</p>
+      </div>
     </div>
   </div>
-  <div class="view-info">
+  <div class="view-info" *ngIf="todayDate >= item.air_date">
       <i class="fa-solid fa-circle-check watched-status-check st-icon"></i>
   </div>
 </div>

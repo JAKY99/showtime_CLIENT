@@ -1,5 +1,6 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from "@angular/router";
+import {MediaDetailsDialogComponent} from "../media-details-dialog/media-details-dialog.component";
 
 @Component({
   selector: 'app-poster-list',
@@ -10,6 +11,9 @@ import {Router} from "@angular/router";
 export class PosterListComponent implements OnInit {
 
   @Input() items: [] = [];
+  @Output() eventEmitter = new EventEmitter<any>();
+
+  @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild : MediaDetailsDialogComponent | undefined;
 
   constructor(private router: Router) { }
 
@@ -18,11 +22,7 @@ export class PosterListComponent implements OnInit {
 
   // @ts-ignore
   goToContentDetails(content: Object<any>){
-    if (content.original_name){
-      this.redirectTo('/tv/' + content.id);
-    }else{
-      this.redirectTo('/movie/' + content.id);
-    }
+    this.eventEmitter.emit(content);
   }
 
   redirectTo(uri:string){

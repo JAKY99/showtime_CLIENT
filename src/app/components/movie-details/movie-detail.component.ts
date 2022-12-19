@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MovieService} from "../../services/movie/movie.service";
 import {ActivatedRoute} from "@angular/router";
 import {GlobalConstants} from "../../common/constants/global-constants";
@@ -6,19 +6,21 @@ import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 import {faBookmark, faStarHalfStroke, faChevronRight, faPlay, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {stringToDate} from "../../js/date-helper";
 import {MovieSimilar} from "../../models/movie/movie-similar";
-import {CarouselImageListComponent} from "../../components/carousel-image-list/carousel-image-list.component";
+import {CarouselImageListComponent} from "../carousel-image-list/carousel-image-list.component";
 
 @Component({
-  selector: 'app-movie-details-page',
-  templateUrl: './movie-details-page.component.html',
-  styleUrls: ['./movie-details-page.component.scss'],
+  selector: 'app-movie-details',
+  templateUrl: './movie-detail.component.html',
+  styleUrls: ['./movie-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MovieDetailsPageComponent implements OnInit {
+export class MovieDetailComponent implements OnInit {
 
   constructor(private movieService: MovieService, private route: ActivatedRoute) { }
 
   @ViewChild('similarMoviesRef') similarMoviesChild : CarouselImageListComponent | undefined;
+
+  @Input() requestedMovieId: number = 0;
 
   faBookmark: IconDefinition = faBookmark;
   faStarHalfStroke: IconDefinition = faStarHalfStroke;
@@ -54,7 +56,7 @@ export class MovieDetailsPageComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     // @ts-ignore
-    await this.movieService.fetchMovieDetails(+this.route.snapshot.paramMap.get('id'),
+    await this.movieService.fetchMovieDetails(this.requestedMovieId,
       ['credits', 'videos', 'images']).subscribe(
       (resp) => {
         setTimeout(()=> {
@@ -68,7 +70,7 @@ export class MovieDetailsPageComponent implements OnInit {
     await this.fetchWatchedInfos();
 
     // @ts-ignore
-    await this.movieService.fetchWatchProviders(+this.route.snapshot.paramMap.get('id')).subscribe(
+    await this.movieService.fetchWatchProviders(this.requestedMovieId).subscribe(
       (resp) => {
         this.watchProviders = resp.results;
         this.loading.watchProviders = false;
@@ -79,7 +81,7 @@ export class MovieDetailsPageComponent implements OnInit {
 
   async fetchWatchedInfos(){
     // @ts-ignore
-    await this.movieService.fetchMovieWatchedStatus(+this.route.snapshot.paramMap.get('id')).subscribe(
+    await this.movieService.fetchMovieWatchedStatus(this.requestedMovieId).subscribe(
       (resp) => {
         this.userMovie.viewInfo.checked=resp.body ? 'checked' : '';
         this.viewedStatus = resp.body;
@@ -128,7 +130,7 @@ export class MovieDetailsPageComponent implements OnInit {
     //tab: more like this
     if (e.index === 2){
       // @ts-ignore
-      await this.movieService.fetchSimilarMovies(+this.route.snapshot.paramMap.get('id')).toPromise()
+      await this.movieService.fetchSimilarMovies(this.requestedMovieId).toPromise()
         .then((resp) => {
           this.similarMovies = resp.results;
           // @ts-ignore
@@ -140,7 +142,7 @@ export class MovieDetailsPageComponent implements OnInit {
 async removeMovieFromViewInfo(){
  await this.movieService.removeMovieToWatchedList(
   // @ts-ignore
-   +this.route.snapshot.paramMap.get('id'),this.movie.original_title
+   this.requestedMovieId,this.movie.original_title
    ).subscribe(
     (resp) => {
       this.viewedDialogShown = false;
@@ -150,7 +152,7 @@ async removeMovieFromViewInfo(){
 }
 async increaseWatchedNumber(){
   // @ts-ignore
-  await this.movieService.increaseWatchedNumber(+this.route.snapshot.paramMap.get('id')).subscribe(
+  await this.movieService.increaseWatchedNumber(this.requestedMovieId).subscribe(
     (resp) => {
       this.viewedDialogShown = false;
       this.fetchWatchedInfos();
@@ -163,7 +165,7 @@ async showViewedDialog() {
     }else{
       await this.movieService.addMovieToWatchedList(
         // @ts-ignore
-        +this.route.snapshot.paramMap.get('id'),this.movie.title
+        this.requestedMovieId,this.movie.title
       ).subscribe(
         (resp) => {
             this.fetchWatchedInfos();

@@ -1,5 +1,4 @@
-<div id="app-movie-details-page" class="h-full">
-  <app-go-back *ngIf="!loading.movie"></app-go-back>
+<div id="app-movie-details" class="h-full">
   <div class="backdrop-section">
     <app-image *ngIf="!loading.movie" class="backdrop-img" [imagePath]="movie.backdrop_path"
                [imageTitle]="movie.original_title"
@@ -23,15 +22,15 @@
         <fa-icon class="bookmark-icon st-icon st-icon-small" [icon]="faBookmark"></fa-icon>
         <span *ngIf="userMovie.bookmark.length" class="badge">{{userMovie.bookmark.length}}</span>
       </div>
-        <i (click)="showViewedDialog()"
-           [class]="userMovie.viewInfo.checked"
-           *ngIf="!loading.userViewInfo"
-           class="fa-solid fa-circle-check watched-status-check st-icon"></i>
+      <i (click)="showViewedDialog()"
+         [class]="userMovie.viewInfo.checked"
+         *ngIf="!loading.userViewInfo"
+         class="fa-solid fa-circle-check watched-status-check st-icon"></i>
       <p-progressSpinner *ngIf="loading.userViewInfo" [style]="{width: '1.5rem', height: '1.5rem'}"></p-progressSpinner>
     </div>
   </div>
   <p-dialog
-    styleClass="viewed-dialog"
+    class="viewed-dialog"
     [closeOnEscape]="true"
     [dismissableMask]="true"
     [(visible)]="viewedDialogShown"
@@ -154,7 +153,10 @@
   <p-divider *ngIf="!isWatchProvidersEmpty" styleClass="p-divider"></p-divider>
 
   <div class="available-on-platform" *ngIf="!loading.watchProviders && !isWatchProvidersEmpty">
-    <app-watch-providers [items]="watchProviders" (noData)="WatchProvidersEmpty($event)"></app-watch-providers>
+    <app-watch-providers [items]="watchProviders" (noData)="WatchProvidersEmpty($event)"
+                         [buyProviders]="false"
+                         [rentProviders]="false"
+    ></app-watch-providers>
   </div>
 
   <div class="tab-view-section" *ngIf="!loading.movie">
@@ -184,5 +186,4 @@
       </p-tabPanel>
     </p-tabView>
   </div>
-
 </div>

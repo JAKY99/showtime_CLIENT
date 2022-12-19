@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {GlobalConstants} from "../../common/constants/global-constants";
 
 import SwiperCore, { FreeMode, Navigation, Lazy } from "swiper";
@@ -17,6 +17,7 @@ export class CarouselImageListComponent implements OnInit {
   isLoading: boolean = true;
 
   @Input() items: any[] = [];
+  @Output() eventEmitter = new EventEmitter<any>();
 
   imgState: string = "";
 
@@ -47,11 +48,7 @@ export class CarouselImageListComponent implements OnInit {
 
   // @ts-ignore
   goToContentDetails(content: Object<any>){
-    if (content.original_name){
-      this.redirectTo('/tv/' + content.id);
-    }else{
-      this.redirectTo('/movie/' + content.id);
-    }
+    this.eventEmitter.emit(content);
   }
 
   redirectTo(uri:string){

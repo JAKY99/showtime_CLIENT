@@ -82,6 +82,10 @@ $font-big-2: 1.8rem;
     font-size: 1.8rem;
   }
 
+  &.dark{
+    color: $white!important;
+  }
+
   &.checked{
     color: $secondary-color!important;
   }
