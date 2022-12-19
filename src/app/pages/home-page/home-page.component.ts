@@ -12,6 +12,7 @@ import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 import {TvDetails} from "../../models/tv/tv-details";
 import {faEllipsisVertical, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
+import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
 
 
 @Component({
@@ -29,6 +30,8 @@ export class HomePageComponent implements OnInit {
 
   @ViewChild('topRatedTvRef') topRatedTvChild : CarouselImageListComponent | undefined;
   @ViewChild('popularTvRef') popularTvChild : CarouselImageListComponent | undefined;
+
+  @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild : MediaDetailsDialogComponent | undefined;
 
   faSearch = faSearch;
   faEllipsisVertical = faEllipsisVertical;
@@ -104,6 +107,10 @@ export class HomePageComponent implements OnInit {
   redirectTo(uri:string){
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
       this.router.navigate([uri]));
+  }
+
+  openDetailsDialog($event: any){
+    this.mediaDetailsDialogChild?.open($event);
   }
 
 }

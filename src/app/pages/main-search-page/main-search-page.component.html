@@ -7,7 +7,7 @@
       *ngIf="totalResults === 0">Trending this week</h2>
   <h2 class="m-3 mb-4 ml-0 text-white text-base"
       *ngIf="totalResults != 0">Results: {{totalResults}}</h2>
-  <app-poster-list [items]="mainSearchResults.length ? mainSearchResults : trendingResults"></app-poster-list>
+  <app-poster-list [items]="mainSearchResults.length ? mainSearchResults : trendingResults" (eventEmitter)="openDetailsDialog($event)"></app-poster-list>
   <div class="text-center mt-4 mb-4" *ngIf="mainSearchResults.length">
     <button pButton type="button" label="Load More" class="p-button-rounded st-secondary-btn"
             (click)="loadMoreResults()"
@@ -15,3 +15,5 @@
     *ngIf="isLoadMoreAvailable"></button>
   </div>
 </div>
+
+<app-media-details-dialog #mediaDetailsDialogRef ></app-media-details-dialog>

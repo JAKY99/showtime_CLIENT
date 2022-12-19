@@ -8,8 +8,8 @@ import {MoviesPageComponent} from "./pages/movies-page/movies-page.component";
 import {TvPageComponent} from "./pages/tv-page/tv-page.component";
 import {SocialPageComponent} from "./pages/social-page/social-page.component";
 import {ProfilePageComponent} from "./pages/profile-page/profile-page.component";
-import {MovieDetailsPageComponent} from "./pages/movie-details-page/movie-details-page.component";
-import {TvDetailsPageComponent} from "./pages/tv-details-page/tv-details-page.component";
+import {MovieDetailComponent} from "./components/movie-details/movie-detail.component";
+import {TvDetailsComponent} from "./components/tv-details/tv-details.component";
 import{RegisterPageComponent} from "./pages/register-page/register-page.component";
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 import {MainSearchPageComponent} from "./pages/main-search-page/main-search-page.component";
@@ -47,16 +47,6 @@ const routes: Routes = [
   {
     path:'profile',
     component: ProfilePageComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path:'movie/:id',
-    component: MovieDetailsPageComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path:'tv/:id',
-    component: TvDetailsPageComponent,
     canActivate: [AuthGuard]
   },
   {

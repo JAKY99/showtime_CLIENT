@@ -41,7 +41,7 @@ import {MoviesPageComponent} from './pages/movies-page/movies-page.component';
 import {TvPageComponent} from './pages/tv-page/tv-page.component';
 import {SocialPageComponent} from './pages/social-page/social-page.component';
 import {ProfilePageComponent} from './pages/profile-page/profile-page.component';
-import {MovieDetailsPageComponent} from './pages/movie-details-page/movie-details-page.component';
+import {MovieDetailComponent} from './components/movie-details/movie-detail.component';
 import {ImageComponent} from './components/image/image.component';
 import {TagComponent} from './components/tag/tag.component';
 import {DescriptionComponent} from './components/description/description.component';
@@ -53,7 +53,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {TabViewModule} from "primeng/tabview";
 import {GoBackComponent} from './components/go-back/go-back.component';
 import {TabMenuModule} from "primeng/tabmenu";
-import {TvDetailsPageComponent} from './pages/tv-details-page/tv-details-page.component';
+import {TvDetailsComponent} from './components/tv-details/tv-details.component';
 import {DialogModule} from 'primeng/dialog';
 import {LazyImgDirective} from './lazy-img.directive';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
@@ -76,10 +76,11 @@ import {ProfileStatTimeComponent} from './components/profile-stat-time/profile-s
 import {ProfileStatNumberComponent} from './components/profile-stat-number/profile-stat-number.component';
 import {SearchTopDrawerComponent} from './components/search/search-top-drawer/search-top-drawer.component';
 import {MainSearchComponent} from './components/search/main-search/main-search.component';
-import { MainSearchPageComponent } from './pages/main-search-page/main-search-page.component';
-import { PosterListComponent } from './components/poster-list/poster-list.component';
-import { SortDrawerComponent } from './components/search/sort-drawer/sort-drawer.component';
+import {MainSearchPageComponent} from './pages/main-search-page/main-search-page.component';
+import {PosterListComponent} from './components/poster-list/poster-list.component';
+import {SortDrawerComponent} from './components/search/sort-drawer/sort-drawer.component';
 import {RadioButtonModule} from "primeng/radiobutton";
+import {MediaDetailsDialogComponent} from './components/media-details-dialog/media-details-dialog.component';
 
 @NgModule({
   declarations: [
@@ -103,14 +104,14 @@ import {RadioButtonModule} from "primeng/radiobutton";
     TvPageComponent,
     SocialPageComponent,
     ProfilePageComponent,
-    MovieDetailsPageComponent,
+    MovieDetailComponent,
     ImageComponent,
     TagComponent,
     DescriptionComponent,
     CarouselActorsListComponent,
     WatchProvidersComponent,
     GoBackComponent,
-    TvDetailsPageComponent,
+    TvDetailsComponent,
     LazyImgDirective,
     PosterImageComponent,
     ProfileAvatarComponent,
@@ -126,45 +127,46 @@ import {RadioButtonModule} from "primeng/radiobutton";
     MainSearchPageComponent,
     PosterListComponent,
     SortDrawerComponent,
+    MediaDetailsDialogComponent
   ],
-    imports: [
-        HttpClientModule,
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        SidebarModule,
-        ButtonModule,
-        MenubarModule,
-        InputTextModule,
-        CardModule,
-        FormsModule,
-        PasswordModule,
-        DividerModule,
-        ReactiveFormsModule,
-        ToastModule,
-        BlockUIModule,
-        AvatarModule,
-        BadgeModule,
-        SlideMenuModule,
-        RippleModule,
-        BreadcrumbModule,
-        TableModule,
-        MultiSelectModule,
-        CarouselModule,
-        SwiperModule,
-        SkeletonModule,
-        FontAwesomeModule,
-        ProgressSpinnerModule,
-        AutoCompleteModule,
-        DropdownModule,
-        TabViewModule,
-        TabMenuModule,
-        DialogModule,
-        LazyLoadImageModule,
-        AccordionModule,
-        ProgressBarModule,
-        RadioButtonModule
-    ],
+  imports: [
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    SidebarModule,
+    ButtonModule,
+    MenubarModule,
+    InputTextModule,
+    CardModule,
+    FormsModule,
+    PasswordModule,
+    DividerModule,
+    ReactiveFormsModule,
+    ToastModule,
+    BlockUIModule,
+    AvatarModule,
+    BadgeModule,
+    SlideMenuModule,
+    RippleModule,
+    BreadcrumbModule,
+    TableModule,
+    MultiSelectModule,
+    CarouselModule,
+    SwiperModule,
+    SkeletonModule,
+    FontAwesomeModule,
+    ProgressSpinnerModule,
+    AutoCompleteModule,
+    DropdownModule,
+    TabViewModule,
+    TabMenuModule,
+    DialogModule,
+    LazyLoadImageModule,
+    AccordionModule,
+    ProgressBarModule,
+    RadioButtonModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

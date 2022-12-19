@@ -25,6 +25,9 @@ export class WatchProvidersComponent implements OnInit {
   ) { }
 
   @Input() items: Array<WatchProvider> = [];
+  @Input() streamProviders: boolean = true;
+  @Input() rentProviders: boolean = true;
+  @Input() buyProviders: boolean = true;
   @Output() noData = new EventEmitter();
 
   swiperConfig: any = {
@@ -74,9 +77,9 @@ export class WatchProvidersComponent implements OnInit {
 
     this.selectedCountry = this.countries.find(x => x.iso2 === this.userGeoData.country_code2);
 
-    this.getWatchProviderRent();
-    this.getWatchProviderBuy();
-    this.getWatchProviderFlatrate();
+    if (this.rentProviders) this.getWatchProviderRent();
+    if (this.buyProviders) this.getWatchProviderBuy();
+    if (this.streamProviders) this.getWatchProviderFlatrate();
 
     if (!this.platformsStreamSub.length && !this.platformsRent.length && !this.platformsBuy.length) {
       this.noData.emit(true);

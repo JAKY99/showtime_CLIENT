@@ -1,10 +1,10 @@
 <div class="container">
   <img
-    *ngIf="lazyLoading"
+    *ngIf="lazyLoading && imagePath"
     [lazyLoad]="globalConstants.TMDB_IMAGE_BASE_URL + getImageSize() + imagePath"
     defaultImage="/assets/loading-bg.png"
   />
-  <img *ngIf="!lazyLoading" [src]="globalConstants.TMDB_IMAGE_BASE_URL + getImageSize() + imagePath" >
+  <img *ngIf="!lazyLoading && imagePath" [src]="globalConstants.TMDB_IMAGE_BASE_URL + getImageSize() + imagePath" >
   <fa-icon class="icon" *ngIf="icon" [icon]="icon"></fa-icon>
   <span class="title" *ngIf="!imagePath">{{imageTitle}}</span>
 </div>

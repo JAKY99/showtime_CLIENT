@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TvService} from "../../services/tv/tv.service";
 import {ActivatedRoute} from "@angular/router";
 import {TvDetails} from "../../models/tv/tv-details";
@@ -6,21 +6,23 @@ import {GlobalConstants} from "../../common/constants/global-constants";
 import {faBookmark, faStarHalfStroke, faChevronRight, faPlay} from "@fortawesome/free-solid-svg-icons";
 import {stringToDate} from "../../js/date-helper";
 import {TvEpisodeDetails} from "../../models/tv/tv-episode-details";
-import {CarouselImageListComponent} from "../../components/carousel-image-list/carousel-image-list.component";
+import {CarouselImageListComponent} from "../carousel-image-list/carousel-image-list.component";
 import {TvSimilar} from "../../models/tv/tv-similar";
 
 @Component({
-  selector: 'app-tv-details-page',
-  templateUrl: './tv-details-page.component.html',
-  styleUrls: ['./tv-details-page.component.scss'],
+  selector: 'app-tv-details',
+  templateUrl: './tv-details.component.html',
+  styleUrls: ['./tv-details.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 
-export class TvDetailsPageComponent implements OnInit {
+export class TvDetailsComponent implements OnInit {
 
   constructor( private tvService : TvService, private route : ActivatedRoute) { }
 
   @ViewChild('similarTvRef') similarTvChild : CarouselImageListComponent | undefined;
+
+  @Input() requestedTvId: number = 0;
 
   faBookmark = faBookmark;
   faStarHalfStroke = faStarHalfStroke;
@@ -54,7 +56,7 @@ export class TvDetailsPageComponent implements OnInit {
 
   async ngOnInit(): Promise <void> {
     // @ts-ignore
-    await this.tvService.fetchTvDetails(+this.route.snapshot.paramMap.get('id'),
+    await this.tvService.fetchTvDetails(this.requestedTvId,
       ['credits']).subscribe(
       (resp) => {
         console.log(resp)
@@ -68,7 +70,7 @@ export class TvDetailsPageComponent implements OnInit {
     // Changer le num de la série / episode display pour le faire correspondre
     // au dernier episode vu par le client
     // @ts-ignore
-    await this.tvService.fetchTvBySeasonAndEpisode(+this.route.snapshot.paramMap.get('id'),
+    await this.tvService.fetchTvBySeasonAndEpisode(this.requestedTvId,
       1, 2).subscribe(
       (resp) => {
         // console.log(resp);
@@ -79,7 +81,7 @@ export class TvDetailsPageComponent implements OnInit {
     );
 
     // @ts-ignore
-    await this.tvService.fetchWatchProviders(+this.route.snapshot.paramMap.get('id')).subscribe(
+    await this.tvService.fetchWatchProviders(this.requestedTvId).subscribe(
       (resp) => {
         this.watchProviders = resp.results;
         this.loading.watchProviders = false;
@@ -121,7 +123,7 @@ export class TvDetailsPageComponent implements OnInit {
     //tab: Similars
     if (e.index === 1){
       // @ts-ignore
-      await this.tvService.fetchSimilarTv(+this.route.snapshot.paramMap.get('id')).toPromise()
+      await this.tvService.fetchSimilarTv(this.requestedTvId).toPromise()
         .then((resp) => {
           this.similarTv = resp.results;
         });

@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TrendingService} from "../../services/trending/trending.service";
 import {MainSearchComponent} from "../../components/search/main-search/main-search.component";
+import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
 
 @Component({
   selector: 'app-main-search-page',
@@ -11,6 +12,7 @@ import {MainSearchComponent} from "../../components/search/main-search/main-sear
 export class MainSearchPageComponent implements OnInit {
 
   @ViewChild('mainSearchRef') mainSearchChild: MainSearchComponent | undefined;
+  @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild : MediaDetailsDialogComponent | undefined;
 
   mainSearchResults: [] = [];
   trendingResults: [] = [];
@@ -56,5 +58,9 @@ export class MainSearchPageComponent implements OnInit {
 
   manageLoading($event: any) {
     this.isLoading = $event
+  }
+
+  openDetailsDialog($event: any){
+    this.mediaDetailsDialogChild?.open($event)
   }
 }

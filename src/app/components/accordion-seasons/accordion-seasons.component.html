@@ -15,7 +15,7 @@
     </ng-template>
     <ng-template pTemplate="content">
       <ng-container *ngFor="let episode of season.episodes">
-        <app-episode-card *ngIf="todayDate > episode.air_date"
+        <app-episode-card
           [item]="episode">
         </app-episode-card>
       </ng-container>

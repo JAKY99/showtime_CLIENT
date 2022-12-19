@@ -1,5 +1,6 @@
 import {Component, Input, OnInit,ViewEncapsulation} from '@angular/core';
 import {TvEpisodeDetails} from "../../models/tv/tv-episode-details";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-episode-card',
@@ -15,8 +16,8 @@ export class EpisodeCardComponent implements OnInit {
   // @ts-ignore
   @Input() item : TvEpisodeDetails ;
 
-
   imageState: string = "setup";
+  todayDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
 
   ngOnInit(): void {
 
