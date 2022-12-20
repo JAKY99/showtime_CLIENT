@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8082'
+  apiUrl: 'http://localhost:8082',
+  webSocketUrl: 'http://localhost:8082/websocket',
+  // apiUrl: 'http://10.0.2.2:8082',
+  // webSocketUrl: 'http://10.0.2.2:8082/websocket',
+  env: 'local'
 };
 
 /*
