@@ -26,7 +26,7 @@ export class LoginFormComponent implements OnInit {
               private router: Router) {
     this.loginForm = new FormGroup({});
   }
-  
+
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
@@ -41,7 +41,7 @@ export class LoginFormComponent implements OnInit {
       ]),
       password: new FormControl('', Validators.required)
     });
-    
+
   }
 
   get email(){
@@ -57,6 +57,7 @@ export class LoginFormComponent implements OnInit {
         this.header = response.headers;
         // @ts-ignore
         this.tokenStorage.saveToken(this.header.get('Authorization'));
+
         this.router.navigate(['/home']).then();
         this.isLoading = false;
       })

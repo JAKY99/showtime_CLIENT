@@ -10,4 +10,6 @@ export class GlobalConstants {
   public static readonly TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
   public static readonly FLAG_ICON_BASE_URL = "https://countryflagsapi.com/png/";
+  public static readonly WEBSOCKET_URL = environment.webSocketUrl;
+  public static readonly ENV = environment.env;
 }
