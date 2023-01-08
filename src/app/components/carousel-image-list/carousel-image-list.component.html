@@ -6,7 +6,7 @@
         <app-poster-image [item]="item" (click)="goToContentDetails(item)"></app-poster-image>
       </ng-template>
     </swiper>
-  <div class="skeleton flex gap-1" *ngIf="isLoading">
+  <div class="skeleton flex gap-1" *ngIf="items.length==0">
     <p-skeleton width="153px" height="230px" ></p-skeleton>
     <p-skeleton width="153px" height="230px"></p-skeleton>
     <p-skeleton width="153px" height="230px"></p-skeleton>

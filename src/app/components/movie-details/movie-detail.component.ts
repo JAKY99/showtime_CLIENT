@@ -3,10 +3,18 @@ import {MovieService} from "../../services/movie/movie.service";
 import {ActivatedRoute} from "@angular/router";
 import {GlobalConstants} from "../../common/constants/global-constants";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
-import {faBookmark, faStarHalfStroke, faChevronRight, faPlay, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {
+  faBookmark,
+  faStarHalfStroke,
+  faChevronRight,
+  faPlay,
+  IconDefinition,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
 import {stringToDate} from "../../js/date-helper";
 import {MovieSimilar} from "../../models/movie/movie-similar";
 import {CarouselImageListComponent} from "../carousel-image-list/carousel-image-list.component";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-movie-details',
@@ -16,16 +24,18 @@ import {CarouselImageListComponent} from "../carousel-image-list/carousel-image-
 })
 export class MovieDetailComponent implements OnInit {
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute) { }
+  constructor(private movieService: MovieService, private route: ActivatedRoute, private messageService: MessageService,) { }
 
   @ViewChild('similarMoviesRef') similarMoviesChild : CarouselImageListComponent | undefined;
 
   @Input() requestedMovieId: number = 0;
-
+  faFavorites : IconDefinition = faStar;
   faBookmark: IconDefinition = faBookmark;
   faStarHalfStroke: IconDefinition = faStarHalfStroke;
   faChevronRight: IconDefinition = faChevronRight;
   faPlay: IconDefinition = faPlay;
+  isInWatchlist = false;
+  isInFavoritelist = false;
   viewedStatus: boolean = false;
   viewedDialogShown: boolean = false;
   viewedDialogPosition: string = "bottom";
@@ -40,8 +50,13 @@ export class MovieDetailComponent implements OnInit {
   similarMovies: MovieSimilar[] = [];
 
   userMovie = {
-    bookmark: [],
+    bookmark: {
+      checked: '',
+    },
     viewInfo: {
+      checked: '',
+    },
+    favorite: {
       checked: '',
     }
   }
@@ -80,7 +95,7 @@ export class MovieDetailComponent implements OnInit {
   }
 
   async fetchWatchedInfos(){
-    // @ts-ignore
+
     await this.movieService.fetchMovieWatchedStatus(this.requestedMovieId).subscribe(
       (resp) => {
         this.userMovie.viewInfo.checked=resp.body ? 'checked' : '';
@@ -89,6 +104,14 @@ export class MovieDetailComponent implements OnInit {
         this.loading.userViewInfo = false;
       }
     )
+    await this.movieService.isMovieInMovieToWatchlist(this.requestedMovieId,this.movie.title).subscribe((resp) => {
+      this.userMovie.bookmark.checked = resp ? 'checked' : '';
+      this.isInWatchlist = resp;
+    })
+    await this.movieService.isMovieInFavoritelist(this.requestedMovieId,this.movie.title).subscribe((resp) => {
+      this.userMovie.favorite.checked = resp ? 'checked' : '';
+      this.isInFavoritelist = resp;
+    })
 
   }
   getRateFormated(): number {
@@ -172,5 +195,55 @@ async showViewedDialog() {
         }
       )
     }
+  }
+  async toggleWatchlistMovie() {
+    await this.movieService.toggleWatchlistMovie(this.requestedMovieId,this.movie.title).subscribe((resp) => {
+      this.isInWatchlist = resp;
+      this.userMovie.bookmark.checked = resp ? 'checked' : '';
+      if (resp) {
+        this.addSingleToast(
+          'success',
+          'Movie added to watchlist',
+          'You can see your watchlist in the profile page',
+          false
+        )
+      }
+      if (!resp) {
+        this.addSingleToast(
+          'success',
+          'Movie removed to watchlist',
+          'You can see your watchlist in the profile page',
+          false
+        )
+      }
+    })
+
+  }
+  addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
+    this.messageService.add({severity:severity, summary:title, detail:details, sticky: sticky});
+  }
+
+  async toggleMovieInFavoritelist() {
+    await this.movieService.toggleMovieInFavoritelist(this.requestedMovieId,this.movie.title).subscribe((resp) => {
+      this.isInFavoritelist = resp;
+      this.userMovie.favorite.checked = resp ? 'checked' : '';
+      if (resp) {
+        this.addSingleToast(
+          'success',
+          'Movie added to favorite list',
+          'You can see your favorite list in the profile page',
+          false
+        )
+      }
+      if (!resp) {
+        this.addSingleToast(
+          'success',
+          'Movie removed to favorite list',
+          'You can see your favorite list in the profile page',
+          false
+        )
+      }
+    })
+
   }
 }

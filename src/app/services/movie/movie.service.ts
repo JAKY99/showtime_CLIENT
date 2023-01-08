@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {from, Observable} from "rxjs";
 import {GlobalConstants} from "../../common/constants/global-constants";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 import {TokenStorageService} from "../token-storage.service";
-
+import { concatMap } from 'rxjs/operators';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   observe: 'response'
@@ -64,8 +64,33 @@ export class MovieService {
     }
 
     return this.http.get<MovieDetailsModel>(url);
-  }
 
+  }
+  async generateUrlToFetch(movieIdList: number[], responseToAppend?: Array<string>): Promise<string[]>{
+    let urls = [];
+    for (let i = 0; i < movieIdList.length; i++) {
+      let movieId = movieIdList[i];
+      let url = GlobalConstants.TMDB_BASE_URL + "movie/" + movieId +
+        "?api_key=" + GlobalConstants.TMDB_KEY + "&language=en-US"
+
+      if (responseToAppend) {
+        url += "&append_to_response=";
+        responseToAppend.forEach((x, index) => {
+          url += x;
+          if (index != responseToAppend.length - 1) url += ','
+        })
+      }
+      urls.push(url);
+    }
+
+    return urls;
+  }
+  fetchGenerateUrlsArray(urls: Array<string>): Observable<MovieDetailsModel> {
+    const source = from(urls);
+    return source.pipe(
+      concatMap(url => this.http.get<MovieDetailsModel>(url))
+    )
+  }
   fetchWatchProviders(movieId: number): Observable<any>{
     let url = GlobalConstants.TMDB_BASE_URL + "movie/"+ movieId +
       "/watch/providers?api_key=" + GlobalConstants.TMDB_KEY;
@@ -113,5 +138,40 @@ export class MovieService {
       userMail: this.tokenStorage.getClientUsername()
     });
   }
+  isMovieInMovieToWatchlist(tmdbId: number,movieName : string|null): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isMovieInMovieToWatchlist`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbId,
+      movieName: movieName,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+  toggleWatchlistMovie(tmdbId: number,movieName : string|null): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/toggleMovieInMovieToWatchlist/`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbId,
+      movieName: movieName,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
 
+  toggleMovieInFavoritelist(requestedMovieId: number, title: string | null) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/toggleMovieInFavoritelist/`
+    return this.http.post<any>(url, {
+      tmdbId: requestedMovieId,
+      movieName: title,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+
+  }
+
+  isMovieInFavoritelist(requestedMovieId: number, title: string | null) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isMovieInFavoritelist/`
+    return this.http.post<any>(url, {
+      tmdbId: requestedMovieId,
+      movieName: title,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+
+  }
 }

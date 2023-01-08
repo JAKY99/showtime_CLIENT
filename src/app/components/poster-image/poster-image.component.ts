@@ -25,6 +25,7 @@ export class PosterImageComponent implements OnInit {
   imageState: string = "setup";
 
   ngOnInit(): void {
+
   }
 
   imageStateChange($event: string) {

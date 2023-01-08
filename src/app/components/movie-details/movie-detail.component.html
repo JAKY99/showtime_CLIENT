@@ -18,10 +18,12 @@
       </app-tag>
     </div>
     <div class="movie-actions-icon">
-      <div class="bookmark">
-        <fa-icon class="bookmark-icon st-icon st-icon-small" [icon]="faBookmark"></fa-icon>
-        <span *ngIf="userMovie.bookmark.length" class="badge">{{userMovie.bookmark.length}}</span>
+      <div (click)="toggleMovieInFavoritelist()" class="bookmark">
+        <fa-icon [class]="userMovie.favorite.checked" class="fa-icon st-icon st-icon-small" [icon]="faFavorites"></fa-icon>
       </div>
+      <i (click)="toggleWatchlistMovie()" class="bookmark">
+        <fa-icon [class]="userMovie.bookmark.checked" class="bookmark-icon st-icon st-icon-small" [icon]="faBookmark"></fa-icon>
+      </i>
       <i (click)="showViewedDialog()"
          [class]="userMovie.viewInfo.checked"
          *ngIf="!loading.userViewInfo"
@@ -185,5 +187,7 @@
         </div>
       </p-tabPanel>
     </p-tabView>
+    <p-toast position="bottom-center"></p-toast>
   </div>
 </div>
+

@@ -1,7 +1,11 @@
 <div class="app-profile-page h-full">
   <app-profile-top-section></app-profile-top-section>
   <app-profile-social-infos></app-profile-social-infos>
-  <app-profile-stats-carousel></app-profile-stats-carousel>
+  <app-profile-stats-carousel [numberSeriesWatched]=numberSeriesWatched
+                              [timeWatchedSeriesMonthDaysHours]=timeWatchedSeriesMonthDaysHours
+                              [numberMoviesWatched]=numberMoviesWatched
+                              [timeWatchedMovieMonthDaysHours]=timeWatchedMovieMonthDaysHours
+  ></app-profile-stats-carousel>
 
   <p-divider></p-divider>
 

@@ -82,6 +82,7 @@ import {SortDrawerComponent} from './components/search/sort-drawer/sort-drawer.c
 import {RadioButtonModule} from "primeng/radiobutton";
 import {MediaDetailsDialogComponent} from './components/media-details-dialog/media-details-dialog.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

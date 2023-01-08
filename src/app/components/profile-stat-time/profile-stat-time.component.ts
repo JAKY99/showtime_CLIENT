@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ProfileStatTimeComponent implements OnInit {
   @Input() title: string = "";
-  @Input() time: number = 0;
+  @Input() time: string = "0/0/0";
 
   monthTime: number = 0;
   daysTime: number = 0;
@@ -16,10 +16,29 @@ export class ProfileStatTimeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.splitTime();
   }
-
-  splitTime(){
-    //Here split time to 3 (month / days / hours) and put them into the 3 variables above
+  ngOnChanges() {
+    this.splitTime();
   }
+  splitTime() {
+    this.time.split("/").forEach((time, index) => {
 
+      // @ts-ignore
+      time = parseInt(time,10)
+      // console.log(time)
+      if (index === 0) {
+        // @ts-ignore
+        this.monthTime = time;
+      }
+      if (index === 1) {
+        // @ts-ignore
+        this.daysTime = time;
+      }
+      if (index === 2) {
+        // @ts-ignore
+        this.hoursTime= time;
+      }
+    })
+  }
 }
