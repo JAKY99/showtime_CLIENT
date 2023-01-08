@@ -20,7 +20,6 @@ export class ProfileStatsCarouselComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
   }
   ngOnChanges() {
     // console.log("changes")

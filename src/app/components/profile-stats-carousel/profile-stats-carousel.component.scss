@@ -4,9 +4,10 @@
 app-profile-stats-carousel .swiper-container{
   padding: 1rem 1.5rem;
   color: $white;
-  height: 22vh;
+  height: 9rem;
+  min-width: 25rem;
+  max-width: max-content;
 }
-
 app-profile-stats-carousel .swiper{
   overflow: unset;
 }

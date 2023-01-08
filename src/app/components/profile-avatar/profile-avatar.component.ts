@@ -10,7 +10,7 @@ import {TokenStorageService} from "../../services/token-storage.service";
 export class ProfileAvatarComponent implements OnInit {
 
   constructor(private ProfileService :  ProfileService, private MovieService : MovieService,private tokenStorage: TokenStorageService) { }
-  public avatarUrl : String = ""
+  public avatarUrl : String = "https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/art-g92118df33_1920.jpg"
   isLoading: boolean = true;
 
   ngOnInit(): void {

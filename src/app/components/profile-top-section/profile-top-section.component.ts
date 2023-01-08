@@ -28,7 +28,7 @@ export class ProfileTopSectionComponent implements OnInit {
   loadBackground=()=>{
     this.isLoading = true;
     this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
-      this.backgroundUrl ="";
+      this.backgroundUrl ="https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/781836.jpg";
       //@ts-ignore
       this.backgroundUrl = resp.body.backgroundPicture.length > 0 ? resp.body.backgroundPicture +"?"+  new Date().getTime() : "https://wallpaperaccess.com/full/781822.jpg";
       //@ts-ignore
