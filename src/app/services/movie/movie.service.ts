@@ -105,7 +105,7 @@ export class MovieService {
     return this.http.get<any>(url);
   }
 
-  fetchMovieWatchedStatus(tmdbId: number): Observable<any>{
+  fetchMovieWatchedStatus(tmdbId: number,movieName : string|null): Observable<any>{
     let url = `${GlobalConstants.API_URL}/api/v1/user/isMovieInWatchlist/`
     return this.http.post<any>(url, {
       tmdbId: tmdbId,
@@ -170,6 +170,30 @@ export class MovieService {
     return this.http.post<any>(url, {
       tmdbId: requestedMovieId,
       movieName: title,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+
+  }
+  lastWatchedMoviesRange(currentLength: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/lastWatchedMoviesRange/`
+    return this.http.post<any>(url, {
+      currentLength: currentLength,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+
+  }
+  favoritesMoviesRange(currentLength: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/favoritesMoviesRange/`
+    return this.http.post<any>(url, {
+      currentLength: currentLength,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+
+  }
+  watchlistMoviesRange(currentLength: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/watchlistMoviesRange/`
+    return this.http.post<any>(url, {
+      currentLength: currentLength,
       userMail: this.tokenStorage.getClientUsername()
     });
 

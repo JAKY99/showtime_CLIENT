@@ -15,21 +15,21 @@
         <div class="last-watched carousel-container">
           <div class="header-title">
             <h2 class="m-3 mb-3 text-white text-base">Last watched</h2>
-            <span class="see-all-btn">See all</span>
+            <span class="see-all-btn" (click)="openViewAllProfileList('lastWatchedSeries')" *ngIf="lastWatchedSeriesTotal>10">See all</span>
           </div>
           <app-carousel-image-list #lastWatchedSeriesRef [items]="lastWatchedSeries"></app-carousel-image-list>
         </div>
         <div class="favorites carousel-container">
           <div class="header-title">
             <h2 class="m-3 mb-3 text-white text-base">Favorites</h2>
-            <span class="see-all-btn">See all</span>
+            <span class="see-all-btn" (click)="openViewAllProfileList('favoritesSeries')" *ngIf="favoritesSeriesTotal>10">See all</span>
           </div>
           <app-carousel-image-list #favoritesSeriesRef [items]="favoritesSeries"></app-carousel-image-list>
         </div>
         <div class="watchlist carousel-container">
           <div class="header-title">
             <h2 class="m-3 mb-3 text-white text-base">Watchlist</h2>
-            <span class="see-all-btn">See all</span>
+            <span class="see-all-btn" (click)="openViewAllProfileList('watchlistSeries')" *ngIf="watchlistSeriesTotal>10">See all</span>
           </div>
           <app-carousel-image-list #watchlistSeriesRef [items]="watchlistSeries"></app-carousel-image-list>
         </div>
@@ -38,21 +38,21 @@
         <div class="last-watched carousel-container">
           <div class="header-title">
             <h2 class="m-3 mb-3 text-white text-base">Last watched</h2>
-            <span class="see-all-btn">See all</span>
+            <span class="see-all-btn" (click)="openViewAllProfileList('lastWatchedMovies')" *ngIf="lastWatchedMoviesTotal>10">See all</span>
           </div>
           <app-carousel-image-list #lastWatchedMoviesRef [items]="lastWatchedMovies"></app-carousel-image-list>
         </div>
         <div class="favorites carousel-container">
           <div class="header-title">
             <h2 class="m-3 mb-3 text-white text-base">Favorites</h2>
-            <span class="see-all-btn">See all</span>
+            <span class="see-all-btn" (click)="openViewAllProfileList('favoritesMovies')" *ngIf="favoritesMoviesTotal>10">See all</span>
           </div>
           <app-carousel-image-list #favoritesMoviesRef [items]="favoritesMovies"></app-carousel-image-list>
         </div>
         <div class="watchlist carousel-container">
           <div class="header-title">
             <h2 class="m-3 mb-3 text-white text-base">Watchlist</h2>
-            <span class="see-all-btn">See all</span>
+            <span class="see-all-btn" (click)="openViewAllProfileList('watchlistMovies')" *ngIf="watchlistMoviesTotal>10">See all</span>
           </div>
           <app-carousel-image-list #watchlistMoviesRef [items]="watchlistMovies"></app-carousel-image-list>
         </div>
@@ -60,3 +60,4 @@
     </p-tabView>
   </div>
 </div>
+<app-view-all-profile-list class="view-all-profile-list" [listData]="[]" #viewAllProfileListRef></app-view-all-profile-list>

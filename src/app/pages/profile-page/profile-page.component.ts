@@ -4,6 +4,7 @@ import {TvDetails} from "../../models/tv/tv-details";
 import {ProfileService} from "../../services/profile/profile.service";
 import {MovieService} from "../../services/movie/movie.service";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
+import {ViewAllProfileListComponent} from "../../components/view-all-profile-list/view-all-profile-list.component";
 
 @Component({
   selector: 'app-profile-page',
@@ -19,6 +20,7 @@ export class ProfilePageComponent implements OnInit {
   @ViewChild('lastWatchedMoviesRef') lastWatchedMoviesChild : CarouselImageListComponent | undefined;
   @ViewChild('favoritesMoviesRef') favoritesMoviesChild : CarouselImageListComponent | undefined;
   @ViewChild('watchlistMoviesRef') watchlistMoviesChild : CarouselImageListComponent | undefined;
+  @ViewChild("viewAllProfileListRef") viewAllProfileListChild : ViewAllProfileListComponent | undefined;
 
   lastWatchedSeries: TvDetails[] = [];
   favoritesSeries: TvDetails[] = [];
@@ -34,6 +36,31 @@ export class ProfilePageComponent implements OnInit {
 
   timeWatchedMovieMonthDaysHours : string = "0/0/0";
   timeWatchedSeriesMonthDaysHours : string = "0/0/0";
+  lastWatchedMoviesTotal: number = 0 ;
+  favoritesMoviesTotal: number = 0 ;
+  watchlistMoviesTotal: number = 0 ;
+  lastWatchedSeriesTotal: number = 0 ;
+  favoritesSeriesTotal: number = 0 ;
+  watchlistSeriesTotal: number = 0 ;
+
+  lastWatchedMoviesRangeServiceName: String = "MovieService" ;
+  favoritesMoviesRangeServiceName: String = "MovieService" ;
+  watchlistMoviesRangeServiceName: String = "MovieService" ;
+
+
+  lastWatchedSeriesRangeServiceName: String = "" ;
+  favoritesSeriesRangeServiceName: String = "" ;
+  watchlistSeriesRangeServiceName: String = "" ;
+
+
+  lastWatchedMoviesRangeMethodName: String = "lastWatchedMoviesRange" ;
+  favoritesMoviesRangeMethodName: String = "favoritesMoviesRange" ;
+  watchlistMoviesRangeMethodName: String = "watchlistMoviesRange" ;
+
+  lastWatchedSeriesRangeMethodName: String = "" ;
+  favoritesSeriesRangeMethodName: String = "" ;
+  watchlistSeriesRangeMethodName: String = "" ;
+
   constructor(private ProfileService :  ProfileService, private MovieService : MovieService) { }
 
   ngOnInit(): void {
@@ -59,6 +86,7 @@ export class ProfilePageComponent implements OnInit {
           this.numberSeriesWatched = resp.body.numberOfWatchedSeries;
           this.timeWatchedMovieMonthDaysHours = resp.body.totalTimeWatchedMovies;
           this.timeWatchedSeriesMonthDaysHours = resp.body.totalTimeWatchedSeries;
+
           this.fetchLastWatchedMovies();
         }, 100)
       })
@@ -112,12 +140,23 @@ export class ProfilePageComponent implements OnInit {
           this.watchlistMovies.push(resp);
           console.log(resp)
         });
+        // @ts-ignore
+        this.lastWatchedMoviesTotal = resp.totalWatchedMovies;
+        // @ts-ignore
+        this.favoritesMoviesTotal = resp.totalFavoritesMovies;
+        // @ts-ignore
+        this.watchlistMoviesTotal = resp.totalWatchlistMovies;
       })
 
 
     }catch (e) {
       console.log(e)
     }
+  }
+
+  public openViewAllProfileList(type : string) {
+      // @ts-ignore
+      this.viewAllProfileListChild?.open(this[type],this[type+"Total"],this[type+"RangeServiceName"],this[type+"RangeMethodName"]);
   }
 
 }

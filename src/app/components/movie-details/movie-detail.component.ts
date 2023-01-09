@@ -15,6 +15,7 @@ import {stringToDate} from "../../js/date-helper";
 import {MovieSimilar} from "../../models/movie/movie-similar";
 import {CarouselImageListComponent} from "../carousel-image-list/carousel-image-list.component";
 import {MessageService} from "primeng/api";
+import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
 
 @Component({
   selector: 'app-movie-details',
@@ -29,7 +30,7 @@ export class MovieDetailComponent implements OnInit {
   @ViewChild('similarMoviesRef') similarMoviesChild : CarouselImageListComponent | undefined;
 
   @Input() requestedMovieId: number = 0;
-  faFavorites : IconDefinition = faStar;
+  faFavorites : IconDefinition = faHeart;
   faBookmark: IconDefinition = faBookmark;
   faStarHalfStroke: IconDefinition = faStarHalfStroke;
   faChevronRight: IconDefinition = faChevronRight;
@@ -96,7 +97,7 @@ export class MovieDetailComponent implements OnInit {
 
   async fetchWatchedInfos(){
 
-    await this.movieService.fetchMovieWatchedStatus(this.requestedMovieId).subscribe(
+    await this.movieService.fetchMovieWatchedStatus(this.requestedMovieId,this.movie.title).subscribe(
       (resp) => {
         this.userMovie.viewInfo.checked=resp.body ? 'checked' : '';
         this.viewedStatus = resp.body;
@@ -244,6 +245,5 @@ async showViewedDialog() {
         )
       }
     })
-
   }
 }
