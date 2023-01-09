@@ -81,6 +81,8 @@ import {PosterListComponent} from './components/poster-list/poster-list.componen
 import {SortDrawerComponent} from './components/search/sort-drawer/sort-drawer.component';
 import {RadioButtonModule} from "primeng/radiobutton";
 import {MediaDetailsDialogComponent} from './components/media-details-dialog/media-details-dialog.component';
+import { ViewAllProfileListComponent } from './components/view-all-profile-list/view-all-profile-list.component';
+
 
 @NgModule({
   declarations: [
@@ -127,7 +129,8 @@ import {MediaDetailsDialogComponent} from './components/media-details-dialog/med
     MainSearchPageComponent,
     PosterListComponent,
     SortDrawerComponent,
-    MediaDetailsDialogComponent
+    MediaDetailsDialogComponent,
+    ViewAllProfileListComponent
   ],
   imports: [
     HttpClientModule,

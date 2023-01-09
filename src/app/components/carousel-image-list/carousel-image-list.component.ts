@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {GlobalConstants} from "../../common/constants/global-constants";
 
 import SwiperCore, { FreeMode, Navigation, Lazy } from "swiper";

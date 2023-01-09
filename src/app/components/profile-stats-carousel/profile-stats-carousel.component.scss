@@ -4,9 +4,12 @@
 app-profile-stats-carousel .swiper-container{
   padding: 1rem 1.5rem;
   color: $white;
-  height: 22vh;
+  height: 9rem;
 }
-
+app-profile-stats-carousel .swiper-wrapper:nth-child(1){
+  height: 7rem!important;
+  min-width: 25rem!important;
+}
 app-profile-stats-carousel .swiper{
   overflow: unset;
 }

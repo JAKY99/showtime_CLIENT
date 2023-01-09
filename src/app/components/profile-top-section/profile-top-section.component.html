@@ -1,11 +1,12 @@
 <div>
   <div class="top-banner-section">
     <div class="user-profile-background">
-      <img src="https://wallpaperaccess.com/full/781822.jpg">
+      <img [src]="backgroundUrl" (click)="openFileDialog()" >
     </div>
     <app-profile-avatar class="app-profile-avatar"></app-profile-avatar>
+    <input id="background-upload-input" (focusout)="loadBackground()"  (change)="onFileChange($event)" type="file" #fileInput accept="image/*" style="display: none">
   </div>
   <div class="user-basic-infos">
-    <h2>Kevin Pognon</h2>
+    <h2>{{fullName}}</h2>
   </div>
 </div>

@@ -19,6 +19,9 @@ $font-medium: 1.3rem;
 $font-big: 1.5rem;
 $font-big-2: 1.8rem;
 
+$profileContainerWidth: 13.5rem;
+$profileContainerHeight: 6.5rem;
+
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
   html {
     transform: rotate(-90deg);
