@@ -22,8 +22,9 @@ export class ProfileTopSectionComponent implements OnInit {
     // @ts-ignore
     document.getElementById('background-upload-input').click();
     // @ts-ignore
-    let upload = await window['Android']?.updateVariable(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),"/api/v1/user/uploadBackgroundPicture")
-     console.log(upload)
+    window['Android'].updateVariable(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),"/api/v1/user/uploadBackgroundPicture")
+     // @ts-ignore
+     console.log(window['Android'])
   }
   loadBackground=()=>{
     this.isLoading = true;
