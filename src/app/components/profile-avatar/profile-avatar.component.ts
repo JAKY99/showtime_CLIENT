@@ -56,6 +56,10 @@ export class ProfileAvatarComponent implements OnInit {
   }
 
   onFileChangeAndroid=()=>{
-    this.loadAvatar()
+    this.isLoading=true
+    setTimeout(()=>{
+      this.loadAvatar()
+    },2000)
+
   }
 }
