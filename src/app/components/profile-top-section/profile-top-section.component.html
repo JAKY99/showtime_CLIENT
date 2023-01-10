@@ -1,7 +1,7 @@
 <div>
   <div class="top-banner-section">
     <div class="user-profile-background">
-      <img [src]="backgroundUrl" (click)="openFileDialog()" >
+      <img [src]="backgroundUrl" (press)="openFileDialog()"  (click)="openFileDialog()" >
     </div>
     <app-profile-avatar class="app-profile-avatar"></app-profile-avatar>
     <input id="background-upload-input" (focusout)="loadBackground()"  (change)="onFileChange($event)" type="file" #fileInput accept="image/*" style="display: none">

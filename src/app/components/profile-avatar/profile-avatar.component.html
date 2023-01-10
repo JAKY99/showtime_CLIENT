@@ -1,5 +1,5 @@
 <div class="profile-avatar">
-  <img *ngIf="!isLoading" [src]="avatarUrl"  (click)="openFileDialog()" >
+  <img *ngIf="!isLoading" [src]="avatarUrl" (press)="openFileDialog()" (click)="openFileDialog()" >
   <input id="avatar-upload-input" (focusout)="loadAvatar()"  (change)="onFileChange($event)" type="file" #fileInput accept="image/*" style="display: none">
   <div *ngIf="isLoading" class="avatar-style">
     <p-progressSpinner></p-progressSpinner>
