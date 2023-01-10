@@ -54,5 +54,8 @@ export class ProfileTopSectionComponent implements OnInit {
     }
 
   }
-
+  onFileChangeAndroid=()=>{
+    // @ts-ignore
+    this.loadBackground();
+  }
 }
