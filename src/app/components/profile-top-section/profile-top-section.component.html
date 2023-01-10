@@ -5,6 +5,7 @@
     </div>
     <app-profile-avatar class="app-profile-avatar"></app-profile-avatar>
     <input id="background-upload-input" (focusout)="loadBackground()"  (change)="onFileChange($event)" type="file" #fileInput accept="image/*" style="display: none">
+    <input id="background-upload-input-android" (focusout)="loadBackground()"  (change)="onFileChange($event)" type="text"  style="display: none">
   </div>
   <div class="user-basic-infos">
     <h2>{{fullName}}</h2>
