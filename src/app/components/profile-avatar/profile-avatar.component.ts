@@ -29,12 +29,21 @@ export class ProfileAvatarComponent implements OnInit {
      //@ts-ignore
      console.log(resp.body);
      //@ts-ignore
-     this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture+"?"+  new Date().getTime() : "";
+     this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture : "";
      //@ts-ignore
      this.isLoading = false
    });
  }
-
+  reLoadAvatar=()=>{
+    this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
+      //@ts-ignore
+      console.log(resp.body);
+      //@ts-ignore
+      this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture+"?"+  new Date().getTime() : "";
+      //@ts-ignore
+      this.isLoading = false
+    });
+  }
   onFileChange(event : any) {
     try {
       this.isLoading = true;
@@ -50,7 +59,7 @@ export class ProfileAvatarComponent implements OnInit {
     } catch (e) {
       console.log(e);
       this.isLoading = false
-      this.loadAvatar();
+      this.reLoadAvatar();
     }
 
   }
