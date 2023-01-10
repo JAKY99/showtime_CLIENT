@@ -20,9 +20,9 @@ export class ProfileAvatarComponent implements OnInit {
     // @ts-ignore
     document.getElementById('avatar-upload-input').click();
     //@ts-ignore
-    let upload =  window['Android']?.updateVariable(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),"/api/v1/user/uploadProfilePicture")
+    window['Android'].updateVariable(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),"/api/v1/user/uploadProfilePicture")
     //@ts-ignore
-    console.log(upload)
+    console.log(window['Android'])
  }
  loadAvatar=()=>{
    this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
