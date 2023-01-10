@@ -12,7 +12,7 @@ export class ProfileAvatarComponent implements OnInit {
   constructor(private ProfileService :  ProfileService, private MovieService : MovieService,private tokenStorage: TokenStorageService) { }
   public avatarUrl : String = "https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/art-g92118df33_1920.jpg"
   isLoading: boolean = true;
-
+  avatarOriginUrl : String = ""
   ngOnInit(): void {
     this.loadAvatar();
   }
@@ -29,10 +29,12 @@ export class ProfileAvatarComponent implements OnInit {
      //@ts-ignore
      console.log(resp.body);
      //@ts-ignore
-     this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture : "";
+     this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture+"?"+  new Date().getTime() : "";
+     //@ts-ignore
      this.isLoading = false
    });
  }
+
   onFileChange(event : any) {
     try {
       this.isLoading = true;
@@ -51,5 +53,9 @@ export class ProfileAvatarComponent implements OnInit {
       this.loadAvatar();
     }
 
+  }
+
+  onFileChangeAndroid=()=>{
+    this.loadAvatar()
   }
 }
