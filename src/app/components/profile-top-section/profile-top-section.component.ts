@@ -55,7 +55,10 @@ export class ProfileTopSectionComponent implements OnInit {
 
   }
   onFileChangeAndroid=()=>{
-    // @ts-ignore
-    this.loadBackground();
+    this.isLoading = true
+    setTimeout(()=>{
+      this.loadBackground();
+    },2000)
+
   }
 }
