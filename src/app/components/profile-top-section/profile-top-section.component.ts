@@ -31,6 +31,16 @@ export class ProfileTopSectionComponent implements OnInit {
     this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
       this.backgroundUrl ="https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/781836.jpg";
       //@ts-ignore
+      this.backgroundUrl = resp.body.backgroundPicture.length > 0 ? resp.body.backgroundPicture : "https://wallpaperaccess.com/full/781822.jpg";
+      //@ts-ignore
+      this.fullName = resp.body.fullName;
+    });
+  }
+  reLoadBackground=()=>{
+    this.isLoading = true;
+    this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
+      this.backgroundUrl ="https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/781836.jpg";
+      //@ts-ignore
       this.backgroundUrl = resp.body.backgroundPicture.length > 0 ? resp.body.backgroundPicture +"?"+  new Date().getTime() : "https://wallpaperaccess.com/full/781822.jpg";
       //@ts-ignore
       this.fullName = resp.body.fullName;
@@ -58,7 +68,7 @@ export class ProfileTopSectionComponent implements OnInit {
   onFileChangeAndroid=()=>{
     this.isLoading = true
     setTimeout(()=>{
-      this.loadBackground();
+      this.reLoadBackground();
     },2000)
 
   }
