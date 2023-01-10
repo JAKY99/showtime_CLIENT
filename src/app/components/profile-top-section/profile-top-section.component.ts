@@ -17,13 +17,13 @@ export class ProfileTopSectionComponent implements OnInit {
   ngOnInit(): void {
     this.loadBackground();
   }
-  openFileDialog=()=>{
-    // @ts-ignore
-    document.getElementById('background-upload-input').value="";
+   openFileDialog=async()=>{
+
     // @ts-ignore
     document.getElementById('background-upload-input').click();
-
-
+    // @ts-ignore
+    let upload = await window['Android']?.updateVariable(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),"/api/v1/user/uploadBackgroundPicture")
+     console.log(upload)
   }
   loadBackground=()=>{
     this.isLoading = true;

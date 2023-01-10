@@ -16,9 +16,13 @@ export class ProfileAvatarComponent implements OnInit {
   ngOnInit(): void {
     this.loadAvatar();
   }
-  openFileDialog=()=>{
+  openFileDialog=async ()=>{
     // @ts-ignore
     document.getElementById('avatar-upload-input').click();
+    //@ts-ignore
+    let upload =  window['Android']?.updateVariable(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),"/api/v1/user/uploadProfilePicture")
+    //@ts-ignore
+    console.log(upload)
  }
  loadAvatar=()=>{
    this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
