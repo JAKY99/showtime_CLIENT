@@ -27,7 +27,7 @@ export class ProfileAvatarComponent implements OnInit {
  loadAvatar=()=>{
    this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
        //@ts-ignore
-       this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture : "https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/art-g92118df33_1920.jpg";
+       this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture : "https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/revamped_showtime_icon.png";
      //@ts-ignore
      this.isLoading = false
    });
