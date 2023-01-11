@@ -28,13 +28,21 @@ export class ProfileAvatarComponent implements OnInit {
    this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
      //@ts-ignore
      console.log(resp.body);
-     //@ts-ignore
-     this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture : "";
+     if(localStorage.getItem("avatarUrl") == null){
+       //@ts-ignore
+       this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture : "";
+     }
+     if(localStorage.getItem("avatarUrl") != null){
+       //@ts-ignore
+       this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture+"?"+  new Date().getTime() : "";
+       localStorage.removeItem("avatarUrl")
+     }
      //@ts-ignore
      this.isLoading = false
    });
  }
   reLoadAvatar=()=>{
+    localStorage.setItem("avatarUrl",this.avatarUrl+"?"+  new Date().getTime());
     this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
       //@ts-ignore
       console.log(resp.body);

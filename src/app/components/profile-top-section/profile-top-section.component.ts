@@ -30,13 +30,22 @@ export class ProfileTopSectionComponent implements OnInit {
     this.isLoading = true;
     this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
       this.backgroundUrl ="https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/781836.jpg";
-      //@ts-ignore
-      this.backgroundUrl = resp.body.backgroundPicture.length > 0 ? resp.body.backgroundPicture : "https://wallpaperaccess.com/full/781822.jpg";
+      if(localStorage.getItem("backgroundUrl") == null){
+        //@ts-ignore
+        this.backgroundUrl = resp.body.backgroundPicture.length > 0 ? resp.body.backgroundPicture : "https://wallpaperaccess.com/full/781822.jpg";
+      }
+      if(localStorage.getItem("backgroundUrl") != null){
+        //@ts-ignore
+        this.backgroundUrl = resp.body.backgroundPicture.length > 0 ? resp.body.backgroundPicture +"?"+  new Date().getTime(): "https://wallpaperaccess.com/full/781822.jpg";
+        localStorage.removeItem("backgroundUrl")
+      }
+
       //@ts-ignore
       this.fullName = resp.body.fullName;
     });
   }
   reLoadBackground=()=>{
+    localStorage.setItem("backgroundUrl",this.backgroundUrl+"?"+  new Date().getTime());
     this.isLoading = true;
     this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
       this.backgroundUrl ="https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/781836.jpg";
