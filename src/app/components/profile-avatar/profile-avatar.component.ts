@@ -20,7 +20,7 @@ export class ProfileAvatarComponent implements OnInit {
     // @ts-ignore
     document.getElementById('avatar-upload-input').click();
     //@ts-ignore
-    window['Android'].updateVariable(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),"/api/v1/user/uploadProfilePicture")
+    window['Android']?.updateVariable(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),"/api/v1/user/uploadProfilePicture")
     //@ts-ignore
     console.log(window['Android'])
  }
