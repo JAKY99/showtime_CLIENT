@@ -10,7 +10,7 @@ import {TokenStorageService} from "../../services/token-storage.service";
 export class ProfileAvatarComponent implements OnInit {
 
   constructor(private ProfileService :  ProfileService, private MovieService : MovieService,private tokenStorage: TokenStorageService) { }
-  public avatarUrl : String = "https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/art-g92118df33_1920.jpg"
+  public avatarUrl : String = ""
   isLoading: boolean = true;
   avatarOriginUrl : String = ""
   ngOnInit(): void {
@@ -26,32 +26,12 @@ export class ProfileAvatarComponent implements OnInit {
  }
  loadAvatar=()=>{
    this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
-     //@ts-ignore
-     console.log(resp.body);
-     if(localStorage.getItem("avatarUrl") == null){
        //@ts-ignore
-       this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture : "";
-     }
-     if(localStorage.getItem("avatarUrl") != null){
-       //@ts-ignore
-       this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture+"?"+  new Date().getTime() : "";
-       localStorage.removeItem("avatarUrl")
-     }
+       this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture : "https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/art-g92118df33_1920.jpg";
      //@ts-ignore
      this.isLoading = false
    });
  }
-  reLoadAvatar=()=>{
-    localStorage.setItem("avatarUrl",this.avatarUrl+"?"+  new Date().getTime());
-    this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
-      //@ts-ignore
-      console.log(resp.body);
-      //@ts-ignore
-      this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture+"?"+  new Date().getTime() : "";
-      //@ts-ignore
-      this.isLoading = false
-    });
-  }
   onFileChange(event : any) {
     try {
       this.isLoading = true;
@@ -61,13 +41,12 @@ export class ProfileAvatarComponent implements OnInit {
       formData.append('email', this.tokenStorage.getClientUsername());
       this.ProfileService.uploadAvatar(formData).subscribe((resp) => {
         // @ts-ignore
-        this.avatarUrl = resp.newPictureUrl+"?"+  new Date().getTime();
-        this.isLoading = false
+        this.loadAvatar()
       })
     } catch (e) {
       console.log(e);
       this.isLoading = false
-      this.reLoadAvatar();
+      this.loadAvatar();
     }
 
   }
@@ -75,7 +54,7 @@ export class ProfileAvatarComponent implements OnInit {
   onFileChangeAndroid=()=>{
     this.isLoading=true
     setTimeout(()=>{
-      this.reLoadAvatar()
+      this.loadAvatar()
     },2000)
 
   }
