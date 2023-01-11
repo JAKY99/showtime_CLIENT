@@ -67,7 +67,7 @@ export class ProfileAvatarComponent implements OnInit {
   onFileChangeAndroid=()=>{
     this.isLoading=true
     setTimeout(()=>{
-      this.loadAvatar()
+      this.reLoadAvatar()
     },2000)
 
   }
