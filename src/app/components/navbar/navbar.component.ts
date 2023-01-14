@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MenuItem} from "primeng/api";
 import { faClapperboard,faCompass,faTv, faUsers, faUser } from '@fortawesome/free-solid-svg-icons';
 import {Router} from "@angular/router";
+import {faMicrophone} from "@fortawesome/free-solid-svg-icons/faMicrophone";
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,8 @@ export class NavbarComponent implements OnInit {
   faTv = faTv;
   faUsers = faUsers;
   faUser = faUser;
+
+  faVocal = faMicrophone
 
   items: MenuItem[] = [];
 
@@ -38,4 +41,13 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl(url).then();
   }
 
+  toggleVocalSearch() {
+    document.getElementById('navbar-vocal-btn')?.classList.toggle('navbar-vocal-btn-pulse');
+    // @ts-ignore
+    window['Android']?.toggleVocalSearch();
+  }
+
+  checkAndroid() {
+    return localStorage.getItem('isAndroid') === 'true';
+  }
 }
