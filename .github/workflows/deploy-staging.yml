@@ -7,7 +7,19 @@ on:
         required: true
         default: 'latest'
 jobs:
+  sonarqube-test:
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   staging-deploy:
+    needs: sonarqube-test
     environment: staging
     runs-on: self-hosted
     container:
