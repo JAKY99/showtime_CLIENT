@@ -59,7 +59,8 @@ export class TvDetailsComponent implements OnInit {
     await this.tvService.fetchTvDetails(this.requestedTvId,
       ['credits']).subscribe(
       (resp) => {
-        console.log(resp)
+        //@ts-ignore
+        resp = JSON.parse(resp.data);
         setTimeout(()=> {
           this.tv = resp;
           this.loading.tv = false;
@@ -73,7 +74,7 @@ export class TvDetailsComponent implements OnInit {
     await this.tvService.fetchTvBySeasonAndEpisode(this.requestedTvId,
       1, 2).subscribe(
       (resp) => {
-        // console.log(resp);
+        resp = JSON.parse(resp.data);
         setTimeout(() => {
           this.lastEpisode = resp;
         }, 100);
@@ -83,6 +84,7 @@ export class TvDetailsComponent implements OnInit {
     // @ts-ignore
     await this.tvService.fetchWatchProviders(this.requestedTvId).subscribe(
       (resp) => {
+        resp = JSON.parse(resp.data);
         this.watchProviders = resp.results;
         this.loading.watchProviders = false;
       }
@@ -125,6 +127,7 @@ export class TvDetailsComponent implements OnInit {
       // @ts-ignore
       await this.tvService.fetchSimilarTv(this.requestedTvId).toPromise()
         .then((resp) => {
+          resp = JSON.parse(resp.data);
           this.similarTv = resp.results;
         });
       // @ts-ignore

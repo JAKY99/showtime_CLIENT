@@ -17,7 +17,6 @@ export class LoginPageComponent implements OnInit {
     this.ref.detectChanges();
   }
   public changeFormType(): void {
-    console.log(this.formType);
     this.formType =this.formType==="login" ? "reset" : "login";
   }
 

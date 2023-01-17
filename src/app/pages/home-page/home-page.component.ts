@@ -13,7 +13,8 @@ import {TvDetails} from "../../models/tv/tv-details";
 import {faEllipsisVertical, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
-
+import {RedisService} from "../../services/redis/redis.service";
+import {GlobalConstants} from "../../common/constants/global-constants";
 
 @Component({
   selector: 'app-home-page',
@@ -63,37 +64,42 @@ export class HomePageComponent implements OnInit {
       .then(resp => {
         this.userLocationData = resp;
       })
-    this.trendingService.fetchAllTrendings().toPromise().then(resp => {
+    this.trendingService.fetchAllTrendings().subscribe(resp => {
+      resp = JSON.parse(resp.data);
       this.trendingsList = resp.results;
       // @ts-ignore
       this.trendingsChild?.isLoading = false;
     });
-    this.movieService.fetchInTheaters(this.userLocationData.country_code2).toPromise()
-      .then(resp => {
+    this.movieService.fetchInTheaters(this.userLocationData.country_code2).subscribe(resp => {
+        resp = JSON.parse(resp.data);
         this.moviesInTheaters = resp.results;
         // @ts-ignore
         this.moviesInTheatersChild?.isLoading = false;
       })
     this.movieService.fetchTopRated().toPromise()
       .then(resp => {
+        resp = JSON.parse(resp.data);
         this.topRatedMovies = resp.results;
         // @ts-ignore
         this.topRatedChild?.isLoading = false;
       })
     this.movieService.fetchUpcoming().toPromise()
       .then(resp => {
+        resp = JSON.parse(resp.data);
         this.upComingMovies = resp.results;
         // @ts-ignore
         this.upComingChild?.isLoading = false;
       })
     this.tvService.fetchTopRated().toPromise()
       .then(resp => {
+        resp = JSON.parse(resp.data);
         this.topRatedTv = resp.results;
         // @ts-ignore
         this.topRatedTvChild?.isLoading = false;
       })
     this.tvService.fetchPopular().toPromise()
       .then(resp => {
+        resp = JSON.parse(resp.data);
         this.popularTv = resp.results;
         // @ts-ignore
         this.popularTvChild?.isLoading = false;

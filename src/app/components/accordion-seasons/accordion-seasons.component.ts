@@ -42,8 +42,8 @@ export class AccordionSeasonsComponent implements OnInit {
       // @ts-ignore
       await this.tvService.fetchTvBySeason(this.tvId,i+1).subscribe(
         (resp) => {
-          console.log(resp)
           setTimeout(()=> {
+            resp = JSON.parse(resp.data);
             this.tvSeasonDetails = resp;
             this.allSeasons.push(this.tvSeasonDetails);
 

@@ -138,7 +138,7 @@ export class ProfilePageComponent implements OnInit {
 
         await this.MovieService.fetchGenerateUrlsArray(urlsToUseForWatchlistMovies).subscribe((resp) => {
           this.watchlistMovies.push(resp);
-          console.log(resp)
+          // console.log(resp)
         });
         // @ts-ignore
         this.lastWatchedMoviesTotal = resp.totalWatchedMovies;

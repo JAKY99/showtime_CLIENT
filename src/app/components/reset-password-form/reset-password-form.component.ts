@@ -45,14 +45,13 @@ export class ResetPasswordFormComponent implements OnInit {
   get email(){
     return this.resetForm.get('email')?.value;
   }
-  
+
   submitReset(): void {
     this.isLoading = true;
     this.authService.reset(this.email).toPromise()
       .then(response => {
         this.header = response.headers;
         // @ts-ignore
-        console.log(response);
         this.isLoading = false;
         switch (parseInt(response.body)) {
           case 403:
@@ -82,9 +81,9 @@ export class ResetPasswordFormComponent implements OnInit {
         }
       })
       .catch(err => {
-        
-        
-        
+
+
+
         this.isLoading = false;
       });
   }
