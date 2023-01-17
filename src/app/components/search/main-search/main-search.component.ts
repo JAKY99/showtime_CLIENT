@@ -58,6 +58,6 @@ export class MainSearchComponent implements OnInit {
   }
 
   applySort($event: any){
-    console.log($event)
+    // console.log($event)
   }
 }

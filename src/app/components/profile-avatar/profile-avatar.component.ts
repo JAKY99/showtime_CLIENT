@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProfileService} from "../../services/profile/profile.service";
 import {MovieService} from "../../services/movie/movie.service";
 import {TokenStorageService} from "../../services/token-storage.service";
+import {RedisService} from "../../services/redis/redis.service";
 @Component({
   selector: 'app-profile-avatar',
   templateUrl: './profile-avatar.component.html',
@@ -9,25 +10,26 @@ import {TokenStorageService} from "../../services/token-storage.service";
 })
 export class ProfileAvatarComponent implements OnInit {
 
-  constructor(private ProfileService :  ProfileService, private MovieService : MovieService,private tokenStorage: TokenStorageService) { }
-  public avatarUrl : String = ""
+  constructor(private ProfileService :  ProfileService, private MovieService : MovieService,private tokenStorage: TokenStorageService,private RedisService: RedisService) { }
+  public avatarUrl : string = ""
   isLoading: boolean = true;
-  avatarOriginUrl : String = ""
+  avatarOriginUrl : string = ""
   ngOnInit(): void {
     this.loadAvatar();
+
   }
   openFileDialog=async ()=>{
     // @ts-ignore
     document.getElementById('avatar-upload-input').click();
     //@ts-ignore
     window['Android']?.updateVariable(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),"/api/v1/user/uploadProfilePicture")
-    //@ts-ignore
-    console.log(window['Android'])
+
  }
  loadAvatar=()=>{
    this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
        //@ts-ignore
        this.avatarUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture : "https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/revamped_showtime_icon.png";
+
      //@ts-ignore
      this.isLoading = false
    });

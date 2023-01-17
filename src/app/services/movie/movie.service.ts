@@ -5,6 +5,7 @@ import {GlobalConstants} from "../../common/constants/global-constants";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 import {TokenStorageService} from "../token-storage.service";
 import { concatMap } from 'rxjs/operators';
+import {RedisService} from "../../services/redis/redis.service";
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   observe: 'response'
@@ -16,14 +17,15 @@ const httpOptions = {
 
 export class MovieService {
 
-  constructor(private http: HttpClient, private tokenStorage: TokenStorageService){}
+  constructor(private http: HttpClient, private tokenStorage: TokenStorageService,private RedisService: RedisService){}
 
   fetchInTheaters(countryIso: string): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL +
       "movie/now_playing?api_key=" +
       GlobalConstants.TMDB_KEY +
       "&language=en-US&page=1&region=" + countryIso;
-    return this.http.get<any>(url);
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.http.get<any>(url);
   }
 
   fetchNewMovies(): Observable<any> {
@@ -39,7 +41,8 @@ export class MovieService {
       "movie/top_rated?api_key=" +
       GlobalConstants.TMDB_KEY +
       "&language=en-US&page=1";
-    return this.http.get<any>(url);
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.http.get<any>(url);
   }
 
   fetchUpcoming(): Observable<any> {
@@ -47,7 +50,8 @@ export class MovieService {
       "movie/upcoming?api_key=" +
       GlobalConstants.TMDB_KEY +
       "&language=en-US&page=1";
-    return this.http.get<any>(url);
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.http.get<any>(url);
   }
 
   fetchMovieDetails(movieId: number, responseToAppend?: Array<string>): Observable<MovieDetailsModel>{
@@ -62,8 +66,8 @@ export class MovieService {
         if (index != responseToAppend.length -1) url += ','
       })
     }
-
-    return this.http.get<MovieDetailsModel>(url);
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.http.get<MovieDetailsModel>(url);
 
   }
   async generateUrlToFetch(movieIdList: number[], responseToAppend?: Array<string>): Promise<string[]>{

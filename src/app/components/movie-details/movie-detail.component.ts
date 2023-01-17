@@ -75,6 +75,8 @@ export class MovieDetailComponent implements OnInit {
     await this.movieService.fetchMovieDetails(this.requestedMovieId,
       ['credits', 'videos', 'images']).subscribe(
       (resp) => {
+        // @ts-ignore
+        resp = JSON.parse(resp.data);
         setTimeout(()=> {
           this.movie = resp;
           this.loading.movie = false;

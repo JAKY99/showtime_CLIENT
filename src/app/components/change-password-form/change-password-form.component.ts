@@ -33,7 +33,7 @@ export class ChangePasswordFormComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.router.navigate(['/home']).then(r => r);
-      
+
     }
     this.token = this.route.snapshot.params['token'];
     this.checkToken(this.token);
@@ -98,15 +98,14 @@ export class ChangePasswordFormComponent implements OnInit {
             )
             break;
         }
-        console.log(response);
-        
+
       })
       .catch(err => {
         if (err.status === ClientErrorsEnum.ClientErrorForbidden){
           this.addSingleToast(
             'error',
             'Registration error',
-            'Forbidden access', 
+            'Forbidden access',
             true
           )
         }
@@ -139,10 +138,10 @@ export class ChangePasswordFormComponent implements OnInit {
           this.addSingleToast(
             'error',
             'Registration error',
-            'Forbidden access', 
+            'Forbidden access',
             true
           )
-        } 
+        }
       });
   }
   reloadPage(): void {

@@ -2,6 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from 
 import {GlobalConstants} from "../../common/constants/global-constants";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {StateChange} from "ng-lazyload-image";
+import {RedisService} from "../../services/redis/redis.service";
+import {HttpClient} from "@angular/common/http";
+import {TokenStorageService} from "../../services/token-storage.service";
 
 @Component({
   selector: 'app-image',
@@ -11,7 +14,7 @@ import {StateChange} from "ng-lazyload-image";
 })
 export class ImageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private RedisService: RedisService){}
 
   globalConstants = GlobalConstants;
 
@@ -21,12 +24,14 @@ export class ImageComponent implements OnInit {
   @Input() imageSize: string = "300";
   @Input() icon: IconProp | undefined;
   @Input() lazyLoading: boolean = true;
-
+  imagePathUrl : string = ""
   @Output() imgStateEvent = new EventEmitter<string>();
 
   lazyFinished: boolean = false;
 
   ngOnInit(): void {
+    // let url = this.globalConstants.TMDB_IMAGE_BASE_URL + this.getImageSize() + this.imagePath
+    // this.getImageFromCache(url)
   }
 
   getImageSize(){
@@ -71,6 +76,13 @@ export class ImageComponent implements OnInit {
     }
 
   }
-
-
+getImageFromCache(url: string){
+    this.RedisService.getImageFromRedisCache(url).subscribe(
+      data => {
+        this.imagePathUrl = data.urlApi;
+      },
+      error => {
+        console.log(error);
+      });
+  }
 }
