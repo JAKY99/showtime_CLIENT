@@ -23,7 +23,7 @@ jobs:
     environment: staging
     runs-on: self-hosted
     container:
-      image: kevinpsirius/pipeline_deployment_image:v10
+      image: kevinpsirius/pipeline_deployment_image:v11
       env:
         sshKey: ${{ secrets.SSH_KEY }}
     steps:
