@@ -25,7 +25,8 @@ export class MainSearchPageComponent implements OnInit {
   constructor(private trendingService: TrendingService) { }
 
   ngOnInit(): void {
-    this.trendingService.fetchAllTrendings().toPromise().then(resp => {
+    this.trendingService.fetchAllTrendings().subscribe(resp => {
+      resp = JSON.parse(resp.data);
       this.trendingResults = resp.results;
     });
   }
