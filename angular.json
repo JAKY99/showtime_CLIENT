@@ -121,6 +121,9 @@
             "production": {
               "browserTarget": "showtime-WEB:build:production"
             },
+            "staging": {
+              "browserTarget": "showtime-WEB:build:staging"
+            },
             "development": {
               "browserTarget": "showtime-WEB:build:development"
             },
