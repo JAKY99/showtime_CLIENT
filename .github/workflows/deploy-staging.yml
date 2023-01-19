@@ -30,6 +30,7 @@ jobs:
       - name: Generate new dist for staging
         run: |
           cd /var/www/html && git clone https://github.com/JAKY99/showtime_CLIENT.git
+          cd /var/www/html/showtime_CLIENT && ng test --watch=false
           cd /var/www/html/showtime_CLIENT && node --max-old-space-size=2048 $(which npm) i && node --max-old-space-size=2048 $(which ng) build --configuration staging --source-map=false --build-optimizer=false --optimization=false --progress=false --statsJson=false  --aot=true --showCircularDependencies=false --namedChunks=false --outputHashing=none --vendorChunk=false
       - name: Generate SSH connection to server with ansible for staging
         run: |
