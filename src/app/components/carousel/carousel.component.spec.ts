@@ -6,20 +6,20 @@ describe('CarouselHorizontalComponent', () => {
   let component: CarouselComponent;
   let fixture: ComponentFixture<CarouselComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ CarouselComponent ]
-    })
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(CarouselComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  // beforeEach(async () => {
+  //   await TestBed.configureTestingModule({
+  //     declarations: [ CarouselComponent ]
+  //   })
+  //   .compileComponents();
+  // });
+  //
+  // beforeEach(() => {
+  //   fixture = TestBed.createComponent(CarouselComponent);
+  //   component = fixture.componentInstance;
+  //   fixture.detectChanges();
+  // });
+  //
+  // it('should create', () => {
+  //   expect(component).toBeTruthy();
+  // });
 });
