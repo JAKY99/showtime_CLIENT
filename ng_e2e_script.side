@@ -1,0 +1,82 @@
+{
+  "id": "7928871a-9a3c-4eda-8afe-6fc9b1a10577",
+  "version": "2.0",
+  "name": "ng_e2e_script",
+  "url": "https://dev.showtime-app.click/",
+  "tests": [{
+    "id": "8927239a-7229-4651-97e9-95bb0d4561d8",
+    "name": "check",
+    "commands": [{
+      "id": "f7272331-ca52-4865-89d1-666fd1d84e24",
+      "comment": "",
+      "command": "open",
+      "target": "/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "da24b8f9-70f8-4efe-8eb5-da3e07ada3e7",
+      "comment": "",
+      "command": "click",
+      "target": "id=login-input-email",
+      "targets": [
+        ["id=login-input-email", "id"],
+        ["css=#login-input-email", "css:finder"],
+        ["xpath=//input[@id='login-input-email']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ed2c90be-d1e4-43b3-8a9a-366e4bc46342",
+      "comment": "",
+      "command": "type",
+      "target": "id=login-input-email",
+      "targets": [
+        ["id=login-input-email", "id"],
+        ["css=#login-input-email", "css:finder"],
+        ["xpath=//input[@id='login-input-email']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "kev972@gmail.com"
+    }, {
+      "id": "edf93ac3-df88-49cf-bb46-8cb78cf40d9c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//input[@type='password']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b66e5fa6-0dcd-4a41-8bdc-b50747faa121",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//input[@type='password']",
+      "targets": [],
+      "value": "123"
+    }, {
+      "id": "341d8259-3c03-45e5-b05b-18863ebb2d89",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@label='Sign In']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cfd8e2bd-9267-48e2-979c-96ae1d913b11",
+      "comment": "",
+      "command": "click",
+      "target": "css=.fa-magnifying-glass",
+      "targets": [
+        ["css=.fa-magnifying-glass", "css:finder"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "78b5807b-e9e6-407a-b4e6-d5c4f547c21f",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["8927239a-7229-4651-97e9-95bb0d4561d8"]
+  }],
+  "urls": ["https://showtime-app.click/", "https://dev.showtime-app.click/"],
+  "plugins": []
+}
