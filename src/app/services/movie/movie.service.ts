@@ -25,8 +25,8 @@ export class MovieService {
       "movie/now_playing?api_key=" +
       GlobalConstants.TMDB_KEY +
       "&language=en-US&page=1&region=" + countryIso;
-    // return this.RedisService.getDataFromRedisCache(url)
-    return this.HazelcastService.getDataFromHazelcastCache(url)
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.HazelcastService.getDataFromHazelcastCache(url)
     // return this.http.get<any>(url);
   }
 
@@ -43,8 +43,8 @@ export class MovieService {
       "movie/top_rated?api_key=" +
       GlobalConstants.TMDB_KEY +
       "&language=en-US&page=1";
-    // return this.RedisService.getDataFromRedisCache(url)
-    return this.HazelcastService.getDataFromHazelcastCache(url)
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.HazelcastService.getDataFromHazelcastCache(url)
     // return this.http.get<any>(url);
   }
 
@@ -53,8 +53,8 @@ export class MovieService {
       "movie/upcoming?api_key=" +
       GlobalConstants.TMDB_KEY +
       "&language=en-US&page=1";
-    // return this.RedisService.getDataFromRedisCache(url)
-    return this.HazelcastService.getDataFromHazelcastCache(url)
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.HazelcastService.getDataFromHazelcastCache(url)
     // return this.http.get<any>(url);
   }
 
@@ -70,8 +70,8 @@ export class MovieService {
         if (index != responseToAppend.length -1) url += ','
       })
     }
-    // return this.RedisService.getDataFromRedisCache(url)
-    return this.HazelcastService.getDataFromHazelcastCache(url)
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.HazelcastService.getDataFromHazelcastCache(url)
     // return this.http.get<MovieDetailsModel>(url);
 
   }

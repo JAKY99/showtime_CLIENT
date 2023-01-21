@@ -25,8 +25,13 @@ export class RedisService {
   getDataFromRedisCache(urlApi : string): Observable<any>{
     let url = `${GlobalConstants.API_URL}/api/v1/redis/get/data/`
     let trimmedUrl = urlApi.replace(" ", "");
-    return this.http.post<any>(url, {
+    let data = {
       urlApi: trimmedUrl,
-    });
+    }
+    url = url + "?urlApi=" + trimmedUrl;
+    return this.http.get<any>(url);
+    // return this.http.post<any>(url, {
+    //   urlApi: trimmedUrl,
+    // });
   }
 }
