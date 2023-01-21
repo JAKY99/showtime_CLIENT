@@ -13,8 +13,8 @@ export class TrendingService {
 
   fetchAllTrendings(): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL + "trending/all/week?api_key=" + GlobalConstants.TMDB_KEY;
-    return this.HazelcastService.getDataFromHazelcastCache(url);
-    // return this.RedisService.getDataFromRedisCache(url);
+    // return this.HazelcastService.getDataFromHazelcastCache(url);
+    return this.RedisService.getDataFromRedisCache(url);
   }
 
   fetchMovieTrendings(): Observable<any> {
