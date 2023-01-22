@@ -97,21 +97,21 @@ export class MovieService {
   fetchGenerateUrlsArray(urls: Array<string>): Observable<MovieDetailsModel> {
     const source = from(urls);
     return source.pipe(
-      concatMap(url => this.http.get<MovieDetailsModel>(url))
+      concatMap(url =>this.RedisService.getDataFromRedisCache(url))
     )
   }
   fetchWatchProviders(movieId: number): Observable<any>{
     let url = GlobalConstants.TMDB_BASE_URL + "movie/"+ movieId +
       "/watch/providers?api_key=" + GlobalConstants.TMDB_KEY;
-
-    return this.http.get<any>(url);
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.http.get<any>(url);
   }
 
   fetchSimilarMovies(movieId: number): Observable<any>{
     let url = GlobalConstants.TMDB_BASE_URL + "/movie/"+ movieId +
       "/similar?api_key="+ GlobalConstants.TMDB_KEY+"&language=en-US&page=1"
-
-    return this.http.get<any>(url);
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.http.get<any>(url);
   }
 
   fetchMovieWatchedStatus(tmdbId: number,movieName : string|null): Observable<any>{
