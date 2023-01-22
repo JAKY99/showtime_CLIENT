@@ -36,4 +36,5 @@ jobs:
           touch /var/www/html/mypckey.pem &&  chmod 600 /var/www/html/mypckey.pem && echo "$sshKey" >> /var/www/html/mypckey.pem
           cd /var/www/html/playbook && ansible-playbook deploy-dev-client-front.yml -e "ansible_ssh_timeout=180"
           selenium-side-runner --base-url https://dev.showtime-app.click/ --server http://18.116.177.62:30015/wd/hub /var/www/html/showtime_CLIENT/ng_e2e_script.side --debug
+          curl https://dev.showtime-app.click/api/api/v1/version/set?type=client
 
