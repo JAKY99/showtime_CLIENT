@@ -37,7 +37,10 @@ export class AuthGuard implements CanActivate {
         let sessionVersion = sessionStorage.getItem('version');
         console.log(data)
         let currentVersion = data.body.version
-        if(sessionVersion !== currentVersion){
+        if(sessionVersion===null){
+            sessionStorage.setItem('version',currentVersion);
+        }
+        if(sessionVersion !== currentVersion && sessionVersion !== null){
           sessionStorage.setItem('version',currentVersion);
           try{
             // @ts-ignore
