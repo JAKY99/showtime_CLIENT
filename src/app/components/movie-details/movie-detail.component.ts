@@ -132,14 +132,14 @@ export class MovieDetailComponent implements OnInit {
   }
 
   getYoutubeTrailers() {
-    return this.movie.videos.results.filter(
+    return this.movie.videos?.results.filter(
       x => x.type.toLowerCase() == 'trailer' &&
         x.site.toLowerCase() == 'youtube'
     );
   }
 
   getYoutubeTrailersLength() {
-    return this.movie.videos.results.filter(
+    return this.movie.videos?.results.filter(
       x => x.type.toLowerCase() == 'trailer' &&
         x.site.toLowerCase() == 'youtube'
     ).length;
