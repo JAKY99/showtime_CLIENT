@@ -25,4 +25,12 @@ export class UserService {
       // @ts-ignore
       httpOptions);
   }
+  getCurrentVersion(): Observable<any>{
+    let url = GlobalConstants.API_URL + "/api/v1/version/get?type=client";
+    // @ts-ignore
+    return this.http.get<string>(
+      url,
+      // @ts-ignore
+      httpOptions);
+  }
 }

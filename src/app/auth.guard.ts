@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import { Observable } from 'rxjs';
 import {TokenStorageService} from "./services/token-storage.service";
+import {UserService} from "./services/user/user.service";
 // @ts-ignore
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
@@ -13,19 +14,47 @@ export class AuthGuard implements CanActivate {
   url = GlobalConstants.WEBSOCKET_URL
   env = GlobalConstants.ENV;
   client: any;
-  constructor(private router: Router, private tokenStorage: TokenStorageService) {
+  constructor(private router: Router, private tokenStorage: TokenStorageService,private UserService : UserService) {
   }
   canActivate(
     route: ActivatedRouteSnapshot,
     // @ts-ignore
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.connection();
+    this.checkUpdate();
     if (!this.tokenStorage.isTokenExpired()){
       return true
     }
     this.router.navigate(['/login']).then(() => {
       return false
     });
+  }
+
+  checkUpdate(){
+    console.log('check update')
+    this.UserService.getCurrentVersion().subscribe(
+      data => {
+        let sessionVersion = sessionStorage.getItem('version');
+        console.log(data)
+        let currentVersion = data.body.version
+        if(sessionVersion !== currentVersion){
+          sessionStorage.setItem('version',currentVersion);
+          try{
+            // @ts-ignore
+            window['Android'].updateApp();
+          }catch (e) {
+            // @ts-ignore
+            location.reload(true);
+            console.log(e)
+          }
+        }
+      },
+        error => {
+        console.log(error);
+        },
+      () => {
+        console.log('check update complete')
+      })
   }
   connection(){
     let ws = new SockJS(this.url);
@@ -37,8 +66,14 @@ export class AuthGuard implements CanActivate {
       // @ts-ignore
       that.client.subscribe("/topic/user/"+this.env, (message) => {
         if(message.body) {
-          // @ts-ignore
-          window['Android'].createNotification('Showtime App',message.body);
+          if(message.body != 'New update'){
+            // @ts-ignore
+            window['Android'].createNotification('Showtime App',message.body);
+          }
+          if(message.body === 'New update'){
+            // @ts-ignore
+            window['Android'].updateApp();
+          }
         }
       });
     },this.onSocketfailure);
