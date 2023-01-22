@@ -90,6 +90,7 @@ export class MovieDetailComponent implements OnInit {
     // @ts-ignore
     await this.movieService.fetchWatchProviders(this.requestedMovieId).subscribe(
       (resp) => {
+        resp = JSON.parse(resp.data);
         this.watchProviders = resp.results;
         this.loading.watchProviders = false;
       }
@@ -132,6 +133,7 @@ export class MovieDetailComponent implements OnInit {
   }
 
   getYoutubeTrailers() {
+    console.log(this.movie);
     return this.movie.videos?.results.filter(
       x => x.type.toLowerCase() == 'trailer' &&
         x.site.toLowerCase() == 'youtube'
@@ -158,6 +160,7 @@ export class MovieDetailComponent implements OnInit {
       // @ts-ignore
       await this.movieService.fetchSimilarMovies(this.requestedMovieId).toPromise()
         .then((resp) => {
+          resp = JSON.parse(resp.data);
           this.similarMovies = resp.results;
           // @ts-ignore
           this.similarMoviesChild?.isLoading = false;

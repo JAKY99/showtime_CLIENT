@@ -126,17 +126,23 @@ export class ProfilePageComponent implements OnInit {
         // @ts-ignore
        let urlsToUseForLastWatchedMovies= await this.MovieService.generateUrlToFetch(resp.lastWatchedMovies);
          await this.MovieService.fetchGenerateUrlsArray(urlsToUseForLastWatchedMovies).subscribe((resp) => {
+          // @ts-ignore
+           resp = JSON.parse(resp.data);
           this.lastWatchedMovies.push(resp);
         });
         // @ts-ignore
         let urlsToUseForFavoritesMovies= await this.MovieService.generateUrlToFetch(resp.favoritesMovies);
         await this.MovieService.fetchGenerateUrlsArray(urlsToUseForFavoritesMovies).subscribe((resp) => {
+          // @ts-ignore
+          resp = JSON.parse(resp.data);
           this.favoritesMovies.push(resp);
         });
         // @ts-ignore
         let urlsToUseForWatchlistMovies= await this.MovieService.generateUrlToFetch(resp.watchlistMovies);
 
         await this.MovieService.fetchGenerateUrlsArray(urlsToUseForWatchlistMovies).subscribe((resp) => {
+          // @ts-ignore
+          resp = JSON.parse(resp.data);
           this.watchlistMovies.push(resp);
           // console.log(resp)
         });
