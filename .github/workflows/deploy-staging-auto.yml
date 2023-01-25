@@ -19,6 +19,9 @@ jobs:
     needs: sonarqube-test
     environment: staging
     runs-on: self-hosted
+    strategy:
+      matrix:
+        ram: [ 1GB ]
     container:
       image: kevinpsirius/pipeline_deployment_image:v10
       env:
