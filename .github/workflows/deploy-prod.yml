@@ -22,11 +22,9 @@ jobs:
     needs: sonarqube-test
     environment: production
     runs-on: self-hosted
-    resources:
-      limits:
-        cpu: 0.20
     container:
       image: kevinpsirius/pipeline_deployment_image:v10
+      options: --cpus 0.20
       env:
         sshKey: ${{ secrets.SSH_KEY }}
     steps:
