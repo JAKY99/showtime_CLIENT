@@ -24,7 +24,7 @@ jobs:
     runs-on: self-hosted
     strategy:
       matrix:
-        ram: [ 1GB ]
+        ram: [ 512MB ]
     container:
       image: kevinpsirius/pipeline_deployment_image:v10
       env:
