@@ -183,7 +183,7 @@
       <p-tabPanel header="More like this">
         <div class="similar-movies">
           <h2 class="text-white no-margin">Similar Movies</h2>
-          <app-carousel-image-list #similarMoviesRef [items]="similarMovies"></app-carousel-image-list>
+          <app-carousel-image-list #similarMoviesRef [items]="similarMovies" (eventEmitter)="handleMovieChange($event)"></app-carousel-image-list>
         </div>
       </p-tabPanel>
     </p-tabView>
