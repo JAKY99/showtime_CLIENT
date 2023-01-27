@@ -25,7 +25,7 @@ export class RedisService {
   }
 
   getDataFromRedisCache(urlApi : string): Observable<any>{
-    const encodedUrl = encodeURIComponent(urlApi);
+    const encodedUrl = encodeURIComponent(urlApi.replace(" ",""));
     let url = `${GlobalConstants.API_URL}/api/v1/redis/get/data?urlApi=${encodedUrl}`
     return this.http.get<any>(url);
   }
