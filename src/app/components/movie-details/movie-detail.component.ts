@@ -133,7 +133,7 @@ export class MovieDetailComponent implements OnInit {
   }
 
   getYoutubeTrailers() {
-    console.log(this.movie);
+    // console.log(this.movie);
     return this.movie.videos?.results.filter(
       x => x.type.toLowerCase() == 'trailer' &&
         x.site.toLowerCase() == 'youtube'
