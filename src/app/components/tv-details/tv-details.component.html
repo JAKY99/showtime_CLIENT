@@ -114,7 +114,7 @@
       <p-tabPanel header="More like this">
         <div class="similar-tv">
           <h2 class="text-white no-margin">Similar Series</h2>
-          <app-carousel-image-list #similarTvRef [items]="similarTv"></app-carousel-image-list>
+          <app-carousel-image-list #similarTvRef [items]="similarTv" (eventEmitter)="handleTvChange($event)"></app-carousel-image-list>
         </div>
       </p-tabPanel>
     </p-tabView>

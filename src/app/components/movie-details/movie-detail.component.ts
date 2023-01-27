@@ -133,7 +133,6 @@ export class MovieDetailComponent implements OnInit {
   }
 
   getYoutubeTrailers() {
-    // console.log(this.movie);
     return this.movie.videos?.results.filter(
       x => x.type.toLowerCase() == 'trailer' &&
         x.site.toLowerCase() == 'youtube'
@@ -250,5 +249,16 @@ async showViewedDialog() {
         )
       }
     })
+  }
+
+  handleMovieChange($event: any){
+    this.loading = {
+      movie: true,
+      actors: true,
+      watchProviders: true,
+      userViewInfo: true
+    }
+    this.requestedMovieId = $event.id
+    this.ngOnInit()
   }
 }
