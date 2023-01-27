@@ -134,4 +134,14 @@ export class TvDetailsComponent implements OnInit {
       this.similarTvChild?.isLoading = false;
     }
   }
+
+  handleTvChange($event: any){
+    this.loading = {
+      tv: true,
+      actors: true,
+      watchProviders: true,
+    }
+    this.requestedTvId = $event.id
+    this.ngOnInit()
+  }
 }
