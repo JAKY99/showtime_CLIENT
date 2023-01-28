@@ -13,8 +13,6 @@ import {TvDetails} from "../../models/tv/tv-details";
 import {faEllipsisVertical, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
-import {RedisService} from "../../services/redis/redis.service";
-import {GlobalConstants} from "../../common/constants/global-constants";
 
 @Component({
   selector: 'app-home-page',

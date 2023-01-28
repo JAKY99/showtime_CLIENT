@@ -1,4 +1,3 @@
-
 <p-dialog
   class="view-all-profile-list"
   [closeOnEscape]="false"
@@ -13,13 +12,14 @@
   [transitionOptions]="'300ms cubic-bezier(1, 1, 1, 1)'"
 >
   <div class="top-section">
+    <h2>{{listTitle}}</h2>
     <fa-icon class="close-icon st-icon st-icon-small dark"
              [icon]="faChevronDown"
              (click)="close()"
     ></fa-icon>
   </div>
-<!--  (eventEmitter)="openDetailsDialog($event)"-->
-  <app-poster-list [items]="listData" ></app-poster-list>
+  <p-divider ></p-divider>
+  <app-poster-list [items]="listData" (eventEmitter)="openDetailsDialog($event)"></app-poster-list>
   <div class="text-center mt-4 mb-4" *ngIf="listData.length">
     <button pButton type="button" label="Load More" class="p-button-rounded st-secondary-btn"
             (click)="loadMoreResults()"
@@ -27,3 +27,5 @@
             *ngIf="isLoadMoreAvailable"></button>
   </div>
 </p-dialog>
+
+<app-media-details-dialog #mediaDetailsDialogRef></app-media-details-dialog>
