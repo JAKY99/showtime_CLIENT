@@ -9,23 +9,24 @@
   .p-dialog-content {
     background-color: $main-color !important;
     color: $white;
-    padding: 0 !important;
+    padding: $margin-small;
     position: relative;
     overflow-y: auto;
 
     .top-section {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       color: $white;
-      position: absolute;
       z-index: 9999;
-      width: 30px;
-      height: 30px;
-      top: 1rem;
-      left: 1rem;
       border-radius: 50%;
       font-size: $font-medium;
+      padding: 0 $margin-small;
+
+      h2{
+        margin: 0;
+        font-size: $font-medium;
+      }
     }
   }
 
