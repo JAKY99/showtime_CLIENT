@@ -171,7 +171,7 @@ export class ProfilePageComponent implements OnInit {
 
   public openViewAllProfileList(type: string) {
     // @ts-ignore
-    this.viewAllProfileListChild?.open(this[type], this[type + "Total"], this[type + "RangeServiceName"], this[type + "RangeMethodName"], this[type + "Title"]);
+    this.viewAllProfileListChild?.open([...this[type]], this[type + "Total"], this[type + "RangeServiceName"], this[type + "RangeMethodName"], this[type + "Title"]);
   }
 
   openDetailsDialog($event: any) {
