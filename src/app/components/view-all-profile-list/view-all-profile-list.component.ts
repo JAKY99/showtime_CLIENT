@@ -55,6 +55,7 @@ export class ViewAllProfileListComponent implements OnInit {
       let urlsToUseForLoadMore = await this[this.serviceName].generateUrlToFetch(data.tmdbIdList);
       // @ts-ignore
       await this[this.serviceName].fetchGenerateUrlsArray(urlsToUseForLoadMore).subscribe((resp) => {
+        resp = JSON.parse(resp.data);
         // @ts-ignore
         this.listData.push(resp);
       });
