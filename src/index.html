@@ -18,5 +18,56 @@
 </body>
 <script type="application/javascript">
   var global = window;
+  var xDown = null;
+  var yDown = null;
+
+  document.addEventListener("touchstart", function(evt) {
+    xDown = evt.touches[0].clientX;
+    yDown = evt.touches[0].clientY;
+  });
+
+  document.addEventListener("touchend", function(evt) {
+    if (!xDown || !yDown) {
+      return;
+    }
+
+    var xUp = evt.changedTouches[0].clientX;
+    var yUp = evt.changedTouches[0].clientY;
+
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+      /* most significant */
+      if (xDiff > 0) {
+        /* left swipe */
+        // window['Android'].onSwipeLeft();
+      } else {
+        /* right swipe */
+        // window['Android'].onSwipeRight();
+      }
+    } else {
+      if (yDiff > 0) {
+        /* up swipe */
+        // window['Android'].onSwipeUp();
+      } else {
+        /* down swipe */
+        if(!document.getElementsByClassName("close-icon").length){return}
+        let checkHeightStart = yDown / window.innerHeight;
+        let checkHeightEnd = yUp / window.innerHeight;
+        console.log(checkHeightStart)
+        console.log(checkHeightEnd)
+        if(checkHeightStart < 0.35 && checkHeightEnd < 0.8 && checkHeightEnd > 0.50 && localStorage.getItem("isAndroid") == null){
+          // window['Android'].onSwipeDown();
+          document.getElementsByClassName("close-icon")[document.getElementsByClassName("close-icon").length-1].dispatchEvent(new Event("click"))
+        }
+        // window['Android'].onSwipeDown();
+      }
+    }
+    /* reset values */
+    xDown = null;
+    yDown = null;
+  });
+
 </script>
 </html>
