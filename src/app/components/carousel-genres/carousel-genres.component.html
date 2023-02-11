@@ -1,0 +1,24 @@
+<div class="swiper-container swiper-genre">
+  <h2 class=" mb-3 text-white text-base">{{this.genreTitle}}</h2>
+  <swiper
+    [config]="swiperConfig"
+    *ngIf="!loading.tvGenres"
+  >
+    <ng-template swiperSlide *ngFor="let genre of tvGenres">
+      <div class="genre-container">
+        <div class="genre-infos">
+          <img class="genre_illustration" src="assets/category_imgs/{{genre.id}}.png" alt="{{genre.name}}">
+          <span class="name">{{genre.name}}</span>
+        </div>
+      </div>
+    </ng-template>
+  </swiper>
+
+  <div class="skeleton flex gap-4" *ngIf="loading.tvGenres">
+    <div *ngFor="let i of [1,2,3]">
+      <div class="flex align-content-center mb-3">
+        <p-skeleton width="7rem" height="7rem" ></p-skeleton>
+      </div>
+    </div>
+  </div>
+</div>

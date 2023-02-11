@@ -82,6 +82,7 @@ import {SortDrawerComponent} from './components/search/sort-drawer/sort-drawer.c
 import {RadioButtonModule} from "primeng/radiobutton";
 import {MediaDetailsDialogComponent} from './components/media-details-dialog/media-details-dialog.component';
 import { ViewAllProfileListComponent } from './components/view-all-profile-list/view-all-profile-list.component';
+import { CarouselGenresComponent } from './components/carousel-genres/carousel-genres.component';
 
 
 @NgModule({
@@ -130,7 +131,8 @@ import { ViewAllProfileListComponent } from './components/view-all-profile-list/
     PosterListComponent,
     SortDrawerComponent,
     MediaDetailsDialogComponent,
-    ViewAllProfileListComponent
+    ViewAllProfileListComponent,
+    CarouselGenresComponent
   ],
   imports: [
     HttpClientModule,
