@@ -40,18 +40,20 @@ export class TvPageComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    // @ts-ignore
-    await this.tvService.fetchTvTopRated().subscribe(
-      (resp) => {
-        setTimeout(() => {
-          this.topRatedTv = resp.results[0];
-          this.loading.topRatedTv = false;
-        }, 100)
-      }
-    )
 
     this.tvService.fetchTvTopRated().toPromise()
       .then(resp => {
+        resp = JSON.parse(resp.data);
+        this.topRatedTv = resp.results[0];
+        // @ts-ignore
+        // this.popularTvChild?.isLoading = false;
+        this.loading.topRatedTv = false;
+
+      })
+
+    this.tvService.fetchTvTopRated().toPromise()
+      .then(resp => {
+        resp = JSON.parse(resp.data);
         this.trendingTv = resp.results;
         // @ts-ignore
         this.topRatedTvChild?.isLoading = false;
@@ -59,6 +61,7 @@ export class TvPageComponent implements OnInit {
 
     this.tvService.fetchAiringToday().toPromise()
       .then(resp => {
+        resp = JSON.parse(resp.data);
         this.airingTodayTv = resp.results;
         // @ts-ignore
         this.airingTodayTvChild?.isLoading = false;
@@ -66,6 +69,7 @@ export class TvPageComponent implements OnInit {
 
     await this.tvService.fetchAllTvGenres().subscribe(
       (resp) => {
+        resp = JSON.parse(resp.data);
         console.log(resp)
         setTimeout(() => {
           this.tvGenres = resp;

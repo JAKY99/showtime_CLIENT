@@ -58,6 +58,7 @@ export class CarouselGenresComponent implements OnInit {
 
       await this.tvService.fetchAllTvGenres().subscribe(
         (resp) => {
+          resp = JSON.parse(resp.data);
           setTimeout(() => {
             this.tvGenres = resp.genres;
             this.loading.tvGenres = false;
