@@ -4,13 +4,16 @@ import {Observable} from "rxjs";
 import {GlobalConstants} from "../../common/constants/global-constants";
 import {TvDetails} from "../../models/tv/tv-details";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
+import {TokenStorageService} from "../token-storage.service";
 import {RedisService} from "../../services/redis/redis.service";
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class TvService {
 
-  constructor(private http: HttpClient,private RedisService : RedisService) { }
+  constructor(private http: HttpClient,private RedisService : RedisService , private tokenStorage: TokenStorageService) { }
 
   fetchPopular(): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL +
@@ -21,7 +24,7 @@ export class TvService {
     // return this.http.get<any>(url);
   }
 
-  fetchTopRated(): Observable<any> {
+  fetchTvTopRated(): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL +
       "tv/top_rated?api_key=" +
       GlobalConstants.TMDB_KEY +
@@ -46,6 +49,15 @@ export class TvService {
       "&language=en-US&page=1";
     return this.RedisService.getDataFromRedisCache(url);
     // return this.http.get<any>(url);
+  }
+
+  fetchAllTvGenres(): Observable<any>{
+    let url = GlobalConstants.TMDB_BASE_URL +
+      "genre/tv/list?api_key=" +
+      GlobalConstants.TMDB_KEY +
+      "&language=en-US";
+
+    return this.RedisService.getDataFromRedisCache(url);
   }
 
   fetchWatchProviders(tvId: number): Observable<any>{
@@ -94,4 +106,14 @@ export class TvService {
     return this.RedisService.getDataFromRedisCache(url);
     // return this.http.get<TvDetails>(url);
   }
+
+  fetchTvWatchedStatus(tmdbId: number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isTvInWatchlist/`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbId,
+      userMail: this.tokenStorage.getClientUsername()
+      // @ts-ignore
+    }, httpOptions);
+  }
+
 }

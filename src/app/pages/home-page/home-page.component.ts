@@ -105,7 +105,7 @@ export class HomePageComponent implements OnInit {
         // @ts-ignore
         this.upComingChild?.isLoading = false;
       })
-    this.tvService.fetchTopRated().toPromise()
+    this.tvService.fetchTvTopRated().toPromise()
       .then(resp => {
         resp = JSON.parse(resp.data);
         this.topRatedTv = resp.results;
