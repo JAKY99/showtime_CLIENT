@@ -57,7 +57,7 @@
         if(!document.getElementsByClassName("close-icon").length){return}
         let checkHeightStart = yDown / window.innerHeight;
         let checkHeightEnd = yUp / window.innerHeight;
-        if(checkHeightStart < 0.35 && checkHeightEnd < 0.8 && checkHeightEnd > 0.50 ){
+        if(checkHeightStart < 0.42 && checkHeightEnd < 0.8 && checkHeightEnd > 0.47 ){
           document.getElementsByClassName("close-icon")[document.getElementsByClassName("close-icon").length-1].dispatchEvent(new Event("click"))
         }
       }
