@@ -30,7 +30,8 @@ export class TvDetailsComponent implements OnInit {
   faPlay = faPlay;
   watchProviders: [] = [];
   isWatchProvidersEmpty = false;
-
+  viewedStatus: boolean = false;
+  viewedDialogShown: boolean = false;
   globalConstants = GlobalConstants;
   // @ts-ignore
   tv:TvDetails = {};
@@ -101,6 +102,15 @@ export class TvDetailsComponent implements OnInit {
     return stringToDate(this.tv.first_air_date).getFullYear();
   }
 
+  handleTvChange($event: any){
+    this.loading = {
+      tv: true,
+      actors: true,
+      watchProviders: true,
+    }
+    this.requestedTvId = $event.id
+    this.ngOnInit()
+  }
 
   WatchProvidersEmpty($event: any){
     this.isWatchProvidersEmpty = $event;
@@ -117,6 +127,7 @@ export class TvDetailsComponent implements OnInit {
       // fetch async sur les episodes
     }
   }
+
   async handleChangeTabView2(e: any) {
     //tab: Comments
     if (e.index === 0){
@@ -135,13 +146,31 @@ export class TvDetailsComponent implements OnInit {
     }
   }
 
-  handleTvChange($event: any){
-    this.loading = {
-      tv: true,
-      actors: true,
-      watchProviders: true,
+  async fetchWatchedSerieInfos(){
+    await this.tvService.fetchTvWatchedStatus(
+      // @ts-ignore
+      this.tv.id,
+    ).subscribe(
+      (resp) => {
+        console.log(resp)
+        // this.fetchWatchedInfos();
+      }
+    )
+  }
+
+  async updateSerieStatus() {
+    if(this.viewedStatus){
+      this.viewedDialogShown = true;
+    }else{
+      await this.tvService.addSerieToWatchedList(
+        // @ts-ignore
+        this.tv.id,
+      ).subscribe(
+        (resp) => {
+          console.log(resp)
+          // this.fetchWatchedSerieInfos();
+        }
+      )
     }
-    this.requestedTvId = $event.id
-    this.ngOnInit()
   }
 }
