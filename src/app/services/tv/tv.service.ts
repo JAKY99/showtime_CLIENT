@@ -108,12 +108,20 @@ export class TvService {
   }
 
   fetchTvWatchedStatus(tmdbId: number): Observable<any>{
-    let url = `${GlobalConstants.API_URL}/api/v1/user/isTvInWatchlist/`
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isSerieInWatchlist/`
     return this.http.post<any>(url, {
       tmdbId: tmdbId,
       userMail: this.tokenStorage.getClientUsername()
       // @ts-ignore
     }, httpOptions);
+  }
+
+  addSerieToWatchedList(tmdbId: number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/addSerieInWatchlist/`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbId,
+      userMail: this.tokenStorage.getClientUsername()
+    });
   }
 
 }

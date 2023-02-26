@@ -167,37 +167,37 @@ export class MovieDetailComponent implements OnInit {
     }
   }
 
-async removeMovieFromViewInfo(){
- await this.movieService.removeMovieToWatchedList(
-  // @ts-ignore
-   this.requestedMovieId,this.movie.original_title
-   ).subscribe(
-    (resp) => {
-      this.viewedDialogShown = false;
-      this.fetchWatchedInfos();
-    }
-  )
-}
-async increaseWatchedNumber(){
-  // @ts-ignore
-  await this.movieService.increaseWatchedNumber(this.requestedMovieId).subscribe(
-    (resp) => {
-      this.viewedDialogShown = false;
-      this.fetchWatchedInfos();
-    }
-  )
-}
-async showViewedDialog() {
-    if(this.viewedStatus){
-      this.viewedDialogShown = true;
-    }else{
-      await this.movieService.addMovieToWatchedList(
-        // @ts-ignore
-        this.requestedMovieId,this.movie.title
-      ).subscribe(
-        (resp) => {
-            this.fetchWatchedInfos();
-        }
+  async removeMovieFromViewInfo(){
+   await this.movieService.removeMovieToWatchedList(
+    // @ts-ignore
+     this.requestedMovieId,this.movie.original_title
+     ).subscribe(
+      (resp) => {
+        this.viewedDialogShown = false;
+        this.fetchWatchedInfos();
+      }
+    )
+  }
+  async increaseWatchedNumber(){
+    // @ts-ignore
+    await this.movieService.increaseWatchedNumber(this.requestedMovieId).subscribe(
+      (resp) => {
+        this.viewedDialogShown = false;
+        this.fetchWatchedInfos();
+      }
+    )
+  }
+  async showViewedDialog() {
+      if(this.viewedStatus){
+        this.viewedDialogShown = true;
+      }else{
+        await this.movieService.addMovieToWatchedList(
+          // @ts-ignore
+          this.requestedMovieId,this.movie.title
+        ).subscribe(
+          (resp) => {
+              this.fetchWatchedInfos();
+          }
       )
     }
   }

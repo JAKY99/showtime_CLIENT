@@ -18,6 +18,11 @@
       >
       </app-tag>
 
+      <!--         *ngIf="!loading.userViewInfo"-->
+      <i (click)="updateSerieStatus()"
+         [class]="userTv.viewInfo.checked"
+         class="fa-solid fa-circle-check watched-status-check st-icon"></i>
+
     </div>
     <div class="tv-actions-icon">
       <div class="bookmark">
