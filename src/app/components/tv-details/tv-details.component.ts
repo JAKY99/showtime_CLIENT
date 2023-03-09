@@ -45,6 +45,7 @@ export class TvDetailsComponent implements OnInit {
     bookmark: [],
     viewInfo: {
       checked: '',
+      status : 'Not Seen',
     }
   }
 
@@ -147,13 +148,11 @@ export class TvDetailsComponent implements OnInit {
   }
 
   async fetchWatchedSerieInfos(){
-    await this.tvService.fetchTvWatchedStatus(
-      // @ts-ignore
-      this.tv.id,
-    ).subscribe(
+    console.log('-----')
+    await this.tvService.fetchTvWatchedStatus(this.tv.id).subscribe(
       (resp) => {
         console.log(resp)
-        // this.fetchWatchedInfos();
+        this.userTv.viewInfo.status = resp
       }
     )
   }
@@ -168,9 +167,10 @@ export class TvDetailsComponent implements OnInit {
       ).subscribe(
         (resp) => {
           console.log(resp)
-          // this.fetchWatchedSerieInfos();
+          this.fetchWatchedSerieInfos();
         }
       )
+
     }
   }
 }
