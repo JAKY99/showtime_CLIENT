@@ -113,7 +113,7 @@ export class TvService {
       tmdbId: tmdbId,
       userMail: this.tokenStorage.getClientUsername()
       // @ts-ignore
-    }, httpOptions);
+    });
   }
 
   addSerieToWatchedList(tmdbId: number): Observable<any>{
