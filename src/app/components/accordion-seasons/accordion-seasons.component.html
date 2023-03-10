@@ -7,7 +7,11 @@
         <h2 class="seasonName">{{season.name}}</h2>
         <div class="flexer seenCounter">
           <p class="epCount"> {{episodesSeen}} / {{season.episodes.length}}</p>
-          <i class="fa-solid fa-circle-check watched-status-check st-icon"></i>
+          <i
+            (click)="updateSeasonStatus(season.id)"
+            [class]="statusSeason.checked"
+            class="fa-solid fa-circle-check watched-status-check st-icon">
+          </i>
         </div>
       </div>
 

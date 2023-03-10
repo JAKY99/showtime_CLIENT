@@ -112,7 +112,6 @@ export class TvService {
     return this.http.post<any>(url, {
       tmdbId: tmdbId,
       userMail: this.tokenStorage.getClientUsername()
-      // @ts-ignore
     });
   }
 
@@ -121,6 +120,15 @@ export class TvService {
     return this.http.post<any>(url, {
       tmdbId: tmdbId,
       userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
+  addSeasonToWatchedList(tmdbId: number , seasonId : number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/addSeasonInWatchlist/`
+    return this.http.post<any>(url, {
+      tvTmdbId: tmdbId,
+      userMail: this.tokenStorage.getClientUsername(),
+      tvSeasonid : seasonId
     });
   }
 

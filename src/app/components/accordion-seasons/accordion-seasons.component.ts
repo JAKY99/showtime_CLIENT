@@ -19,15 +19,22 @@ export class AccordionSeasonsComponent implements OnInit {
   @Input() tvId : number;
 
   episodesSeen: number = 3;
+  viewedStatus: boolean = false;
+  viewedDialogShown: boolean = false;
+
 
   // @ts-ignore
   tvSeasonDetails:TvSeasonDetails = {};
   allSeasons: TvSeasonDetails[] = [];
+  statusSeason = {
+    checked : '',
+  };
 
   // @ts-ignore
   loading = {
     seasons: true,
   }
+
 
   todayDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
 
@@ -56,6 +63,22 @@ export class AccordionSeasonsComponent implements OnInit {
     // pour faire le calcul de la barre de progression :
     // -> rajouter un champ dans le modèle de datas : nb ep vues
     // faire le calcul pour le transformer en %age direct dans le front
+  }
+
+  async updateSeasonStatus( seasonId: number){
+    if(this.viewedStatus){
+      this.viewedDialogShown = true;
+    }else{
+      await this.tvService.addSeasonToWatchedList(
+        this.tvId,
+        seasonId
+      ).subscribe(
+        (resp) => {
+          console.log(resp)
+          // this.fetchWatchedSeasonInfos();
+        }
+      )
+    }
   }
 
 }
