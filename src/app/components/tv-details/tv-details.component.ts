@@ -152,7 +152,7 @@ export class TvDetailsComponent implements OnInit {
     await this.tvService.fetchTvWatchedStatus(this.tv.id).subscribe(
       (resp) => {
         console.log(resp)
-        this.userTv.viewInfo.status = resp
+        this.userTv.viewInfo.status = resp.status
       }
     )
   }
@@ -170,7 +170,6 @@ export class TvDetailsComponent implements OnInit {
           this.fetchWatchedSerieInfos();
         }
       )
-
     }
   }
 }
