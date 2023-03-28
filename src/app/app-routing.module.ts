@@ -13,12 +13,14 @@ import {TvDetailsComponent} from "./components/tv-details/tv-details.component";
 import{RegisterPageComponent} from "./pages/register-page/register-page.component";
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 import {MainSearchPageComponent} from "./pages/main-search-page/main-search-page.component";
+import {PrivacyPageComponent} from "./pages/privacy-page/privacy-page.component";
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent},
   {path: 'reset', component: ResetPageComponent},
   {path: 'register', component: RegisterPageComponent},
   {path: 'reset-password/:token', component: ChangePasswordPageComponent},
+  {path:'privacy', component: PrivacyPageComponent},
   {
     path: 'home',
     children:[
@@ -53,7 +55,7 @@ const routes: Routes = [
     path:'search',
     component: MainSearchPageComponent,
     canActivate: [AuthGuard]
-  },
+  }
 ];
 
 @NgModule({
