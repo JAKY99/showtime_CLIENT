@@ -24,6 +24,14 @@ export class AuthService {
     // @ts-ignore
     }, httpOptions);
   }
+  googleLogin(token: string): Observable<any> {
+
+    let url = GlobalConstants.API_URL + "/api/v1/login/google";
+    return this.http.post<any>(url, {
+      token: token
+    // @ts-ignore
+    }, httpOptions);
+  }
   register(username: string, password: string): Observable<any> {
     let url = GlobalConstants.API_URL + "/api/v1/registration/user";
     return this.http.post<any>(url, {

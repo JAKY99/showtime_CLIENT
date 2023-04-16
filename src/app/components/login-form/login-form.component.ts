@@ -41,7 +41,7 @@ export class LoginFormComponent implements OnInit {
       ]),
       password: new FormControl('', Validators.required)
     });
-
+    this.handleListener();
   }
 
   get email(){
@@ -76,6 +76,45 @@ export class LoginFormComponent implements OnInit {
   reloadPage(): void {
     window.location.reload();
   }
+
+  handleGoogleLogin=(event: any,parent: any)=>{
+    this.authService.googleLogin(event.detail.credential).toPromise()     .then(response => {
+      if(response.email=="ERROR"){
+        this.addSingleToast(
+          'error',
+          'Authentication error',
+          'The email or password you entered is incorrect',
+          true
+        )
+      }
+      if(response.email!=="ERROR"){
+        this.header = response.headers;
+        // @ts-ignore
+        this.tokenStorage.saveToken(this.header.get('Authorization'));
+
+        this.router.navigate(['/home']).then();
+        this.isLoading = false;
+      }
+
+    })
+      .catch(err => {
+        if (err.status === ClientErrorsEnum.ClientErrorForbidden){
+          this.addSingleToast(
+            'error',
+            'Authentication error',
+            'The email or password you entered is incorrect',
+            true
+          )
+        }
+        this.isLoading = false;
+      });
+  }
+  handleListener(){
+    let parent = this;
+    // @ts-ignore
+    window.addEventListener('google_sign_in', ()=>this.handleGoogleLogin(event,parent))
+  }
+
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
     this.messageService.add({severity:severity, summary:title, detail:details, sticky: sticky});
   }
