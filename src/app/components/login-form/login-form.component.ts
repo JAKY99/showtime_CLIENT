@@ -8,7 +8,8 @@ import {HttpHeaders} from "@angular/common/http";
 import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";
 import {ClientErrorsEnum} from "../../common/enums/http-status-codes/client-errors-enum";
-
+import { ActivatedRoute } from '@angular/router';
+import {GlobalConstants} from "../../common/constants/global-constants";
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -23,11 +24,31 @@ export class LoginFormComponent implements OnInit {
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
               private messageService: MessageService,
-              private router: Router) {
+              private router: Router,
+              private route: ActivatedRoute) {
     this.loginForm = new FormGroup({});
   }
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe(params => {
+      // Access query parameters using params object
+      if(params['token']!==undefined){
+        const token = params['token'];
+        this.tokenStorage.saveToken(token);
+        this.router.navigate(['/home']).then();
+      }
+      if(params['authGoogleError']!==undefined){
+        this.addSingleToast(
+          'error',
+          'Authentication error',
+          'Your Google Signin failed , please try again',
+          true
+        )
+      }
+
+
+    });
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.router.navigate(['/home']).then(r => r);
@@ -109,6 +130,7 @@ export class LoginFormComponent implements OnInit {
         this.isLoading = false;
       });
   }
+  baseUrl = window.location.origin+"/login";
   handleListener(){
     let parent = this;
     // @ts-ignore
@@ -117,5 +139,10 @@ export class LoginFormComponent implements OnInit {
 
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
     this.messageService.add({severity:severity, summary:title, detail:details, sticky: sticky});
+  }
+
+  getLoginUri() {
+    let url = GlobalConstants.GOOGLE_LOGIN_URI;
+    return url;
   }
 }

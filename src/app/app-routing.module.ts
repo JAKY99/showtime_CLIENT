@@ -16,6 +16,7 @@ import {MainSearchPageComponent} from "./pages/main-search-page/main-search-page
 import {PrivacyPageComponent} from "./pages/privacy-page/privacy-page.component";
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'auth/google', component: LoginPageComponent},
   {path: 'login', component: LoginPageComponent},
   {path: 'reset', component: ResetPageComponent},
   {path: 'register', component: RegisterPageComponent},
