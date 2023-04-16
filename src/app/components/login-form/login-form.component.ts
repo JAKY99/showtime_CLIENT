@@ -38,6 +38,14 @@ export class LoginFormComponent implements OnInit {
         this.tokenStorage.saveToken(token);
         this.router.navigate(['/home']).then();
       }
+      if(params['authGoogleError']!==undefined){
+        this.addSingleToast(
+          'error',
+          'Authentication error',
+          'Your Google Signin failed , please try again',
+          true
+        )
+      }
 
 
     });
