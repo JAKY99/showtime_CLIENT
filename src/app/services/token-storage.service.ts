@@ -9,8 +9,7 @@ const TOKEN_KEY = 'auth-token';
 })
 export class TokenStorageService {
 
-  constructor(private jwtHelperService: JwtHelperService,
-              private userService: UserService) { }
+  constructor(private jwtHelperService: JwtHelperService) { }
   logOut(): void{
     window.localStorage.clear();
     window.location.reload();
