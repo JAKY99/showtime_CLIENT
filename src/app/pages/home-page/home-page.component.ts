@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {UserService} from "../../services/user/user.service";
-import {MessageService} from "primeng/api";
+import {MenuItem, MessageService} from "primeng/api";
 import {MovieService} from "../../services/movie/movie.service";
 import {TrendingService} from "../../services/trending/trending.service";
 import {TvService} from "../../services/tv/tv.service";
@@ -13,6 +13,10 @@ import {TvDetails} from "../../models/tv/tv-details";
 import {faEllipsisVertical, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
+import {TokenStorageService} from "../../services/token-storage.service";
+import { ConfirmationService } from 'primeng/api';
+
+
 
 @Component({
   selector: 'app-home-page',
@@ -42,10 +46,12 @@ export class HomePageComponent implements OnInit {
   topRatedTv: TvDetails[] = [];
   upComingMovies: MovieDetailsModel[] = [];
   popularTv: TvDetails[] = [];
+  items: MenuItem[]=[];
   userLocationData = {
     ipv4: "",
     country_code2: ""
   };
+
 
   constructor(
     private userService: UserService,
@@ -54,7 +60,9 @@ export class HomePageComponent implements OnInit {
     private tvService: TvService,
     private trendingService: TrendingService,
     private userGeoService: UserLocationDatasService,
-    private router: Router
+    private router: Router,
+    private TokenStorageService: TokenStorageService,
+    private confirmationService: ConfirmationService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -102,6 +110,28 @@ export class HomePageComponent implements OnInit {
         // @ts-ignore
         this.popularTvChild?.isLoading = false;
       })
+    this.items = [
+      {
+        separator:true
+      },
+      {
+        label:'Logout',
+        icon:'pi pi-fw pi-power-off',
+        command: (event: Event) => {
+          this.confirmationService.confirm({
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            message: 'Are you sure that you want to logout?',
+
+            accept: () => {
+              this.TokenStorageService.logOut();
+              window.location.reload();
+            }
+          });
+        }
+
+      }
+    ];
   }
 
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
