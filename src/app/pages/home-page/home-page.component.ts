@@ -125,7 +125,6 @@ export class HomePageComponent implements OnInit {
 
             accept: () => {
               this.TokenStorageService.logOut();
-              window.location.reload();
             }
           });
         }
