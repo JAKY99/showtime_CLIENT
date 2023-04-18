@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {RolesEnum} from "../common/enums/authorities/roles-enum";
-
+import {UserService} from "../services/user/user.service";
 const TOKEN_KEY = 'auth-token';
 
 @Injectable({
@@ -9,9 +9,11 @@ const TOKEN_KEY = 'auth-token';
 })
 export class TokenStorageService {
 
-  constructor(private jwtHelperService: JwtHelperService) { }
+  constructor(private jwtHelperService: JwtHelperService,
+              private userService: UserService) { }
   logOut(): void{
     window.localStorage.clear();
+    window.location.reload();
   }
 
   public saveToken(token: string): boolean{

@@ -24,6 +24,12 @@ export class AuthService {
     // @ts-ignore
     }, httpOptions);
   }
+  logout(): Observable<any> {
+    let url = GlobalConstants.API_URL + "/api/logout";
+    return this.http.post<any>(url, {
+      // @ts-ignore
+    }, httpOptions);
+  }
   googleLogin(token: string): Observable<any> {
 
     let url = GlobalConstants.API_URL + "/api/v1/login/google";
