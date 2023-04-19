@@ -3,9 +3,6 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import {RolesEnum} from "../common/enums/authorities/roles-enum";
 import {GlobalConstants} from "../common/constants/global-constants";
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
-import {tap} from "rxjs/operators";
-import {Observable, Subscription} from "rxjs";
-
 
 const TOKEN_KEY = 'auth-token';
 const REFRESH_TOKEN_KEY = 'refresh-Token';
@@ -20,6 +17,7 @@ export class TokenStorageService {
   constructor(private jwtHelperService: JwtHelperService, private http: HttpClient) { }
   logOut(): void{
     window.localStorage.clear();
+    window.location.reload();
   }
 
   public saveToken(token: string): boolean{

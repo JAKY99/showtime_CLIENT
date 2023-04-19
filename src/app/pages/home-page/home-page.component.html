@@ -1,8 +1,10 @@
 <div class="app-home-page h-full overflow-auto">
   <div class="top-header">
-    <fa-icon class="options-icon-action" [icon]="faEllipsisVertical"></fa-icon>
+    <fa-icon #img class="options-icon-action" (click)="menu.toggle($event)" [icon]="faEllipsisVertical" ></fa-icon>
     <app-logo class="app-logo" style="font-size: 0.7rem"> </app-logo>
     <fa-icon class="search-icon-action" [icon]="faSearch" (click)="redirectTo('search')"></fa-icon>
+    <p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu>
+    <p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
   </div>
   <div class="trending-section carousel-container">
     <h2 class="m-3 mb-4 text-white text-base">Trending</h2>

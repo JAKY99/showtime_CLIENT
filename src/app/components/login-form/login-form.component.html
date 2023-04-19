@@ -26,14 +26,36 @@
         </div>
       </div>
     </div>
-    <div class="flex justify-content-center">
+    <div class="flex justify-content-center flex-column">
       <button pButton
               type="submit"
               label="Sign In"
               [loading]="isLoading"
               [disabled]="loginForm.invalid"
+              class="mb-3"
       ></button>
+      <div id="g_id_onload"
+           data-client_id="108918265204-8vlnr2kh2bc0t872mp67k8qu9k2t9t59.apps.googleusercontent.com"
+           data-context="signin"
+           data-ux_mode="redirect"
+           [attr.data-login_uri]="getLoginUri()"
+           data-callback="handleLoginGoogle"
+           data-itp_support="true">
+      </div>
+
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="rectangular"
+           data-theme="filled_black"
+           data-text="signin_with"
+           data-size="large"
+           data-locale="en-US"
+           data-logo_alignment="left">
+      </div>
     </div>
   </form>
   <p-toast position="bottom-center"></p-toast>
+  <script>
+
+  </script>
 </div>

@@ -58,3 +58,19 @@
 }
 
 
+.context-menu {
+  position: fixed;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  z-index: 1000;
+}
+
+.context-menu-item {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.context-menu-item:hover {
+  background-color: #f0f0f0;
+}
