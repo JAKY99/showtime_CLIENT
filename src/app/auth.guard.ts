@@ -7,23 +7,39 @@ import {UserService} from "./services/user/user.service";
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {GlobalConstants} from "./common/constants/global-constants";
+import {HttpHeaders} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
   url = GlobalConstants.WEBSOCKET_URL
   env = GlobalConstants.ENV;
+  private header: HttpHeaders | undefined;
   client: any;
+
+
   constructor(private router: Router, private tokenStorage: TokenStorageService,private UserService : UserService) {
   }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     // @ts-ignore
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.connection();
     this.checkUpdate();
-    if (!this.tokenStorage.isTokenExpired()){
+
+
+    if (!this.tokenStorage.isTokenExpired() ) {
       return true
+    } else if (this.tokenStorage.isTokenExpired() && !this.tokenStorage.isRefreshTokenExpired()) {
+      try {
+        this.tokenStorage.refreshToken();
+        return true
+      } catch (e) {
+        this.router.navigate(['/login']).then(() => {
+          return false
+        });
+      }
     }
     this.router.navigate(['/login']).then(() => {
       return false
