@@ -82,6 +82,10 @@ import {SortDrawerComponent} from './components/search/sort-drawer/sort-drawer.c
 import {RadioButtonModule} from "primeng/radiobutton";
 import {MediaDetailsDialogComponent} from './components/media-details-dialog/media-details-dialog.component';
 import { ViewAllProfileListComponent } from './components/view-all-profile-list/view-all-profile-list.component';
+import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
+import {ContextMenuModule} from "primeng/contextmenu";
+import {ConfirmationService} from 'primeng/api';
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 
 @NgModule({
@@ -130,7 +134,8 @@ import { ViewAllProfileListComponent } from './components/view-all-profile-list/
     PosterListComponent,
     SortDrawerComponent,
     MediaDetailsDialogComponent,
-    ViewAllProfileListComponent
+    ViewAllProfileListComponent,
+    PrivacyPageComponent
   ],
   imports: [
     HttpClientModule,
@@ -168,7 +173,10 @@ import { ViewAllProfileListComponent } from './components/view-all-profile-list/
     LazyLoadImageModule,
     AccordionModule,
     ProgressBarModule,
-    RadioButtonModule
+    RadioButtonModule,
+    ContextMenuModule,
+    ConfirmDialogModule,
+
   ],
   providers: [
     {
@@ -184,7 +192,8 @@ import { ViewAllProfileListComponent } from './components/view-all-profile-list/
     HttpClientModule,
     MessageService,
     AuthGuard,
-    JwtHelperService
+    JwtHelperService,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

@@ -13,4 +13,5 @@ export class GlobalConstants {
   public static readonly FLAG_ICON_BASE_URL = "https://countryflagsapi.com/png/";
   public static readonly WEBSOCKET_URL = environment.webSocketUrl;
   public static readonly ENV = environment.env;
+  public static readonly GOOGLE_LOGIN_URI = environment.google_login_uri;
 }

@@ -67,5 +67,11 @@
     yDown = null;
   }
   document.addEventListener("touchend",(event)=>touchEndHandler(event));
+  let baseUrl = window.location.origin+"/api/v1/login/google";
+  handleLoginGoogle = (token) => {
+    const event =  new CustomEvent('google_sign_in', {'detail': token});
+    window.dispatchEvent(event);
+  }
 </script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </html>
