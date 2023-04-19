@@ -30,7 +30,6 @@ export class AuthGuard implements CanActivate {
 
 
     if (!this.tokenStorage.isTokenExpired() ) {
-      this.tokenStorage.refreshToken();
       return true
     } else if (this.tokenStorage.isTokenExpired() && !this.tokenStorage.isRefreshTokenExpired()) {
       try {
