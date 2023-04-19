@@ -22,6 +22,7 @@ export class LoginFormComponent implements OnInit {
   private isLoggedIn: boolean = false;
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
+              private refreshTokenStorage: TokenStorageService,
               private messageService: MessageService,
               private router: Router) {
     this.loginForm = new FormGroup({});
@@ -57,6 +58,8 @@ export class LoginFormComponent implements OnInit {
         this.header = response.headers;
         // @ts-ignore
         this.tokenStorage.saveToken(this.header.get('Authorization'));
+        // @ts-ignore
+        this.refreshTokenStorage.saveRefreshToken(this.header.get('Refresh'));
 
         this.router.navigate(['/home']).then();
         this.isLoading = false;

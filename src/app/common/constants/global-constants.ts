@@ -3,6 +3,7 @@ import { environment } from "environments/environment";
 export class GlobalConstants {
   public static readonly API_URL = environment.apiUrl;
   public static readonly TOKEN_HEADER_KEY = "Authorization";
+  public static readonly TOKEN_HEADER_KEY_REFRESH = "Refresh";
 
   public static readonly TMDB_BASE_URL = "https://api.themoviedb.org/3/";
   public static readonly TMDB_KEY = "268e205e4732543417f057b681731e09";
