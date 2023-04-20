@@ -6,7 +6,9 @@ import {MovieService} from "../../services/movie/movie.service";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 import {ViewAllProfileListComponent} from "../../components/view-all-profile-list/view-all-profile-list.component";
 import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
-
+import {faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
+import {ConfirmationService, MenuItem} from "primeng/api";
+import {TokenStorageService} from "../../services/token-storage.service";
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
@@ -28,11 +30,11 @@ export class ProfilePageComponent implements OnInit {
   lastWatchedSeries: TvDetails[] = [];
   favoritesSeries: TvDetails[] = [];
   watchlistSeries: TvDetails[] = [];
-
+  faEllipsisVertical = faEllipsisVertical;
   lastWatchedMovies: MovieDetailsModel[] = [];
   favoritesMovies: MovieDetailsModel[] = [];
   watchlistMovies: MovieDetailsModel[] = [];
-
+  editMode: boolean = false;
   numberSeriesWatched: number = 0;
 
   numberMoviesWatched: number = 0;
@@ -45,7 +47,7 @@ export class ProfilePageComponent implements OnInit {
   lastWatchedSeriesTotal: number = 0;
   favoritesSeriesTotal: number = 0;
   watchlistSeriesTotal: number = 0;
-
+  items: MenuItem[]=[];
   lastWatchedMoviesRangeServiceName: String = "MovieService";
   favoritesMoviesRangeServiceName: String = "MovieService";
   watchlistMoviesRangeServiceName: String = "MovieService";
@@ -67,11 +69,37 @@ export class ProfilePageComponent implements OnInit {
   favoritesSeriesRangeMethodName: String = "";
   watchlistSeriesRangeMethodName: String = "";
 
-  constructor(private ProfileService: ProfileService, private MovieService: MovieService) {
+  constructor(private ProfileService: ProfileService,
+              private MovieService: MovieService,
+              private TokenStorageService: TokenStorageService,
+              private confirmationService: ConfirmationService
+
+  ) {
   }
 
   ngOnInit(): void {
     this.fetchProfileData();
+    this.items = [
+      {
+        separator:true
+      },
+      {
+        label:'Logout',
+        icon:'pi pi-fw pi-power-off',
+        command: (event: Event) => {
+          this.confirmationService.confirm({
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            message: 'Are you sure that you want to logout?',
+
+            accept: () => {
+              this.TokenStorageService.logOut();
+            }
+          });
+        }
+
+      }
+    ];
   }
 
   async handleChangeTabView(e: any) {
