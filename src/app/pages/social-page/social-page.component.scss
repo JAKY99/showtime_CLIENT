@@ -3,6 +3,31 @@
 .app-social-page {
   background-color: $main-color;
   overflow-x: hidden;
+  .top-header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    //background-color: $main-color;
+    background-color: transparentize($main-color, .5);
+    position: relative;
+    z-index: 90;
+    .search-icon-action{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+
+    .options-icon-action{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+  }
 }
 
 .tab-view-section {

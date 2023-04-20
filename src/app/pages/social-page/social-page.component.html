@@ -1,4 +1,9 @@
 <div class="app-social-page h-full">
+  <div class="top-header">
+    <fa-icon #img class="options-icon-action" (click)="menu.toggle($event)" [icon]="faEllipsisVertical" ></fa-icon>
+    <p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu>
+    <p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
+  </div>
   <app-social-top-section></app-social-top-section>
   <app-social-info-section></app-social-info-section>
   <div class="tab-view-section">
