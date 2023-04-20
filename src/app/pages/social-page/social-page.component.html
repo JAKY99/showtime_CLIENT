@@ -1,1 +1,19 @@
-<p>social-page works!</p>
+<div class="app-social-page h-full">
+  <app-social-top-section></app-social-top-section>
+  <app-social-info-section></app-social-info-section>
+  <div class="tab-view-section">
+    <p-tabView>
+      <p-tabPanel header="About" class="About-panel">
+      {{About}}
+      </p-tabPanel>
+      <p-tabPanel header="Comments" class="Comments-panel">
+        {{Comments}}
+      </p-tabPanel>
+      <p-tabPanel header="Trophies" class="Trophies-panel">
+        {{Trophies}}
+      </p-tabPanel>
+      <p-tabPanel header="Search User" class="Search-panel">
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

@@ -86,6 +86,8 @@ import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.componen
 import {ContextMenuModule} from "primeng/contextmenu";
 import {ConfirmationService} from 'primeng/api';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import { SocialTopSectionComponent } from './components/social-top-section/social-top-section.component';
+import { SocialInfoSectionComponent } from './components/social-info-section/social-info-section.component';
 
 
 @NgModule({
@@ -135,7 +137,9 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     SortDrawerComponent,
     MediaDetailsDialogComponent,
     ViewAllProfileListComponent,
-    PrivacyPageComponent
+    PrivacyPageComponent,
+    SocialTopSectionComponent,
+    SocialInfoSectionComponent
   ],
   imports: [
     HttpClientModule,
