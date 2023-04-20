@@ -11,8 +11,6 @@
       width: 85vw;
       height: 32vh;
       transform: scale(1.2);
-      border-bottom-left-radius: 50%;
-      border-bottom-right-radius: 50%;
     }
   }
 
@@ -27,6 +25,8 @@
   justify-content: center;
   z-index: 10000;
   position: relative;
+  background-color: transparent;
+  top:-4rem;
 }
 
 
