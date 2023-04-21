@@ -57,6 +57,24 @@ export class MovieService {
     // return this.HazelcastService.getDataFromHazelcastCache(url)
     // return this.http.get<any>(url);
   }
+  fetchPopular(): Observable<any> {
+    let url = GlobalConstants.TMDB_BASE_URL +
+      "movie/popular?api_key=" +
+      GlobalConstants.TMDB_KEY +
+      "&language=en-US&page=1";
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.HazelcastService.getDataFromHazelcastCache(url)
+    // return this.http.get<any>(url);
+  }
+  fetchNowPlaying(): Observable<any> {
+    let url = GlobalConstants.TMDB_BASE_URL +
+      "movie/now_playing?api_key=" +
+      GlobalConstants.TMDB_KEY +
+      "&language=en-US&page=1";
+    return this.RedisService.getDataFromRedisCache(url)
+    // return this.HazelcastService.getDataFromHazelcastCache(url)
+    // return this.http.get<any>(url);
+  }
 
   fetchMovieDetails(movieId: number, responseToAppend?: Array<string>): Observable<MovieDetailsModel>{
 

@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class SocialService {
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService) { }
-  fetchSocialInfo() {
+  fetchSocialInfo(): Observable<any> {
     let url = GlobalConstants.API_URL + "/api/v1/user/social/info";
     // @ts-ignore
     return this.http.post<string>(
@@ -23,5 +23,51 @@ export class SocialService {
       // @ts-ignore
       httpOptions);
 
+  }
+
+  fetchSocialInfoSearch(username: string): Observable<any> {
+    let url = GlobalConstants.API_URL + "/api/v1/user/social/search/user";
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      username,
+      // @ts-ignore
+      httpOptions);
+  }
+  fetchSocialInfoSearchDetail(username: string): Observable<any> {
+    let url = GlobalConstants.API_URL + "/api/v1/user/social/search/user/detail";
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      username,
+      // @ts-ignore
+      httpOptions);
+  }
+  fetchTopTenUserSocial(): Observable<any> {
+    let url = GlobalConstants.API_URL + "/api/v1/user/social/topten";
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      // @ts-ignore
+      httpOptions);
+
+  }
+  fetchProfileAvatar(username: string): Observable<any> {
+    let url = GlobalConstants.API_URL + "/api/v1/user/profile/lazy/avatar";
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      username,
+      // @ts-ignore
+      httpOptions);
+  }
+  fetchProfileSocialInfos(username: string) {
+    let url = GlobalConstants.API_URL + "/api/v1/user/profile/lazy/socialInfos";
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      username,
+      // @ts-ignore
+      httpOptions);
   }
 }

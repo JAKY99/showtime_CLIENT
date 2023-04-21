@@ -88,6 +88,7 @@ import {ConfirmationService} from 'primeng/api';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { SocialTopSectionComponent } from './components/social-top-section/social-top-section.component';
 import { SocialInfoSectionComponent } from './components/social-info-section/social-info-section.component';
+import { SocialUserDetailComponent } from './components/social-user-detail/social-user-detail.component';
 
 
 @NgModule({
@@ -139,7 +140,8 @@ import { SocialInfoSectionComponent } from './components/social-info-section/soc
     ViewAllProfileListComponent,
     PrivacyPageComponent,
     SocialTopSectionComponent,
-    SocialInfoSectionComponent
+    SocialInfoSectionComponent,
+    SocialUserDetailComponent
   ],
   imports: [
     HttpClientModule,

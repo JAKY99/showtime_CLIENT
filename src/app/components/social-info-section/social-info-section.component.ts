@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {TvDetails} from "../../models/tv/tv-details";
+import {Component, Input, OnInit} from '@angular/core';
 import {ProfileService} from "../../services/profile/profile.service";
 import {MovieService} from "../../services/movie/movie.service";
-import {MovieDetailsModel} from "../../models/movie/movie-details-model";
+import {SocialService} from "../../services/social/social.service";
 @Component({
   selector: 'app-social-info-section',
   templateUrl: './social-info-section.component.html',
@@ -13,10 +12,17 @@ export class SocialInfoSectionComponent implements OnInit {
   public followingsCounter: number = 0;
   public followersCounter: number = 0;
   public commentsCounter: number = 0;
-  constructor(private ProfileService :  ProfileService, private MovieService : MovieService) { }
+  @Input() username: string = "";
+  constructor(private ProfileService :  ProfileService, private MovieService : MovieService,private SocialService : SocialService) { }
 
   ngOnInit(): void {
-    this.ProfileService.fetchProfileSocialInfos().subscribe((resp) => {
+
+  }
+  ngOnChanges(): void {
+    if(this.username == ""){
+      return;
+    }
+    this.SocialService.fetchProfileSocialInfos(this.username).subscribe((resp) => {
       //@ts-ignore
       this.followingsCounter = resp.body.followingsCounter;
       //@ts-ignore
@@ -24,7 +30,6 @@ export class SocialInfoSectionComponent implements OnInit {
       //@ts-ignore
       this.commentsCounter = resp.body.commentsCounter;
     });
-
   }
 
 }

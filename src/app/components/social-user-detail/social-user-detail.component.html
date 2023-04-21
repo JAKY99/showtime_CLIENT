@@ -1,0 +1,35 @@
+<div class="app-social-user-detail h-full">
+<p-dialog
+  id="p-dialog-social-user"
+  [closeOnEscape]="false"
+  [dismissableMask]="true"
+  [(visible)]="viewedDialogShown"
+  position="bottom"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+  closeIcon="pi pi-times"
+  [transitionOptions]="'300ms cubic-bezier(1, 1, 1, 1)'"
+>
+  <div >
+    <app-social-top-section [username]="username"  [isOwner]="false"></app-social-top-section>
+    <app-social-info-section [username]="username"></app-social-info-section>
+    <div class="tab-view-section">
+      <p-tabView>
+        <p-tabPanel header="About" class="About-panel">
+          {{About}}
+        </p-tabPanel>
+        <p-tabPanel header="Comments" class="Comments-panel">
+          {{Comments}}
+        </p-tabPanel>
+        <p-tabPanel header="Trophies" class="Trophies-panel">
+          {{Trophies}}
+        </p-tabPanel>
+        <p-tabPanel header="Stats" class="Search-panel">
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</p-dialog>
+</div>
