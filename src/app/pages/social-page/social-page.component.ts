@@ -17,7 +17,6 @@ import {MovieService} from "../../services/movie/movie.service";
   selector: 'app-social-page',
   templateUrl: './social-page.component.html',
   styleUrls: ['./social-page.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
 export class SocialPageComponent implements OnInit {
   @ViewChild('showDetailUserDialog') showDetailuser: SocialUserDetailComponent | undefined;

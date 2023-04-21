@@ -1,15 +1,15 @@
 @import "src/styles";
 
-app-social-user-detail #p-dialog-social-user .p-dialog-header {
+:host ::ng-deep app-social-user-detail #p-dialog-social-user .p-dialog-header {
   display: none !important;
 }
-#p-dialog-social-user{
+:host ::ng-deep  #p-dialog-social-user{
   .p-dialog{
     min-height: 100%!important;
     min-width: 100%!important;
   }
 }
-app-social-user-detail   .p-dialog .p-dialog-content{
+:host ::ng-deep  app-social-user-detail   .p-dialog .p-dialog-content{
   background-color: $main-color !important;
   color: $white;
   padding: 0 !important;
