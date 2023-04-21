@@ -66,4 +66,12 @@
     </ng-container>
   </div>
   <app-social-user-detail #showDetailUserDialog ></app-social-user-detail>
+  <div class="top-rated-movie carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Top liked movies</h2>
+    <app-carousel-image-list #topLikedMoviesRef [items]="topLikedMovies" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+  <div class="top-rated-movie carousel-container  mb-8">
+    <h2 class="m-3 mb-3 text-white text-base">This weeks top watched</h2>
+    <app-carousel-image-list #topWatchedMoviesRef [items]="topWatchedMovies" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
 </div>

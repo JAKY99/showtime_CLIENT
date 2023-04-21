@@ -10,6 +10,9 @@ import {GlobalRegex} from "../../common/constants/global-regex";
 import {CarouselImageListComponent} from "../../components/carousel-image-list/carousel-image-list.component";
 import {SocialUserDetailComponent} from "../../components/social-user-detail/social-user-detail.component";
 import {Router} from "@angular/router";
+import {MovieDetailsModel} from "../../models/movie/movie-details-model";
+import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
+import {MovieService} from "../../services/movie/movie.service";
 @Component({
   selector: 'app-social-page',
   templateUrl: './social-page.component.html',
@@ -18,12 +21,18 @@ import {Router} from "@angular/router";
 })
 export class SocialPageComponent implements OnInit {
   @ViewChild('showDetailUserDialog') showDetailuser: SocialUserDetailComponent | undefined;
+  @ViewChild('topLikedMoviesRef') topLikedChild : CarouselImageListComponent | undefined;
+  @ViewChild('topWatchedMoviesRef') topWatchedChild : CarouselImageListComponent | undefined;
+  @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild : MediaDetailsDialogComponent | undefined;
+
   items: MenuItem[]=[];
   faEllipsisVertical = faEllipsisVertical;
   faSearch = faSearch;
   faTrophy = faTrophy;
   topuserList: SocialUserModel[] = []
   foundUserList: SocialUserModel[] = []
+  topWatchedMovies: MovieDetailsModel[] = [];
+  topLikedMovies: MovieDetailsModel[] = [];
   searchForm = new FormGroup({});
   showsearch: string="hidesearch";
   search: string = "";
@@ -32,10 +41,25 @@ export class SocialPageComponent implements OnInit {
     private SocialService : SocialService,
     private confirmationService: ConfirmationService,
     private TokenStorageService: TokenStorageService,
+    private movieService: MovieService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.movieService.fetchNowPlaying().toPromise()
+      .then(resp => {
+        resp = JSON.parse(resp.data);
+        this.topLikedMovies = resp.results;
+        // @ts-ignore
+        this.topLikedChild?.isLoading = false;
+      })
+    this.movieService.fetchPopular().toPromise()
+      .then(resp => {
+        resp = JSON.parse(resp.data);
+        this.topWatchedMovies = resp.results;
+        // @ts-ignore
+        this.topWatchedChild?.isLoading = false;
+      })
   this.fetchSocialInfo();
     this.searchForm = new FormGroup({
       userToFind: new FormControl('',[
@@ -125,5 +149,8 @@ export class SocialPageComponent implements OnInit {
   showDetailUser(username:string ){
     console.log(username)
     this.showDetailuser?.open(username);
+  }
+  openDetailsDialog($event: any){
+    this.mediaDetailsDialogChild?.open($event);
   }
 }
