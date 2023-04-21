@@ -1,0 +1,52 @@
+@import "src/styles";
+
+
+ .app-social-user-detail {
+  .tab-view-section {
+    padding: .7rem 1rem;
+    margin-bottom: 4rem;
+    position: relative;
+    top: -6rem;
+    .carousel-container{
+      .header-title{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: $margin-default;
+
+        .see-all-btn{
+          color: $secondary-color;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  background-color: $main-color;
+  overflow-x: hidden;
+  .top-header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    //background-color: $main-color;
+    background-color: transparentize($main-color, .5);
+    position: relative;
+    z-index: 90;
+    .search-icon-action{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+
+    .options-icon-action{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+  }
+}
+

@@ -1,24 +1,69 @@
-<div class="app-social-page h-full">
+<div class="app-social-page flex-column h-full">
   <div class="top-header">
-    <fa-icon #img class="options-icon-action" (click)="menu.toggle($event)" [icon]="faEllipsisVertical" ></fa-icon>
+    <fa-icon #img class="options-icon-action mt-3" (click)="menu.toggle($event)" [icon]="faEllipsisVertical" ></fa-icon>
     <p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu>
     <p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
   </div>
-  <app-social-top-section></app-social-top-section>
-  <app-social-info-section></app-social-info-section>
-  <div class="tab-view-section">
-    <p-tabView>
-      <p-tabPanel header="About" class="About-panel">
-      {{About}}
-      </p-tabPanel>
-      <p-tabPanel header="Comments" class="Comments-panel">
-        {{Comments}}
-      </p-tabPanel>
-      <p-tabPanel header="Trophies" class="Trophies-panel">
-        {{Trophies}}
-      </p-tabPanel>
-      <p-tabPanel header="Search User" class="Search-panel">
-      </p-tabPanel>
-    </p-tabView>
+  <form [formGroup]="searchForm"  class="search-input-container mt-6 flex justify-content-around" (ngSubmit)="handleUserSearch($event)">
+      <span class="p-input-icon-left" style="width: 85%;">
+        <fa-icon class="search-icon" [icon]="faSearch"></fa-icon>
+        <input  formControlName="userToFind" type="text" style="width: 95%;" pInputText placeholder="Search people (Name and email)" (input)="handleChangeSearch()"/>
+      </span>
+  </form>
+
+  <div id="userContainer" class="mt-6 mb-8">
+    <div class="flex">
+      <h2 class="ml-6 mb-4 text-white text-base">Top 10 moviegoers</h2>
+    </div>
+
+    <ng-container class="flex justify-content-around mt-2 mb-3" *ngFor="let user of topuserList;let indexOfelement=index;">
+      <div class="flex justify-content-between text-white align-items-center mt-2 mb-3 top3User" *ngIf="indexOfelement<3" (click)="showDetailUser(user.username)">
+        <div class="flex align-items-center">
+          <img [src]=user.profilePicture class="profilePicBadge" >
+          <p class="rank-number p-badge p-component p-badge-no-gutter">{{user.rank}}</p>
+        </div>
+        <div class="n-margin-name">
+          <p class="profile-name">{{user.fullName}}</p>
+        </div>
+        <div>
+          <p class="profile-score">{{user.score}} <fa-icon class="ml-2" [icon]="faTrophy"> </fa-icon></p>
+        </div>
+      </div>
+      <div class="flex justify-content-between text-white align-items-center grayPill  mt-2 mb-3" *ngIf="indexOfelement>3" (click)="showDetailUser(user.username)">
+        <div class="flex align-items-center">
+          <img [src]=user.profilePicture class="profilePicBadgeSearch" >
+        </div>
+        <div class="n-margin-name">
+          <p class="profile-name">{{user.fullName}}</p>
+        </div>
+        <div>
+          <p class="profile-score">{{user.score}} <fa-icon class="ml-2" [icon]="faTrophy"> </fa-icon></p>
+        </div>
+      </div>
+
+    </ng-container>
+
+
+
   </div>
+  <p-divider></p-divider>
+  <div [class]="showsearch">
+    <div class="flex">
+      <h2 class="ml-6 mb-4 text-white text-base searchResults " id="searchResults" >Search results for {{ search }} : {{foundUserList.length}}</h2>
+    </div>
+    <ng-container class="flex justify-content-center mt-2" *ngFor="let user of foundUserList">
+      <div class="flex justify-content-between text-white align-items-center grayPill" (click)="showDetailUser(user.username)">
+        <div class="flex align-items-center">
+          <img [src]=user.profilePicture class="profilePicBadgeSearch" >
+        </div>
+        <div class="n-margin-name">
+          <p class="profile-name">{{user.fullName}}</p>
+        </div>
+        <div>
+          <p class="profile-score">{{user.score}} <fa-icon class="ml-2" [icon]="faTrophy"> </fa-icon></p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <app-social-user-detail #showDetailUserDialog ></app-social-user-detail>
 </div>

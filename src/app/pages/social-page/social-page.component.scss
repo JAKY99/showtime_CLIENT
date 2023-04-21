@@ -1,14 +1,37 @@
 @import "src/styles";
 
+app-social-user-detail #p-dialog-social-user .p-dialog-header {
+  display: none !important;
+}
+app-social-user-detail   .p-dialog .p-dialog-content{
+  background-color: $main-color !important;
+  color: $white;
+  padding: 0 !important;
+  position: relative;
+  overflow-y: auto;
+
+  .top-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    position: absolute;
+    z-index: 9999;
+    width: 30px;
+    height: 30px;
+    top: 1rem;
+    left: 1rem;
+    border-radius: 50%;
+    font-size: $font-medium;
+  }
+}
 .app-social-page {
   background-color: $main-color;
   overflow-x: hidden;
+  display: flex;
   .top-header{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
     //background-color: $main-color;
     background-color: transparentize($main-color, .5);
-    position: relative;
     z-index: 90;
     .search-icon-action{
       display: flex;
@@ -27,6 +50,51 @@
       font-size: 1.4rem;
       color: $white;
     }
+  }
+  .search-input-container{
+   width: 100%;
+  }
+  .search-icon{
+    left: 1.5rem;
+    position: relative;
+  }
+  .profilePicBadge{
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+  }
+  .rank-number{
+    z-index: 666;
+    background-color: #F65C63;
+    position: relative;
+    right: 0.5rem;
+  }
+  .n-margin-name{
+    margin-left: -4.5rem;
+  }
+  .profilePicBadgeSearch{
+    width: 4rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    margin-right: 3rem;
+    position: relative;
+    left: -0.5rem;
+  }
+  .grayPill{
+    background-color: lighten($main-color, 10%);
+    color: $white;
+    border-radius: 2.5rem;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    width: 90%;
+    margin-left: 1rem;
+  }
+  .hidesearch{
+    display: none;
+  }
+  .showsearch{
+    display: flex;
+    min-height: 100%;
   }
 }
 
@@ -48,4 +116,8 @@
       }
     }
   }
+
+}
+.top3User{
+  padding:1rem;
 }
