@@ -10,9 +10,16 @@
   [draggable]="false"
   [resizable]="false"
   closeIcon="pi pi-times"
+  styles="min-height: 100%!important;min-width: 100%!important;"
   [transitionOptions]="'300ms cubic-bezier(1, 1, 1, 1)'"
 >
   <div >
+    <div class="top-section">
+      <fa-icon class="close-icon st-icon st-icon-small dark"
+               [icon]="faChevronDown"
+               (click)="close()"
+      ></fa-icon>
+    </div>
     <app-social-top-section [username]="username"  [isOwner]="false"></app-social-top-section>
     <app-social-info-section [username]="username"></app-social-info-section>
     <div class="tab-view-section">

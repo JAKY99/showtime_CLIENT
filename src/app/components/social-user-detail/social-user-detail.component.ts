@@ -4,6 +4,7 @@ import {SocialService} from "../../services/social/social.service";
 import {faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
 import {ConfirmationService} from "primeng/api";
 import {TokenStorageService} from "../../services/token-storage.service";
+import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 @Component({
   selector: 'app-social-user-detail',
   templateUrl: './social-user-detail.component.html',
@@ -17,6 +18,7 @@ export class SocialUserDetailComponent implements OnInit {
   Trophies : string = ""
   items: MenuItem[]=[];
   viewedDialogShown: boolean = false;
+  faChevronDown = faChevronDown;
   faEllipsisVertical = faEllipsisVertical;
   constructor( private SocialService : SocialService,
                private confirmationService: ConfirmationService,
@@ -74,5 +76,8 @@ export class SocialUserDetailComponent implements OnInit {
     console.log("open");
     this.fetchSocialInfo();
 
+  }
+  close(){
+    this.viewedDialogShown = false
   }
 }

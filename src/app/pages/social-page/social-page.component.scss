@@ -3,6 +3,12 @@
 app-social-user-detail #p-dialog-social-user .p-dialog-header {
   display: none !important;
 }
+#p-dialog-social-user{
+  .p-dialog{
+    min-height: 100%!important;
+    min-width: 100%!important;
+  }
+}
 app-social-user-detail   .p-dialog .p-dialog-content{
   background-color: $main-color !important;
   color: $white;
