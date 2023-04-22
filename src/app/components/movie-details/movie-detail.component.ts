@@ -16,7 +16,8 @@ import {MovieSimilar} from "../../models/movie/movie-similar";
 import {CarouselImageListComponent} from "../carousel-image-list/carousel-image-list.component";
 import {MessageService} from "primeng/api";
 import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
-
+import { DomSanitizer } from '@angular/platform-browser';
+import {Trailer} from "../../models/common/trailer";
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-detail.component.html',
@@ -24,8 +25,9 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
   encapsulation: ViewEncapsulation.None
 })
 export class MovieDetailComponent implements OnInit {
+  resultsTrailer: Trailer[] | undefined;
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute, private messageService: MessageService,) { }
+  constructor(private movieService: MovieService, private route: ActivatedRoute, private messageService: MessageService,private sanitizer: DomSanitizer) { }
 
   @ViewChild('similarMoviesRef') similarMoviesChild : CarouselImageListComponent | undefined;
 
@@ -80,6 +82,7 @@ export class MovieDetailComponent implements OnInit {
         setTimeout(()=> {
           this.movie = resp;
           this.loading.movie = false;
+          this.getYoutubeTrailers()
         }, 100)
       }
 
@@ -133,10 +136,15 @@ export class MovieDetailComponent implements OnInit {
   }
 
   getYoutubeTrailers() {
-    return this.movie.videos?.results.filter(
+
+    let result = this.movie.videos?.results.filter(
       x => x.type.toLowerCase() == 'trailer' &&
         x.site.toLowerCase() == 'youtube'
     );
+    result.forEach((trailer) => {
+      trailer.trailerUrl =this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/" + trailer.key+'?autoplay=0');
+    });
+    this.resultsTrailer = result;
   }
 
   getYoutubeTrailersLength() {
