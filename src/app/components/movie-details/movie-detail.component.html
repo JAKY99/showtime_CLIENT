@@ -165,13 +165,18 @@
     <p-tabView (onChange)="handleChangeTabView($event)">
       <p-tabPanel header="Trailers">
         <ng-template pTemplate="content">
-          <div class="trailers">
-            <div class="trailer" *ngFor="let trailer of getYoutubeTrailers()">
-              <app-image class="trailer-img"
-                         [imagePath]="movie.backdrop_path"
-                         imageSize="500"
-                         [icon]="faPlay"
-              ></app-image>
+          <div class="trailers flex flex-column">
+            <div class="trailer flex-column align-self-center mb-3" *ngFor="let trailer of resultsTrailer">
+              <iframe
+                width="auto"
+                height="200"
+                [src]=trailer.trailerUrl
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+
+              </iframe>
               <span class="title">{{trailer.name}}</span>
             </div>
           </div>

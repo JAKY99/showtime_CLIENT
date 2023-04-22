@@ -1,3 +1,5 @@
+import {SafeUrl} from "@angular/platform-browser";
+
 export interface Trailer {
   "iso_639_1": string,
   "iso_3166_1": string,
@@ -8,5 +10,6 @@ export interface Trailer {
   "type": string,
   "official": true,
   "published_at": string,
-  "id": string
+  "id": string,
+  "trailerUrl": SafeUrl
 }
