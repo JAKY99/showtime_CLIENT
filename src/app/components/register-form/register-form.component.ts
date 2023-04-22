@@ -131,11 +131,9 @@ export class RegisterFormComponent implements OnInit {
   }
   checkPersonalInfo() {
     let checkLength = this.personalInformationForm.get('firstname')?.value.length > 0 && this.personalInformationForm.get('lastname')?.value.length > 0;
-    console.log(checkLength)
     this.isPersonalInfoNotValid =  checkLength?false:true;
   }
   goAccountInfo() {
-    console.log("goAccountInfo")
     this.activeIndex = 1;
 
     // @ts-ignore
