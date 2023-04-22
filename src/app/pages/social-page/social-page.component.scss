@@ -61,8 +61,9 @@
    width: 100%;
   }
   .search-icon{
-    left: 1.5rem;
+    left: 0.5rem;
     position: relative;
+    top: 2rem;
   }
   .profilePicBadge{
     width: 5rem;
@@ -100,6 +101,7 @@
   .showsearch{
     display: flex;
     min-height: 100%;
+    flex-direction: column;
   }
 }
 
