@@ -5,9 +5,10 @@
     <p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
   </div>
   <form [formGroup]="searchForm"  class="search-input-container mt-6 flex justify-content-around" (ngSubmit)="handleUserSearch($event)">
-      <span class="p-input-icon-left" style="width: 85%;">
-        <fa-icon class="search-icon" [icon]="faSearch"></fa-icon>
-        <input  formControlName="userToFind" type="text" style="width: 95%;" pInputText placeholder="Search people (Name and email)" (input)="handleChangeSearch()"/>
+      <span class="p-input-icon-left w-max">
+        <i> <fa-icon [icon]="faSearch"></fa-icon></i>
+        <input type="text" pInputText placeholder="Search people (Name and email)" class="w-max" formControlName="userToFind" (input)="handleChangeSearch()"
+              name="globalSearch"/>
       </span>
   </form>
 
@@ -52,7 +53,7 @@
       <h2 class="ml-6 mb-4 text-white text-base searchResults " id="searchResults" >Search results for {{ search }} : {{foundUserList.length}}</h2>
     </div>
     <ng-container class="flex justify-content-center mt-2" *ngFor="let user of foundUserList">
-      <div class="flex justify-content-between text-white align-items-center grayPill" (click)="showDetailUser(user.username)">
+      <div class="flex justify-content-between text-white align-items-center mb-3 grayPill" (click)="showDetailUser(user.username)">
         <div class="flex align-items-center">
           <img [src]=user.profilePicture class="profilePicBadgeSearch" >
         </div>
