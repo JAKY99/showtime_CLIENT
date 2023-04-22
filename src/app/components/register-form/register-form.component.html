@@ -1,10 +1,50 @@
-<div class="flex flex-column justify-content-center gap-4">
+
+
+<!--<div class="flex flex-column justify-content-center gap-4">-->
+<div>
   <div class="register-header text-center">
     <h1 class="title"><span class="text-white">Show</span>Time</h1>
   </div>
-  <form class="flex flex-column justify-content-center gap-4" (ngSubmit)="submitLogin()">
+  <div class="card mt-3 mb-3">
+    <p-toast></p-toast>
+    <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="true" ></p-steps>
+  </div>
+  <form id="formPersonalInfo" [formGroup]="personalInformationForm" class="flex flex-column justify-content-center gap-4" (ngSubmit)="goAccountInfo()">
+    <div  class="flex flex-column justify-content-center gap-4">
+
+      <div class="flex flex-column text-center gap-1">
+        <label for="register-input-firstname" class="uppercase text-white text-sm">Firstname</label>
+        <input id="register-input-firstname"
+               formControlName="firstname"
+               type="text"
+               (ngModelChange)="checkPersonalInfo()"
+               pInputText
+        />
+      </div>
+
+      <div class="flex flex-column text-center gap-1">
+        <label for="register-input-firstname" class="uppercase text-white text-sm">Lastname</label>
+        <input id="register-input-lastname"
+               formControlName="lastname"
+               type="text"
+               (ngModelChange)="checkPersonalInfo()"
+               pInputText
+        />
+        <p class="text-white text-sm" routerLink="/login" >Got an account?</p>
+      </div>
+    </div>
+    <div class="flex justify-content-center">
+      <button pButton
+              type="submit"
+              label="Next"
+              [loading]="isLoading"
+              [disabled]="isPersonalInfoNotValid"
+      ></button>
+    </div>
+  </form>
+  <form id="formAccountInfo" class="flex flex-column justify-content-center gap-4" style="display:none!important" (ngSubmit)="submitLogin()">
     <div [formGroup]="registerForm" class="flex flex-column justify-content-center gap-4">
-      
+
       <div class="flex flex-column text-center gap-1">
         <label for="register-input-email" class="uppercase text-white text-sm">Email</label>
         <input id="register-input-email"
@@ -13,7 +53,7 @@
                 (ngModelChange)="check()"
                 pInputText
         />
-      </div>       
+      </div>
       <div class="flex flex-column text-center gap-1">
         <label for="register-input-password" class="uppercase text-white text-sm">Password</label>
         <p-password id="register-input-password"
@@ -23,11 +63,11 @@
         styleClass="p-password p-component p-inputwrapper p-input-icon-right"
         (ngModelChange)="check()"
          ></p-password>
-        
+
       </div>
       <div class="flex flex-column text-center gap-1">
         <label for="register-input-password" class="uppercase text-white text-sm">Repeat Password</label>
-        <p-password id="register-input-password"
+        <p-password id="register-input-password-repeat"
         formControlName="repeatpassword"
         [toggleMask]="true"
         [feedback]="false"
@@ -38,6 +78,12 @@
       </div>
     </div>
     <div class="flex justify-content-center">
+      <button pButton
+              type="button"
+              label="Previous"
+              class="mr-4"
+              (click)="goPrevious()"
+      ></button>
       <button pButton
               type="submit"
               label="Sign up"
