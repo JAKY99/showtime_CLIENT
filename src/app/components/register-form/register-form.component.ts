@@ -5,7 +5,7 @@ import {emailValidator} from "../../common/validators/emailValidator";
 import {GlobalRegex} from "../../common/constants/global-regex";
 import {TokenStorageService} from "../../services/token-storage.service";
 import {HttpHeaders} from "@angular/common/http";
-import {MessageService} from "primeng/api";
+import {MenuItem, MessageService} from "primeng/api";
 import {Router} from "@angular/router";
 import {ClientErrorsEnum} from "../../common/enums/http-status-codes/client-errors-enum";
 
@@ -20,18 +20,36 @@ export class RegisterFormComponent implements OnInit {
   public isLoading: boolean = false;
   private isLoggedIn: boolean = false;
   public isLoginFailed: boolean = true;
+  items: MenuItem[]=[];
+  activeIndex: number = 0;
+  public personalInformationForm: FormGroup;
+  public isPersonalInfoNotValid: boolean = true ;
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
               private messageService: MessageService,
               private router: Router) {
     this.registerForm = new FormGroup({});
+    this.personalInformationForm = new FormGroup({});
   }
 
   ngOnInit(): void {
+    this.items = [{
+      label: 'Personal',
+      command: (event: any) => {
+        this.goPrevious();
+      }
+    },
+      {
+        label: 'Account',
+        command: (event: any) => {
+          this.goAccountInfo()
+        }
+      },
+    ];
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.router.navigate(['/home']).then(r => r);
-      
+
     }
 
     this.registerForm = new FormGroup({
@@ -41,7 +59,12 @@ export class RegisterFormComponent implements OnInit {
         emailValidator(GlobalRegex.emailRegex)
       ]),
       password: new FormControl('', Validators.required),
-      repeatpassword: new FormControl('', Validators.required)
+      repeatpassword: new FormControl('', Validators.required),
+
+    });
+    this.personalInformationForm = new FormGroup({
+      firstname: new FormControl('', Validators.required),
+      lastname: new FormControl('', Validators.required),
     });
   }
   get email(){
@@ -51,9 +74,16 @@ export class RegisterFormComponent implements OnInit {
     return this.registerForm.get('password')?.value;
   }
 
+  get firstname(){
+    return this.personalInformationForm.get('firstname')?.value;
+  }
+  get lastname(){
+    return this.personalInformationForm.get('lastname')?.value;
+  }
+
   submitLogin(): void {
     this.isLoading = true;
-    this.authService.register(this.email, this.password).toPromise()
+    this.authService.register(this.firstname,this.lastname,this.email, this.password,).toPromise()
       .then(response => {
         this.header = response.headers;
         // @ts-ignore
@@ -64,7 +94,7 @@ export class RegisterFormComponent implements OnInit {
           'You have successfully registered. You will be redirected to the home page.',
           true
         )
-        
+
         setTimeout(() => {
           this.router.navigate(['/login']).then(r => r);
         }, 3000);
@@ -74,7 +104,7 @@ export class RegisterFormComponent implements OnInit {
           this.addSingleToast(
             'error',
             'Registration error',
-            'Forbidden access', 
+            'Forbidden access',
             true
           )
         }
@@ -98,5 +128,35 @@ export class RegisterFormComponent implements OnInit {
   }
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
     this.messageService.add({severity:severity, summary:title, detail:details, sticky: sticky});
+  }
+  checkPersonalInfo() {
+    let checkLength = this.personalInformationForm.get('firstname')?.value.length > 0 && this.personalInformationForm.get('lastname')?.value.length > 0;
+    this.isPersonalInfoNotValid =  checkLength?false:true;
+  }
+  goAccountInfo() {
+    this.activeIndex = 1;
+
+    // @ts-ignore
+    document.getElementById("formPersonalInfo").classList.remove("flex");
+    // @ts-ignore
+    document.getElementById("formPersonalInfo").style.display = "none";
+    // @ts-ignore
+    document.getElementById("formAccountInfo").classList.add("flex");
+    // @ts-ignore
+    document.getElementById("formAccountInfo").style.display = "flex";
+
+  }
+
+  goPrevious() {
+    this.activeIndex = 0;
+    // @ts-ignore
+    document.getElementById("formAccountInfo").classList.remove("flex");
+    // @ts-ignore
+    document.getElementById("formAccountInfo").style.display = "none";
+    // @ts-ignore
+    document.getElementById("formPersonalInfo").classList.add("flex");
+    // @ts-ignore
+    document.getElementById("formPersonalInfo").style.display = "flex";
+
   }
 }

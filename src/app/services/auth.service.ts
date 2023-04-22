@@ -38,12 +38,13 @@ export class AuthService {
     // @ts-ignore
     }, httpOptions);
   }
-  register(username: string, password: string): Observable<any> {
+  register(firstname:string , lastname : string , username: string, password: string): Observable<any> {
     let url = GlobalConstants.API_URL + "/api/v1/registration/user";
     return this.http.post<any>(url, {
+      firstname: firstname,
+      lastname: lastname,
       username: username,
       password: password
-
     // @ts-ignore
     }, httpOptions);
   }
