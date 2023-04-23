@@ -67,7 +67,9 @@
     yDown = null;
   }
   document.addEventListener("touchend",(event)=>touchEndHandler(event));
-  let baseUrl = window.location.origin+"/api/v1/login/google";
+
+
+  /* login google handler */
   handleLoginGoogle = (token) => {
     const event =  new CustomEvent('google_sign_in', {'detail': token});
     window.dispatchEvent(event);
