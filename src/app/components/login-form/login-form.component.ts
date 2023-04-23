@@ -64,8 +64,8 @@ export class LoginFormComponent implements OnInit {
       password: new FormControl('', Validators.required)
     });
     this.handleListener();
+    this.loadGoogleSignInScript();
   }
-
   get email(){
     return this.loginForm.get('email')?.value;
   }
@@ -147,5 +147,50 @@ export class LoginFormComponent implements OnInit {
   getLoginUri() {
     let url = GlobalConstants.GOOGLE_LOGIN_URI;
     return url;
+  }
+
+  insertGoogleLoginButton() {
+    this.loadGoogleSignInScript();
+    console.log('test')
+    // Delete old element if exists
+    document.getElementById('g_id_onload')?.remove();
+    document.getElementsByClassName('g_id_signin')?.item(0)?.remove();
+
+    const gIdOnloadDiv = document.createElement('div');
+    gIdOnloadDiv.id = 'g_id_onload';
+    gIdOnloadDiv.setAttribute('data-client_id', '108918265204-8vlnr2kh2bc0t872mp67k8qu9k2t9t59.apps.googleusercontent.com');
+    gIdOnloadDiv.setAttribute('data-context', 'signin');
+    gIdOnloadDiv.setAttribute('data-ux_mode', 'redirect');
+    gIdOnloadDiv.setAttribute('data-login_uri', this.getLoginUri());
+    gIdOnloadDiv.setAttribute('data-callback', 'handleLoginGoogle');
+    gIdOnloadDiv.setAttribute('data-itp_support', 'true');
+
+// Create the second element (g_id_signin)
+    const gIdSigninDiv = document.createElement('div');
+    gIdSigninDiv.className = 'g_id_signin';
+    gIdSigninDiv.setAttribute('data-type', 'standard');
+    gIdSigninDiv.setAttribute('data-shape', 'rectangular');
+    gIdSigninDiv.setAttribute('data-theme', 'filled_black');
+    gIdSigninDiv.setAttribute('data-text', 'signin_with');
+    gIdSigninDiv.setAttribute('data-size', 'large');
+    gIdSigninDiv.setAttribute('data-locale', 'en-US');
+    gIdSigninDiv.setAttribute('data-logo_alignment', 'left');
+
+// Get the parent element where you want to insert the created elements
+    const parentElement = document.getElementById('button_form_containers');
+
+// Insert the created elements after the "Sign In" button
+
+    // @ts-ignore
+    parentElement.insertBefore(gIdOnloadDiv, document.getElementById("signin_normal_button"));
+    // @ts-ignore
+    parentElement.appendChild(gIdSigninDiv);
+  }
+  loadGoogleSignInScript() {
+    const script = document.createElement('script');
+    script.src = 'https://accounts.google.com/gsi/client';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
   }
 }
