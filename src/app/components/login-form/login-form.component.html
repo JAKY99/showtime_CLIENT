@@ -26,8 +26,10 @@
         </div>
       </div>
     </div>
-    <div class="flex justify-content-center flex-column">
-      <button pButton
+    <div id="button_form_containers"class="flex justify-content-center flex-column">
+      <button
+              id="signin_normal_button"
+              pButton
               type="submit"
               label="Sign In"
               [loading]="isLoading"
@@ -42,7 +44,6 @@
            data-callback="handleLoginGoogle"
            data-itp_support="true">
       </div>
-
       <div class="g_id_signin"
            data-type="standard"
            data-shape="rectangular"
