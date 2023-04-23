@@ -14,14 +14,15 @@ import{RegisterPageComponent} from "./pages/register-page/register-page.componen
 import { ChangePasswordPageComponent } from './pages/change-password-page/change-password-page.component';
 import {MainSearchPageComponent} from "./pages/main-search-page/main-search-page.component";
 import {PrivacyPageComponent} from "./pages/privacy-page/privacy-page.component";
+import {CheckupdateGuard} from "./checkupdate.guard";
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'auth/google', component: LoginPageComponent},
-  {path: 'login', component: LoginPageComponent},
-  {path: 'reset', component: ResetPageComponent},
-  {path: 'register', component: RegisterPageComponent},
-  {path: 'reset-password/:token', component: ChangePasswordPageComponent},
-  {path:'privacy', component: PrivacyPageComponent},
+  {path: 'auth/google', component: LoginPageComponent,canActivate: [CheckupdateGuard]},
+  {path: 'login', component: LoginPageComponent,canActivate: [CheckupdateGuard]},
+  {path: 'reset', component: ResetPageComponent,canActivate: [CheckupdateGuard]},
+  {path: 'register', component: RegisterPageComponent,canActivate: [CheckupdateGuard]},
+  {path: 'reset-password/:token', component: ChangePasswordPageComponent,canActivate: [CheckupdateGuard]},
+  {path:'privacy', component: PrivacyPageComponent,canActivate: [CheckupdateGuard]},
   {
     path: 'home',
     children:[
