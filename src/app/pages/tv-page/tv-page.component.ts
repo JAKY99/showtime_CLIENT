@@ -26,7 +26,7 @@ export class TvPageComponent implements OnInit {
       .then(resp => {
         this.topRatedTv = resp.results;
         // @ts-ignore
-        this.topRatedTvChild?.isLoading = false;
+        //this.topRatedTvChild?.isLoading = false;
       })
   }
 

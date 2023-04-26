@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {emailValidator} from "../../common/validators/emailValidator";
 import {GlobalRegex} from "../../common/constants/global-regex";
@@ -18,7 +18,7 @@ import {GlobalConstants} from "../../common/constants/global-constants";
 export class LoginFormComponent implements OnInit {
   @Input() changeFormType: any;
   private header: HttpHeaders | undefined;
-  public loginForm: FormGroup;
+  public loginForm: UntypedFormGroup;
   public isLoading: boolean = false;
   private isLoggedIn: boolean = false;
   constructor(private authService: AuthService,
@@ -27,7 +27,7 @@ export class LoginFormComponent implements OnInit {
               private messageService: MessageService,
               private router: Router,
               private route: ActivatedRoute) {
-    this.loginForm = new FormGroup({});
+    this.loginForm = new UntypedFormGroup({});
   }
 
   ngOnInit(): void {
@@ -55,13 +55,13 @@ export class LoginFormComponent implements OnInit {
       this.router.navigate(['/home']).then(r => r);
     }
 
-    this.loginForm = new FormGroup({
-      email: new FormControl('',[
+    this.loginForm = new UntypedFormGroup({
+      email: new UntypedFormControl('',[
         Validators.required,
         Validators.email,
         emailValidator(GlobalRegex.emailRegex)
       ]),
-      password: new FormControl('', Validators.required)
+      password: new UntypedFormControl('', Validators.required)
     });
     this.handleListener();
     this.loadGoogleSignInScript();

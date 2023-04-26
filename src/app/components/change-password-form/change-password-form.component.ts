@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {emailValidator} from "../../common/validators/emailValidator";
 import {GlobalRegex} from "../../common/constants/global-regex";
@@ -16,7 +16,7 @@ import {ClientErrorsEnum} from "../../common/enums/http-status-codes/client-erro
 })
 export class ChangePasswordFormComponent implements OnInit {
   private header: HttpHeaders | undefined;
-  public changePasswordForm: FormGroup;
+  public changePasswordForm: UntypedFormGroup;
   public isLoading: boolean = false;
   private isLoggedIn: boolean = false;
   public isLoginFailed: boolean = true;
@@ -26,7 +26,7 @@ export class ChangePasswordFormComponent implements OnInit {
               private messageService: MessageService,
               private router: Router,
               private route: ActivatedRoute) {
-    this.changePasswordForm = new FormGroup({});
+    this.changePasswordForm = new UntypedFormGroup({});
   }
 
   ngOnInit(): void {
@@ -37,14 +37,14 @@ export class ChangePasswordFormComponent implements OnInit {
     }
     this.token = this.route.snapshot.params['token'];
     this.checkToken(this.token);
-    this.changePasswordForm = new FormGroup({
-      email: new FormControl('',[
+    this.changePasswordForm = new UntypedFormGroup({
+      email: new UntypedFormControl('',[
         Validators.required,
         Validators.email,
         emailValidator(GlobalRegex.emailRegex)
       ]),
-      password: new FormControl('', Validators.required),
-      repeatpassword: new FormControl('', Validators.required)
+      password: new UntypedFormControl('', Validators.required),
+      repeatpassword: new UntypedFormControl('', Validators.required)
     });
   }
   get email(){

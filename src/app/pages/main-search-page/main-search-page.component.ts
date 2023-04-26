@@ -32,8 +32,11 @@ export class MainSearchPageComponent implements OnInit {
   }
 
   getMainSearchResults($event: any){
-    // @ts-ignore
-    this.mainSearchChild?.search.page = 1;
+    if (
+      this.mainSearchChild
+    ){
+      this.mainSearchChild.search.page = 1;
+    }
     this.isLoadMoreAvailable = true;
     this.mainSearchResults = $event.results;
     this.totalResults = $event.total_results;
@@ -52,8 +55,11 @@ export class MainSearchPageComponent implements OnInit {
   }
 
   loadMoreResults(){
-    // @ts-ignore
-    this.mainSearchChild?.search.page += 1;
+    if (
+      this.mainSearchChild
+    ){
+      this.mainSearchChild.search.page = 1;
+    }
     this.mainSearchChild?.multiSearch();
   }
 

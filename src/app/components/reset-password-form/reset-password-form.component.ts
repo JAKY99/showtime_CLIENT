@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {emailValidator} from "../../common/validators/emailValidator";
 import {GlobalRegex} from "../../common/constants/global-regex";
@@ -16,7 +16,7 @@ import {ClientErrorsEnum} from "../../common/enums/http-status-codes/client-erro
 })
 export class ResetPasswordFormComponent implements OnInit {
   private header: HttpHeaders | undefined;
-  public resetForm: FormGroup;
+  public resetForm: UntypedFormGroup;
   public isLoading: boolean = false;
   private isLoggedIn: boolean = false;
 
@@ -24,7 +24,7 @@ export class ResetPasswordFormComponent implements OnInit {
               private tokenStorage: TokenStorageService,
               private messageService: MessageService,
               private router: Router) {
-    this.resetForm = new FormGroup({});
+    this.resetForm = new UntypedFormGroup({});
   }
 
   ngOnInit(): void {
@@ -33,8 +33,8 @@ export class ResetPasswordFormComponent implements OnInit {
       this.router.navigate(['/home']).then(r => r);
     }
 
-    this.resetForm = new FormGroup({
-      email: new FormControl('',[
+    this.resetForm = new UntypedFormGroup({
+      email: new UntypedFormControl('',[
         Validators.required,
         Validators.email,
         emailValidator(GlobalRegex.emailRegex)

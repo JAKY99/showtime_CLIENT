@@ -73,42 +73,48 @@ export class HomePageComponent implements OnInit {
     this.trendingService.fetchAllTrendings().subscribe(resp => {
       resp = JSON.parse(resp.data);
       this.trendingsList = resp.results;
-      // @ts-ignore
-      this.trendingsChild?.isLoading = false;
+      if (this.trendingsChild){
+        this.trendingsChild.isLoading = false;
+      }
     });
     this.movieService.fetchInTheaters(this.userLocationData.country_code2).subscribe(resp => {
         resp = JSON.parse(resp.data);
         this.moviesInTheaters = resp.results;
-        // @ts-ignore
-        this.moviesInTheatersChild?.isLoading = false;
+        if (this.moviesInTheatersChild){
+          this.moviesInTheatersChild.isLoading = false;
+        }
       })
     this.movieService.fetchTopRated().toPromise()
       .then(resp => {
         resp = JSON.parse(resp.data);
         this.topRatedMovies = resp.results;
-        // @ts-ignore
-        this.topRatedChild?.isLoading = false;
+        if (this.topRatedChild){
+          this.topRatedChild.isLoading = false;
+        }
       })
     this.movieService.fetchUpcoming().toPromise()
       .then(resp => {
         resp = JSON.parse(resp.data);
         this.upComingMovies = resp.results;
-        // @ts-ignore
-        this.upComingChild?.isLoading = false;
+        if (this.upComingChild){
+          this.upComingChild.isLoading = false;
+        }
       })
     this.tvService.fetchTopRated().toPromise()
       .then(resp => {
         resp = JSON.parse(resp.data);
         this.topRatedTv = resp.results;
-        // @ts-ignore
-        this.topRatedTvChild?.isLoading = false;
+        if (this.topRatedTvChild){
+          this.topRatedTvChild.isLoading = false;
+        }
       })
     this.tvService.fetchPopular().toPromise()
       .then(resp => {
         resp = JSON.parse(resp.data);
         this.popularTv = resp.results;
-        // @ts-ignore
-        this.popularTvChild?.isLoading = false;
+        if (this.popularTvChild){
+          this.popularTvChild.isLoading = false;
+        }
       })
     this.items = [
       {

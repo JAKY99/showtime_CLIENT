@@ -169,8 +169,11 @@ export class MovieDetailComponent implements OnInit {
         .then((resp) => {
           resp = JSON.parse(resp.data);
           this.similarMovies = resp.results;
-          // @ts-ignore
-          this.similarMoviesChild?.isLoading = false;
+          if (
+            this.similarMoviesChild
+          ){
+            this.similarMoviesChild.isLoading = false;
+          }
         })
     }
   }

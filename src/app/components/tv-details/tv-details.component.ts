@@ -131,7 +131,9 @@ export class TvDetailsComponent implements OnInit {
           this.similarTv = resp.results;
         });
       // @ts-ignore
-      this.similarTvChild?.isLoading = false;
+      if (this.similarTvChild){
+        this.similarTvChild.isLoading = false;
+      }
     }
   }
 

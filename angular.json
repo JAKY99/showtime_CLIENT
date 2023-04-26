@@ -157,5 +157,7 @@
       }
     }
   },
-  "defaultProject": "showtime-WEB"
+  "cli": {
+    "analytics": false
+  }
 }
