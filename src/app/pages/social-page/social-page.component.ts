@@ -4,7 +4,7 @@ import {faEllipsisVertical,faSearch,faTrophy} from "@fortawesome/free-solid-svg-
 import {ConfirmationService, MenuItem} from "primeng/api";
 import {TokenStorageService} from "../../services/token-storage.service";
 import {SocialUserModel} from "../../models/social_user/social-user-model";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, UntypedFormGroup, Validators} from "@angular/forms";
 import {emailValidator} from "../../common/validators/emailValidator";
 import {GlobalRegex} from "../../common/constants/global-regex";
 import {CarouselImageListComponent} from "../../components/carousel-image-list/carousel-image-list.component";
@@ -35,8 +35,9 @@ export class SocialPageComponent implements OnInit {
   searchForm = new FormGroup({});
   showsearch: string="hidesearch";
   search: string = "";
+  userToFind = "";
 
-  constructor(
+    constructor(
     private SocialService : SocialService,
     private confirmationService: ConfirmationService,
     private TokenStorageService: TokenStorageService,
@@ -49,18 +50,20 @@ export class SocialPageComponent implements OnInit {
       .then(resp => {
         resp = JSON.parse(resp.data);
         this.topLikedMovies = resp.results;
-        // @ts-ignore
-        this.topLikedChild?.isLoading = false;
+        if (this.topLikedChild){
+          this.topLikedChild.isLoading = false;
+        }
       })
     this.movieService.fetchPopular().toPromise()
       .then(resp => {
         resp = JSON.parse(resp.data);
         this.topWatchedMovies = resp.results;
-        // @ts-ignore
-        this.topWatchedChild?.isLoading = false;
+        if (this.topWatchedChild){
+          this.topWatchedChild.isLoading = false;
+        }
       })
   this.fetchSocialInfo();
-    this.searchForm = new FormGroup({
+    this.searchForm = new UntypedFormGroup({
       userToFind: new FormControl('',[
         Validators.required,
       ]),
@@ -121,10 +124,10 @@ export class SocialPageComponent implements OnInit {
   }
   handleUserSearch(e: any) {
     e.preventDefault();
-    let userToFind = this.searchForm.get('userToFind')?.value;
-    this.search=userToFind;
+    this.searchForm.get('userToFind')?.value;
+    this.search = this.userToFind;
 
-    this.SocialService.fetchSocialInfoSearch(userToFind).subscribe(
+    this.SocialService.fetchSocialInfoSearch(this.userToFind).subscribe(
       (data: any) => {
         console.log(data);
         this.showsearch="showsearch";
