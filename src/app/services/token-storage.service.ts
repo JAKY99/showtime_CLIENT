@@ -53,8 +53,8 @@ export class TokenStorageService {
     } else {
       return this.http.get<any>(GlobalConstants.API_URL + '/api/v1/user/refresh', {observe: "response"}).toPromise()
         .then(response => {
-          const authToken = response.headers.get('Authorization');
-          const refreshToken = response.headers.get('Refresh');
+          const authToken = response?.headers.get('Authorization');
+          const refreshToken = response?.headers.get('Refresh');
           if (authToken != null && refreshToken != null) {
             this.saveToken(authToken);
             this.saveRefreshToken(refreshToken);

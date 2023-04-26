@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, Renderer2, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
@@ -17,7 +17,8 @@ export class GoBackComponent implements OnInit {
     private router: Router,
     private location: Location,
     private navigationService: NavigationService
-  ) {}
+  ) {
+  }
 
   faArrowLeft = faArrowLeft;
 
