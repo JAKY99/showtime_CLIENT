@@ -11,6 +11,28 @@
     }
   }
 
+  .p-card{
+    background-color: $main-color;
+    border: none;
+    box-shadow: none;
+  }
+
+  .commentInput{
+    background-color: $main-color;
+    color: $white;
+  }
+
+  .p-button{
+    background-color: $secondary-color;
+    color: $white;
+  }
+
+  .p-float-label {
+    .p-float-input{
+      background-color: $main-color;
+    }
+  }
+
   .backdrop-section {
     max-height: 220px;
     overflow-y: hidden;
@@ -238,6 +260,7 @@
   .p-toast{
     width: 100%;
   }
+
 }
 
 

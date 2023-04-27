@@ -183,7 +183,21 @@
         </ng-template>
       </p-tabPanel>
       <p-tabPanel header="Comments">
-        Content 2
+        <span class="p-float-label">
+          <textarea id="commentInput" class="commentInput" rows="3" cols="40" pInputTextarea></textarea>
+          <label for="commentInput">Your Comment here</label>
+          <p-button label="Submit" class="commentButton" icon="pi pi-check" iconPos="left" (click)="postComment()"></p-button>
+        </span>
+        <div class="comments">
+          <div class="comment" *ngFor="let resultComments of resultComment">
+            <p-card [header]=resultComments.user.fullName>
+              <h6 class="text-white">{{resultComments.datePublication}}</h6>
+              <p class="m-0 text-white">
+                {{resultComments.content}}
+              </p>
+            </p-card>
+          </div>
+        </div>
       </p-tabPanel>
       <p-tabPanel header="More like this">
         <div class="similar-movies">

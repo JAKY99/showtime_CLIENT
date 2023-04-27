@@ -225,4 +225,23 @@ export class MovieService {
     });
 
   }
+
+  postComment(requestedMovieId: number, commentText: any) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/saveComment/${requestedMovieId}`
+    return this.http.post<any>(url, {
+      commentText: commentText,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
+  fetchComments(requestedMovieId: number): Observable<any> {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/getComments/${requestedMovieId}`
+    return this.http.get<any>(url);
+  }
+
+  fetchUserName(user_id: string) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/getUser/${user_id}`
+    return this.http.get(url, {responseType: 'text'});
+
+  }
 }

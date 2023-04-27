@@ -42,6 +42,7 @@ export class AuthGuard implements CanActivate {
       }
     }
     this.router.navigate(['/login']).then(() => {
+      this.tokenStorage.logOut();
       return false
     });
   }

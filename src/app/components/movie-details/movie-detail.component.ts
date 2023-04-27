@@ -26,6 +26,9 @@ import {Trailer} from "../../models/common/trailer";
 })
 export class MovieDetailComponent implements OnInit {
   resultsTrailer: Trailer[] | undefined;
+  resultComment: any;
+  private comments: any;
+  private resultUserName: any;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute, private messageService: MessageService,private sanitizer: DomSanitizer) { }
 
@@ -83,6 +86,7 @@ export class MovieDetailComponent implements OnInit {
           this.movie = resp;
           this.loading.movie = false;
           this.getYoutubeTrailers()
+          this.fetchComments()
         }, 100)
       }
 
@@ -268,5 +272,26 @@ async showViewedDialog() {
     }
     this.requestedMovieId = $event.id
     this.ngOnInit()
+  }
+
+  postComment() {
+    // @ts-ignore
+    let commentText = document.getElementById('commentInput').value;
+    if (commentText.length > 0) {
+      this.movieService.postComment(this.requestedMovieId, commentText).subscribe((resp) => {
+        // @ts-ignore
+        document.getElementById('commentInput').value = '';
+        this.fetchComments();
+      })
+    }
+  }
+
+  fetchComments() {
+    this.movieService.fetchComments(this.requestedMovieId).subscribe((resp) => {
+      this.resultComment = resp;
+      console.log(this.resultComment)
+    }, (error) => {
+      console.log(error);
+    })
   }
 }
