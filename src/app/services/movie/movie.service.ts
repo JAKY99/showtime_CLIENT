@@ -238,10 +238,4 @@ export class MovieService {
     let url = `${GlobalConstants.API_URL}/api/v1/user/getComments/${requestedMovieId}`
     return this.http.get<any>(url);
   }
-
-  fetchUserName(user_id: string) {
-    let url = `${GlobalConstants.API_URL}/api/v1/user/getUser/${user_id}`
-    return this.http.get(url, {responseType: 'text'});
-
-  }
 }
