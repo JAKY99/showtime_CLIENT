@@ -289,7 +289,6 @@ async showViewedDialog() {
   fetchComments() {
     this.movieService.fetchComments(this.requestedMovieId).subscribe((resp) => {
       this.resultComment = resp;
-      console.log(this.resultComment)
     }, (error) => {
       console.log(error);
     })
