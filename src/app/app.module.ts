@@ -90,6 +90,11 @@ import { SocialTopSectionComponent } from './components/social-top-section/socia
 import { SocialInfoSectionComponent } from './components/social-info-section/social-info-section.component';
 import { SocialUserDetailComponent } from './components/social-user-detail/social-user-detail.component';
 import {StepsModule} from "primeng/steps";
+import { RecommendedMediaDialogComponent } from './components/recommended-media-dialog/recommended-media-dialog.component';
+import { RecommendedMediaComponent } from './components/recommended-media/recommended-media.component';
+import {MenuModule} from "primeng/menu";
+import {ListboxModule} from "primeng/listbox";
+import {OverlayPanelModule} from "primeng/overlaypanel";
 
 
 @NgModule({
@@ -142,7 +147,10 @@ import {StepsModule} from "primeng/steps";
     PrivacyPageComponent,
     SocialTopSectionComponent,
     SocialInfoSectionComponent,
-    SocialUserDetailComponent
+    SocialUserDetailComponent,
+    SocialInfoSectionComponent,
+    RecommendedMediaDialogComponent,
+    RecommendedMediaComponent
   ],
     imports: [
         HttpClientModule,
@@ -184,7 +192,9 @@ import {StepsModule} from "primeng/steps";
         ContextMenuModule,
         ConfirmDialogModule,
         StepsModule,
-
+        MenuModule,
+        ListboxModule,
+        OverlayPanelModule,
     ],
   providers: [
     {

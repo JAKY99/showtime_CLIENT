@@ -24,6 +24,7 @@ export class ImageComponent implements OnInit {
   @Input() imageSize: string = "300";
   @Input() icon: IconProp | undefined;
   @Input() lazyLoading: boolean = true;
+  @Input() container: boolean = true;
   imagePathUrl : string = ""
   @Output() imgStateEvent = new EventEmitter<string>();
 
