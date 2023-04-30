@@ -15,7 +15,7 @@ export class RecommendedMediaDialogComponent implements OnInit {
 
   faChevronDown = faChevronDown;
 
-  viewedDialogShown: boolean = true;
+  viewedDialogShown: boolean = false;
   viewedDialogPosition: string = 'bottom';
 
   constructor() { }
