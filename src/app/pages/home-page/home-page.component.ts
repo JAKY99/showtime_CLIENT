@@ -14,8 +14,10 @@ import {faEllipsisVertical, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
 import {TokenStorageService} from "../../services/token-storage.service";
-import { ConfirmationService } from 'primeng/api';
-
+import {ConfirmationService} from 'primeng/api';
+import {
+  RecommendedMediaDialogComponent
+} from "../../components/recommended-media-dialog/recommended-media-dialog.component";
 
 
 @Component({
@@ -26,15 +28,16 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class HomePageComponent implements OnInit {
 
-  @ViewChild('trendings') trendingsChild : CarouselComponent | undefined;
-  @ViewChild('moviesInTheatersRef') moviesInTheatersChild : CarouselImageListComponent | undefined;
-  @ViewChild('topRatedMoviesRef') topRatedChild : CarouselImageListComponent | undefined;
-  @ViewChild('upComingRef') upComingChild : CarouselImageListComponent | undefined;
+  @ViewChild('trendings') trendingsChild: CarouselComponent | undefined;
+  @ViewChild('moviesInTheatersRef') moviesInTheatersChild: CarouselImageListComponent | undefined;
+  @ViewChild('topRatedMoviesRef') topRatedChild: CarouselImageListComponent | undefined;
+  @ViewChild('upComingRef') upComingChild: CarouselImageListComponent | undefined;
 
-  @ViewChild('topRatedTvRef') topRatedTvChild : CarouselImageListComponent | undefined;
-  @ViewChild('popularTvRef') popularTvChild : CarouselImageListComponent | undefined;
+  @ViewChild('topRatedTvRef') topRatedTvChild: CarouselImageListComponent | undefined;
+  @ViewChild('popularTvRef') popularTvChild: CarouselImageListComponent | undefined;
 
-  @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild : MediaDetailsDialogComponent | undefined;
+  @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild: MediaDetailsDialogComponent | undefined;
+  @ViewChild('recommendMediaDialogRef') recommendMediaDialogChild: RecommendedMediaDialogComponent | undefined;
 
   faSearch = faSearch;
   faEllipsisVertical = faEllipsisVertical;
@@ -46,7 +49,7 @@ export class HomePageComponent implements OnInit {
   topRatedTv: TvDetails[] = [];
   upComingMovies: MovieDetailsModel[] = [];
   popularTv: TvDetails[] = [];
-  items: MenuItem[]=[];
+  items: MenuItem[] = [];
   userLocationData = {
     ipv4: "",
     country_code2: ""
@@ -63,7 +66,8 @@ export class HomePageComponent implements OnInit {
     private router: Router,
     private TokenStorageService: TokenStorageService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {
+  }
 
   async ngOnInit(): Promise<void> {
     await this.userGeoService.fetchLocationData().toPromise()
@@ -77,11 +81,11 @@ export class HomePageComponent implements OnInit {
       this.trendingsChild?.isLoading = false;
     });
     this.movieService.fetchInTheaters(this.userLocationData.country_code2).subscribe(resp => {
-        resp = JSON.parse(resp.data);
-        this.moviesInTheaters = resp.results;
-        // @ts-ignore
-        this.moviesInTheatersChild?.isLoading = false;
-      })
+      resp = JSON.parse(resp.data);
+      this.moviesInTheaters = resp.results;
+      // @ts-ignore
+      this.moviesInTheatersChild?.isLoading = false;
+    })
     this.movieService.fetchTopRated().toPromise()
       .then(resp => {
         resp = JSON.parse(resp.data);
@@ -112,11 +116,11 @@ export class HomePageComponent implements OnInit {
       })
     this.items = [
       {
-        separator:true
+        separator: true
       },
       {
-        label:'Logout',
-        icon:'pi pi-fw pi-power-off',
+        label: 'Logout',
+        icon: 'pi pi-fw pi-power-off',
         command: (event: Event) => {
           this.confirmationService.confirm({
             header: 'Confirmation',
@@ -134,16 +138,20 @@ export class HomePageComponent implements OnInit {
   }
 
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
-    this.messageService.add({severity:severity, summary:title, detail:details, sticky: sticky});
+    this.messageService.add({severity: severity, summary: title, detail: details, sticky: sticky});
   }
 
-  redirectTo(uri:string){
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
       this.router.navigate([uri]));
   }
 
-  openDetailsDialog($event: any){
+  openDetailsDialog($event: any) {
     this.mediaDetailsDialogChild?.open($event);
+  }
+
+  openRecommendMediaDialog() {
+    this.recommendMediaDialogChild?.open();
   }
 
 }

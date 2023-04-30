@@ -238,4 +238,9 @@ export class MovieService {
     let url = `${GlobalConstants.API_URL}/api/v1/user/getComments/${requestedMovieId}`
     return this.http.get<any>(url);
   }
+
+  fetchRecommendedContentForUser(){
+    let url = `${GlobalConstants.API_URL}/api/v1/movie/recommended-for-user/`;
+    return this.http.get<any>(url);
+  }
 }

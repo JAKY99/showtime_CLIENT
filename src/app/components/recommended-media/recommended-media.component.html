@@ -1,0 +1,54 @@
+<div id="app-recommended-media" class="h-full">
+  <div class="loading-section" *ngIf="isLoading">
+    <p-progressSpinner></p-progressSpinner>
+    <p>Finding the top contents for you...</p>
+  </div>
+  <div class="medias-list" *ngIf="!isLoading">
+    <div class="flip-card" *ngFor="let media of recommendedMedias">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <app-image (click)="openDetailsDialog(media)" [imagePath]="media.backdrop_path" imageSize="500"></app-image>
+          <div class="title-section">
+            <span class="title" (click)="openDetailsDialog(media)">{{media.title}}</span>
+            <button pButton pRipple type="button"
+                    icon="pi pi-thumbs-down"
+                    class="p-button-rounded st-secondary-btn --small"
+                    (click)="fetchGenres(); fetchPeople(media.id)"
+            ></button>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <div class="title">
+            <h3>{{media.title}}</h3>
+            <p *ngIf="media.release_date">({{getMediaYear(media.release_date)}})</p>
+          </div>
+          <div class="buttons">
+            <button pButton pRipple type="button"
+                    class="p-button-text primary st-secondary-btn --small"
+                    label="Don't like a genre"
+                    [loading]="isLoadingSubData || isSaving"
+            ></button>
+            <button pButton pRipple type="button"
+                    class="p-button-text primary st-secondary-btn --small"
+                    label="Don't like an actor"
+                    [loading]="isLoadingSubData || isSaving"
+                    (click)="actorPanel.toggle($event)"
+            ></button>
+            <p-overlayPanel #actorPanel>
+              <ng-template pTemplate="">
+                <div *ngFor="let actor of mediaActors; index as i">
+                  <button pButton type="button" label="{{actor.name}}"
+                          class="p-button-text --small --text-type"
+                          (click)="excludeActor(actor.id); actorPanel.hide()"
+                  ></button>
+                  <p-divider *ngIf="i !== mediaActors.length - 1" class="--small"></p-divider>
+                </div>
+              </ng-template>
+            </p-overlayPanel>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-media-details-dialog #mediaDetailsDialogRef></app-media-details-dialog>
