@@ -17,5 +17,5 @@
              (click)="close()"
     ></fa-icon>
   </div>
-  <app-recommended-media #recommendedMediaRef></app-recommended-media>
+  <app-recommended-media #recommendedMediaRef *ngIf="viewedDialogShown"></app-recommended-media>
 </p-dialog>
