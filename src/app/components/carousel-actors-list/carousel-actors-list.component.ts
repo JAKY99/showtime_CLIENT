@@ -1,10 +1,11 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {GlobalConstants} from "../../common/constants/global-constants";
 import SwiperCore, { FreeMode } from "swiper";
 import {MovieCredits, MovieCreditsCast, MovieCreditsCrew} from "../../models/movie/movie-credits";
 import {getImageCompletePath} from "../../js/image-helper";
 import {faUser} from "@fortawesome/free-solid-svg-icons";
 import {TvCredits, TvCreditsCast} from "../../models/tv/tv-credits";
+import {ActorDetailsDialogComponent} from "../actor/actor-details-dialog/actor-details-dialog.component";
 
 SwiperCore.use([FreeMode]);
 
@@ -21,6 +22,8 @@ export class CarouselActorsListComponent implements OnInit {
   faUser = faUser;
 
   isLoading: boolean = true;
+
+  @ViewChild('actorDetailsDialogRef') actorDetailsDialogChild: ActorDetailsDialogComponent | undefined;
 
   // @ts-ignore
   @Input() items: MovieCredits | TvCredits = {};
@@ -84,5 +87,11 @@ export class CarouselActorsListComponent implements OnInit {
   getActorLastname(actorName: string | null){
     // @ts-ignore
     return actorName.split(' ')[1];
+  }
+
+  openActorDetails(idActor: number | null) {
+    if (idActor) {
+      this.actorDetailsDialogChild?.open(idActor);
+    }
   }
 }

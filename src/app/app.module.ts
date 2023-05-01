@@ -101,6 +101,8 @@ import { AddCommentComponent } from './components/comment/add-comment/add-commen
 import {InputTextareaModule} from "primeng/inputtextarea";
 import { CommentComponent } from './components/comment/comment/comment.component';
 import { CommentAvatarComponent } from './components/comment/comment-avatar/comment-avatar.component';
+import { ActorDetailsDialogComponent } from './components/actor/actor-details-dialog/actor-details-dialog.component';
+import { ActorDetailsComponent } from './components/actor/actor-details/actor-details.component';
 
 
 @NgModule({
@@ -160,7 +162,9 @@ import { CommentAvatarComponent } from './components/comment/comment-avatar/comm
     AddCommentDialogComponent,
     AddCommentComponent,
     CommentComponent,
-    CommentAvatarComponent
+    CommentAvatarComponent,
+    ActorDetailsDialogComponent,
+    ActorDetailsComponent
   ],
   imports: [
     HttpClientModule,
