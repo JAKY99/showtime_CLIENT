@@ -46,7 +46,7 @@ export class AccordionSeasonsComponent implements OnInit {
             resp = JSON.parse(resp.data);
             this.tvSeasonDetails = resp;
             this.allSeasons.push(this.tvSeasonDetails);
-
+            this.allSeasons.sort((a, b) => a.season_number - b.season_number)
           }, 100)
         }
       )

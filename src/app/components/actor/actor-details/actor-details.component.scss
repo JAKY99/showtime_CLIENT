@@ -1,0 +1,47 @@
+@import "../../../../styles";
+
+#actor-details{
+  margin: $margin-big-2 + 2 $margin-default;
+  .loading-section{
+    height: 100vh !important;
+    padding: $margin-default;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $margin-default;
+
+    .infos{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: $margin-default;
+
+      .name{
+        font-size: $font-medium;
+        color: $secondary-color;
+        font-weight: bold;
+      }
+    }
+    .img-container{
+      .actor-image{
+        width: 100px;
+        height: auto;
+      }
+    }
+  }
+
+  .secondary{
+    .bio{
+      font-size: $font-small;
+    }
+  }
+
+}

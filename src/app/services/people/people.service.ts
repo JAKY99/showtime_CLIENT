@@ -29,4 +29,11 @@ export class PeopleService {
     // @ts-ignore
     return this.http.put<any>(url);
   }
+
+  fetchActorDetails(idActor: number): Observable<any> {
+    const url = GlobalConstants.TMDB_BASE_URL + "person/" + idActor
+      + "?api_key=" + GlobalConstants.TMDB_KEY
+      + "&language=en-US";
+    return this.redisService.getDataFromRedisCache(url);
+  }
 }

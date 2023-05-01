@@ -4,7 +4,7 @@
     *ngIf="!isLoading"
   >
     <ng-template swiperSlide *ngFor="let actor of MovieCasts">
-      <div class="actor-container">
+      <div class="actor-container" (click)="openActorDetails(actor.id)">
         <div class="img-container">
           <img *ngIf="actor.profile_path"
                width="60px" height="60px"
@@ -37,4 +37,6 @@
     </div>
   </div>
 </div>
+
+<app-actor-details-dialog #actorDetailsDialogRef></app-actor-details-dialog>
 

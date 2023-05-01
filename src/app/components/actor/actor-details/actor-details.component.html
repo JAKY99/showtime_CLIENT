@@ -1,0 +1,31 @@
+<div id="actor-details" class="h-full">
+  <div class="loading-section" *ngIf="isLoading">
+    <p-progressSpinner></p-progressSpinner>
+    <p>Finding the top contents for you...</p>
+  </div>
+  <div *ngIf="!isLoading">
+    <div class="main">
+      <div class="img-container">
+        <img *ngIf="actor.profile_path"
+             [src]="getImageCompletePath(actor.profile_path, '500')"
+             [alt]="actor.original_name"
+             class="actor-image"
+        >
+        <div *ngIf="!actor.profile_path" class="no-img actor-image">
+          <fa-icon [icon]="faUser"></fa-icon>
+        </div>
+      </div>
+      <div class="infos">
+        <span class="name">{{actor.name}}</span>
+        <span class="birth-date">Birth date : {{actor.birthday}}</span>
+        <span *ngIf="actor.deathday" class="death-date">death date : {{actor.deathday}}</span>
+        <span class="birth-place">{{actor.place_of_birth}}</span>
+      </div>
+    </div>
+    <div class="secondary my-4">
+      <div class="bio">
+        {{actor.biography}}
+      </div>
+    </div>
+  </div>
+</div>
