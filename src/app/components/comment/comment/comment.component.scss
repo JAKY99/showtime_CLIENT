@@ -1,0 +1,65 @@
+@import "../../../../styles";
+
+#comment{
+  color: $white;
+  background-color: $divider-color;
+  padding: $margin-default;
+  border-radius: 10px;
+  min-height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $margin-default;
+
+  .comment-container-top{
+    display: flex;
+    flex-direction: column;
+    gap: $margin-small;
+    .comment-top-section{
+      display: flex;
+      align-items: center;
+      gap: $margin-small;
+      .username{
+        display: flex;
+        flex-direction: column;
+        font-size: $font-default;
+
+        .date{
+          color: $secondary-color;
+          font-size: $font-small-2;
+        }
+      }
+    }
+
+    .content{
+      font-size: $font-small;
+    }
+  }
+
+
+  .actions{
+    justify-self: flex-end;
+    font-size: $font-small-2;
+
+    .buttons{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      .flex{
+        display: flex;
+        align-items: center;
+        gap: $margin-small;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .--darker{
+    .p-divider{
+      &.p-divider-horizontal:before{
+        border-color: #393941 !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<div id="comment">
+  <div class="comment-container-top">
+    <div class="comment-top-section">
+      <app-comment-avatar [profilePicture]="comment.user.profilePicture"></app-comment-avatar>
+      <div class="username">
+        <span>{{comment.user.fullName}}</span>
+        <span class="date">Published {{getCommentDate()}} day{{getCommentDate() > 1 ? 's': null}} ago</span>
+      </div>
+    </div>
+    <div class="content">
+      {{comment.content}}
+    </div>
+  </div>
+  <div class="actions">
+    <p-divider styleClass="mb-2" class="--darker"></p-divider>
+    <div class="buttons">
+      <div class="likes flex" (click)="likeComment()">
+        <i class="pi pi-heart"></i>
+        <p><span>1250</span> like{{comment.likes > 1 ? 's' : null}}</p>
+      </div>
+      <div class="likes flex" (click)="respondToComment()">
+        <i class="pi pi-comment"></i>
+        <p><span>1250</span> response{{comment.likes > 1 ? 's' : null}}</p>
+      </div>
+      <div class="share flex" (click)="shareComment()">
+        <i class="pi pi-share-alt"></i>
+        <p>share</p>
+      </div>
+    </div>
+  </div>
+</div>

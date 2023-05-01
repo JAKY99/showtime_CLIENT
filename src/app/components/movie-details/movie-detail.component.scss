@@ -261,6 +261,19 @@
     width: 100%;
   }
 
+  .floating-comment-btn{
+    position: fixed;
+    bottom: $margin-big;
+    right: $margin-big;
+  }
+
+  .comments{
+    display: flex;
+    flex-direction: column;
+    gap: $margin-default;
+    margin-bottom: $margin-big;
+  }
+
 }
 
 

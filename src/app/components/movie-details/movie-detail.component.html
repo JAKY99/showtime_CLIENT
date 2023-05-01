@@ -183,19 +183,14 @@
         </ng-template>
       </p-tabPanel>
       <p-tabPanel header="Comments">
-        <span class="p-float-label">
-          <textarea id="commentInput" class="commentInput" rows="3" cols="40" pInputTextarea></textarea>
-          <label for="commentInput">Your Comment here</label>
-          <p-button label="Submit" class="commentButton" icon="pi pi-check" iconPos="left" (click)="postComment()"></p-button>
-        </span>
-        <div class="comments">
-          <div class="comment" *ngFor="let resultComments of resultComment">
-            <p-card [header]=resultComments.user.fullName>
-              <h6 class="text-white">{{resultComments.datePublication}}</h6>
-              <p class="m-0 text-white">
-                {{resultComments.content}}
-              </p>
-            </p-card>
+        <div>
+          <div *ngIf="resultComments.length" class="comments">
+            <div class="comment" *ngFor="let resultComment of resultComments">
+              <app-comment [comment]="resultComment"></app-comment>
+            </div>
+          </div>
+          <div *ngIf="resultComments.length <= 0" class="text-center">
+            <h3>No comments</h3>
           </div>
         </div>
       </p-tabPanel>
@@ -208,5 +203,13 @@
     </p-tabView>
     <p-toast position="bottom-center"></p-toast>
   </div>
+  <button *ngIf="isCommentSectionActive"
+          pButton pRipple type="button" icon="pi pi-comments"
+          class="p-button-rounded st-secondary-btn floating-comment-btn shadow-6"
+          (click)="openAddCommentDialog()"
+  ></button>
 </div>
+
+<app-add-comment-dialog #addCommentDialogRef (eventEmitter)="fetchComments()"></app-add-comment-dialog>
+
 

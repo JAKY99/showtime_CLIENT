@@ -1,0 +1,25 @@
+<p-dialog
+  class="add-comment-dialog"
+  [closeOnEscape]="false"
+  [dismissableMask]="true"
+  [(visible)]="viewedDialogShown"
+  [position]="viewedDialogPosition"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+  closeIcon=""
+  [transitionOptions]="'300ms cubic-bezier(1, 1, 1, 1)'"
+>
+  <div class="top-section">
+    <fa-icon class="close-icon st-icon st-icon-small dark"
+             [icon]="faChevronDown"
+             (click)="close()"
+    ></fa-icon>
+  </div>
+  <app-add-comment #addCommentRef
+                   *ngIf="viewedDialogShown"
+                   [requestedMovieId]="requestedMovieId"
+                   (eventEmitter)="close(); emitFetch()"
+  ></app-add-comment>
+</p-dialog>
