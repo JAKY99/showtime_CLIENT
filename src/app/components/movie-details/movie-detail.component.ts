@@ -14,10 +14,11 @@ import {
 import {stringToDate} from "../../js/date-helper";
 import {MovieSimilar} from "../../models/movie/movie-similar";
 import {CarouselImageListComponent} from "../carousel-image-list/carousel-image-list.component";
-import {MessageService} from "primeng/api";
+import {MenuItem, MessageService} from "primeng/api";
 import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
 import { DomSanitizer } from '@angular/platform-browser';
 import {Trailer} from "../../models/common/trailer";
+import {AddCommentDialogComponent} from "../comment/add-comment-dialog/add-comment-dialog.component";
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-detail.component.html',
@@ -26,13 +27,13 @@ import {Trailer} from "../../models/common/trailer";
 })
 export class MovieDetailComponent implements OnInit {
   resultsTrailer: Trailer[] | undefined;
-  resultComment: any;
-  private comments: any;
+  resultComments: [] = [];
   private resultUserName: any;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute, private messageService: MessageService,private sanitizer: DomSanitizer) { }
 
   @ViewChild('similarMoviesRef') similarMoviesChild : CarouselImageListComponent | undefined;
+  @ViewChild('addCommentDialogRef') addCommentDialogChild : AddCommentDialogComponent | undefined;
 
   @Input() requestedMovieId: number = 0;
   faFavorites : IconDefinition = faHeart;
@@ -54,6 +55,8 @@ export class MovieDetailComponent implements OnInit {
   isWatchProvidersEmpty = false;
   // @ts-ignore
   similarMovies: MovieSimilar[] = [];
+
+  isCommentSectionActive: boolean = false;
 
   userMovie = {
     bookmark: {
@@ -86,7 +89,6 @@ export class MovieDetailComponent implements OnInit {
           this.movie = resp;
           this.loading.movie = false;
           this.getYoutubeTrailers()
-          this.fetchComments()
         }, 100)
       }
 
@@ -162,12 +164,16 @@ export class MovieDetailComponent implements OnInit {
 
     //tab: trailers
     if (e.index === 0){
+      this.isCommentSectionActive = false
     }
     //tab: comments
     if (e.index === 1){
+      this.isCommentSectionActive = true;
+      this.fetchComments();
     }
     //tab: more like this
     if (e.index === 2){
+      this.isCommentSectionActive = false;
       // @ts-ignore
       await this.movieService.fetchSimilarMovies(this.requestedMovieId).toPromise()
         .then((resp) => {
@@ -288,9 +294,13 @@ async showViewedDialog() {
 
   fetchComments() {
     this.movieService.fetchComments(this.requestedMovieId).subscribe((resp) => {
-      this.resultComment = resp;
+      this.resultComments = resp;
     }, (error) => {
       console.log(error);
     })
+  }
+
+  openAddCommentDialog(){
+    this.addCommentDialogChild?.open(this.requestedMovieId);
   }
 }
