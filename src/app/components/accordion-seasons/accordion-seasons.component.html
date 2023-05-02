@@ -20,6 +20,8 @@
     <ng-template pTemplate="content">
       <ng-container *ngFor="let episode of season.episodes">
         <app-episode-card
+          [tvId]="tvId"
+          [seasonId]="season.id"
           [item]="episode">
         </app-episode-card>
       </ng-container>

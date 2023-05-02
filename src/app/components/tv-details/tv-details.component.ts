@@ -37,6 +37,10 @@ export class TvDetailsComponent implements OnInit {
   tv:TvDetails = {};
   // @ts-ignore
   lastEpisode: TvEpisodeDetails = {} ;
+  lastEpToLoad = {
+    season_number: 0,
+    episode_number: 0
+  }
 
   // @ts-ignore
   similarTv: TvSimilar[] = [];
@@ -70,18 +74,34 @@ export class TvDetailsComponent implements OnInit {
       }
     )
 
+    await this.tvService.fetchLastSeenEpisode(
+      this.requestedTvId
+    ).subscribe(
+      (resp) => {
+        console.log(resp)
+        // resp = JSON.parse(resp.data);
+        // this.lastEpToLoad.episode_number = resp.episode_number;
+        // this.lastEpToLoad.season_number = resp.season_number;
+        this.tvService.fetchTvBySeasonAndEpisode(
+          this.requestedTvId,
+          resp.season_number,
+          resp.episode_number
+        ).subscribe(
+          (resp) => {
+            resp = JSON.parse(resp.data);
+            setTimeout(() => {
+              this.lastEpisode = resp;
+            }, 100);
+          }
+        );
+
+      }
+    )
+
     // Changer le num de la série / episode display pour le faire correspondre
     // au dernier episode vu par le client
     // @ts-ignore
-    await this.tvService.fetchTvBySeasonAndEpisode(this.requestedTvId,
-      1, 2).subscribe(
-      (resp) => {
-        resp = JSON.parse(resp.data);
-        setTimeout(() => {
-          this.lastEpisode = resp;
-        }, 100);
-      }
-    );
+
 
     // @ts-ignore
     await this.tvService.fetchWatchProviders(this.requestedTvId).subscribe(

@@ -115,6 +115,14 @@ export class TvService {
     });
   }
 
+  fetchTvEpisodeWatchedStatus(episodeTmdbId: number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isEpisodeInWatchlist/`
+    return this.http.post<any>(url, {
+      episodeTmdbId: episodeTmdbId,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
   addSerieToWatchedList(tmdbId: number): Observable<any>{
     let url = `${GlobalConstants.API_URL}/api/v1/user/addSerieInWatchlist/`
     return this.http.post<any>(url, {
@@ -129,6 +137,24 @@ export class TvService {
       tvTmdbId: tmdbId,
       userMail: this.tokenStorage.getClientUsername(),
       tvSeasonid : seasonId
+    });
+  }
+
+  addEpisodeToWatchedList(tmdbId: number , seasonId : number , episodeId : number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/addEpisodeInWatchlist/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tvTmdbId: tmdbId,
+      tvSeasonid : seasonId,
+      episodeId : episodeId
+    });
+  }
+
+  fetchLastSeenEpisode(tmdbId: number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/getLastSeenEpisode/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tmdbId: tmdbId
     });
   }
 

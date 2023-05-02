@@ -18,6 +18,10 @@
     </div>
   </div>
   <div class="view-info" *ngIf="todayDate >= item.air_date">
-      <i class="fa-solid fa-circle-check watched-status-check st-icon"></i>
+
+      <i
+        [class]="userEpisodeStatus.episode.checked"
+        (click)="updateEpisodeStatus()"
+        class="fa-solid fa-circle-check watched-status-check st-icon"></i>
   </div>
 </div>

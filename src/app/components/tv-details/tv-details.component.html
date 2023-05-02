@@ -93,9 +93,12 @@
         </p-tabPanel>
 
         <p-tabPanel header="Episodes">
-          <h2 class="m-1 mb-3 mt-3 text-white text-base">Watch Next</h2>
+          <h2 class="m-1 mb-3 mt-3 text-white text-base">Watch Next </h2>
           <app-episode-card
-            [item]="lastEpisode">
+            [item]="lastEpisode"
+            [seasonId]="lastEpisode.season_number"
+            [tvId]="tv.id"
+          >
           </app-episode-card>
 
           <h2 class="m-1 mb-3 mt-5 text-white text-base">All Episodes</h2>
