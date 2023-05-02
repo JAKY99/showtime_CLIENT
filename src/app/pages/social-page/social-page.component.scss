@@ -35,6 +35,30 @@
   background-color: $main-color;
   overflow-x: hidden;
   display: flex;
+  .profile-name-top{
+    width: 11.5rem;
+    word-wrap: break-word;
+  }
+  .profile-score-top-container{
+    width: 8rem;
+  }
+  .profile-score-top{
+    width: 8rem;
+    word-wrap: break-word;
+    text-align: end;
+  }
+  .profile-name{
+    width: 11.5rem;
+    word-wrap: break-word;
+  }
+  .profile-score-container{
+    width: 8.5rem;
+  }
+  .profile-score{
+    width: 7.5rem;
+    word-wrap: break-word;
+    text-align: end;
+  }
   .top-header{
     //background-color: $main-color;
     background-color: transparentize($main-color, .5);
@@ -76,8 +100,12 @@
     right: 0.5rem;
   }
   .n-margin-name{
-    margin-left: -4.5rem;
+    margin-left: -3.3rem;
   }
+  .n-margin-name-top{
+    margin-left: -0.4rem;
+  }
+  margin-left: -0.3rem;
   .profilePicBadgeSearch{
     width: 4rem;
     height: 3.5rem;

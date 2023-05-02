@@ -18,16 +18,16 @@
     </div>
 
     <ng-container class="flex justify-content-around mt-2 mb-3" *ngFor="let user of topuserList;let indexOfelement=index;">
-      <div class="flex justify-content-between text-white align-items-center mt-2 mb-3 top3User" *ngIf="indexOfelement<3" (click)="showDetailUser(user.username)">
+      <div class="grid justify-content-start text-white align-items-center mt-2 mb-3 top3User" *ngIf="indexOfelement<3" (click)="showDetailUser(user.username)">
         <div class="flex align-items-center">
           <img [src]=user.profilePicture class="profilePicBadge" >
           <p class="rank-number p-badge p-component p-badge-no-gutter">{{user.rank}}</p>
         </div>
-        <div class="n-margin-name">
-          <p class="profile-name">{{user.fullName}}</p>
+        <div class="n-margin-name-top align-self-center">
+          <p class="profile-name-top">{{user.fullName}}</p>
         </div>
-        <div>
-          <p class="profile-score">{{user.score}} <fa-icon class="ml-2" [icon]="faTrophy"> </fa-icon></p>
+        <div class="profile-score-top-container">
+          <p class="profile-score-top">{{user.score}} <fa-icon class="ml-2" [icon]="faTrophy"> </fa-icon></p>
         </div>
       </div>
       <div class="flex justify-content-between text-white align-items-center grayPill  mt-2 mb-3" *ngIf="indexOfelement>3" (click)="showDetailUser(user.username)">
@@ -37,7 +37,7 @@
         <div class="n-margin-name">
           <p class="profile-name">{{user.fullName}}</p>
         </div>
-        <div>
+        <div class="profile-score-container">
           <p class="profile-score">{{user.score}} <fa-icon class="ml-2" [icon]="faTrophy"> </fa-icon></p>
         </div>
       </div>
