@@ -30,6 +30,8 @@ export class TvDetailsComponent implements OnInit {
   faPlay = faPlay;
   watchProviders: [] = [];
   isWatchProvidersEmpty = false;
+  seenStatus :string = "Not Seen";
+
   viewedStatus: boolean = false;
   viewedDialogShown: boolean = false;
   globalConstants = GlobalConstants;
@@ -37,10 +39,6 @@ export class TvDetailsComponent implements OnInit {
   tv:TvDetails = {};
   // @ts-ignore
   lastEpisode: TvEpisodeDetails = {} ;
-  lastEpToLoad = {
-    season_number: 0,
-    episode_number: 0
-  }
 
   // @ts-ignore
   similarTv: TvSimilar[] = [];
@@ -78,10 +76,6 @@ export class TvDetailsComponent implements OnInit {
       this.requestedTvId
     ).subscribe(
       (resp) => {
-        console.log(resp)
-        // resp = JSON.parse(resp.data);
-        // this.lastEpToLoad.episode_number = resp.episode_number;
-        // this.lastEpToLoad.season_number = resp.season_number;
         this.tvService.fetchTvBySeasonAndEpisode(
           this.requestedTvId,
           resp.season_number,
@@ -89,19 +83,14 @@ export class TvDetailsComponent implements OnInit {
         ).subscribe(
           (resp) => {
             resp = JSON.parse(resp.data);
-            setTimeout(() => {
+            // setTimeout(() => {
               this.lastEpisode = resp;
-            }, 100);
+            // }, 100);
           }
         );
 
       }
     )
-
-    // Changer le num de la série / episode display pour le faire correspondre
-    // au dernier episode vu par le client
-    // @ts-ignore
-
 
     // @ts-ignore
     await this.tvService.fetchWatchProviders(this.requestedTvId).subscribe(
@@ -148,7 +137,6 @@ export class TvDetailsComponent implements OnInit {
       // fetch async sur les episodes
     }
   }
-
   async handleChangeTabView2(e: any) {
     //tab: Comments
     if (e.index === 0){
@@ -184,6 +172,7 @@ export class TvDetailsComponent implements OnInit {
       await this.tvService.addSerieToWatchedList(
         // @ts-ignore
         this.tv.id,
+        this.tv.name
       ).subscribe(
         (resp) => {
           console.log(resp)
@@ -191,5 +180,42 @@ export class TvDetailsComponent implements OnInit {
         }
       )
     }
+  }
+
+  async addSerieToWatchedList(){
+    await this.tvService.addSerieToWatchedList(
+      this.tv.id,
+      this.tv.name
+    ).subscribe(
+      (resp) =>{
+        this.fetchWatchedInfosSerie()
+
+      }
+    )
+  }
+
+
+  async fetchWatchedInfosSerie(){
+
+    await this.tvService.fetchTvWatchedStatus(this.tv.id).subscribe(
+      (resp) => {
+        // this.userMovie.viewInfo.checked=resp.body ? 'checked' : '';
+        // this.viewedStatus = resp.body;
+        this.seenStatus = resp.body ? 'Seen' : 'Not Seen';
+        // this.loading.userViewInfo = false;
+      }
+    )
+
+    // A EDITER POUR QUE CA SOIT POUR LES SERIES
+
+    // await this.movieService.isMovieInMovieToWatchlist(this.requestedMovieId,this.movie.title).subscribe((resp) => {
+    //   this.userMovie.bookmark.checked = resp ? 'checked' : '';
+    //   this.isInWatchlist = resp;
+    // })
+    // await this.movieService.isMovieInFavoritelist(this.requestedMovieId,this.movie.title).subscribe((resp) => {
+    //   this.userMovie.favorite.checked = resp ? 'checked' : '';
+    //   this.isInFavoritelist = resp;
+    // })
+
   }
 }
