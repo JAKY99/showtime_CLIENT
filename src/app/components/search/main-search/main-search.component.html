@@ -6,8 +6,8 @@
     <div class="search-input-container">
       <span class="p-input-icon-left">
         <i class="fa fa-search"></i>
-        <input type="text" pInputText placeholder="Search movies, series..."
-               [(ngModel)]="search.searchGlobalValue" name="globalSearch"/>
+        <input type="text" pInputText [placeholder]=placeholder
+               [(ngModel)]="search.searchGlobalValue"  (input)="handleChangeSearch()" name="globalSearch"/>
       </span>
     </div>
   </form>
