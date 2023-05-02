@@ -19,7 +19,7 @@ export class TrendingService {
 
   fetchMovieTrendings(): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL + "trending/movie/week?api_key=" + GlobalConstants.TMDB_KEY;
-    return this.http.get<any>(url);
+    return this.RedisService.getDataFromRedisCache(url);
   }
 
   fetchTvTrendings(): Observable<any> {
