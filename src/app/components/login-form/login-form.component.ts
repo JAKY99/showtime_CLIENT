@@ -29,9 +29,19 @@ export class LoginFormComponent implements OnInit {
               private route: ActivatedRoute) {
     this.loginForm = new FormGroup({});
   }
-
+  ngAfterViewInit() {
+    this.route.queryParams.subscribe(params => {
+      if(params['authGoogleError']!==undefined){
+        this.addSingleToast(
+          'error',
+          'Authentication error',
+          'Your Google Signin failed , please try again',
+          true
+        )
+      }
+    });
+  }
   ngOnInit(): void {
-
     this.route.queryParams.subscribe(params => {
       // Access query parameters using params object
       if(params['token']!==undefined){
@@ -40,6 +50,7 @@ export class LoginFormComponent implements OnInit {
         this.router.navigate(['/home']).then();
       }
       if(params['authGoogleError']!==undefined){
+        console.log("error")
         this.addSingleToast(
           'error',
           'Authentication error',
