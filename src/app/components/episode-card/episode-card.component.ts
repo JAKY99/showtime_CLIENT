@@ -1,4 +1,4 @@
-import {Component, Input, OnInit,ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {TvEpisodeDetails} from "../../models/tv/tv-episode-details";
 import {formatDate} from "@angular/common";
 import {TvService} from "../../services/tv/tv.service";
@@ -21,6 +21,8 @@ export class EpisodeCardComponent implements OnInit {
   // @ts-ignore
   @Input() tvId : number;
 
+  // @Output() newItemEvent = new EventEmitter<number>()
+
   userEpisodeStatus = {
     episode:{
       checked:''
@@ -31,17 +33,16 @@ export class EpisodeCardComponent implements OnInit {
   todayDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
 
   ngOnInit(): void {
-    console.log(this.item)
-
-    // this.tvService.fetchTvEpisodeWatchedStatus(
-    //   this.item.id
-    // ).subscribe(
-    //   (resp) => {
-    //     if(resp === true) {
-    //       this.userEpisodeStatus.episode.checked = 'checked';
-    //     }
-    //   })
-
+    if(Object.keys(this.item).length > 0){
+        this.tvService.fetchTvEpisodeWatchedStatus(
+          this.item.id
+        ).subscribe(
+          (resp) => {
+            if(resp === true) {
+              this.userEpisodeStatus.episode.checked = 'checked';
+            }
+          })
+    }
     // @ts-ignore
     return this.todayDate;
   }

@@ -9,6 +9,7 @@ export interface TvEpisodeDetails {
   "episode_number" : number,
   "production_code" : string | null,
   "season_number" : number,
+  "show_id" : number,
   "still_path" : string | null
   "vote_average":  number,
   "vote_count" : number

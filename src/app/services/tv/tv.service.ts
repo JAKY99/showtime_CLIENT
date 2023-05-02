@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {GlobalConstants} from "../../common/constants/global-constants";
 import {TvDetails} from "../../models/tv/tv-details";
-import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 import {TokenStorageService} from "../token-storage.service";
 import {RedisService} from "../../services/redis/redis.service";
 
@@ -115,18 +114,31 @@ export class TvService {
     });
   }
 
-  fetchTvEpisodeWatchedStatus(episodeTmdbId: number): Observable<any>{
-    let url = `${GlobalConstants.API_URL}/api/v1/user/isEpisodeInWatchlist/`
+  fetchEpisodeWatchedStatus(serieTmdbId: number, seasonNumber : number, episodeNumber : number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isSerieInWatchlist/`
     return this.http.post<any>(url, {
-      episodeTmdbId: episodeTmdbId,
+      serieTmdbId: serieTmdbId,
+      seasonNumber : seasonNumber,
+      episodeNumber : episodeNumber,
       userMail: this.tokenStorage.getClientUsername()
-    });
+      // @ts-ignore
+    }, httpOptions);
   }
 
-  addSerieToWatchedList(tmdbId: number): Observable<any>{
+
+  addSerieToWatchedList(tmdbId: number,SerieName : string): Observable<any>{
     let url = `${GlobalConstants.API_URL}/api/v1/user/addSerieInWatchlist/`
     return this.http.post<any>(url, {
       tmdbId: tmdbId,
+      SerieName: SerieName,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+  removeSerieToWatchedList(tmdbId: number,SerieName : string): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/removeSerieInWatchlist/`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbId,
+      SerieName: SerieName,
       userMail: this.tokenStorage.getClientUsername()
     });
   }
@@ -158,4 +170,20 @@ export class TvService {
     });
   }
 
+  fetchTvEpisodeWatchedStatus(episodeTmdbId: number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isEpisodeInWatchlist/`
+    return this.http.post<any>(url, {
+      episodeTmdbId: episodeTmdbId,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
+  fetchTvSeasonWatchedStatus(tmdbTvId: number, seasonId: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isSeasonInWatchlist/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tvTmdbId: tmdbTvId,
+      tvSeasonid : seasonId
+    });
+  }
 }
