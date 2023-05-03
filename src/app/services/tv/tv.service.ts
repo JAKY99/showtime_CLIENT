@@ -152,7 +152,7 @@ export class TvService {
     });
   }
 
-  addEpisodeToWatchedList(tmdbId: number , seasonId : number , episodeId : number): Observable<any>{
+  addEpisodeToWatchedList(tmdbId: number , seasonId : number | null, episodeId : number): Observable<any>{
     let url = `${GlobalConstants.API_URL}/api/v1/user/addEpisodeInWatchlist/`
     return this.http.post<any>(url, {
       userMail: this.tokenStorage.getClientUsername(),
@@ -184,6 +184,15 @@ export class TvService {
       userMail: this.tokenStorage.getClientUsername(),
       tvTmdbId: tmdbTvId,
       tvSeasonid : seasonId
+    });
+  }
+
+  fetchNbEpisodesWatchedInSerie(tmdbTvId: number, seasonId: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/nbEpisodesWatchedInSerie/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tvSeasonid : seasonId,
+      tvTmdbId: tmdbTvId
     });
   }
 }

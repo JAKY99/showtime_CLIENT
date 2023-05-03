@@ -1,7 +1,8 @@
 import {TvEpisodeDetails} from "./tv-episode-details";
 
 export interface TvSeasonDetails {
-  watchedStatus: string;
+  "watchedStatus": string;
+  "nbEpisodesWatched": number;
   "_id": string,
   "air_date": string,
   "episode_count": number,

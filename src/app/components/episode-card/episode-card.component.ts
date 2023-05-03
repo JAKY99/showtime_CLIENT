@@ -15,9 +15,17 @@ export class EpisodeCardComponent implements OnInit {
   constructor(private tvService : TvService) { }
 
   // @ts-ignore
-  @Input() item : TvEpisodeDetails ;
+  _item: TvEpisodeDetails;
+  get item(): TvEpisodeDetails {
+    return this._item;
+  }
+  @Input() set item(value: TvEpisodeDetails) {
+    this._item = value;
+    this.episodeStatus();
+  }
+
   // @ts-ignore
-  @Input() seasonId : number;
+  @Input() seasonId : number | null;
   // @ts-ignore
   @Input() tvId : number;
 
@@ -33,16 +41,7 @@ export class EpisodeCardComponent implements OnInit {
   todayDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
 
   ngOnInit(): void {
-    if(Object.keys(this.item).length > 0){
-        this.tvService.fetchTvEpisodeWatchedStatus(
-          this.item.id
-        ).subscribe(
-          (resp) => {
-            if(resp === true) {
-              this.userEpisodeStatus.episode.checked = 'checked';
-            }
-          })
-    }
+
     // @ts-ignore
     return this.todayDate;
   }
@@ -53,6 +52,19 @@ export class EpisodeCardComponent implements OnInit {
 
   isImageLoaded(){
     return this.imageState === 'finally';
+  }
+
+  episodeStatus() {
+    if(this._item.id) {
+      this.tvService.fetchTvEpisodeWatchedStatus(
+        this._item.id
+      ).subscribe(
+        (resp) => {
+          if (resp === true) {
+            this.userEpisodeStatus.episode.checked = 'checked';
+          }
+        })
+    }
   }
 
   async updateEpisodeStatus() {
