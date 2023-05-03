@@ -76,15 +76,16 @@ export class TvDetailsComponent implements OnInit {
       this.requestedTvId
     ).subscribe(
       (resp) => {
+        // console.log(resp)
         this.tvService.fetchTvBySeasonAndEpisode(
           this.requestedTvId,
           resp.season_number,
           resp.episode_number
         ).subscribe(
-          (resp) => {
-            resp = JSON.parse(resp.data);
+          (resp2) => {
+            resp2 = JSON.parse(resp2.data);
             // setTimeout(() => {
-              this.lastEpisode = resp;
+              this.lastEpisode = resp2;
             // }, 100);
           }
         );

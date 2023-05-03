@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {TvService} from "../../services/tv/tv.service";
 import {TvSeasonDetails} from "../../models/tv/tv-season-details";
 import {formatDate} from "@angular/common";
+import {forkJoin} from "rxjs";
 
 @Component({
   selector: 'app-accordion-seasons',
@@ -18,7 +19,7 @@ export class AccordionSeasonsComponent implements OnInit {
   // @ts-ignore
   @Input() tvId : number;
 
-  episodesSeen: number = 3;
+  // episodesSeen: number = 0;
   viewedStatus: boolean = false;
   viewedDialogShown: boolean = false;
 
@@ -40,37 +41,44 @@ export class AccordionSeasonsComponent implements OnInit {
 
   async ngOnInit(): Promise <void> {
 
+
+    // pour amélio => call la série > choper le nb de saisons & ses ids pour économ le 1er fetchTvBySeason
     for (let i = 0; i < this.nbSeasons; i++) {
       //to prevent i = 0 && seach season 0
       // @ts-ignore
       await this.tvService.fetchTvBySeason(this.tvId,i+1).subscribe(
         (resp) => {
-          // setTimeout(()=> {
             resp = JSON.parse(resp.data);
-            this.tvSeasonDetails = resp;
+            // oui je fait 2 fois un fetchTvBySeason , le 1er juste pour récup l'id et faire les autres query
+            // si je query pas une 2e fois j'ai tous mes résultats qui arrivent en border
 
-            this.tvService.fetchTvSeasonWatchedStatus(
+          forkJoin({
+            nbEpisodes : this.tvService.fetchNbEpisodesWatchedInSerie(
               this.tvId,
-              this.tvSeasonDetails.id
-            ).subscribe(
-              (respStatus)=>{
-                console.log(respStatus)
-                this.tvSeasonDetails.watchedStatus = respStatus.status
-              }
+              resp.id
+            ),
+            status : this.tvService.fetchTvSeasonWatchedStatus(
+              this.tvId,
+              resp.id
+            ),
+            details : this.tvService.fetchTvBySeason(
+              this.tvId,
+              resp.season_number
             )
-            // this.tvSeasonDetails.watchedStatus = status
-            this.allSeasons.push(this.tvSeasonDetails);
+          }).subscribe(
+            (respFork) => {
+              this.tvSeasonDetails = JSON.parse(respFork.details.data);
+              this.tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
+              this.tvSeasonDetails.watchedStatus = respFork.status
+              this.allSeasons.push(this.tvSeasonDetails);
+            })
 
-          // }, 100)
         }
       )
     }
-
-
-    // chercher le nb d'episodes vu pour chaque saison pour la checkmark + barre de progression
-    // pour faire le calcul de la barre de progression :
-    // -> rajouter un champ dans le modèle de datas : nb ep vues
-    // faire le calcul pour le transformer en %age direct dans le front
+    this.allSeasons = this.allSeasons.sort(function (a, b) {
+      return a.season_number - b.season_number;
+    });
   }
 
   async updateSeasonStatus( seasonId: number){
@@ -83,6 +91,13 @@ export class AccordionSeasonsComponent implements OnInit {
       ).subscribe(
         (resp) => {
           console.log(resp)
+          this.allSeasons.map((season) => {
+            if(season.id === seasonId){
+              season.watchedStatus = resp;
+              season.nbEpisodesWatched = season.episodes.length;
+            }
+          })
+          // this.tvSeasonDetails.watchedStatus = res
           // this.fetchWatchedSeasonInfos();
         }
       )
