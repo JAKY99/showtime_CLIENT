@@ -1,16 +1,14 @@
-<div class="app-social-user-detail h-full">
 <p-dialog
-  id="p-dialog-social-user"
+  id="app-social-user-detail"
   [closeOnEscape]="false"
   [dismissableMask]="true"
   [(visible)]="viewedDialogShown"
-  position="bottom"
+  [position]="viewedDialogPosition"
   [modal]="true"
   [baseZIndex]="10000"
   [draggable]="false"
   [resizable]="false"
-  closeIcon="pi pi-times"
-  styles="min-height: 100%!important;min-width: 100%!important;"
+  closeIcon=""
   [transitionOptions]="'300ms cubic-bezier(1, 1, 1, 1)'"
 >
   <div >
@@ -39,4 +37,3 @@
     </div>
   </div>
 </p-dialog>
-</div>

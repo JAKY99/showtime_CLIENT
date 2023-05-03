@@ -1,14 +1,14 @@
-import {ChangeDetectorRef, Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {MenuItem} from "primeng/api";
+import {ChangeDetectorRef, Component, Input, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {ConfirmationService, MenuItem} from "primeng/api";
 import {SocialService} from "../../services/social/social.service";
-import {faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
-import {ConfirmationService} from "primeng/api";
+import {faChevronDown, faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
 import {TokenStorageService} from "../../services/token-storage.service";
-import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
+
 @Component({
   selector: 'app-social-user-detail',
   templateUrl: './social-user-detail.component.html',
-  styleUrls: ['./social-user-detail.component.scss']
+  styleUrls: ['./social-user-detail.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SocialUserDetailComponent implements OnInit {
 
@@ -18,6 +18,7 @@ export class SocialUserDetailComponent implements OnInit {
   Trophies : string = ""
   items: MenuItem[]=[];
   viewedDialogShown: boolean = false;
+  viewedDialogPosition: string = 'bottom';
   faChevronDown = faChevronDown;
   faEllipsisVertical = faEllipsisVertical;
   constructor( private SocialService : SocialService,
