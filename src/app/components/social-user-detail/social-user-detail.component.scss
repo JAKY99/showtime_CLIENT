@@ -1,7 +1,50 @@
 @import "src/styles";
 
 
- .app-social-user-detail {
+ #app-social-user-detail {
+
+     .p-dialog-header {
+       display: none !important;
+     }
+
+     .p-dialog-content {
+       background-color: $main-color !important;
+       color: $white;
+       padding: 0 !important;
+       position: relative;
+       overflow-y: auto;
+
+       .top-section {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         color: $white;
+         position: absolute;
+         z-index: 9999;
+         width: 30px;
+         height: 30px;
+         top: 1rem;
+         left: 1rem;
+         border-radius: 50%;
+         font-size: $font-medium;
+       }
+     }
+
+     .p-dialog-footer {
+       display: none !important;
+     }
+
+     .p-dialog {
+       width: 100%;
+       margin: 0 !important;
+       max-height: 100% !important;
+       min-height: 100% !important;
+     }
+
+     .p-dialog .p-dialog-header .p-dialog-header-icon {
+       pointer-events: none;
+     }
+
   .tab-view-section {
     padding: .7rem 1rem;
     margin-bottom: 4rem;
@@ -21,8 +64,7 @@
       }
     }
   }
-  background-color: $main-color;
-  overflow-x: hidden;
+
   .top-header{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

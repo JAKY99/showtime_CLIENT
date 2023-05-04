@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TrendingService} from "../../services/trending/trending.service";
 import {MainSearchComponent} from "../../components/search/main-search/main-search.component";
 import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-main-search-page',
@@ -21,14 +22,29 @@ export class MainSearchPageComponent implements OnInit {
 
   isLoading: boolean = false;
   isLoadMoreAvailable: boolean = true;
+  private movieOnly: boolean = false;
 
-  constructor(private trendingService: TrendingService) { }
+  constructor(private trendingService: TrendingService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.trendingService.fetchAllTrendings().subscribe(resp => {
-      resp = JSON.parse(resp.data);
-      this.trendingResults = resp.results;
+    this.route.queryParams.subscribe(params => {
+      // Access query parameters using params object
+      if(params['movieOnly']==='true'){
+        this.movieOnly = true;
+        this.trendingService.fetchMovieTrendings().subscribe(resp => {
+          resp = JSON.parse(resp.data);
+          this.trendingResults = resp.results;
+        });
+      }
+      if(!this.movieOnly){
+        this.trendingService.fetchAllTrendings().subscribe(resp => {
+          resp = JSON.parse(resp.data);
+          this.trendingResults = resp.results;
+        });
+      }
     });
+
   }
 
   getMainSearchResults($event: any){

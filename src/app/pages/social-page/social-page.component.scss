@@ -1,5 +1,68 @@
 @import "src/styles";
 
+.app-social-page{
+  background-color: $main-color;
+  overflow-x: hidden;
+}
+
+.search-input-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-picture-container{
+  position: relative;
+  img{
+    border-radius: 1000px;
+    width: 4rem;
+    height: 4rem;
+    max-width: 4rem;
+    max-height: 4rem;
+    object-fit: cover;
+  }
+
+  .rank-number{
+    position: absolute;
+    top: 50%;
+    right: -8px;
+    transform: translateY(-50%);
+    background-color: $secondary-color;
+  }
+}
+
+.top3User{
+  margin-bottom: $margin-big !important;
+}
+
+.user-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $margin-default;
+  margin: 0 $margin-default;
+  color: $white;
+
+  .user-infos{
+    display: flex;
+    align-items: center;
+    gap: $margin-default;
+
+    .profile-name-top{
+      word-break: break-word;
+    }
+  }
+
+  .profile-score-top-container,
+  .profile-score-container{
+    display: flex;
+    align-items: center;
+    gap: $margin-small;
+  }
+}
+
+/*
+
 :host ::ng-deep app-social-user-detail #p-dialog-social-user .p-dialog-header {
   display: none !important;
 }
@@ -35,6 +98,30 @@
   background-color: $main-color;
   overflow-x: hidden;
   display: flex;
+  .profile-name-top{
+    width: 11.5rem;
+    word-wrap: break-word;
+  }
+  .profile-score-top-container{
+    width: 8rem;
+  }
+  .profile-score-top{
+    width: 8rem;
+    word-wrap: break-word;
+    text-align: end;
+  }
+  .profile-name{
+    width: 11.5rem;
+    word-wrap: break-word;
+  }
+  .profile-score-container{
+    width: 8.5rem;
+  }
+  .profile-score{
+    width: 7.5rem;
+    word-wrap: break-word;
+    text-align: end;
+  }
   .top-header{
     //background-color: $main-color;
     background-color: transparentize($main-color, .5);
@@ -76,8 +163,12 @@
     right: 0.5rem;
   }
   .n-margin-name{
-    margin-left: -4.5rem;
+    margin-left: -3.3rem;
   }
+  .n-margin-name-top{
+    margin-left: -0.4rem;
+  }
+  margin-left: -0.3rem;
   .profilePicBadgeSearch{
     width: 4rem;
     height: 3.5rem;
@@ -128,3 +219,4 @@
 .top3User{
   padding:1rem;
 }
+*/

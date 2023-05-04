@@ -1,2 +1,39 @@
-<p>movies-page works!</p>
+<div class="app-movies-page h-full overflow-auto">
+  <div class="top-header">
+    <fa-icon #img class="options-icon-action" (click)="menu.toggle($event)" [icon]="faEllipsisVertical"></fa-icon>
+    <app-logo class="app-logo" style="font-size: 0.7rem"></app-logo>
+    <fa-icon class="search-icon-action" [icon]="faSearch" (click)="redirectTo('search')"></fa-icon>
+    <p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu>
+    <p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
+  </div>
+  <div class="trending-section carousel-container">
+    <h2 class="m-3 mb-4 text-white text-base">Trending</h2>
+    <app-carousel #trendings [items]="trendingsList" (eventEmitter)="openDetailsDialog($event)"></app-carousel>
+  </div>
+  <div class="in-theaters-movie carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Movies in theaters</h2>
+    <app-carousel-image-list #moviesInTheatersRef [items]="moviesInTheaters"
+                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+  <div class="top-rated-movie carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Popular movies</h2>
+    <app-carousel-image-list #PopularMoviesRef [items]="PopularMovies"
+                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+  <div class="top-rated-movie carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Top Rated Movies</h2>
+    <app-carousel-image-list #topRatedMoviesRef [items]="topRatedMovies"
+                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+  <div class="upcoming carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Upcoming Movies</h2>
+    <app-carousel-image-list #upComingRef [items]="upComingMovies"
+                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+
+</div>
+
+<app-media-details-dialog #mediaDetailsDialogRef></app-media-details-dialog>
+<app-recommended-media-dialog #recommendMediaDialogRef></app-recommended-media-dialog>
 <p-toast position="bottom-center"></p-toast>
+
