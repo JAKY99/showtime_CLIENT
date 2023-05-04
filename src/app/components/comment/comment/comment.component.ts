@@ -1,4 +1,5 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {CommentService} from "../../../services/comment/comment.service";
 
 @Component({
   selector: 'app-comment',
@@ -9,8 +10,10 @@ import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 export class CommentComponent implements OnInit {
 
   @Input() comment: any = {};
+  commentLiked: boolean = false;
+  numberOfLikes: number = 0;
 
-  constructor() { }
+  constructor(private commentService: CommentService) { }
 
   ngOnInit(): void {
   }
@@ -22,7 +25,13 @@ export class CommentComponent implements OnInit {
     return Math.ceil(difference / (1000 * 3600 * 24));
   }
 
-  likeComment(){
+  likeComment(comment: any){
+    if (comment.spoiler == false && comment.validated == true){
+      this.commentService.likeComment(comment.id, comment.user).subscribe((resp) => {
+        this.numberOfLikes = resp.likes;
+        this.commentLiked = true;
+      })
+    }
 
   }
 

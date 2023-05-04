@@ -8,6 +8,7 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {GlobalConstants} from "./common/constants/global-constants";
 import {HttpHeaders} from "@angular/common/http";
+import {MessageService} from "primeng/api";
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +19,7 @@ export class AuthGuard implements CanActivate {
   client: any;
 
 
-  constructor(private router: Router, private tokenStorage: TokenStorageService,private UserService : UserService) {
+  constructor(private router: Router, private tokenStorage: TokenStorageService,private UserService : UserService,private messageService: MessageService) {
   }
 
   canActivate(
@@ -88,6 +89,7 @@ export class AuthGuard implements CanActivate {
       // @ts-ignore
       that.client.subscribe("/topic/user/"+this.env, (message) => {
         if(message.body) {
+          console.log(message.body)
           if(message.body != 'New update'){
             // @ts-ignore
             window['Android'].createNotification('Showtime App',message.body);
@@ -98,6 +100,16 @@ export class AuthGuard implements CanActivate {
           }
         }
       });
+
+      // @ts-ignore
+      that.client.subscribe("/topic/user/"+this.env+"/"+this.tokenStorage.getClientUsername(), (message) => {
+        if(message.body) {
+          let result = JSON.parse(message.body);
+          if(result.status=="rejected"){
+            this.addSingleToast('warning','Warning',result.message);
+          }
+        }
+      });
     },this.onSocketfailure);
   }
   onSocketfailure=()=>{
@@ -105,5 +117,8 @@ export class AuthGuard implements CanActivate {
       console.log('failure')
       this.connection();
     } , 5000);
+  }
+  addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
+    this.messageService.add({severity: severity, summary: title, detail: details, sticky: sticky});
   }
 }
