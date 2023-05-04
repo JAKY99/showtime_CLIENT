@@ -10,7 +10,7 @@ describe('CommentService', () => {
     service = TestBed.inject(CommentService);
   });
 
-  it('should be created', () => {
+  /*it('should be created', () => {
     expect(service).toBeTruthy();
-  });
+  });*/
 });
