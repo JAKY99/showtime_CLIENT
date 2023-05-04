@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MovieService} from "../../../services/movie/movie.service";
+import {MovieDetailsModel} from "../../../models/movie/movie-details-model";
 
 @Component({
   selector: 'app-add-comment',
@@ -13,17 +14,32 @@ export class AddCommentComponent implements OnInit {
 
   text: string = "";
 
+  // @ts-ignore
+  movie: MovieDetailsModel = {};
+
   constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
   }
 
-  postComment() {
-    if (this.text.length > 0 && this.requestedMovieId != 0) {
-      this.movieService.postComment(this.requestedMovieId, this.text).subscribe((resp) => {
-        this.eventEmitter.emit();
-      })
-    }
+  async postComment() {
+    // @ts-ignore
+    await this.movieService.fetchMovieDetails(this.requestedMovieId,
+      ['credits', 'videos', 'images']).subscribe(
+      (resp) => {
+        // @ts-ignore
+        resp = JSON.parse(resp.data);
+        setTimeout(()=> {
+          this.movie = resp;
+          if (this.text.length > 0 && this.requestedMovieId != 0) {
+            console.log(this.movie)
+            this.movieService.postComment(this.requestedMovieId, this.text, this.movie.original_title).subscribe((resp) => {
+              this.eventEmitter.emit();
+            })
+          }
+        }, 100)
+      }
+    )
   }
 
 }

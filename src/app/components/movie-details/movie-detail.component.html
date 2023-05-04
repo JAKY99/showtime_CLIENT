@@ -184,6 +184,11 @@
       </p-tabPanel>
       <p-tabPanel header="Comments">
         <div>
+          <div *ngIf="resultUserComments.length" class="comments">
+            <div class="comment" *ngFor="let resultUserComments of resultUserComments">
+              <app-comment [comment]="resultUserComments"></app-comment>
+            </div>
+          </div>
           <div *ngIf="resultComments.length" class="comments">
             <div class="comment" *ngFor="let resultComment of resultComments">
               <app-comment [comment]="resultComment"></app-comment>
@@ -210,6 +215,7 @@
   ></button>
 </div>
 
+<app-add-comment-dialog #addCommentDialogRef (eventEmitter)="fetchUserComments()"></app-add-comment-dialog>
 <app-add-comment-dialog #addCommentDialogRef (eventEmitter)="fetchComments()"></app-add-comment-dialog>
 
 

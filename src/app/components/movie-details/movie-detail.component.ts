@@ -28,6 +28,7 @@ import {AddCommentDialogComponent} from "../comment/add-comment-dialog/add-comme
 export class MovieDetailComponent implements OnInit {
   resultsTrailer: Trailer[] | undefined;
   resultComments: [] = [];
+  resultUserComments: [] = [];
   private resultUserName: any;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute, private messageService: MessageService,private sanitizer: DomSanitizer) { }
@@ -170,6 +171,7 @@ export class MovieDetailComponent implements OnInit {
     if (e.index === 1){
       this.isCommentSectionActive = true;
       this.fetchComments();
+      this.fetchUserComments();
     }
     //tab: more like this
     if (e.index === 2){
@@ -280,21 +282,18 @@ async showViewedDialog() {
     this.ngOnInit()
   }
 
-  postComment() {
-    // @ts-ignore
-    let commentText = document.getElementById('commentInput').value;
-    if (commentText.length > 0) {
-      this.movieService.postComment(this.requestedMovieId, commentText).subscribe((resp) => {
-        // @ts-ignore
-        document.getElementById('commentInput').value = '';
-        this.fetchComments();
-      })
-    }
-  }
 
   fetchComments() {
     this.movieService.fetchComments(this.requestedMovieId).subscribe((resp) => {
       this.resultComments = resp;
+    }, (error) => {
+      console.log(error);
+    })
+  }
+
+  fetchUserComments() {
+    this.movieService.fetchUserComments(this.requestedMovieId).subscribe((resp) => {
+      this.resultUserComments = resp;
     }, (error) => {
       console.log(error);
     })
