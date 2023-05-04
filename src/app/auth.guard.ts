@@ -106,7 +106,7 @@ export class AuthGuard implements CanActivate {
         if(message.body) {
           let result = JSON.parse(message.body);
           if(result.status=="rejected"){
-            this.addSingleToast('warning','Warning',result.message);
+            this.addSingleToast('warn','Warning',result.message);
           }
         }
       });
