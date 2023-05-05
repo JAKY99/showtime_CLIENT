@@ -1,8 +1,9 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {TvService} from "../../services/tv/tv.service";
 import {TvSeasonDetails} from "../../models/tv/tv-season-details";
 import {formatDate} from "@angular/common";
 import {forkJoin} from "rxjs";
+import {TvEpisodeDetails} from "../../models/tv/tv-episode-details";
 
 @Component({
   selector: 'app-accordion-seasons',
@@ -19,7 +20,20 @@ export class AccordionSeasonsComponent implements OnInit {
   // @ts-ignore
   @Input() tvId : number;
 
-  // episodesSeen: number = 0;
+  // @ts-ignore
+  _item: string;
+  get item(): string {
+    return this._item;
+  }
+  @Input() set item(value: string) {
+    this._item = value;
+    this.updateSeasonStatusEvent();
+  }
+
+  @Output() resultsSerieEmitterEventv2 = new EventEmitter<any>();
+  // @Output() newSeasonIncEvent = new EventEmitter<any>();
+
+
   viewedStatus: boolean = false;
   viewedDialogShown: boolean = false;
 
@@ -41,12 +55,10 @@ export class AccordionSeasonsComponent implements OnInit {
 
   async ngOnInit(): Promise <void> {
 
-
     // pour amélio => call la série > choper le nb de saisons & ses ids pour économ le 1er fetchTvBySeason
-    for (let i = 0; i < this.nbSeasons; i++) {
-      //to prevent i = 0 && seach season 0
+    for (let i = 0; i < this.nbSeasons+1; i++) {
       // @ts-ignore
-      await this.tvService.fetchTvBySeason(this.tvId,i+1).subscribe(
+      await this.tvService.fetchTvBySeason(this.tvId,i).subscribe(
         (resp) => {
             resp = JSON.parse(resp.data);
             // oui je fait 2 fois un fetchTvBySeason , le 1er juste pour récup l'id et faire les autres query
@@ -76,9 +88,7 @@ export class AccordionSeasonsComponent implements OnInit {
         }
       )
     }
-    this.allSeasons = this.allSeasons.sort(function (a, b) {
-      return a.season_number - b.season_number;
-    });
+    this.allSeasons.sort((a, b) => (a.season_number - b.season_number));
   }
 
   async updateSeasonStatus( seasonId: number){
@@ -90,17 +100,64 @@ export class AccordionSeasonsComponent implements OnInit {
         seasonId
       ).subscribe(
         (resp) => {
-          console.log(resp)
           this.allSeasons.map((season) => {
             if(season.id === seasonId){
               season.watchedStatus = resp;
               season.nbEpisodesWatched = season.episodes.length;
+              season.episodes.map((episode) => {
+                episode.status = "SEEN";
+              })
             }
           })
-          // this.tvSeasonDetails.watchedStatus = res
-          // this.fetchWatchedSeasonInfos();
+          this.resultsSerieEmitterEventv2.emit(this.tvId);
         }
       )
+    }
+  }
+
+  updateSeasonInfosFromChild(imdbIdSeason : number) {
+    this.allSeasons.map((season) => {
+      if(season.id === imdbIdSeason ){
+        if(season.nbEpisodesWatched < season.episodes.length){
+          season.nbEpisodesWatched = season.nbEpisodesWatched + 1;
+        }
+        if(season.watchedStatus == "NOTSEEN"){
+          season.watchedStatus = "WATCHING";
+        }
+        if(season.nbEpisodesWatched == season.episodes.length){
+          season.watchedStatus = "SEEN";
+        }
+      }
+    })
+  }
+
+  updateSerieInfosFromChild($event: any) {
+    this.resultsSerieEmitterEventv2.emit($event);
+  }
+
+  updateSeasonStatusEvent() {
+    if (this.item === "SEEN") {
+      this.allSeasons.map((season) => {
+        //Je peux pas faire comme ça prc les éléments sont déjà chargé donc il faut les update, pas juste les réaffecter
+          season.watchedStatus = "SEEN";
+          season.episodes.map((episode) => {
+            episode.status = "SEEN";
+          })
+        }
+      )
+
+    }
+  }
+
+  updateSpecificEpisodeStatus(episode: TvEpisodeDetails){
+    const season: TvSeasonDetails | undefined = this.allSeasons.find(x => x.season_number === episode.season_number);
+    if (season) {
+      season.episodes.map(x => {
+        if (x.episode_number === episode.episode_number) {
+          x.status = "SEEN";
+        }
+      });
+      this.updateSeasonInfosFromChild(season.id)
     }
   }
 

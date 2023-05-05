@@ -12,5 +12,6 @@ export interface TvEpisodeDetails {
   "show_id" : number,
   "still_path" : string | null
   "vote_average":  number,
-  "vote_count" : number
+  "vote_count" : number,
+  "status": string
 }

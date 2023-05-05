@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {TvEpisodeDetails} from "../../models/tv/tv-episode-details";
 import {formatDate} from "@angular/common";
 import {TvService} from "../../services/tv/tv.service";
@@ -28,20 +28,14 @@ export class EpisodeCardComponent implements OnInit {
   @Input() seasonId : number | null;
   // @ts-ignore
   @Input() tvId : number;
-
-  // @Output() newItemEvent = new EventEmitter<number>()
-
-  userEpisodeStatus = {
-    episode:{
-      checked:''
-    }
-  }
+  @Output() resultsSeasonEmitterEvent = new EventEmitter<any>();
+  @Output() resultsSerieEmitterEvent = new EventEmitter<any>();
 
   imageState: string = "setup";
   todayDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
+  isLoadingStatus: boolean = false;
 
   ngOnInit(): void {
-
     // @ts-ignore
     return this.todayDate;
   }
@@ -61,26 +55,26 @@ export class EpisodeCardComponent implements OnInit {
       ).subscribe(
         (resp) => {
           if (resp === true) {
-            this.userEpisodeStatus.episode.checked = 'checked';
+            this._item.status = 'SEEN';
           }
         })
     }
   }
 
   async updateEpisodeStatus() {
-
+    this.isLoadingStatus = true;
     await this.tvService.addEpisodeToWatchedList(
       this.tvId,
       this.seasonId,
       this.item.id
     ).subscribe(
       (resp) => {
-        console.log(resp)
         if(resp === true){
-          this.userEpisodeStatus.episode.checked = 'checked';
+          this._item.status = 'SEEN';
+          this.resultsSeasonEmitterEvent.emit(this.seasonId);
+          this.resultsSerieEmitterEvent.emit(this.tvId);
         }
-
-        // this.fetchWatchedSeasonInfos();
+        this.isLoadingStatus = false;
       }
     )
   }

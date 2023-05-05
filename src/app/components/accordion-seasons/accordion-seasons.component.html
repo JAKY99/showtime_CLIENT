@@ -1,11 +1,14 @@
 <p-accordion class="accordionSeries" [multiple]="true">
   <ng-container *ngFor="let season of allSeasons">
-  <p-accordionTab *ngIf="season.episodes.length > 1" id="season-{{season.season_number}}" [cache]="true">
+  <p-accordionTab
+    *ngIf=" season.episodes && season.episodes.length > 1"
+    id="season-{{season.season_number}}">
 
     <ng-template pTemplate="header">
       <div class="flexer">
         <h2 class="seasonName">{{season.name}}</h2>
-        <div class="flexer seenCounter">
+        <div class="flexer seenCounter" >
+
           <p class="epCount"> {{season.nbEpisodesWatched}} / {{season.episodes.length}}</p>
           <i
             (click)="updateSeasonStatus(season.id)"
@@ -22,7 +25,9 @@
         <app-episode-card
           [tvId]="tvId"
           [seasonId]="season.id"
-          [item]="episode">
+          [item]="episode"
+          (resultsSeasonEmitterEvent)="updateSeasonInfosFromChild($event)"
+          (resultsSerieEmitterEvent)="updateSerieInfosFromChild($event)">
         </app-episode-card>
       </ng-container>
     </ng-template>
