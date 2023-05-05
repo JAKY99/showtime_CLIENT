@@ -13,8 +13,10 @@ const REFRESH_TOKEN_KEY = 'refresh-Token';
 export class TokenStorageService {
   private header: HttpHeaders | undefined;
 
+  private jwtHelperService = new JwtHelperService();
 
-  constructor(private jwtHelperService: JwtHelperService, private http: HttpClient) { }
+
+  constructor(private http: HttpClient) { }
   logOut(): void{
     window.localStorage.clear();
     window.location.reload();

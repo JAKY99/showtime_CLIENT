@@ -20,7 +20,7 @@ export class LoginFormComponent implements OnInit {
   private header: HttpHeaders | undefined;
   public loginForm: FormGroup;
   public isLoading: boolean = false;
-  private isLoggedIn: boolean = false;
+  public isLoggedIn: boolean = false;
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
               private refreshTokenStorage: TokenStorageService,
