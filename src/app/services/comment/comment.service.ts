@@ -12,9 +12,10 @@ export class CommentService {
   likeComment(commentId: number, userComment: any) {
     let url = `${GlobalConstants.API_URL}/api/v1/comment/likeComment`
     return this.http.post<any>(url, {
-      userMail: userComment.userMail,
+      userMail: userComment.username,
       commentId: commentId,
-      numberLikes: 0
+      numberLikes: 0,
+      userLiked: false
     });
   }
 }
