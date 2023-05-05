@@ -187,6 +187,14 @@ export class TvService {
     });
   }
 
+  fetchTvSerieWatchedStatus(tmdbTvId: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isSerieInWatchlist/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tmdbId: tmdbTvId
+    });
+  }
+
   fetchNbEpisodesWatchedInSerie(tmdbTvId: number, seasonId: number) {
     let url = `${GlobalConstants.API_URL}/api/v1/user/nbEpisodesWatchedInSerie/`
     return this.http.post<any>(url, {
