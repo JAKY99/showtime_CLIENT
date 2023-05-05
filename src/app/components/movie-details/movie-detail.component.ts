@@ -29,7 +29,6 @@ export class MovieDetailComponent implements OnInit {
   resultsTrailer: Trailer[] | undefined;
   resultComments: [] = [];
   resultUserComments: [] = [];
-  private resultUserName: any;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute, private messageService: MessageService,private sanitizer: DomSanitizer) { }
 

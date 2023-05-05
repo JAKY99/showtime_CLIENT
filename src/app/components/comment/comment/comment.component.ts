@@ -20,16 +20,16 @@ export class CommentComponent implements OnInit {
 
   getCommentDate(){
     const now = new Date();
-    const commentDate = new Date(this.comment.datePublication);
+    const commentDate = new Date(this.comment.comments.datePublication);
     const difference = now.getTime() - commentDate.getTime();
     return Math.ceil(difference / (1000 * 3600 * 24));
   }
 
   likeComment(comment: any){
-    if (comment.spoiler == false && comment.validated == true){
+    if (comment.spoiler == false && comment.validate == true){
       this.commentService.likeComment(comment.id, comment.user).subscribe((resp) => {
-        this.numberOfLikes = resp.likes;
-        this.commentLiked = true;
+        this.comment = resp;
+        console.log(this.comment)
       })
     }
 
