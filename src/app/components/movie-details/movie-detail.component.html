@@ -24,11 +24,7 @@
       <i (click)="toggleWatchlistMovie()" class="bookmark">
         <fa-icon [class]="userMovie.bookmark.checked" class="bookmark-icon st-icon st-icon-small" [icon]="faBookmark"></fa-icon>
       </i>
-      <i (click)="showViewedDialog()"
-         [class]="userMovie.viewInfo.checked"
-         *ngIf="!loading.userViewInfo"
-         class="fa-solid fa-circle-check watched-status-check st-icon"></i>
-      <p-progressSpinner *ngIf="loading.userViewInfo" [style]="{width: '1.5rem', height: '1.5rem'}"></p-progressSpinner>
+      <app-seen-check (click)="showViewedDialog()" [isChecked]="!!userMovie.viewInfo.checked"></app-seen-check>
     </div>
   </div>
   <p-dialog
