@@ -103,6 +103,7 @@ import { CommentComponent } from './components/comment/comment/comment.component
 import { CommentAvatarComponent } from './components/comment/comment-avatar/comment-avatar.component';
 import { ActorDetailsDialogComponent } from './components/actor/actor-details-dialog/actor-details-dialog.component';
 import { ActorDetailsComponent } from './components/actor/actor-details/actor-details.component';
+import { NotificationIconComponent } from './components/notification-icon/notification-icon.component';
 
 
 @NgModule({
@@ -164,7 +165,8 @@ import { ActorDetailsComponent } from './components/actor/actor-details/actor-de
     CommentComponent,
     CommentAvatarComponent,
     ActorDetailsDialogComponent,
-    ActorDetailsComponent
+    ActorDetailsComponent,
+    NotificationIconComponent
   ],
   imports: [
     HttpClientModule,

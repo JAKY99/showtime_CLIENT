@@ -41,7 +41,6 @@ export class HomePageComponent implements OnInit {
 
   faSearch = faSearch;
   faEllipsisVertical = faEllipsisVertical;
-
   trendingsList: TrendingModel[] = [];
   moviesInTheaters: MovieDetailsModel[] = [];
   newMovies: MovieDetailsModel[] = [];
@@ -54,6 +53,7 @@ export class HomePageComponent implements OnInit {
     ipv4: "",
     country_code2: ""
   };
+
 
 
   constructor(

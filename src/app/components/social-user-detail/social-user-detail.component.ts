@@ -81,4 +81,5 @@ export class SocialUserDetailComponent implements OnInit {
   close(){
     this.viewedDialogShown = false
   }
+
 }

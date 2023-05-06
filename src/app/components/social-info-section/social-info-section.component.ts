@@ -3,6 +3,7 @@ import {ProfileService} from "../../services/profile/profile.service";
 import {MovieService} from "../../services/movie/movie.service";
 import {SocialService} from "../../services/social/social.service";
 import {faUserPlus,faUserMinus} from "@fortawesome/free-solid-svg-icons";
+import {TokenStorageService} from "../../services/token-storage.service";
 @Component({
   selector: 'app-social-info-section',
   templateUrl: './social-info-section.component.html',
@@ -17,7 +18,8 @@ export class SocialInfoSectionComponent implements OnInit {
   faUserPlus = faUserPlus;
   faUserMinus = faUserMinus;
   @Input() username: string = "";
-  constructor(private ProfileService :  ProfileService, private MovieService : MovieService,private SocialService : SocialService) { }
+  @Input() isOwner: boolean = true;
+  constructor(private ProfileService :  ProfileService, private MovieService : MovieService,private SocialService : SocialService,private tokenStorageService : TokenStorageService) { }
 
   ngOnInit(): void {
 
@@ -26,6 +28,7 @@ export class SocialInfoSectionComponent implements OnInit {
     if(this.username == ""){
       return;
     }
+    this.checkOwner();
     this.loadData();
 
   }
@@ -53,5 +56,8 @@ export class SocialInfoSectionComponent implements OnInit {
     this.SocialService.actionUnfollowuser(this.username).subscribe((resp) => {
       this.loadData();
     });
+  }
+  checkOwner(){
+    this.isOwner=this.tokenStorageService.getClientUsername() == this.username;
   }
 }
