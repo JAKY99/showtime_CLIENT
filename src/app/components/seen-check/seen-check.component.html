@@ -1,0 +1,52 @@
+<svg
+  height="30px"
+  width="30px"
+  viewBox="0 0 133 133"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g
+    [id]="isChecked ? 'check-group' : ''"
+    stroke="none"
+    stroke-width="1"
+    fill="none"
+    fill-rule="evenodd"
+  >
+    <circle
+      id="filled-circle"
+      fill="#F65C63"
+      cx="66.5"
+      cy="66.5"
+      r="54.5"
+    />
+    <circle
+      id="white-circle"
+      fill="#FFFFFF"
+      cx="66.5"
+      cy="66.5"
+      r="55.5"
+    />
+    <circle
+      *ngIf="isChecked"
+      id="outline"
+      stroke="#F65C63"
+      stroke-width="4"
+      cx="66.5"
+      cy="66.5"
+      r="54.5"
+    />
+    <polyline
+      *ngIf="isChecked"
+      id="check"
+      stroke="#FFFFFF"
+      stroke-width="9"
+      points="41 70 56 85 92 49"
+    />
+    <polyline
+      *ngIf="!isChecked"
+      id="check"
+      stroke="#2E3441"
+      stroke-width="9"
+      points="41 70 56 85 92 49"
+    />
+  </g>
+</svg>
