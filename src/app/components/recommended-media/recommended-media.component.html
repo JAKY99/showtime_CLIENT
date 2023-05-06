@@ -13,7 +13,7 @@
             <button pButton pRipple type="button"
                     icon="pi pi-thumbs-down"
                     class="p-button-rounded st-secondary-btn --small"
-                    (click)="fetchGenres(); fetchPeople(media.id)"
+                    (click)="fetchGenres(media.id); fetchPeople(media.id)"
             ></button>
           </div>
         </div>
@@ -27,6 +27,7 @@
                     class="p-button-text primary st-secondary-btn --small"
                     label="Don't like a genre"
                     [loading]="isLoadingSubData || isSaving"
+                    (click)="genrePanel.toggle($event)"
             ></button>
             <button pButton pRipple type="button"
                     class="p-button-text primary st-secondary-btn --small"
@@ -34,7 +35,7 @@
                     [loading]="isLoadingSubData || isSaving"
                     (click)="actorPanel.toggle($event)"
             ></button>
-            <p-overlayPanel #actorPanel>
+            <p-overlayPanel #actorPanel [dismissable]="true">
               <ng-template pTemplate="">
                 <div *ngFor="let actor of mediaActors; index as i">
                   <button pButton type="button" label="{{actor.name}}"
@@ -42,6 +43,17 @@
                           (click)="excludeActor(actor.id); actorPanel.hide()"
                   ></button>
                   <p-divider *ngIf="i !== mediaActors.length - 1" class="--small"></p-divider>
+                </div>
+              </ng-template>
+            </p-overlayPanel>
+            <p-overlayPanel #genrePanel [dismissable]="true">
+              <ng-template pTemplate="">
+                <div *ngFor="let genre of mediaGenres; index as i">
+                  <button pButton type="button" label="{{genre.name}}"
+                          class="p-button-text --small --text-type"
+                          (click)="excludeGenre(genre.id); genrePanel.hide()"
+                  ></button>
+                  <p-divider *ngIf="i !== mediaGenres.length - 1" class="--small"></p-divider>
                 </div>
               </ng-template>
             </p-overlayPanel>
