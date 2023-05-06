@@ -70,4 +70,47 @@ export class SocialService {
       // @ts-ignore
       httpOptions);
   }
+
+  fetchSocialInfosFollowingStatus(username: string) {
+    let url = GlobalConstants.API_URL + "/api/v1/user/profile/lazy/socialInfos/followingStatus";
+    let data={
+      usernameRequested:username,
+      usernameRequester:this.tokenStorage.getClientUsername()
+    }
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      data,
+      // @ts-ignore
+      httpOptions);
+  }
+
+  actionFollowuser(username: string) {
+    let url = GlobalConstants.API_URL + "/api/v1/user/profile/lazy/socialAction/followUser";
+    let data={
+      usernameRequested:username,
+      usernameRequester:this.tokenStorage.getClientUsername()
+    }
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      data,
+      // @ts-ignore
+      httpOptions);
+
+  }
+
+  actionUnfollowuser(username: string) {
+    let url = GlobalConstants.API_URL + "/api/v1/user/profile/lazy/socialAction/unfollowUser";
+    let data={
+      usernameRequested:username,
+      usernameRequester:this.tokenStorage.getClientUsername()
+    }
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      data,
+      // @ts-ignore
+      httpOptions);
+  }
 }
