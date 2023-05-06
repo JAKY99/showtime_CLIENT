@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {emailValidator} from "../../common/validators/emailValidator";
 import {GlobalRegex} from "../../common/constants/global-regex";
@@ -24,6 +24,7 @@ export class RegisterFormComponent implements OnInit {
   activeIndex: number = 0;
   public personalInformationForm: FormGroup;
   public isPersonalInfoNotValid: boolean = true ;
+  isRepeatNok: boolean = true ;
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
               private messageService: MessageService,
@@ -51,20 +52,38 @@ export class RegisterFormComponent implements OnInit {
       this.router.navigate(['/home']).then(r => r);
 
     }
+// Define a regular expression for the password format
+    const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
+    function passwordsMatchValidator(control: AbstractControl): {[key: string]: any} | null {
+      const password = control.get('password');
+      const repeatPassword = control.get('repeatpassword');
+      console.log(password?.value,repeatPassword?.value);
+      let check = password && repeatPassword && password.value !== repeatPassword.value ? null : { 'passwordsMatch': true };
+      console.log(check)
+      return password && repeatPassword && password.value === repeatPassword.value ? null: { 'passwordsNotMatch': true };
+    }
+
+
+    // @ts-ignore
     this.registerForm = new FormGroup({
-      email: new FormControl('',[
+      email: new FormControl('', [
         Validators.required,
         Validators.email,
         emailValidator(GlobalRegex.emailRegex)
       ]),
-      password: new FormControl('', Validators.required),
-      repeatpassword: new FormControl('', Validators.required),
-
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PASSWORD_REGEX)
+      ]),
+      repeatpassword: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PASSWORD_REGEX),
+      ])
     });
     this.personalInformationForm = new FormGroup({
-      firstname: new FormControl('', Validators.required),
-      lastname: new FormControl('', Validators.required),
+      firstname: new FormControl('', [Validators.minLength(2), Validators.maxLength(10),Validators.required]),
+      lastname: new FormControl('', [Validators.minLength(2), Validators.maxLength(10),Validators.required]),
     });
   }
   get email(){
@@ -121,7 +140,13 @@ export class RegisterFormComponent implements OnInit {
   }
   check() {
     let repeatpassword = this.registerForm.get('password')?.value == this.registerForm.get('repeatpassword')?.value;
+    this.isRepeatNok=!repeatpassword
     this.isLoginFailed = !this.registerForm.invalid && repeatpassword? false : true;
+  }
+  checkRepeat() {
+    let repeatpassword = this.registerForm.get('password')?.value == this.registerForm.get('repeatpassword')?.value;
+    this.isRepeatNok=repeatpassword
+    return repeatpassword;
   }
   reloadPage(): void {
     window.location.reload();
