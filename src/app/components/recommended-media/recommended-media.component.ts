@@ -3,11 +3,9 @@ import {MovieService} from "../../services/movie/movie.service";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 import {MediaDetailsDialogComponent} from "../media-details-dialog/media-details-dialog.component";
 import {stringToDate} from "../../js/date-helper";
-import {Genre} from "../../models/common/genre";
-import {People} from "../../models/common/people";
-import {MenuItem} from "primeng/api";
 import {PeopleService} from "../../services/people/people.service";
 import {MovieCredits} from "../../models/movie/movie-credits";
+import {GenreService} from "../../services/genre/genre.service";
 
 @Component({
   selector: 'app-recommended-media',
@@ -23,10 +21,10 @@ export class RecommendedMediaComponent implements OnInit {
   isLoadingSubData: boolean = false;
   isSaving: boolean = false;
   recommendedMedias: Array<MovieDetailsModel> = [];
-  mediaGenres: [] = [];
-  mediaActors: {name: string, id: number}[] = [];
+  mediaGenres: any[] = [];
+  mediaActors: { name: string, id: number }[] = [];
 
-  constructor(private movieService: MovieService, private peopleService: PeopleService) {
+  constructor(private movieService: MovieService, private peopleService: PeopleService, private genreService: GenreService) {
   }
 
   ngOnInit(): void {
@@ -43,26 +41,26 @@ export class RecommendedMediaComponent implements OnInit {
     )
   }
 
-  fetchGenres() {
-    /*if () {
+  fetchGenres(idMedia: number | null) {
+    if (idMedia) {
+      this.mediaGenres = [];
       this.isLoadingSubData = true;
-      this.peopleService.fetchMovieCredits().subscribe(
-        response => {
-          response = JSON.parse(response.data);
-          this.mediaActors = response;
-          this.mediaActors = [{
-            label: 'File',
-            items: [
-              {label: 'New', icon: 'pi pi-fw pi-plus'},
-              {label: 'Download', icon: 'pi pi-fw pi-download'}
-            ]
-          }];
-          setTimeout(() => {
-            this.isLoadingSubData = false;
-          }, 500)
-        }
-      )
-    }*/
+      const isMediaMovie = true;
+      if (isMediaMovie) {
+        this.movieService.fetchMovieDetails(idMedia).subscribe(
+          response => {
+            // @ts-ignore
+            const movieDetails: MovieDetailsModel = JSON.parse(response.data);
+            this.mediaGenres = movieDetails.genres;
+            setTimeout(() => {
+              this.isLoadingSubData = false;
+            }, 500)
+          }
+        )
+      } else {
+        //fetchTvDetails
+      }
+    }
   }
 
   fetchPeople(idMedia: number | null) {
@@ -73,7 +71,7 @@ export class RecommendedMediaComponent implements OnInit {
         response => {
           let credits: MovieCredits = JSON.parse(response.data);
           credits.cast?.slice(0, 10).forEach(actor => {
-            if (this.mediaActors && actor.name && actor.id){
+            if (this.mediaActors && actor.name && actor.id) {
               this.mediaActors.push({name: actor.name, id: actor.id})
             }
           })
@@ -96,9 +94,19 @@ export class RecommendedMediaComponent implements OnInit {
     return null
   }
 
-  excludeActor(idActor: number){
+  excludeActor(idActor: number) {
     this.isSaving = true;
     this.peopleService.excludeActor(idActor).subscribe(
+      value => {
+        this.isSaving = false;
+        this.fetchData();
+      }
+    );
+  }
+
+  excludeGenre(idGenre: number) {
+    this.isSaving = true;
+    this.genreService.excludeGenre(idGenre).subscribe(
       value => {
         this.isSaving = false;
         this.fetchData();

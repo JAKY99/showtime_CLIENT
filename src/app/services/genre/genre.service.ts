@@ -11,10 +11,18 @@ export class GenreService {
 
   constructor(private http: HttpClient, private redis: RedisService) { }
 
-  fetchGenres(): Observable<any> {
+  fetchMovieGenres(): Observable<any> {
     const url = GlobalConstants.TMDB_BASE_URL
     + "genre/movie/list?api_key=" + GlobalConstants.TMDB_KEY
     + "&language=en-US";
     return this.redis.getDataFromRedisCache(url);
+  }
+
+  excludeGenre(idGenre: number): Observable<any> {
+    const url = GlobalConstants.API_URL
+      + "/api/v1/user/exclude/genre/"
+      + idGenre
+    // @ts-ignore
+    return this.http.put<any>(url);
   }
 }
