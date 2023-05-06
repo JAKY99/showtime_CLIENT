@@ -1,12 +1,12 @@
 <div class="user-social-infos mt-3 flex justify-content-around align-content-center align-items-baseline">
-  <div *ngIf="!isFollowing" class="following container">
+  <div *ngIf="!isFollowing && !isOwner" class="following container">
     <fa-icon class="close-icon st-icon st-icon-small dark fs-icon"
              [icon]="faUserPlus"
              (click)="followUser()"
     ></fa-icon>
     <span class="label textDetailRed">Follow</span>
   </div>
-  <div *ngIf="isFollowing" class="following container">
+  <div *ngIf="isFollowing&& !isOwner" class="following container">
     <fa-icon class="close-icon st-icon st-icon-small dark fs-icon"
              [icon]="faUserMinus"
              (click)="unfollowUser()"

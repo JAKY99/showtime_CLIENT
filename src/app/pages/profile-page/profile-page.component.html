@@ -1,6 +1,7 @@
 <div class="app-profile-page h-full">
-  <div class="top-header">
-    <fa-icon #img class="options-icon-action" (click)="menu.toggle($event)" [icon]="faEllipsisVertical" ></fa-icon>
+  <div class="top-header flex  align-items-end">
+    <fa-icon #img class="options-icon-action text-white" (click)="menu.toggle($event)" [icon]="faEllipsisVertical" ></fa-icon>
+    <app-notification-icon class=""></app-notification-icon>
     <p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu>
     <p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
   </div>

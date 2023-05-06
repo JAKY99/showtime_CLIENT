@@ -1,0 +1,6 @@
+<div id="app-notification-icon">
+  <fa-icon *ngIf="!newNotification"  #img class="options-icon-action" (click)="notification.toggle($event)" [icon]="faBell"></fa-icon>
+  <fa-icon *ngIf="newNotification" #img class="options-icon-action color-transition" (click)="updateNotificationStatus() && notification.toggle($event)" [icon]="faBell"></fa-icon>
+  <p-slideMenu #notification [model]="notificationItems" [popup]="true"></p-slideMenu>
+</div>
+

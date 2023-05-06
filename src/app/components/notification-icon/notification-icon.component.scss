@@ -1,0 +1,30 @@
+@import "src/styles";
+#app-notification-icon{
+  display: flex;
+  .color-transition {
+    color: #fff;
+    animation: color-animation 2s ease-in-out infinite;
+  }
+
+  @keyframes color-animation {
+    0% {
+      color: #fff;
+    }
+    50% {
+      color: $secondary-color;
+    }
+    100% {
+      color: #fff;
+    }
+  }
+  .options-icon-action{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: $margin-default + .5rem;
+    font-size: 1.4rem;
+    color: $white;
+  }
+}
+
+
