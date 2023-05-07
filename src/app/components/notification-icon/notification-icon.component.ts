@@ -70,7 +70,6 @@ export class NotificationIconComponent implements OnInit {
     let ws = new SockJS(this.url);
     this.client = Stomp.over(ws);
     let that = this;
-
     // @ts-ignore
     this.client.connect({}, () => {
       // @ts-ignore
@@ -78,7 +77,6 @@ export class NotificationIconComponent implements OnInit {
         if (message.body) {
           that.loading = true
           let result = JSON.parse(message.body);
-
           if (localStorage.getItem('isAndroid') === 'true') {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message);
