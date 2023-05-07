@@ -10,18 +10,12 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
 
-  blockedDocument: boolean = false;
-
   constructor(private primengConfig: PrimeNGConfig, public router: Router) {
   }
   ngOnInit() {
     this.primengConfig.ripple = true;
   }
   title = 'Showtime';
-
-  toggleBlockDocument(){
-    this.blockedDocument = !this.blockedDocument;
-  }
 
   isNavbarShown(){
     return this.router.url.includes('/movies') ||

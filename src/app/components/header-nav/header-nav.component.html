@@ -3,10 +3,12 @@
   <div class="right-section">
     <app-notification-icon class="flex"></app-notification-icon>
     <fa-icon class="search-icon-action" [icon]="faSearch" (click)="redirectTo('search')"></fa-icon>
-    <app-header-avatar *ngIf="displayAvatar" (click)="menu.toggle($event)"></app-header-avatar>
+    <fa-icon *ngIf="displayProfileMenu" class="search-icon-action" [icon]="faEllipsisV" (click)="profileMenu.toggle($event)"></fa-icon>
+    <app-header-avatar *ngIf="displayAvatar" (click)="avatarMenu.toggle($event)"></app-header-avatar>
   </div>
 </div>
-<p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu>
+<p-slideMenu #avatarMenu [model]="items" [popup]="true"></p-slideMenu>
+<p-slideMenu #profileMenu [model]="items" [popup]="true"></p-slideMenu>
 <p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
 
 <!--<fa-icon #img class="options-icon-action" (click)="menu.toggle($event)" [icon]="faEllipsisVertical"></fa-icon>-->

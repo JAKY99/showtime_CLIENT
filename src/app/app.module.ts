@@ -109,6 +109,13 @@ import { HeaderNavComponent } from './components/header-nav/header-nav.component
 import { HeaderAvatarComponent } from './components/header-avatar/header-avatar.component';
 import { NotificationFeedDialogComponent } from './components/notification-feed-dialog/notification-feed-dialog.component';
 import {ToolbarModule} from "primeng/toolbar";
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { EditProfileDialogComponent } from './components/edit-profile/edit-profile-dialog/edit-profile-dialog.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile/edit-profile.component';
+import {InplaceModule} from "primeng/inplace";
+import { PictureCropDialogComponent } from './components/edit-profile/picture-crop-dialog/picture-crop-dialog.component';
+import {FileUploadModule} from "primeng/fileupload";
+import {HammerModule} from "@angular/platform-browser";
 
 
 @NgModule({
@@ -175,7 +182,10 @@ import {ToolbarModule} from "primeng/toolbar";
     SeenCheckComponent,
     HeaderNavComponent,
     HeaderAvatarComponent,
-    NotificationFeedDialogComponent
+    NotificationFeedDialogComponent,
+    EditProfileDialogComponent,
+    EditProfileComponent,
+    PictureCropDialogComponent
   ],
     imports: [
         HttpClientModule,
@@ -222,7 +232,11 @@ import {ToolbarModule} from "primeng/toolbar";
         OverlayPanelModule,
         SpeedDialModule,
         InputTextareaModule,
+        ImageCropperModule,
         ToolbarModule,
+        InplaceModule,
+        FileUploadModule,
+        HammerModule
     ],
   providers: [
     {

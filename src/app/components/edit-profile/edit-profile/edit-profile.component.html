@@ -1,0 +1,23 @@
+<div class="edit-profile">
+  <h2>Edit Pictures</h2>
+  <div class="profile-picture">
+    <app-profile-avatar class="p-p"></app-profile-avatar>
+    <label for="inputTag">
+      <i class="pi pi-image"></i>
+      Select Profile Image
+      <input id="inputTag" type="file" (change)="changeFile($event); isAvatar = true; isBackground = false"/>
+    </label>
+  </div>
+  <div class="background-picture mt-3">
+    <img [src]="userData.backgroundUrl" alt="">
+    <label for="inputTagBg">
+      <i class="pi pi-image"></i>
+      Select Cover Image
+      <input id="inputTagBg" type="file" (change)="changeFile($event); isAvatar = false; isBackground = true"/>
+    </label>
+  </div>
+  <h2 class="mt-4">Edit Infos</h2>
+</div>
+
+<app-picture-crop-dialog #pictureCropDialogRef [imgChangeEvt]="imgChangeEvt" [isAvatar]="isAvatar"
+                         [isBackground]="isBackground" (imageSaved)="imageSaved.emit()"></app-picture-crop-dialog>
