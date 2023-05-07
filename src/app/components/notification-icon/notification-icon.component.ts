@@ -80,6 +80,9 @@ export class NotificationIconComponent implements OnInit {
           if (localStorage.getItem('isAndroid') === 'true') {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message);
+            this.newNotification = true;
+            // @ts-ignore
+            this.fetchNotifications();
           }
           if (localStorage.getItem('isAndroid') !== 'true') {
             this.addSingleToast('success', 'Notification', 'You have a new notification');
