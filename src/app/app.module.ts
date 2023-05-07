@@ -105,6 +105,8 @@ import { ActorDetailsDialogComponent } from './components/actor/actor-details-di
 import { ActorDetailsComponent } from './components/actor/actor-details/actor-details.component';
 import { NotificationIconComponent } from './components/notification-icon/notification-icon.component';
 import { SeenCheckComponent } from './components/seen-check/seen-check.component';
+import { HeaderNavComponent } from './components/header-nav/header-nav.component';
+import { HeaderAvatarComponent } from './components/header-avatar/header-avatar.component';
 
 
 @NgModule({
@@ -168,7 +170,9 @@ import { SeenCheckComponent } from './components/seen-check/seen-check.component
     ActorDetailsDialogComponent,
     ActorDetailsComponent,
     NotificationIconComponent,
-    SeenCheckComponent
+    SeenCheckComponent,
+    HeaderNavComponent,
+    HeaderAvatarComponent
   ],
   imports: [
     HttpClientModule,

@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, Input, ViewEncapsulation} from '@angular/core';
 import {PrimeNGConfig} from 'primeng/api';
 import {Router} from "@angular/router";
 
