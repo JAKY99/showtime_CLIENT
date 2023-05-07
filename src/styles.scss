@@ -272,6 +272,11 @@ $profileContainerHeight: 6.5rem;
   pointer-events: none;
 }
 
+.p-toolbar {
+  background: $main-color;
+  border: none;
+  padding: $margin-small;
+}
 @keyframes p-progress-spinner-color {
   100%,
   0% {
