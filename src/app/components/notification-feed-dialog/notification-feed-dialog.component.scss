@@ -1,0 +1,96 @@
+@import "src/styles";
+
+.notification-feed-dialog {
+
+  .p-dialog-header {
+    display: none !important;
+  }
+
+  .p-dialog-content {
+    background-color: $main-color !important;
+    color: $white;
+    padding: 0 $margin-default;
+    position: relative;
+    overflow-y: auto;
+
+    .top-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $white;
+      position: absolute;
+      z-index: 9999;
+      width: 30px;
+      height: 30px;
+      top: 1rem;
+      left: 1rem;
+      border-radius: 50%;
+      font-size: $font-medium;
+    }
+  }
+
+  .p-dialog-footer {
+    display: none !important;
+  }
+
+  .p-dialog {
+    width: 100%;
+    margin: 0 !important;
+    max-height: 100% !important;
+    min-height: 100% !important;
+  }
+
+  .p-dialog .p-dialog-header .p-dialog-header-icon {
+    pointer-events: none;
+  }
+
+  .clear-notif{
+    .p-button-icon-only {
+      width: 2.2rem;
+      height: 2rem;
+      border-radius: 5px;
+      background: transparent;
+      border: none;
+      .pi{
+        font-size: 1.2rem;
+        color: cornflowerblue;
+      }
+    }
+  }
+
+  .list {
+    padding-top: $margin-small;
+    display: flex;
+    flex-direction: column;
+    gap: $margin-default;
+
+    .notif-status {
+      min-width: 7px;
+      max-width: 7px;
+      max-height: 7px;
+      min-height: 7px;
+      background-color: $secondary-color;
+      border-radius: 50%;
+    }
+
+    .card {
+      background-color: $divider-color;
+      padding: $margin-big;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: $margin-small;
+
+      .row-card{
+        display: flex;
+        align-items: center;
+        gap: $margin-default;
+
+        &.row-2{
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+
+}
