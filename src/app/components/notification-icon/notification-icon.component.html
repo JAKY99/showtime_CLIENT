@@ -4,5 +4,6 @@
   <fa-icon *ngIf="newNotification" #img class="options-icon-action color-transition" [icon]="faBell"></fa-icon>
   <p-badge *ngIf="!loading && newNotificationCounter > 0" [value]="newNotificationCounter.toString()" severity="danger" class="notif-counter"></p-badge>
 </div>
+
 <app-notification-feed-dialog *ngIf="!loading" [items]="notificationItems" #notificationFeedRef (updateNotification)="updateNotificationStatus()"></app-notification-feed-dialog>
 
