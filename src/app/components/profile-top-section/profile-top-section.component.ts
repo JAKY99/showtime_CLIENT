@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TokenStorageService} from "../../services/token-storage.service";
 import {ProfileService} from "../../services/profile/profile.service";
 import {MovieService} from "../../services/movie/movie.service";
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-profile-top-section',
@@ -38,6 +39,7 @@ export class ProfileTopSectionComponent implements OnInit {
     try {
       this.isLoading = true;
       let file = event.target.files[0];
+      console.log(file)
       const formData = new FormData();
       formData.append('file', file);
       formData.append('email', this.tokenStorage.getClientUsername());
