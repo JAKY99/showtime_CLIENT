@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from "../../services/user/user.service";
-import {MenuItem, MessageService} from "primeng/api";
+import {ConfirmationService, MenuItem, MessageService} from "primeng/api";
 import {MovieService} from "../../services/movie/movie.service";
 import {TrendingService} from "../../services/trending/trending.service";
 import {TvService} from "../../services/tv/tv.service";
@@ -10,14 +10,13 @@ import {UserLocationDatasService} from "../../services/geo/user-location-datas.s
 import {TrendingModel} from "../../models/trendings/trending-model";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 import {TvDetails} from "../../models/tv/tv-details";
-import {faEllipsisVertical, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
 import {TokenStorageService} from "../../services/token-storage.service";
-import {ConfirmationService} from 'primeng/api';
 import {
   RecommendedMediaDialogComponent
 } from "../../components/recommended-media-dialog/recommended-media-dialog.component";
+
 @Component({
   selector: 'app-movies-page',
   templateUrl: './movies-page.component.html',
@@ -36,9 +35,6 @@ export class MoviesPageComponent implements OnInit {
   @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild: MediaDetailsDialogComponent | undefined;
   @ViewChild('recommendMediaDialogRef') recommendMediaDialogChild: RecommendedMediaDialogComponent | undefined;
 
-  faSearch = faSearch;
-  faEllipsisVertical = faEllipsisVertical;
-
   trendingsList: TrendingModel[] = [];
   moviesInTheaters: MovieDetailsModel[] = [];
   newMovies: MovieDetailsModel[] = [];
@@ -51,7 +47,7 @@ export class MoviesPageComponent implements OnInit {
     ipv4: "",
     country_code2: ""
   };
-  PopularMovies:MovieDetailsModel[] = [];
+  PopularMovies: MovieDetailsModel[] = [];
 
 
   constructor(
@@ -61,9 +57,7 @@ export class MoviesPageComponent implements OnInit {
     private tvService: TvService,
     private trendingService: TrendingService,
     private userGeoService: UserLocationDatasService,
-    private router: Router,
-    private TokenStorageService: TokenStorageService,
-    private confirmationService: ConfirmationService
+    private router: Router
   ) {
   }
 
@@ -104,27 +98,6 @@ export class MoviesPageComponent implements OnInit {
         // @ts-ignore
         this.upComingChild?.isLoading = false;
       })
-    this.items = [
-      {
-        separator: true
-      },
-      {
-        label: 'Logout',
-        icon: 'pi pi-fw pi-power-off',
-        command: (event: Event) => {
-          this.confirmationService.confirm({
-            header: 'Confirmation',
-            icon: 'pi pi-exclamation-triangle',
-            message: 'Are you sure that you want to logout?',
-
-            accept: () => {
-              this.TokenStorageService.logOut();
-            }
-          });
-        }
-
-      }
-    ];
   }
 
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
@@ -133,7 +106,7 @@ export class MoviesPageComponent implements OnInit {
 
   redirectTo(uri: string) {
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
-      this.router.navigate([uri],{queryParams:{movieOnly:true}}));
+      this.router.navigate([uri], {queryParams: {movieOnly: true}}));
   }
 
   openDetailsDialog($event: any) {

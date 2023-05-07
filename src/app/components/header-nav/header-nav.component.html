@@ -1,0 +1,12 @@
+<div id="header-nav-js-id" class="app-header-nav shadow-3">
+  <app-logo class="app-logo" alignment="left" style="font-size: 0.7rem"></app-logo>
+  <div class="right-section">
+    <app-notification-icon class="flex"></app-notification-icon>
+    <fa-icon class="search-icon-action" [icon]="faSearch" (click)="redirectTo('search')"></fa-icon>
+    <app-header-avatar *ngIf="displayAvatar" (click)="menu.toggle($event)"></app-header-avatar>
+  </div>
+</div>
+<p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu>
+<p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
+
+<!--<fa-icon #img class="options-icon-action" (click)="menu.toggle($event)" [icon]="faEllipsisVertical"></fa-icon>-->

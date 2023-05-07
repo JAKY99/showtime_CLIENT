@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {UserService} from "../../services/user/user.service";
 import {MenuItem, MessageService} from "primeng/api";
 import {MovieService} from "../../services/movie/movie.service";
@@ -39,8 +39,6 @@ export class HomePageComponent implements OnInit {
   @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild: MediaDetailsDialogComponent | undefined;
   @ViewChild('recommendMediaDialogRef') recommendMediaDialogChild: RecommendedMediaDialogComponent | undefined;
 
-  faSearch = faSearch;
-  faEllipsisVertical = faEllipsisVertical;
   trendingsList: TrendingModel[] = [];
   moviesInTheaters: MovieDetailsModel[] = [];
   newMovies: MovieDetailsModel[] = [];
@@ -53,8 +51,6 @@ export class HomePageComponent implements OnInit {
     ipv4: "",
     country_code2: ""
   };
-
-
 
   constructor(
     private userService: UserService,

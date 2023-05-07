@@ -1,14 +1,5 @@
 <div class="app-movies-page h-full overflow-auto">
-  <div class="top-header">
-    <div class="flex">
-      <fa-icon #img class="options-icon-action" (click)="menu.toggle($event)" [icon]="faEllipsisVertical"></fa-icon>
-      <app-notification-icon class="flex"></app-notification-icon>
-    </div>
-    <app-logo class="app-logo" style="font-size: 0.7rem"></app-logo>
-    <fa-icon class="search-icon-action" [icon]="faSearch" (click)="redirectTo('search')"></fa-icon>
-    <p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu>
-    <p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
-  </div>
+  <app-header-nav></app-header-nav>
   <div class="trending-section carousel-container">
     <h2 class="m-3 mb-4 text-white text-base">Trending</h2>
     <app-carousel #trendings [items]="trendingsList" (eventEmitter)="openDetailsDialog($event)"></app-carousel>
