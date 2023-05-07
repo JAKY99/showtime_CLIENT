@@ -9,6 +9,10 @@ import {MediaDetailsDialogComponent} from "../../components/media-details-dialog
 import {faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
 import {ConfirmationService, MenuItem} from "primeng/api";
 import {TokenStorageService} from "../../services/token-storage.service";
+import {
+  EditProfileDialogComponent
+} from "../../components/edit-profile/edit-profile-dialog/edit-profile-dialog.component";
+import {ProfileTopSectionComponent} from "../../components/profile-top-section/profile-top-section.component";
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
@@ -26,6 +30,8 @@ export class ProfilePageComponent implements OnInit {
   @ViewChild("viewAllProfileListRef") viewAllProfileListChild: ViewAllProfileListComponent | undefined;
 
   @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild: MediaDetailsDialogComponent | undefined;
+  @ViewChild('editProfileDialogRef') editProfileDialogChild: EditProfileDialogComponent | undefined;
+  @ViewChild('profileTopSectionRef') profileTopSectionChild: ProfileTopSectionComponent | undefined;
 
   lastWatchedSeries: TvDetails[] = [];
   favoritesSeries: TvDetails[] = [];
@@ -73,7 +79,6 @@ export class ProfilePageComponent implements OnInit {
               private MovieService: MovieService,
               private TokenStorageService: TokenStorageService,
               private confirmationService: ConfirmationService
-
   ) {
   }
 
@@ -113,7 +118,7 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-  private async fetchProfileData() {
+  async fetchProfileData() {
     try {
       await this.ProfileService.fetchProfile().subscribe((resp) => {
         setTimeout(() => {
@@ -190,8 +195,6 @@ export class ProfilePageComponent implements OnInit {
         // @ts-ignore
         this.watchlistMoviesTotal = resp.totalWatchlistMovies;
       })
-
-
     } catch (e) {
       console.log(e)
     }
@@ -204,6 +207,15 @@ export class ProfilePageComponent implements OnInit {
 
   openDetailsDialog($event: any) {
     this.mediaDetailsDialogChild?.open($event);
+  }
+
+  openEditProfile() {
+    this.editProfileDialogChild?.open();
+  }
+
+  updateProfileTopSection() {
+    this.profileTopSectionChild?.loadBackground();
+    this.profileTopSectionChild?.profileAvatarChild?.loadAvatar();
   }
 
 }

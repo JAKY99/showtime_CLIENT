@@ -1,0 +1,53 @@
+<p-dialog
+  class="picture-crop-dialog"
+  [closeOnEscape]="false"
+  [dismissableMask]="true"
+  [(visible)]="viewedDialogShown"
+  [position]="viewedDialogPosition"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+  closeIcon=""
+  [transitionOptions]="'300ms cubic-bezier(1, 1, 1, 1)'"
+>
+  <image-cropper
+    [className]="isLoadingImg ? 'hide' : ''"
+    [imageChangedEvent]="imgChangeEvt"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="getAspectRatio()"
+    [resizeToWidth]="256"
+    format="png"
+    (imageCropped)="cropImg($event)"
+    (imageLoaded)="imgLoad()"
+    (cropperReady)="initCropper()"
+    (loadImageFailed)="imgFailed()">
+  </image-cropper>
+  <div *ngIf="!isLoadingImg">
+
+    <div class="preview text-center">
+      <h2>Preview</h2>
+      <img [src]="cropImgPreview" />
+    </div>
+
+    <div class="actions text-center mt-4">
+      <button
+              pButton pRipple type="button"
+              class="p-button-rounded st-secondary-btn mr-3"
+              (click)="upload()"
+              [loading]="isSaving"
+      ><i class="pi pi-save mr-2"></i> Save</button>
+      <button
+        pButton pRipple type="button"
+        class="p-button-rounded st-secondary-btn"
+        (click)="close()"
+        [loading]="isSaving"
+      >Close</button>
+    </div>
+  </div>
+
+  <div class="flex justify-content-center align-items-center">
+    <p-progressSpinner *ngIf="isLoadingImg"></p-progressSpinner>
+  </div>
+
+</p-dialog>

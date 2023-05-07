@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TokenStorageService} from "../../services/token-storage.service";
 import {ProfileService} from "../../services/profile/profile.service";
 import {MovieService} from "../../services/movie/movie.service";
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import {ProfileAvatarComponent} from "../profile-avatar/profile-avatar.component";
 
 @Component({
   selector: 'app-profile-top-section',
@@ -10,6 +11,8 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
   styleUrls: ['./profile-top-section.component.scss']
 })
 export class ProfileTopSectionComponent implements OnInit {
+
+  @ViewChild('profileAvatarRef') profileAvatarChild: ProfileAvatarComponent | undefined;
 
   constructor(private ProfileService :  ProfileService, private MovieService : MovieService,private tokenStorage: TokenStorageService) { }
   public backgroundUrl : String = ""
@@ -19,14 +22,13 @@ export class ProfileTopSectionComponent implements OnInit {
     this.loadBackground();
   }
    openFileDialog=async()=>{
-
     // @ts-ignore
     document.getElementById('background-upload-input').click();
     // @ts-ignore
     window['Android']?.updateVariable(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),"/api/v1/user/uploadBackgroundPicture")
-
   }
-  loadBackground=()=>{
+
+  loadBackground(){
     this.isLoading = true;
     this.ProfileService.fetchProfileAvatar().subscribe((resp) => {
       //@ts-ignore
@@ -35,6 +37,7 @@ export class ProfileTopSectionComponent implements OnInit {
       this.fullName = resp.body.fullName;
     });
   }
+
   onFileChange(event : any) {
     try {
       this.isLoading = true;
@@ -46,7 +49,6 @@ export class ProfileTopSectionComponent implements OnInit {
       this.ProfileService.uploadBackground(formData).subscribe((resp) => {
         // @ts-ignore
         this.loadBackground();
-
       })
     } catch (e) {
       console.log(e);
