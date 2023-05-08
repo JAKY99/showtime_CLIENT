@@ -1,0 +1,62 @@
+@import "src/styles";
+
+.desktop-sidebar{
+  height: 100vh;
+  background-color: $main-color;
+  border-right: 1px solid $divider-color ;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .top-section{
+    padding: $margin-big;
+    .logo{
+      h1{
+        text-align: left;
+        margin: 0;
+      }
+    }
+  }
+
+  .divider{
+    padding: 0 $margin-big;
+  }
+
+  .menu{
+    color: $white;
+    font-weight: 600;
+    font-size: $font-medium;
+    cursor: pointer;
+    width: 100%;
+    padding: 0 $margin-big;
+    border-radius: 10px;
+    display: flex;
+    gap: $margin-default;
+    align-items: center;
+    transition: color ease-in-out 200ms;
+
+    &.active-menu {
+      color: $secondary-color;
+    }
+    &:hover{
+      color: $secondary-color;
+    }
+  }
+
+  .main-menu {
+    .menu-list {
+      padding: $margin-big 0;
+      display: flex;
+      flex-direction: column;
+      gap: $margin-big-2 + 1;
+      justify-content: center;
+      align-items: flex-start;
+    }
+  }
+
+  .bottom-section{
+    justify-self: flex-end;
+    padding: $margin-big 0;
+  }
+}

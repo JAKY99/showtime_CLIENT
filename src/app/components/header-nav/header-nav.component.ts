@@ -30,6 +30,7 @@ export class HeaderNavComponent implements OnInit {
 
   @Input() displayAvatar: boolean = true;
   @Input() displayProfileMenu: boolean = false;
+  @Input() logoShown: boolean = true;
 
   @Output() openEditProfile = new EventEmitter<any>();
 

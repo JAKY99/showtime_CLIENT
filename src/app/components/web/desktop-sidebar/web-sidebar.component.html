@@ -1,0 +1,51 @@
+<div class="desktop-sidebar shadow-3">
+  <div>
+    <div class="top-section">
+      <app-logo class="logo"></app-logo>
+    </div>
+
+    <div class="main-menu">
+      <div class="menu-list">
+        <div [class]="getCurrentRoute().includes('/home') ? getActiveClass() : 'menu'" (click)="goToRoute('/home')">
+          <fa-icon class="icon" [icon]="faCompass"></fa-icon>Explore
+        </div>
+        <div [class]="getCurrentRoute().includes('/movies') ? getActiveClass() : 'menu'" (click)="goToRoute('/movies')">
+          <fa-icon class="icon" [icon]="faClapperboard"></fa-icon>Movies
+        </div>
+        <div [class]="getCurrentRoute().includes('/series') ? getActiveClass() : 'menu'" (click)="goToRoute('/series')">
+          <fa-icon class="icon" [icon]="faTv"></fa-icon>TV Series
+        </div>
+        <div [class]="getCurrentRoute().includes('/social') ? getActiveClass() : 'menu'" (click)="goToRoute('/social')">
+          <fa-icon class="icon" [icon]="faUsers"></fa-icon>Social
+        </div>
+        <div [class]="getCurrentRoute().includes('/profile') ? getActiveClass() : 'menu'" (click)="goToRoute('/profile')">
+          <fa-icon class="icon" [icon]="faUser"></fa-icon>Profile
+        </div>
+      </div>
+    </div>
+    <div class="divider">
+      <p-divider class="p-divider"></p-divider>
+    </div>
+    <div>
+      <div [class]="getCurrentRoute().includes('/search') ? getActiveClass() : 'menu'" (click)="goToRoute('/search')">
+        <fa-icon class="icon" [icon]="faSearch"></fa-icon>Search
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-section">
+    <div class="menu" (click)="logout()">
+      <fa-icon class="icon" [icon]="faSignOut"></fa-icon>logout
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog #cd header="Confirmation" class="--hide-content">
+  <ng-template pTemplate="header">
+    <h3>Are you sure that you want to logout?</h3>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button class="--small" type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+    <button class="st-secondary-btn --small" type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+  </ng-template>
+</p-confirmDialog>
