@@ -35,5 +35,5 @@ jobs:
       - name: Generate SSH connection to server with ansible for staging
         run: |
           touch /var/www/html/mypckey.pem &&  chmod 600 /var/www/html/mypckey.pem && echo "$sshKey" >> /var/www/html/mypckey.pem
-          cd /var/www/html/playbook && ansible-playbook deploy-prod-client-front.yml -e "ansible_ssh_timeout=180"
+          cd /var/www/html/showtime_CLIENT/playbook && ansible-playbook deploy-prod-client-front.yml -e "ansible_ssh_timeout=180"
           curl https://showtime-app.click/api/api/v1/version/set?type=client
