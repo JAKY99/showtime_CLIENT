@@ -18,6 +18,7 @@ import {ConfirmationService} from 'primeng/api';
 import {
   RecommendedMediaDialogComponent
 } from "../../components/recommended-media-dialog/recommended-media-dialog.component";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 
 @Component({
@@ -51,6 +52,9 @@ export class HomePageComponent implements OnInit {
     ipv4: "",
     country_code2: ""
   };
+  isMobileDevice: boolean = false;
+  isTabletDevice: boolean = false;
+  isDesktopDevice: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -61,11 +65,15 @@ export class HomePageComponent implements OnInit {
     private userGeoService: UserLocationDatasService,
     private router: Router,
     private TokenStorageService: TokenStorageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private deviceService: DeviceDetectorService
   ) {
   }
 
   async ngOnInit(): Promise<void> {
+    this.isMobileDevice = this.deviceService.isMobile();
+    this.isTabletDevice = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
     await this.userGeoService.fetchLocationData().toPromise()
       .then(resp => {
         this.userLocationData = resp;

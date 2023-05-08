@@ -116,6 +116,7 @@ import {InplaceModule} from "primeng/inplace";
 import { PictureCropDialogComponent } from './components/edit-profile/picture-crop-dialog/picture-crop-dialog.component';
 import {FileUploadModule} from "primeng/fileupload";
 import {HammerModule} from "@angular/platform-browser";
+import { WebSidebarComponent } from './components/web/desktop-sidebar/web-sidebar.component';
 
 
 @NgModule({
@@ -185,7 +186,8 @@ import {HammerModule} from "@angular/platform-browser";
     NotificationFeedDialogComponent,
     EditProfileDialogComponent,
     EditProfileComponent,
-    PictureCropDialogComponent
+    PictureCropDialogComponent,
+    WebSidebarComponent
   ],
     imports: [
         HttpClientModule,

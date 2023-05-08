@@ -1,3 +1,18 @@
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
 $main-color: #2E3441;
 $secondary-color: #F65C63;
 $white: #FFFFFF;
@@ -298,8 +313,14 @@ $profileContainerHeight: 6.5rem;
       display: none;
     }
 
+    .p-dialog-header{
+      background-color: $main-color;
+      color: $white;
+    }
+
     .p-dialog-footer{
       padding-top: $margin-default;
+      background-color: $main-color;
     }
   }
 }

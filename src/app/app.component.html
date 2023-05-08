@@ -1,3 +1,13 @@
 <app-no-connection [model]="false"></app-no-connection>
-<router-outlet></router-outlet>
-<app-navbar *ngIf="isNavbarShown()"></app-navbar>
+<div *ngIf="isDesktopDevice" [class]="isNavbarDesktopShown() ? 'desktop-root-view' : ''">
+  <div *ngIf="isNavbarDesktopShown()">
+    <app-desktop-sidebar></app-desktop-sidebar>
+  </div>
+  <div class="p-2 router-outlet">
+    <router-outlet ></router-outlet>
+  </div>
+</div>
+<div *ngIf="isMobileDevice || isTabletDevice" class="mobile-root-view">
+  <app-navbar *ngIf="isNavbarMobileShown()"></app-navbar>
+  <router-outlet></router-outlet>
+</div>
