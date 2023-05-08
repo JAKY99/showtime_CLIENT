@@ -36,15 +36,18 @@ export class EditProfileComponent implements OnInit {
     console.log(event)
     this.pictureCropDialogChild?.open();
   }
-  openFileDialog=async(type:string)=>{
+  openFileDialogAvatar=async(type:string)=>{
+    console.log("openFileDialogAvatar")
     if(localStorage.getItem('isAndroid') == 'true'){
-      let url;
-      if (type === 'avatar') {
-        url="/api/v1/user/tempForCrop/uploadBackgroundPicture"
-      }
-      if (type === 'background') {
-        url="/api/v1/user/tempForCrop/uploadProfilePicture"
-      }
+      let url="/api/v1/user/tempForCrop/uploadBackgroundPicture"
+      // @ts-ignore
+      window['Android']?.updateVariableForCrop(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),url);
+    }
+  }
+  openFileDialogBackground=async(type:string)=>{
+    if(localStorage.getItem('isAndroid') == 'true'){
+      console.log("openFileDialogBackground")
+      let url="/api/v1/user/tempForCrop/uploadProfilePicture"
       // @ts-ignore
       window['Android']?.updateVariableForCrop(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),url);
     }

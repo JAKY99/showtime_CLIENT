@@ -2,7 +2,7 @@
   <h2>Edit Pictures</h2>
   <div class="profile-picture">
     <app-profile-avatar class="p-p"></app-profile-avatar>
-    <label for="inputTag" (click)="openFileDialog('avatar')">
+    <label for="inputTag" (click)="openFileDialogAvatar('avatar')">
       <i class="pi pi-image"></i>
       Select Profile Image
       <input id="inputTag" type="file" (change)="changeFile($event); isAvatar = true; isBackground = false"/>
@@ -11,7 +11,7 @@
   </div>
   <div class="background-picture mt-3">
     <img [src]="userData.backgroundUrl" alt="">
-    <label for="inputTagBg" (click)="openFileDialog('backgroundImg')">
+    <label for="inputTagBg" (click)="openFileDialogBackground('backgroundImg')">
       <i class="pi pi-image"></i>
       Select Cover Image
       <input id="inputTagBg" type="file" (change)="changeFile($event); isAvatar = false; isBackground = true"/>
