@@ -2,15 +2,16 @@
   <h2>Edit Pictures</h2>
   <div class="profile-picture">
     <app-profile-avatar class="p-p"></app-profile-avatar>
-    <label for="inputTag">
+    <label for="inputTag" (click)="openFileDialog('avatar')">
       <i class="pi pi-image"></i>
       Select Profile Image
       <input id="inputTag" type="file" (change)="changeFile($event); isAvatar = true; isBackground = false"/>
+      <input id="callbackUploadTempCropHandler" type="hidden" (change)="handleAndroidTempFile($event)">
     </label>
   </div>
   <div class="background-picture mt-3">
     <img [src]="userData.backgroundUrl" alt="">
-    <label for="inputTagBg">
+    <label for="inputTagBg" (click)="openFileDialog('backgroundImg')">
       <i class="pi pi-image"></i>
       Select Cover Image
       <input id="inputTagBg" type="file" (change)="changeFile($event); isAvatar = false; isBackground = true"/>
@@ -19,5 +20,5 @@
   <h2 class="mt-4">Edit Infos</h2>
 </div>
 
-<app-picture-crop-dialog #pictureCropDialogRef [imgChangeEvt]="imgChangeEvt" [isAvatar]="isAvatar"
+<app-picture-crop-dialog #pictureCropDialogRef [imageUrl]="imageUrl"  [imgChangeEvt]="imgChangeEvt" [isAvatar]="isAvatar"
                          [isBackground]="isBackground" (imageSaved)="imageSaved.emit()"></app-picture-crop-dialog>
