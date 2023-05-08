@@ -58,10 +58,6 @@ export class HeaderNavComponent implements OnInit {
         icon: 'pi pi-fw pi-power-off',
         command: (event: Event) => {
           this.confirmationService.confirm({
-            header: 'Confirmation',
-            icon: 'pi pi-exclamation-triangle',
-            message: 'Are you sure that you want to logout?',
-
             accept: () => {
               this.tokenStorageService.logOut();
             }

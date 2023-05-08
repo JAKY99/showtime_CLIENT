@@ -34,10 +34,11 @@ $profileContainerHeight: 6.5rem;
   }
 }
 
-.p-divider{
+.p-divider {
   margin: .2rem 0;
-  &.p-divider-horizontal:before{
-    border-color: $divider-color!important;
+
+  &.p-divider-horizontal:before {
+    border-color: $divider-color !important;
   }
 }
 
@@ -46,10 +47,11 @@ $profileContainerHeight: 6.5rem;
   background: transparent; /* make scrollbar transparent */
 }
 
-.secondary-text-color{
+.secondary-text-color {
   color: $secondary-color;
 }
-.secondary-bg-color{
+
+.secondary-bg-color {
   background-color: $secondary-color;
 }
 
@@ -65,52 +67,52 @@ $profileContainerHeight: 6.5rem;
   user-select: none;
 }
 
-.st-icon{
+.st-icon {
   color: $white;
   font-size: 1.5rem;
 
-  &-small-2{
+  &-small-2 {
     font-size: .8rem;
   }
 
-  &-small-1{
+  &-small-1 {
     font-size: 1rem;
   }
 
-  &-small{
+  &-small {
     font-size: 1.2rem;
   }
 
-  &-big{
+  &-big {
     font-size: 1.8rem;
   }
 
-  &.dark{
-    color: $white!important;
+  &.dark {
+    color: $white !important;
   }
 
-  &.checked{
-    color: $secondary-color!important;
+  &.checked {
+    color: $secondary-color !important;
   }
 }
 
-.p-tabview .p-tabview-nav{
+.p-tabview .p-tabview-nav {
   background-color: transparent;
   border: none;
 }
 
-.p-tabview-nav{
+.p-tabview-nav {
   justify-content: space-between;
   gap: 0;
-  border-bottom: 1px solid $white!important;
+  border-bottom: 1px solid $white !important;
   padding: 0;
 }
 
-.p-tabview .p-tabview-nav li{
+.p-tabview .p-tabview-nav li {
   width: 100%;
 }
 
-.p-tabview .p-tabview-nav li .p-tabview-nav-link{
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
   background-color: transparent;
   color: $white;
   outline: none;
@@ -119,34 +121,36 @@ $profileContainerHeight: 6.5rem;
   font-size: $font-small;
   justify-content: center;
 }
-.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link{
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   background-color: transparent;
   border-color: $secondary-color;
   color: $secondary-color;
 }
 
-.p-tabview .p-tabview-nav .p-tabview-ink-bar{
+.p-tabview .p-tabview-nav .p-tabview-ink-bar {
   background-color: $secondary-color;
 }
 
-.p-tabview .p-tabview-panels{
+.p-tabview .p-tabview-panels {
   background-color: transparent;
   padding: 1.2rem 0;
 }
 
-.p-tabview .p-tabview-nav li.p-highlight{
-  outline: none!important;
+.p-tabview .p-tabview-nav li.p-highlight {
+  outline: none !important;
 }
 
 .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
   box-shadow: none;
 }
 
-.p-inputtext{
-  &:enabled:hover{
-   border-color: transparent;
+.p-inputtext {
+  &:enabled:hover {
+    border-color: transparent;
   }
-  &:enabled:focus{
+
+  &:enabled:focus {
     outline: 0 none;
     outline-offset: 0;
     box-shadow: none;
@@ -154,68 +158,78 @@ $profileContainerHeight: 6.5rem;
   }
 }
 
-.p-button{
+.p-button {
 
-  &.st-secondary-btn{
+  &.--small {
+    width: 100%;
+    height: 2rem;
+    font-size: $font-small;
+  }
+
+  &.st-secondary-btn {
     background-color: $secondary-color;
     border: none;
 
-    &.p-button-rounded.--small{
+
+    &.p-button-rounded.--small {
       width: 2rem;
       height: 2rem;
     }
 
-    &.p-button-text.--small{
+    &.p-button-text.--small {
       width: 100%;
       height: 2rem;
       font-size: $font-small;
     }
 
-    &:enabled:focus{
+    &:enabled:focus {
       border-color: transparent;
       box-shadow: none;
     }
 
-    &:enabled:focus{
+    &:enabled:focus {
       background: $secondary-color;
       border-color: transparent;
       box-shadow: none;
     }
   }
 
-  &.p-button-text{
+  &.p-button-text {
     color: $white;
-    &.primary{
+
+    &.primary {
       background-color: $secondary-color;
       color: $white;
       text-align: center;
     }
 
-    &.--small{
+    &.--small {
       width: 100%;
       height: 2rem;
       font-size: $font-small;
     }
 
-    &.--text-type{
+    &.--text-type {
       background-color: transparent;
       color: black;
       text-align: left;
       padding-left: 0;
     }
 
-    &:enabled:active{
+    &:enabled:active {
       background: $input-bg-color;
       color: $secondary-color;
       border-color: transparent;
     }
-    &:enabled:focus{
+
+    &:enabled:focus {
       background: $input-bg-color;
       color: $secondary-color;
       border-color: transparent;
       box-shadow: none;
     }
-    &:enabled:hover{
+
+    &:enabled:hover {
       background: $input-bg-color;
       color: $secondary-color;
       border-color: transparent;
@@ -224,15 +238,15 @@ $profileContainerHeight: 6.5rem;
   }
 }
 
-.p-divider{
-  &.p-divider-horizontal:before{
-    border-color: $divider-color!important;
+.p-divider {
+  &.p-divider-horizontal:before {
+    border-color: $divider-color !important;
   }
 }
 
 
-.--small{
-  .p-divider{
+.--small {
+  .p-divider {
     margin: $margin-small 0 !important;
   }
 }
@@ -241,7 +255,7 @@ $profileContainerHeight: 6.5rem;
   border-color: $secondary-color;
 }
 
-.p-radiobutton .p-radiobutton-box.p-highlight{
+.p-radiobutton .p-radiobutton-box.p-highlight {
   border-color: $secondary-color;
   background: $secondary-color;
 }
@@ -256,19 +270,19 @@ $profileContainerHeight: 6.5rem;
   border-color: transparent;
 }
 
-.p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus{
+.p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus {
   box-shadow: none;
 }
 
-.p-progressbar{
+.p-progressbar {
   height: 1rem;
 
-  .p-progressbar-value{
+  .p-progressbar-value {
     background: $secondary-color;
   }
 }
 
-.--no-event{
+.--no-event {
   pointer-events: none;
 }
 
@@ -277,6 +291,19 @@ $profileContainerHeight: 6.5rem;
   border: none;
   padding: $margin-small;
 }
+
+.--hide-content {
+  .p-confirm-dialog {
+    .p-dialog-content {
+      display: none;
+    }
+
+    .p-dialog-footer{
+      padding-top: $margin-default;
+    }
+  }
+}
+
 @keyframes p-progress-spinner-color {
   100%,
   0% {
