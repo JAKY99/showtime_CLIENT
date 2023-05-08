@@ -16,16 +16,17 @@ export class EditProfileDialogComponent implements OnInit {
   @ViewChild('recommendedMediaRef') recommendedMediaChild: RecommendedMediaComponent | undefined;
 
   @Output() imageSaved = new EventEmitter<any>();
+  @Output() accountInfosSaved = new EventEmitter<any>();
 
   faChevronDown = faChevronDown;
 
-  viewedDialogShown: boolean = false;
+  viewedDialogShown: boolean = true;
   viewedDialogPosition: string = 'bottom';
   isLoading: boolean = false;
 
   userData = {
     backgroundUrl: "",
-    firstname: "",
+    firstName: "",
     lastName: ""
   };
 
@@ -36,11 +37,13 @@ export class EditProfileDialogComponent implements OnInit {
   }
 
   loadData(){
-    this.isLoading = true;
     this.profileService.fetchProfileAvatar().subscribe((resp) => {
       //@ts-ignore
       this.userData.backgroundUrl = resp.body.backgroundPicture.length > 0 ? resp.body.backgroundPicture : "https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/781836.jpg";
-      this.isLoading = false;
+      // @ts-ignore
+      this.userData.firstName = resp.body.firstName;
+      // @ts-ignore
+      this.userData.lastName = resp.body.lastName;
     });
   }
 
