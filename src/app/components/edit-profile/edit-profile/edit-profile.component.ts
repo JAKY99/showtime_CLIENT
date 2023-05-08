@@ -51,20 +51,24 @@ export class EditProfileComponent implements OnInit {
   }
   handleAndroidTempFile(event:any){
     let type  = event.target.value;
+    console.log(event)
+    console.log(type)
     if(localStorage.getItem('isAndroid') == 'true'){
       this.profileService.fetchTempFileUrl().subscribe((resp)=>{
+        console.log(resp)
         if(type === 'avatar'){
           // @ts-ignore
-          this.imageUrl = resp.body.profilePicture.length > 0 ? resp.body.profilePicture : "https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/revamped_showtime_icon.png";
+          this.imageUrl = resp.body.profilePicture
           this.isAvatar = true;
           this.isBackground = false;
         }
         if(type === 'background'){
           // @ts-ignore
-          this.imageUrl =  resp.body.backgroundPicture.length > 0 ? resp.body.backgroundPicture : "https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/revamped_showtime_icon.png";
+          this.imageUrl =  resp.body.backgroundPicture
           this.isAvatar = false;
           this.isBackground = true;
         }
+        console.log(this.imageUrl)
       })
     }
   }
