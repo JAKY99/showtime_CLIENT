@@ -42,7 +42,7 @@ export class EditProfileComponent implements OnInit {
     if(localStorage.getItem('isAndroid') == 'true' && !this.isClickedAvatar){
       console.log("openFileDialogAvatar")
       this.isClickedAvatar = true;
-      let url="/api/v1/user/tempForCrop/uploadBackgroundPicture"
+      let url="/api/v1/user/tempForCrop/uploadProfilePicture"
       // @ts-ignore
       window['Android']?.updateVariableForCrop(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),url);
       setTimeout(()=>{
