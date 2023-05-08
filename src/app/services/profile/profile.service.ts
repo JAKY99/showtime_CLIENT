@@ -86,8 +86,8 @@ export class ProfileService {
 
   }
 
-   fetchTempFileUrl(type: any) {
-    let url = GlobalConstants.API_URL + "/api/v1/user/profile/tempForCropUrl/"+type;
+   fetchTempFileUrl() {
+    let url = GlobalConstants.API_URL + "/api/v1/user/profile/lazy/tempForCrop";
     // @ts-ignore
     return this.http.post<string>(
       url,
