@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsula
 import {faChevronDown} from '@fortawesome/free-solid-svg-icons';
 import {RecommendedMediaComponent} from "../../recommended-media/recommended-media.component";
 import {ProfileService} from "../../../services/profile/profile.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-edit-profile-dialog',
@@ -30,7 +31,7 @@ export class EditProfileDialogComponent implements OnInit {
     lastName: ""
   };
 
-  constructor(private profileService: ProfileService) { }
+  constructor(private profileService: ProfileService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -54,6 +55,22 @@ export class EditProfileDialogComponent implements OnInit {
   open(){
     this.viewedDialogShown = true;
     this.recommendedMediaChild?.fetchData();
+  }
+
+  imageSavedSuccessFully(){
+    this.loadData();
+    this.imageSaved.emit();
+    this.addSingleToast("success", "Image Saved Successfully", "")
+  }
+
+  accountInfosSavedSuccessFully(){
+    this.loadData();
+    this.accountInfosSaved.emit();
+    this.addSingleToast("success", "Account Infos Saved Successfully", "")
+  }
+
+  addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
+    this.messageService.add({severity: severity, summary: title, detail: details, sticky: sticky});
   }
 
 }

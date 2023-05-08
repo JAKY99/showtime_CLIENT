@@ -9,6 +9,12 @@
 </div>
 <p-slideMenu #avatarMenu [model]="items" [popup]="true"></p-slideMenu>
 <p-slideMenu #profileMenu [model]="items" [popup]="true"></p-slideMenu>
-<p-confirmDialog header="Confirmation" width="425"></p-confirmDialog>
-
-<!--<fa-icon #img class="options-icon-action" (click)="menu.toggle($event)" [icon]="faEllipsisVertical"></fa-icon>-->
+<p-confirmDialog #cd header="Confirmation" class="--hide-content">
+  <ng-template pTemplate="header">
+    <h3>Are you sure that you want to logout?</h3>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button class="--small" type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+    <button class="st-secondary-btn --small" type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+  </ng-template>
+</p-confirmDialog>
