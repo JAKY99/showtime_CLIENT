@@ -25,7 +25,8 @@ export class EditProfileComponent implements OnInit {
   imageUrl: any = '';
   isAvatar: boolean = false;
   isBackground: boolean = false;
-
+  private isClickedAvatar = false;
+  private isClickedBackground = false;
   constructor(private profileService : ProfileService,private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
@@ -36,20 +37,29 @@ export class EditProfileComponent implements OnInit {
     console.log(event)
     this.pictureCropDialogChild?.open();
   }
-  openFileDialogAvatar=async(type:string)=>{
-    console.log("openFileDialogAvatar")
-    if(localStorage.getItem('isAndroid') == 'true'){
+  openFileDialogAvatar=async(event:any,type:string)=>{
+
+    if(localStorage.getItem('isAndroid') == 'true' && !this.isClickedAvatar){
+      console.log("openFileDialogAvatar")
+      this.isClickedAvatar = true;
       let url="/api/v1/user/tempForCrop/uploadBackgroundPicture"
       // @ts-ignore
       window['Android']?.updateVariableForCrop(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),url);
+      setTimeout(()=>{
+        this.isClickedAvatar = false;
+      },2000)
     }
   }
-  openFileDialogBackground=async(type:string)=>{
-    if(localStorage.getItem('isAndroid') == 'true'){
+  openFileDialogBackground=async(event:any,type:string)=>{
+    if(localStorage.getItem('isAndroid') == 'true' && !this.isClickedBackground){
+      this.isClickedBackground = true;
       console.log("openFileDialogBackground")
       let url="/api/v1/user/tempForCrop/uploadProfilePicture"
       // @ts-ignore
       window['Android']?.updateVariableForCrop(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),url);
+      setTimeout(()=>{
+        this.isClickedBackground = false;
+      },2000)
     }
   }
   handleAndroidTempFile(event:any){
@@ -71,6 +81,7 @@ export class EditProfileComponent implements OnInit {
           this.isAvatar = false;
           this.isBackground = true;
         }
+        this.pictureCropDialogChild?.open();
         console.log(this.imageUrl)
       })
     }
