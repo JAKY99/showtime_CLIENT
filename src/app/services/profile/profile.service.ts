@@ -85,4 +85,14 @@ export class ProfileService {
     );
 
   }
+
+   fetchTempFileUrl(type: any) {
+    let url = GlobalConstants.API_URL + "/api/v1/user/profile/tempForCropUrl/"+type;
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      this.tokenStorage.getClientUsername(),
+      // @ts-ignore
+      httpOptions);
+  }
 }

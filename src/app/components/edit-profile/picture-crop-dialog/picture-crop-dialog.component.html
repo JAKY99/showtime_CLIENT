@@ -14,6 +14,7 @@
   <image-cropper
     [className]="isLoadingImg ? 'hide' : ''"
     [imageChangedEvent]="imgChangeEvt"
+    [imageURL]="imageUrl"
     [maintainAspectRatio]="true"
     [aspectRatio]="getAspectRatio()"
     [resizeToWidth]="256"

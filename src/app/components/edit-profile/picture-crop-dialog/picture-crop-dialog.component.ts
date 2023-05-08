@@ -14,6 +14,7 @@ export class PictureCropDialogComponent implements OnInit {
   viewedDialogShown: boolean = false;
   viewedDialogPosition: string = 'bottom';
   @Input() imgChangeEvt: any = '';
+  @Input() imageUrl: any = '';
   cropImgPreview: any = '';
   fileToUpload: any = null;
   @Input() isAvatar: boolean = false;
