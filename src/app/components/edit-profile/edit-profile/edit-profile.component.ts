@@ -54,7 +54,7 @@ export class EditProfileComponent implements OnInit {
     if(localStorage.getItem('isAndroid') == 'true' && !this.isClickedBackground){
       this.isClickedBackground = true;
       console.log("openFileDialogBackground")
-      let url="/api/v1/user/tempForCrop/uploadProfilePicture"
+      let url="/api/v1/user/tempForCrop/uploadBackgroundPicture"
       // @ts-ignore
       window['Android']?.updateVariableForCrop(this.tokenStorage.getToken(),this.tokenStorage.getClientUsername(),url);
       setTimeout(()=>{
