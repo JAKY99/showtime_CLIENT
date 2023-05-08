@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {GlobalConstants} from "../../common/constants/global-constants";
 import {TokenStorageService} from "../token-storage.service";
+import {UserAvatarModel} from "../../models/user/user-avatar-model";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -52,5 +53,13 @@ export class UserService {
       this.tokenStorage.getClientUsername(),
       // @ts-ignore
       httpOptions);
+  }
+
+  editAccountInfos(userData: UserAvatarModel): Observable<any> {
+    const url = GlobalConstants.API_URL + "/api/v1/user/edit-account";
+    return this.http.put<any>(
+      url,
+      userData
+    );
   }
 }

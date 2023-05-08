@@ -17,7 +17,38 @@
       <input id="inputTagBg" type="file" (change)="changeFile($event); isAvatar = false; isBackground = true"/>
     </label>
   </div>
-  <h2 class="mt-4">Edit Infos</h2>
+  <div class="edit-infos">
+    <h2 class="mt-4">Edit Infos</h2>
+    <form class="flex flex-column justify-content-center gap-4" (ngSubmit)="submitEditInfosAccount()">
+      <div [formGroup]="editAccountInfosForm" class="flex flex-column justify-content-center gap-4">
+        <div class="flex flex-column gap-1">
+          <label for="input-firstname" class="text-white text-sm">First name</label>
+          <input id="input-firstname"
+                 formControlName="firstName"
+                 type="text"
+                 pInputText
+          />
+        </div>
+        <div class="flex flex-column gap-1">
+          <label for="input-lastname" class="text-white text-sm">Last name</label>
+          <input id="input-lastname"
+                 formControlName="lastName"
+                 type="text"
+                 pInputText
+          />
+        </div>
+        <button
+          id="signin_normal_button"
+          pButton
+          type="submit"
+          label="Save"
+          [loading]="isSavingInfosAccountForm"
+          [disabled]="editAccountInfosForm.invalid"
+          class="p-button-text st-secondary-btn --small"
+        ></button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <app-picture-crop-dialog #pictureCropDialogRef [imageUrl]="imageUrl"  [imgChangeEvt]="imgChangeEvt" [isAvatar]="isAvatar"
