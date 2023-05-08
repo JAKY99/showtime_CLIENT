@@ -20,7 +20,7 @@ export class EditProfileDialogComponent implements OnInit {
 
   faChevronDown = faChevronDown;
 
-  viewedDialogShown: boolean = true;
+  viewedDialogShown: boolean = false;
   viewedDialogPosition: string = 'bottom';
   isLoading: boolean = false;
 
