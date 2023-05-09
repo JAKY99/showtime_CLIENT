@@ -51,7 +51,7 @@ export class CarouselGenresComponent implements OnInit {
 
   async ngOnInit(): Promise <void> {
 
-    let genreTitle;
+    // let genreTitle;
 
     if (!this.customCategories) {
       this.genreTitle = "All Genres"
@@ -68,6 +68,8 @@ export class CarouselGenresComponent implements OnInit {
       )
 
     } else {
+
+
       // faire un recherche sur les 5catégories regardées les + regardées
 
       this.genreTitle = "Your Most Watched Genres"

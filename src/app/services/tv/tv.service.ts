@@ -89,6 +89,15 @@ export class TvService {
     // return this.http.get<any>(url);
   }
 
+  fetchTvDetailsRaw(tvId: number): Observable<any> {
+    let url = GlobalConstants.TMDB_BASE_URL +
+      "tv/"+tvId+"?api_key=" +
+      GlobalConstants.TMDB_KEY +
+      "&language=en-US"
+    return this.RedisService.getDataFromRedisCache(url);
+    // return this.http.get<any>(url);
+  }
+
   fetchTvDetails(tvId: number, responseToAppend?: Array<string>): Observable <TvDetails>{
     let url = GlobalConstants.TMDB_BASE_URL +
       "tv/"+tvId+"?api_key=" +
@@ -201,6 +210,20 @@ export class TvService {
       userMail: this.tokenStorage.getClientUsername(),
       tvSeasonid : seasonId,
       tvTmdbId: tmdbTvId
+    });
+  }
+
+  fetchTvWatching() {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/fetchTvWatching/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
+  fetchTvWatched() {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/fetchTvWatched/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername()
     });
   }
 }
