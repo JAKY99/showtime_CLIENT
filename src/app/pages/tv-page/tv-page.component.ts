@@ -16,6 +16,8 @@ export class TvPageComponent implements OnInit {
 
   @ViewChild('topRatedTvRef') topRatedTvChild: CarouselImageListComponent | undefined;
   @ViewChild('airingTodayTvRef') airingTodayTvChild: CarouselImageListComponent | undefined;
+  @ViewChild('watching') watching: CarouselImageListComponent | undefined;
+  @ViewChild('watched') watched: CarouselImageListComponent | undefined;
   @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild: MediaDetailsDialogComponent | undefined;
 
   // @ts-ignore
@@ -24,7 +26,8 @@ export class TvPageComponent implements OnInit {
   tvGenres: TvGenres = {};
   trendingTv: TvDetails[] = [];
   airingTodayTv: TvDetails[] = [];
-
+  tvWatching: TvDetails[] = [];
+  tvWatched: TvDetails[] = [];
   constructor(
     private tvService: TvService,
     private route: ActivatedRoute
@@ -36,6 +39,7 @@ export class TvPageComponent implements OnInit {
     topRatedTv: true,
     trendingTv: true,
     airingTodayTv: true,
+    tvWatching: true,
     genres: true
   }
 
@@ -48,7 +52,6 @@ export class TvPageComponent implements OnInit {
         // @ts-ignore
         // this.popularTvChild?.isLoading = false;
         this.loading.topRatedTv = false;
-
       })
 
     this.tvService.fetchTvTopRated().toPromise()
@@ -57,6 +60,32 @@ export class TvPageComponent implements OnInit {
         this.trendingTv = resp.results;
         // @ts-ignore
         this.topRatedTvChild?.isLoading = false;
+      })
+
+    this.tvService.fetchTvWatching().toPromise()
+      .then(resp => {
+        resp.forEach((item: any) => {
+          this.tvService.fetchTvDetailsRaw(item).toPromise().then(
+            respDetails => {
+              respDetails = JSON.parse(respDetails.data);
+              this.tvWatching.push(respDetails);
+          })
+        })
+        // @ts-ignore
+        this.watching?.isLoading = false;
+      })
+
+    this.tvService.fetchTvWatched().toPromise()
+      .then(resp => {
+        resp.forEach((item: any) => {
+          this.tvService.fetchTvDetailsRaw(item).toPromise().then(
+            respDetails => {
+              respDetails = JSON.parse(respDetails.data);
+              this.tvWatched.push(respDetails);
+            })
+        })
+        // @ts-ignore
+        this.watched?.isLoading = false;
       })
 
     this.tvService.fetchAiringToday().toPromise()
@@ -77,6 +106,13 @@ export class TvPageComponent implements OnInit {
         }, 100)
       }
     )
+  }
+
+  scrollTo(elementId : string): void {
+    let element = document.getElementById(elementId);
+    element?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+
+    // this.viewportScroller.scrollToAnchor(elementId);
   }
 
 
