@@ -24,7 +24,7 @@ img.ng-lazyloaded {
 
 .desktop-root-view{
   display: grid;
-  grid-template-columns: 15% 1fr;
+  grid-template-columns: 300px 1fr;
 
   .router-outlet{
     overflow: auto;

@@ -1,0 +1,42 @@
+@import "swiper/swiper-bundle.min.css";
+@import "src/styles";
+
+app-desktop-carousel {
+  width: 100%;
+  height: 100%;
+
+  .swiper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: visible;
+
+    .rank-number {
+      z-index: 666;
+      background-color: $secondary-color;
+      position: absolute;
+      left: .5rem;
+      top: .5rem;
+    }
+  }
+
+  app-desktop-backdrop-card{
+    &:focus{
+      transform: scale(1.2);
+    }
+  }
+
+  .swiper-slide app-desktop-backdrop-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .swiper-wrapper {
+    margin-bottom: $margin-small;
+    width: 100%;
+    height: 100%;
+  }
+}
+

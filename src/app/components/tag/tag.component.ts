@@ -14,6 +14,7 @@ export class TagComponent implements OnInit {
   @Input() rounded: boolean = false;
   @Input() borderRadius: boolean = false;
   @Input() upperCase: boolean = false;
+  @Input() isColored: boolean = true;
   /*
   * 1 : small size
   * 2 : default size
@@ -51,6 +52,10 @@ export class TagComponent implements OnInit {
       classes.push('big-size');
     } else{
       classes.push('default-size');
+    }
+
+    if (this.isColored){
+      classes.push('colored');
     }
 
     return classes.join(' ');
