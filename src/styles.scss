@@ -325,6 +325,29 @@ $profileContainerHeight: 6.5rem;
   }
 }
 
+.flex-ac-jc{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.--gap{
+    gap: $margin-default;
+  }
+}
+
+.flex-ac-jb{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &.--gap-small{
+    gap: $margin-small;
+  }
+  &.--gap-default{
+    gap: $margin-default;
+  }
+}
+
 @keyframes p-progress-spinner-color {
   100%,
   0% {

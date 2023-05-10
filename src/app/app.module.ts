@@ -117,6 +117,8 @@ import { PictureCropDialogComponent } from './components/edit-profile/picture-cr
 import {FileUploadModule} from "primeng/fileupload";
 import {HammerModule} from "@angular/platform-browser";
 import { WebSidebarComponent } from './components/web/desktop-sidebar/web-sidebar.component';
+import { DesktopBackdropCardComponent } from './components/web/desktop-backdrop-card/desktop-backdrop-card.component';
+import { DesktopCarouselComponent } from './components/web/desktop-carousel/desktop-carousel.component';
 
 
 @NgModule({
@@ -187,7 +189,9 @@ import { WebSidebarComponent } from './components/web/desktop-sidebar/web-sideba
     EditProfileDialogComponent,
     EditProfileComponent,
     PictureCropDialogComponent,
-    WebSidebarComponent
+    WebSidebarComponent,
+    DesktopBackdropCardComponent,
+    DesktopCarouselComponent
   ],
     imports: [
         HttpClientModule,

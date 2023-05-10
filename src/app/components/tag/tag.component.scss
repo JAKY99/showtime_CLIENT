@@ -1,8 +1,6 @@
-@import "./src/styles";
+@import "/src/styles";
 
 .app-tag{
-  border-color: $secondary-color;
-  color: $secondary-color;
   border-style: solid;
   border-width: 1px;
   padding: .3rem 1rem;
@@ -13,6 +11,13 @@
   justify-content: center;
   gap: .3rem;
   font-weight: 400;
+  color: $white;
+  border-color: $white;
+
+  &.colored{
+    border-color: $secondary-color;
+    color: $secondary-color;
+  }
 
   &.full{
     background-color: $secondary-color;

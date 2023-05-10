@@ -10,7 +10,7 @@ import {UserLocationDatasService} from "../../services/geo/user-location-datas.s
 import {TrendingModel} from "../../models/trendings/trending-model";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 import {TvDetails} from "../../models/tv/tv-details";
-import {faEllipsisVertical, faSearch} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
 import {TokenStorageService} from "../../services/token-storage.service";
@@ -40,6 +40,7 @@ export class HomePageComponent implements OnInit {
   @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild: MediaDetailsDialogComponent | undefined;
   @ViewChild('recommendMediaDialogRef') recommendMediaDialogChild: RecommendedMediaDialogComponent | undefined;
 
+  faArrowRight = faArrowRight;
   trendingsList: TrendingModel[] = [];
   moviesInTheaters: MovieDetailsModel[] = [];
   newMovies: MovieDetailsModel[] = [];
