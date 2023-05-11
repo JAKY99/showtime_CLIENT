@@ -69,12 +69,13 @@ export class TvPageComponent implements OnInit {
         resp.forEach((item: any) => {
           this.tvService.fetchTvDetailsRaw(item).toPromise().then(
             respDetails => {
+              console.log('bite')
               respDetails = JSON.parse(respDetails.data);
               this.tvWatching.push(respDetails);
           })
+          // @ts-ignore
+          this.watching?.isLoading = false;
         })
-        // @ts-ignore
-        this.watching?.isLoading = false;
       })
 
     this.tvService.fetchTvWatched().toPromise()
