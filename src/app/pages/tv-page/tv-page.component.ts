@@ -64,6 +64,8 @@ export class TvPageComponent implements OnInit {
 
     this.tvService.fetchTvWatching().toPromise()
       .then(resp => {
+        console.log(resp)
+
         resp.forEach((item: any) => {
           this.tvService.fetchTvDetailsRaw(item).toPromise().then(
             respDetails => {

@@ -87,5 +87,4 @@ export class CarouselGenresComponent implements OnInit {
       this.loading.tvGenres = false;
     }
   }
-
 }

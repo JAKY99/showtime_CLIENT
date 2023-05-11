@@ -226,4 +226,16 @@ export class TvService {
       userMail: this.tokenStorage.getClientUsername()
     });
   }
+
+
+  fetchListByGenre(idGenre : number): Observable <any>{
+    let url = GlobalConstants.TMDB_BASE_URL + "discover/tv?api_key=" + GlobalConstants.TMDB_KEY +"&with_genres=" + idGenre +
+      "&language=en-US&sort_by=popularity.desc";
+
+    // let url = GlobalConstants.TMDB_BASE_URL +
+    // "/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_genres="+genre+"?api_key=" + GlobalConstants.TMDB_KEY
+    // "trending/all/week?api_key=" + GlobalConstants.TMDB_KEY
+    return this.RedisService.getDataFromRedisCache(url);
+  }
+
 }

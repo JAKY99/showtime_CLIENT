@@ -6,10 +6,10 @@
   >
     <ng-template swiperSlide *ngFor="let genre of tvGenres">
       <div class="genre-container">
-        <div class="genre-infos">
+        <a class="genre-infos" href="/search?genre={{genre.id}}" >
           <img class="genre_illustration" src="assets/category_imgs/{{genre.id}}.png" alt="{{genre.name}}">
           <span class="name">{{genre.name}}</span>
-        </div>
+        </a>
       </div>
     </ng-template>
   </swiper>
