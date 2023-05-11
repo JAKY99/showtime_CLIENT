@@ -3,6 +3,7 @@ import {TrendingService} from "../../services/trending/trending.service";
 import {MainSearchComponent} from "../../components/search/main-search/main-search.component";
 import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
 import {ActivatedRoute} from "@angular/router";
+import {TvService} from "../../services/tv/tv.service";
 
 @Component({
   selector: 'app-main-search-page',
@@ -19,31 +20,41 @@ export class MainSearchPageComponent implements OnInit {
   trendingResults: [] = [];
 
   totalResults: number = 0;
+  displayResult:number = 0;
 
   isLoading: boolean = false;
   isLoadMoreAvailable: boolean = true;
-  private movieOnly: boolean = false;
+  param : number | undefined;
 
-  constructor(private trendingService: TrendingService,
-              private route: ActivatedRoute) { }
+  constructor(
+    private trendingService: TrendingService ,
+    private route: ActivatedRoute ,
+    private tvService : TvService
+  ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      // Access query parameters using params object
-      if(params['movieOnly']==='true'){
-        this.movieOnly = true;
-        this.trendingService.fetchMovieTrendings().subscribe(resp => {
-          resp = JSON.parse(resp.data);
-          this.trendingResults = resp.results;
-        });
-      }
-      if(!this.movieOnly){
-        this.trendingService.fetchAllTrendings().subscribe(resp => {
-          resp = JSON.parse(resp.data);
-          this.trendingResults = resp.results;
-        });
-      }
-    });
+
+    this.route.queryParams
+      .subscribe(params => {
+        this.param = params.genre
+        }
+      );
+
+    if(!this.param){
+      this.trendingService.fetchAllTrendings().subscribe(resp => {
+        resp = JSON.parse(resp.data);
+        this.trendingResults = resp.results;
+      });
+    }else{
+      // @ts-ignore
+      this.tvService.fetchListByGenre(this.param).subscribe(resp => {
+        resp = JSON.parse(resp.data);
+        this.trendingResults = resp.results;
+        this.displayResult = 1;
+        this.totalResults = resp.total_results
+      });
+    }
+
 
   }
 
@@ -53,6 +64,7 @@ export class MainSearchPageComponent implements OnInit {
     this.isLoadMoreAvailable = true;
     this.mainSearchResults = $event.results;
     this.totalResults = $event.total_results;
+    this.displayResult = 2
     if($event.page === $event.total_pages){
       this.isLoadMoreAvailable = false;
     }

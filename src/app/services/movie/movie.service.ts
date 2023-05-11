@@ -148,6 +148,14 @@ export class MovieService {
       userMail: this.tokenStorage.getClientUsername()
     });
   }
+  addSerieToWatchedList(tmdbSerieId: number,serieName: string ):Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/addSerieInWatchlist/`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbSerieId,
+      movieName: serieName,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
   removeMovieToWatchedList(tmdbId: number,movieName : string): Observable<any>{
     let url = `${GlobalConstants.API_URL}/api/v1/user/removeMovieInWatchlist/`
     return this.http.post<any>(url, {

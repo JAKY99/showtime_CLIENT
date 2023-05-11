@@ -3,14 +3,16 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {GlobalConstants} from "../../common/constants/global-constants";
 import {TvDetails} from "../../models/tv/tv-details";
-import {MovieDetailsModel} from "../../models/movie/movie-details-model";
+import {TokenStorageService} from "../token-storage.service";
 import {RedisService} from "../../services/redis/redis.service";
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class TvService {
 
-  constructor(private http: HttpClient,private RedisService : RedisService) { }
+  constructor(private http: HttpClient,private RedisService : RedisService , private tokenStorage: TokenStorageService) { }
 
   fetchPopular(): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL +
@@ -21,7 +23,7 @@ export class TvService {
     // return this.http.get<any>(url);
   }
 
-  fetchTopRated(): Observable<any> {
+  fetchTvTopRated(): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL +
       "tv/top_rated?api_key=" +
       GlobalConstants.TMDB_KEY +
@@ -46,6 +48,15 @@ export class TvService {
       "&language=en-US&page=1";
     return this.RedisService.getDataFromRedisCache(url);
     // return this.http.get<any>(url);
+  }
+
+  fetchAllTvGenres(): Observable<any>{
+    let url = GlobalConstants.TMDB_BASE_URL +
+      "genre/tv/list?api_key=" +
+      GlobalConstants.TMDB_KEY +
+      "&language=en-US";
+
+    return this.RedisService.getDataFromRedisCache(url);
   }
 
   fetchWatchProviders(tvId: number): Observable<any>{
@@ -78,6 +89,15 @@ export class TvService {
     // return this.http.get<any>(url);
   }
 
+  fetchTvDetailsRaw(tvId: number): Observable<any> {
+    let url = GlobalConstants.TMDB_BASE_URL +
+      "tv/"+tvId+"?api_key=" +
+      GlobalConstants.TMDB_KEY +
+      "&language=en-US"
+    return this.RedisService.getDataFromRedisCache(url);
+    // return this.http.get<any>(url);
+  }
+
   fetchTvDetails(tvId: number, responseToAppend?: Array<string>): Observable <TvDetails>{
     let url = GlobalConstants.TMDB_BASE_URL +
       "tv/"+tvId+"?api_key=" +
@@ -94,4 +114,128 @@ export class TvService {
     return this.RedisService.getDataFromRedisCache(url);
     // return this.http.get<TvDetails>(url);
   }
+
+  fetchTvWatchedStatus(tmdbId: number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isSerieInWatchlist/`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbId,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
+  fetchEpisodeWatchedStatus(serieTmdbId: number, seasonNumber : number, episodeNumber : number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isSerieInWatchlist/`
+    return this.http.post<any>(url, {
+      serieTmdbId: serieTmdbId,
+      seasonNumber : seasonNumber,
+      episodeNumber : episodeNumber,
+      userMail: this.tokenStorage.getClientUsername()
+      // @ts-ignore
+    }, httpOptions);
+  }
+
+
+  addSerieToWatchedList(tmdbId: number,SerieName : string): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/addSerieInWatchlist/`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbId,
+      SerieName: SerieName,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+  removeSerieToWatchedList(tmdbId: number,SerieName : string): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/removeSerieInWatchlist/`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbId,
+      SerieName: SerieName,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
+  addSeasonToWatchedList(tmdbId: number , seasonId : number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/addSeasonInWatchlist/`
+    return this.http.post<any>(url, {
+      tvTmdbId: tmdbId,
+      userMail: this.tokenStorage.getClientUsername(),
+      tvSeasonid : seasonId
+    });
+  }
+
+  addEpisodeToWatchedList(tmdbId: number , seasonId : number | null, episodeId : number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/addEpisodeInWatchlist/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tvTmdbId: tmdbId,
+      tvSeasonid : seasonId,
+      episodeId : episodeId
+    });
+  }
+
+  fetchLastSeenEpisode(tmdbId: number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/getLastSeenEpisode/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tmdbId: tmdbId
+    });
+  }
+
+  fetchTvEpisodeWatchedStatus(episodeTmdbId: number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isEpisodeInWatchlist/`
+    return this.http.post<any>(url, {
+      episodeTmdbId: episodeTmdbId,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
+  fetchTvSeasonWatchedStatus(tmdbTvId: number, seasonId: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isSeasonInWatchlist/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tvTmdbId: tmdbTvId,
+      tvSeasonid : seasonId
+    });
+  }
+
+  fetchTvSerieWatchedStatus(tmdbTvId: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isSerieInWatchlist/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tmdbId: tmdbTvId
+    });
+  }
+
+  fetchNbEpisodesWatchedInSerie(tmdbTvId: number, seasonId: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/nbEpisodesWatchedInSerie/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tvSeasonid : seasonId,
+      tvTmdbId: tmdbTvId
+    });
+  }
+
+  fetchTvWatching() {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/fetchTvWatching/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
+  fetchTvWatched() {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/fetchTvWatched/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
+
+  fetchListByGenre(idGenre : number): Observable <any>{
+    let url = GlobalConstants.TMDB_BASE_URL + "discover/tv?api_key=" + GlobalConstants.TMDB_KEY +"&with_genres=" + idGenre +
+      "&language=en-US&sort_by=popularity.desc";
+
+    // let url = GlobalConstants.TMDB_BASE_URL +
+    // "/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_genres="+genre+"?api_key=" + GlobalConstants.TMDB_KEY
+    // "trending/all/week?api_key=" + GlobalConstants.TMDB_KEY
+    return this.RedisService.getDataFromRedisCache(url);
+  }
+
 }

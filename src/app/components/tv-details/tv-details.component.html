@@ -9,9 +9,12 @@
 
   <div class="watched-section">
     <div class="status">
+      <i (click)="addSerieToWatchedList()"
+         [class]="userTv.viewInfo.checked"
+         class="fa-solid fa-circle-check watched-status-check st-icon"></i>
 
       <app-tag
-        title="Not seen"
+        [title]="seenStatus"
         [size]="2"
         [rounded]="true"
         icon="fa-regular fa-eye"
@@ -21,6 +24,7 @@
     </div>
     <div class="tv-actions-icon">
       <div class="bookmark">
+
         <fa-icon class="bookmark-icon st-icon st-icon-small" [icon]="faBookmark"></fa-icon>
         <span *ngIf="userTv.bookmark.length" class="badge">{{userTv.bookmark.length}}</span>
       </div>
@@ -82,22 +86,33 @@
           </div>
 
           <div class="available-on-platform" *ngIf="!loading.watchProviders && !isWatchProvidersEmpty">
-            <app-watch-providers [items]="watchProviders" (noData)="WatchProvidersEmpty($event)" [rentProviders]="false" [buyProviders]="false"></app-watch-providers>
+            <app-watch-providers [items]="watchProviders" (noData)="WatchProvidersEmpty($event)" [rentProviders]="false"
+                                 [buyProviders]="false"></app-watch-providers>
           </div>
 
         </p-tabPanel>
 
         <p-tabPanel header="Episodes">
-          <h2 class="m-1 mb-3 mt-3 text-white text-base">Watch Next</h2>
+          <h2 class="m-1 mb-3 mt-3 text-white text-base">Watch Next </h2>
           <app-episode-card
-            [item]="lastEpisode">
+            [item]="lastEpisode"
+            [tvId]="requestedTvId"
+            (resultsSeasonEmitterEvent)="updateLastSeenEpisode(); updateSpecificEpisodeInSeasonAccordion()"
+            (resultsSerieEmitterEvent)="updateSerieInfosFromChild(requestedTvId)"
+          >
           </app-episode-card>
 
           <h2 class="m-1 mb-3 mt-5 text-white text-base">All Episodes</h2>
           <app-accordion-seasons
+            *ngIf="!loading.isLoadingChildren"
             [nbSeasons]="tv.number_of_seasons"
-            [tvId]="tv.id" >
+            [item]="serieFullyWatchedEvent"
+            [tvId]="tv.id"
+            (resultsSerieEmitterEventv2)="updateSerieInfosFromChild($event); updateLastSeenEpisode()"
+            #accordionSeasonsRef
+          >
           </app-accordion-seasons>
+          <p-progressSpinner *ngIf="loading.isLoadingChildren"></p-progressSpinner>
         </p-tabPanel>
 
       </p-tabView>
@@ -114,7 +129,8 @@
       <p-tabPanel header="More like this">
         <div class="similar-tv">
           <h2 class="text-white no-margin">Similar Series</h2>
-          <app-carousel-image-list #similarTvRef [items]="similarTv" (eventEmitter)="handleTvChange($event)"></app-carousel-image-list>
+          <app-carousel-image-list #similarTvRef [items]="similarTv"
+                                   (eventEmitter)="handleTvChange($event)"></app-carousel-image-list>
         </div>
       </p-tabPanel>
     </p-tabView>

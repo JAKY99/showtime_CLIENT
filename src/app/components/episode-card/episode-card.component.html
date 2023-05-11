@@ -18,6 +18,13 @@
     </div>
   </div>
   <div class="view-info" *ngIf="todayDate >= item.air_date">
-      <i class="fa-solid fa-circle-check watched-status-check st-icon"></i>
+
+      <i
+        *ngIf="!isLoadingStatus"
+        [class]="item.status"
+        (click)="updateEpisodeStatus()"
+        class="fa-solid fa-circle-check watched-status-check st-icon"
+      ></i>
+      <p-progressSpinner *ngIf="isLoadingStatus"  styleClass="custom-spinner" strokeWidth="8"></p-progressSpinner>
   </div>
 </div>

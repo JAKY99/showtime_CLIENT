@@ -1,12 +1,54 @@
-<div id="app-movie-details-page" class="h-full">
-  <app-go-back *ngIf="!loading.tv"></app-go-back>
+<div id="app-tv-page" class="h-full">
+  <app-go-back *ngIf="!loading.topRatedTv"></app-go-back>
   <div class="backdrop-section">
-<!--    <app-image *ngIf="!loading.tv" class="backdrop-img" -->
-<!--               [imagePath]="topRatedTv.backdrop_path"-->
-<!--               imageSize="original"-->
-<!--    ></app-image>-->
-    <p-skeleton *ngIf="loading.tv" width="100%" height="14rem"></p-skeleton>
+    <h1 *ngIf="!loading.topRatedTv" class="mainTitle">Series</h1>
+    <div *ngIf="!loading.topRatedTv" class="blackFilter"></div>
+    <app-image *ngIf="!loading.topRatedTv" class="backdrop-img"
+               [imagePath]="topRatedTv.backdrop_path"
+               imageSize="original"
+    ></app-image>
+    <p-skeleton *ngIf="loading.topRatedTv" width="100%" height="14rem"></p-skeleton>
   </div>
+  <div class="menuShort ">
+    <button pButton (click)="scrollTo('airingTodayTvRefId')" type="button" class="p-button-info">Airing Today</button>
+    <button pButton (click)="scrollTo('watchingId')" type="button" class="p-button-info">Watching</button>
+    <button pButton (click)="scrollTo('watchedId')" type="button" class="p-button-info">Watched</button>
+    <button pButton (click)="scrollTo('topRatedTvRefId')" type="button" class="p-button-info">Top Rated</button>
+    <hr>
+  </div>
+
+  <div class="m-3">
+    <app-carousel-genres></app-carousel-genres>
+  </div>
+
+  <div class="top-rated-tv carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Airing Today</h2>
+    <app-carousel-image-list #airingTodayTvRef id="airingTodayTvRefId" [items]="airingTodayTv" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+
+  <div class="to-be-seen">
+    <h2 class="m-3 mb-3 text-white text-base">Watching</h2>
+    <app-carousel-image-list *ngIf="tvWatching; else emptyWatching" #watching id="watchingId" [items]="tvWatching" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+    <ng-template #emptyWatching >
+      <p class="m-3 mb-3 text-white text-base"><i>No Series watching, please go and like some</i></p>
+    </ng-template>
+  </div>
+
+  <div class="you-may-like">
+    <h2 class="m-3 mb-3 text-white text-base">Watched</h2>
+    <app-carousel-image-list *ngIf="tvWatched; else emptyWatched" #watched id="watchedId" [items]="tvWatched" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+    <ng-template #emptyWatched>
+      <p class="m-3 mb-3 text-white text-base"><i>No Series watched, please go and like some</i></p>
+    </ng-template>
+  </div>
+
+
+  <div class="top-rated-tv carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Top rated Series</h2>
+    <app-carousel-image-list #topRatedTvRef id="topRatedTvRefId" [items]="trendingTv" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+
+
+  <app-media-details-dialog #mediaDetailsDialogRef ></app-media-details-dialog>
+
 </div>
-
-
