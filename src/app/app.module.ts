@@ -121,7 +121,6 @@ import { WebSidebarComponent } from './components/web/desktop-sidebar/web-sideba
 import { DesktopBackdropCardComponent } from './components/web/desktop-backdrop-card/desktop-backdrop-card.component';
 import { DesktopCarouselComponent } from './components/web/desktop-carousel/desktop-carousel.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -194,7 +193,7 @@ import { DesktopCarouselComponent } from './components/web/desktop-carousel/desk
     PictureCropDialogComponent,
     WebSidebarComponent,
     DesktopBackdropCardComponent,
-    DesktopCarouselComponent
+    DesktopCarouselComponent,
   ],
     imports: [
         HttpClientModule,
