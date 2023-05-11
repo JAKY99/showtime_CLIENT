@@ -49,7 +49,6 @@ export class MainSearchPageComponent implements OnInit {
       // @ts-ignore
       this.tvService.fetchListByGenre(this.param).subscribe(resp => {
         resp = JSON.parse(resp.data);
-        console.log(resp)
         this.trendingResults = resp.results;
         this.displayResult = 1;
         this.totalResults = resp.total_results

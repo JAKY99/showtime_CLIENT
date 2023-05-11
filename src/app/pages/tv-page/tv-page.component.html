@@ -29,8 +29,8 @@
   <div class="to-be-seen">
     <h2 class="m-3 mb-3 text-white text-base">Watching</h2>
     <app-carousel-image-list *ngIf="tvWatching; else emptyWatching" #watching id="watchingId" [items]="tvWatching" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
-    <ng-template #emptyWatching>
-      <p>No Series watching, please go and like some</p>
+    <ng-template #emptyWatching >
+      <p class="m-3 mb-3 text-white text-base"><i>No Series watching, please go and like some</i></p>
     </ng-template>
   </div>
 
@@ -38,7 +38,7 @@
     <h2 class="m-3 mb-3 text-white text-base">Watched</h2>
     <app-carousel-image-list *ngIf="tvWatched; else emptyWatched" #watched id="watchedId" [items]="tvWatched" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
     <ng-template #emptyWatched>
-      <p>No Series finished, please go and like some</p>
+      <p class="m-3 mb-3 text-white text-base"><i>No Series watched, please go and like some</i></p>
     </ng-template>
   </div>
 
