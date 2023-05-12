@@ -1,5 +1,8 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {CommentService} from "../../../services/comment/comment.service";
+import {ConfirmationService, MessageService} from "primeng/api";
+import {AddCommentDialogComponent} from "../add-comment-dialog/add-comment-dialog.component";
+import {ResponseCommentComponent} from "../response-comment/response-comment.component";
 
 @Component({
   selector: 'app-comment',
@@ -9,11 +12,10 @@ import {CommentService} from "../../../services/comment/comment.service";
 })
 export class CommentComponent implements OnInit {
 
+  @ViewChild('responseCommentDialogChild') responseCommentDialogChild : ResponseCommentComponent | undefined;
   @Input() comment: any = {};
-  commentLiked: boolean = false;
-  numberOfLikes: number = 0;
 
-  constructor(private commentService: CommentService) { }
+  constructor(private commentService: CommentService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit(): void {
   }
@@ -36,11 +38,32 @@ export class CommentComponent implements OnInit {
   }
 
   respondToComment(){
-
+    this.responseCommentDialogChild?.open(this.comment.comments.id);
   }
 
-  shareComment(){
-
+  reportComment(event: Event){
+    this.confirmationService.confirm({
+      // @ts-ignore
+      target: event.target,
+      message: 'Are you sure that you want to report this comment?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.commentService.reportComment(this.comment.comments.id).subscribe((resp) => {
+              this.messageService.add({severity:'success', summary: 'Success', detail: 'Comment reported successfully'});
+              this.comment.comments.validate = false;
+        })
+      },
+      reject: () => {
+        //reject action
+      }
+    });
   }
 
+  fetchResponseComments(commentId: number){
+    if (commentId == this.comment.comments.id) {
+      this.commentService.fetchResponse(commentId).subscribe((resp) => {
+        this.comment.comments.responseComments = resp;
+      });
+    }
+  }
 }

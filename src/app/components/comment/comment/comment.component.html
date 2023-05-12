@@ -23,12 +23,15 @@
       </div>
       <div class="likes flex" (click)="respondToComment()">
         <i class="pi pi-comment"></i>
-        <p><span>1250</span> response{{comment.likes > 1 ? 's' : null}}</p>
+        <p><span>{{comment.numberResponse}}</span> response{{comment.numberResponse > 1 ? 's' : null}}</p>
       </div>
-      <div class="share flex" (click)="shareComment()">
-        <i class="pi pi-share-alt"></i>
-        <p>share</p>
+      <div class="share flex" (click)="reportComment($event)">
+        <i class="pi pi-exclamation-triangle"></i>
+        <p>report</p>
       </div>
     </div>
   </div>
 </div>
+
+<app-response-comment #responseCommentDialogChild (eventEmitter)="fetchResponseComments(comment.comments.id)"></app-response-comment>
+```

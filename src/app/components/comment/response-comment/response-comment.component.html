@@ -1,0 +1,35 @@
+<p-dialog
+  class="animate-width=100 animate-height=100 animate-opacity=100 animate-top=0 animate-left=0 animate-right=0 animate-bottom=0 "
+  [closeOnEscape]="false"
+  [dismissableMask]="true"
+  [(visible)]="viewedDialogShown"
+  [position]="viewedDialogPosition"
+  [modal]="true"
+  [baseZIndex]="1000"
+  [draggable]="false"
+  [resizable]="false"
+  closeIcon=""
+  [transitionOptions]="'300ms cubic-bezier(1, 1, 1, 1)'"
+>
+  <div class="top-section">
+    <fa-icon class="close-icon st-icon st-icon-small dark"
+             [icon]="faChevronDown"
+             (click)="close()"
+    ></fa-icon>
+  </div>
+  <div id="add-response-comment">
+    <h2>Add new response</h2>
+    <textarea rows="10" cols="40" pInputTextarea [(ngModel)]="text"></textarea>
+    <button pButton label="Submit"
+            type="button"
+            class="p-button-text st-secondary-btn"
+            icon="pi pi-check"
+            (click)="postComment()"
+    ></button>
+  </div>
+  <div *ngIf="resultResponseComments.length" class="comments">
+    <div class="comment" *ngFor="let resultResponseComments of resultResponseComments">
+      <app-comment-response [comment]="resultResponseComments"></app-comment-response>
+    </div>
+  </div>
+</p-dialog>

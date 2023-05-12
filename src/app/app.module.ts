@@ -104,6 +104,9 @@ import { CommentComponent } from './components/comment/comment/comment.component
 import { CommentAvatarComponent } from './components/comment/comment-avatar/comment-avatar.component';
 import { ActorDetailsDialogComponent } from './components/actor/actor-details-dialog/actor-details-dialog.component';
 import { ActorDetailsComponent } from './components/actor/actor-details/actor-details.component';
+import {ConfirmPopupModule} from "primeng/confirmpopup";
+import { ResponseCommentComponent } from './components/comment/response-comment/response-comment.component';
+import { CommentResponseComponent } from './components/comment/comment-response/comment-response.component';
 import { NotificationIconComponent } from './components/notification-icon/notification-icon.component';
 import { SeenCheckComponent } from './components/seen-check/seen-check.component';
 import { HeaderNavComponent } from './components/header-nav/header-nav.component';
@@ -194,6 +197,9 @@ import { DesktopCarouselComponent } from './components/web/desktop-carousel/desk
     WebSidebarComponent,
     DesktopBackdropCardComponent,
     DesktopCarouselComponent,
+    ActorDetailsComponent,
+    ResponseCommentComponent,
+    CommentResponseComponent
   ],
     imports: [
         HttpClientModule,
@@ -240,6 +246,7 @@ import { DesktopCarouselComponent } from './components/web/desktop-carousel/desk
         OverlayPanelModule,
         SpeedDialModule,
         InputTextareaModule,
+        ConfirmPopupModule,
         ImageCropperModule,
         ToolbarModule,
         InplaceModule,
