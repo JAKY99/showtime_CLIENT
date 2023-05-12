@@ -3,6 +3,7 @@ import {faChevronDown} from '@fortawesome/free-solid-svg-icons'
 import {AddCommentDialogComponent} from "../add-comment-dialog/add-comment-dialog.component";
 import {CommentService} from "../../../services/comment/comment.service";
 import {Observable} from "rxjs";
+import {MovieDetailComponent} from "../../movie-details/movie-detail.component";
 
 @Component({
   selector: 'app-response-comment',
@@ -24,13 +25,14 @@ export class ResponseCommentComponent implements OnInit {
   commentId: number = 0;
   resultResponseComments: [] = [];
   text: string = "";
-  constructor(private commentService: CommentService) { }
+  constructor(private commentService: CommentService, private movieDetailComponent: MovieDetailComponent) { }
 
   ngOnInit(): void {
   }
 
   close(){
     this.viewedDialogShown = false
+    this.movieDetailComponent.fetchComments();
   }
 
   emitFetch(){
@@ -44,13 +46,13 @@ export class ResponseCommentComponent implements OnInit {
   }
 
   fetchResponseComments(){
-    if (this.commentId != 0) {
       this.commentService.fetchResponse(this.commentId).subscribe((resp) => {
         this.resultResponseComments = resp;
+
       }, (error) => {
         console.log(error);
       });
-    }
+
   }
 
   postComment() {
