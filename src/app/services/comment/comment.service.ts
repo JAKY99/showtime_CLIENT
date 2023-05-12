@@ -18,4 +18,22 @@ export class CommentService {
       userLiked: false
     });
   }
+
+  reportComment(commentId: number) {
+    let url = GlobalConstants.API_URL + "/api/v1/comment/rejectComment/";
+    return this.http.put<any>(url, commentId);
+  }
+
+  postResponseComment(commentID: number, text: string) {
+    let url = GlobalConstants.API_URL + "/api/v1/comment/addResponseComment/";
+    return this.http.post<any>(url, {
+      commentId: commentID,
+      text: text
+    });
+  }
+
+  fetchResponse(commentId: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/comment/fetchResponseComment/${commentId}`;
+    return this.http.get<any>(url)
+  }
 }

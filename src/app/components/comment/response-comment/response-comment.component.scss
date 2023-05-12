@@ -1,0 +1,16 @@
+@import "../../../../styles";
+
+#add-response-comment{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: $margin-default;
+  padding: $margin-big-2 $margin-big-2 $margin-small $margin-big-2;
+  position: relative;
+  overflow: hidden;
+  margin-top: $margin-big;
+
+  h2{
+    margin: $margin-default;
+  }
+}
