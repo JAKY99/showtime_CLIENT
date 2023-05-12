@@ -10,7 +10,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {faEllipsisVertical, faSearch, faEllipsisV} from '@fortawesome/free-solid-svg-icons';
-import {ConfirmationService, MenuItem} from "primeng/api";
+import {Confirmation, ConfirmationService, MenuItem} from "primeng/api";
 import {TokenStorageService} from "../../services/token-storage.service";
 import {Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
@@ -33,6 +33,8 @@ export class HeaderNavComponent implements OnInit {
   @Input() logoShown: boolean = true;
 
   @Output() openEditProfile = new EventEmitter<any>();
+  headerType: string | undefined = undefined;
+  customHeader: string | undefined ="";
 
   constructor(
     private renderer: Renderer2,
@@ -50,6 +52,9 @@ export class HeaderNavComponent implements OnInit {
   }
 
   initItems() {
+    this.confirmationService.requireConfirmation$.subscribe((confirmation: Confirmation) => {
+      this.customHeader = confirmation.message;
+    });
     this.items.push(
       {
         separator: true
@@ -59,6 +64,7 @@ export class HeaderNavComponent implements OnInit {
         icon: 'pi pi-fw pi-power-off',
         command: (event: Event) => {
           this.confirmationService.confirm({
+            message: 'Are you sure that you want to logout?',
             accept: () => {
               this.tokenStorageService.logOut();
             }
