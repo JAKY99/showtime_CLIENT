@@ -39,13 +39,3 @@
     </div>
   </div>
 </div>
-
-<p-confirmDialog  #cd header="Confirmation" class="--hide-content">
-  <ng-template pTemplate="header">
-    <h3>Are you sure that you want to logout?</h3>
-  </ng-template>
-  <ng-template pTemplate="footer">
-    <button class="--small" type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
-    <button class="st-secondary-btn --small" type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
-  </ng-template>
-</p-confirmDialog>
