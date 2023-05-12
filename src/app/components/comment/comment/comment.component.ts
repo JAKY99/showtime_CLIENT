@@ -43,8 +43,7 @@ export class CommentComponent implements OnInit {
 
   reportComment(event: Event){
     this.confirmationService.confirm({
-      // @ts-ignore
-      target: event.target,
+      header: "Reporting",
       message: 'Are you sure that you want to report this comment?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -55,7 +54,7 @@ export class CommentComponent implements OnInit {
       },
       reject: () => {
         //reject action
-      }
+      },
     });
   }
 
