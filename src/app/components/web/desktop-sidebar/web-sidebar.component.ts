@@ -39,6 +39,7 @@ export class WebSidebarComponent implements OnInit {
 
   logout() {
     this.ConfirmationService.confirm({
+      message: 'Are you sure you want to logout?',
       accept: () => {
         this.TokenStorageService.logOut();
       }
