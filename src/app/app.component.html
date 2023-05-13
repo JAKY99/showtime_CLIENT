@@ -3,7 +3,7 @@
   <div *ngIf="isNavbarDesktopShown()">
     <app-desktop-sidebar></app-desktop-sidebar>
   </div>
-  <div class="p-2 router-outlet">
+  <div class="router-outlet">
     <router-outlet ></router-outlet>
   </div>
 </div>
@@ -11,4 +11,3 @@
   <app-navbar *ngIf="isNavbarMobileShown()"></app-navbar>
   <router-outlet></router-outlet>
 </div>
-<

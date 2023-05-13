@@ -9,6 +9,7 @@ export class ProfileStatNumberComponent implements OnInit {
 
   @Input() title: string = "";
   @Input() number: number = 0;
+  @Input() isBig: boolean = false;
 
   constructor() { }
 
