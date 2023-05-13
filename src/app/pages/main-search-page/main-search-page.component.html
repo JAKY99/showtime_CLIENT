@@ -1,4 +1,5 @@
 <div class="main-search-page p-2 pt-4 h-full overflow-auto">
+  <app-header-nav></app-header-nav>
   <app-main-search #mainSearchRef (resultsEmitterEvent)="getMainSearchResults($event)"
                    (resultsMoreEmitterEvent)="getMainSearchMoreResults($event)"
   (isLoading)="manageLoading($event)"></app-main-search>

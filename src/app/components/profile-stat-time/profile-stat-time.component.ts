@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ProfileStatTimeComponent implements OnInit {
   @Input() title: string = "";
   @Input() time: string = "0/0/0";
+  @Input() isBig: boolean = false;
 
   monthTime: number = 0;
   daysTime: number = 0;

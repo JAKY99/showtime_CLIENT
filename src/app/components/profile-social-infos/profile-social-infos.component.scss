@@ -6,6 +6,10 @@
   justify-content: center;
   gap: 1.8rem;
 
+  &.--big{
+    font-size: $font-big-2;
+  }
+
   .container{
     display: flex;
     flex-direction: column;

@@ -1,6 +1,11 @@
 @import "src/styles";
 
 .desktop-sidebar{
+
+  &.close-div{
+    animation: closeAnimation 0.5s ease-in-out forwards;
+    display: none;
+  }
   height: 100vh;
   background-color: $main-color;
   border-right: 1px solid $divider-color ;
@@ -59,5 +64,16 @@
   .bottom-section{
     justify-self: flex-end;
     padding: $margin-big 0;
+  }
+}
+
+@keyframes closeAnimation {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
   }
 }

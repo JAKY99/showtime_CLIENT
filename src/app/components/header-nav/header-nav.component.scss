@@ -11,7 +11,22 @@
   width: 100%;
   z-index: 999;
 
-  .right-section{
+  &.--desktop {
+    padding: $margin-big $margin-big-2;
+    width: calc(100% - 300px);
+    grid-template-columns: 1fr;
+
+    .right-section {
+      gap: $margin-big-2;
+
+      & > * {
+      font-size: $font-medium;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .right-section {
     display: flex;
     justify-content: right;
     align-items: center;

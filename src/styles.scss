@@ -348,6 +348,39 @@ $profileContainerHeight: 6.5rem;
   }
 }
 
+.p-tabmenu .p-tabmenu-nav{
+  background: transparent;
+  border: none;
+  &:hover{
+    background: transparent;
+  }
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link{
+  background: transparent;
+  color: $white;
+
+  &:hover{
+    background: transparent;
+  }
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link{
+  background: transparent;
+  border: none;
+  color: $secondary-color;
+  &:hover{
+    background: transparent;
+  }
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link:not(.p-disabled):focus{
+  box-shadow: none;
+  &:hover{
+    background: transparent;
+  }
+}
+
 @keyframes p-progress-spinner-color {
   100%,
   0% {

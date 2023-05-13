@@ -12,7 +12,6 @@
   gap: $margin-small;
   height: $profileContainerHeight;
 
-
   .title{
     text-transform: uppercase;
     font-weight: bold;
@@ -25,4 +24,15 @@
     font-size: $font-big-2;
     margin: 0;
   }
+  &.--big{
+    .title{
+      font-size: $font-big-2;
+    }
+    .number{
+      font-size: $font-big-2 + .5;
+    }
+    height: $profileContainerHeight + 4;
+    width: $profileContainerWidth + 4;
+  }
 }
+

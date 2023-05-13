@@ -1,24 +1,49 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TokenStorageService} from "../../services/token-storage.service";
 import {ProfileService} from "../../services/profile/profile.service";
 import {MovieService} from "../../services/movie/movie.service";
-import { ImageCroppedEvent } from 'ngx-image-cropper';
 import {ProfileAvatarComponent} from "../profile-avatar/profile-avatar.component";
+import {DeviceDetectorService} from "ngx-device-detector";
+import {MenuItem} from "primeng/api";
 
 @Component({
   selector: 'app-profile-top-section',
   templateUrl: './profile-top-section.component.html',
-  styleUrls: ['./profile-top-section.component.scss']
+  styleUrls: ['./profile-top-section.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProfileTopSectionComponent implements OnInit {
 
+  public isMobileDevice: boolean = false;
+  public isTabletDevice: boolean = false;
+  public isDesktopDevice: boolean = false;
+
+  tabMenuItems: MenuItem[] = [];
+  // @ts-ignore
+  activeItem: MenuItem;
+
   @ViewChild('profileAvatarRef') profileAvatarChild: ProfileAvatarComponent | undefined;
 
-  constructor(private ProfileService :  ProfileService, private MovieService : MovieService,private tokenStorage: TokenStorageService) { }
+  constructor(private ProfileService :  ProfileService,
+              private MovieService : MovieService,
+              private tokenStorage: TokenStorageService,
+              private deviceService: DeviceDetectorService) { }
   public backgroundUrl : String = ""
   public fullName : String = ""
   isLoading: boolean = false;
   ngOnInit(): void {
+    this.isMobileDevice = this.deviceService.isMobile();
+    this.isTabletDevice = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
+
+    this.tabMenuItems = [
+      {label: 'Home', icon: 'pi pi-fw pi-home'},
+      {label: 'Calendar', icon: 'pi pi-fw pi-calendar'},
+      {label: 'Edit', icon: 'pi pi-fw pi-pencil'},
+      {label: 'Documentation', icon: 'pi pi-fw pi-file'},
+      {label: 'Settings', icon: 'pi pi-fw pi-cog'}
+    ];
+
     this.loadBackground();
   }
    openFileDialog=async()=>{
