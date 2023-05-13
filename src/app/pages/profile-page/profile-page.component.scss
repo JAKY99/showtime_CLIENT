@@ -49,3 +49,25 @@
     }
   }
 }
+
+.--desktop{
+  margin-top: $margin-big-2 + 2;
+  .top-section-desktop{
+    padding: $margin-big-2 + 1;
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    gap: $margin-big-2;
+  }
+
+  .stats-desktop{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: $margin-big;
+  }
+
+  h2{
+    font-size: $font-big !important;
+  }
+}

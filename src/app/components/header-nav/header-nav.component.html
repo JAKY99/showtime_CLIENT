@@ -1,4 +1,5 @@
-<div id="header-nav-js-id" class="app-header-nav shadow-3">
+<div id="header-nav-js-id"
+     [ngClass]="isDesktopDevice ? 'app-header-nav --desktop' : 'app-header-nav shadow-3'">
   <app-logo *ngIf="logoShown" class="app-logo" alignment="left" style="font-size: 0.7rem"></app-logo>
   <div class="right-section">
     <app-notification-icon class="flex"></app-notification-icon>

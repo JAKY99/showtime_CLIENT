@@ -23,8 +23,13 @@ img.ng-lazyloaded {
 }
 
 .desktop-root-view{
+  height: 100vh;
   display: grid;
   grid-template-columns: 300px 1fr;
+  transition: all ease-in-out 500ms;
+  &.--withoutNavBar{
+    grid-template-columns: 1fr !important;
+  }
 
   .router-outlet{
     overflow: auto;

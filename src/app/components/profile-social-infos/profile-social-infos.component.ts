@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TvDetails} from "../../models/tv/tv-details";
 import {ProfileService} from "../../services/profile/profile.service";
 import {MovieService} from "../../services/movie/movie.service";
@@ -12,6 +12,8 @@ export class ProfileSocialInfosComponent implements OnInit {
   public followingsCounter: number = 0;
   public followersCounter: number = 0;
   public commentsCounter: number = 0;
+
+  @Input() isBig: boolean = false;
   constructor(private ProfileService :  ProfileService, private MovieService : MovieService) { }
 
   ngOnInit(): void {

@@ -13,12 +13,17 @@ import {
   EditProfileDialogComponent
 } from "../../components/edit-profile/edit-profile-dialog/edit-profile-dialog.component";
 import {ProfileTopSectionComponent} from "../../components/profile-top-section/profile-top-section.component";
+import {DeviceDetectorService} from "ngx-device-detector";
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent implements OnInit {
+
+  public isMobileDevice: boolean = false;
+  public isTabletDevice: boolean = false;
+  public isDesktopDevice: boolean = false;
 
   @ViewChild('lastWatchedSeriesRef') lastWatchedSeriesChild: CarouselImageListComponent | undefined;
   @ViewChild('favoritesSeriesRef') favoritesSeriesChild: CarouselImageListComponent | undefined;
@@ -78,11 +83,16 @@ export class ProfilePageComponent implements OnInit {
   constructor(private ProfileService: ProfileService,
               private MovieService: MovieService,
               private TokenStorageService: TokenStorageService,
-              private confirmationService: ConfirmationService
+              private confirmationService: ConfirmationService,
+              private deviceService: DeviceDetectorService
   ) {
   }
 
   ngOnInit(): void {
+    this.isMobileDevice = this.deviceService.isMobile();
+    this.isTabletDevice = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
+
     this.fetchProfileData();
     this.items = [
       {

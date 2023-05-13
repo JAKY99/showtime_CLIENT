@@ -14,6 +14,7 @@ import {Confirmation, ConfirmationService, MenuItem} from "primeng/api";
 import {TokenStorageService} from "../../services/token-storage.service";
 import {Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'app-header-nav',
@@ -22,6 +23,10 @@ import {DOCUMENT} from "@angular/common";
   encapsulation: ViewEncapsulation.None
 })
 export class HeaderNavComponent implements OnInit {
+
+  public isMobileDevice: boolean = false;
+  public isTabletDevice: boolean = false;
+  public isDesktopDevice: boolean = false;
 
   faSearch = faSearch;
   faEllipsisVertical = faEllipsisVertical;
@@ -41,10 +46,19 @@ export class HeaderNavComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document,
     private confirmationService: ConfirmationService,
     private tokenStorageService: TokenStorageService,
-    private router: Router) {
+    private router: Router,
+    private deviceService: DeviceDetectorService) {
   }
 
   ngOnInit(): void {
+    this.isMobileDevice = this.deviceService.isMobile();
+    this.isTabletDevice = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
+
+    if (this.isDesktopDevice){
+      this.logoShown = false;
+    }
+
     if (this.displayProfileMenu){
       this.initProfileItems();
     }

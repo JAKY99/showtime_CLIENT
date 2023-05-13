@@ -39,4 +39,22 @@
       }
     }
   }
+
+  &.--big{
+    .title{
+      font-size: $font-big-2;
+    }
+    .time-container{
+      .time{
+        .value{
+          font-size: $font-big-2 + .5;
+        }
+        .label{
+          font-size: $font-medium;
+        }
+      }
+    }
+    height: $profileContainerHeight + 4;
+    width: $profileContainerWidth + 4;
+  }
 }
