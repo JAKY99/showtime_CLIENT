@@ -2,6 +2,7 @@ import {MovieCredits} from "./movie-credits";
 import {Trailer} from "../common/trailer";
 
 export interface MovieDetailsModel {
+  reviews: any;
   "adult": boolean,
   "backdrop_path": string,
   "belongs_to_collection": {

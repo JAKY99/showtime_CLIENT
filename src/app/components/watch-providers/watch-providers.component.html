@@ -1,6 +1,6 @@
 <div *ngIf="!loading">
   <div class="swiper-container stream-subscription" *ngIf="platformsStreamSub.length">
-    <div>
+    <div *ngIf="title">
       <h2 class="text-white no-margin">Stream</h2>
     </div>
     <swiper

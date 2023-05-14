@@ -1,6 +1,6 @@
 <app-image class="poster-image" [imagePath]="item.poster_path"
            [imageTitle]="item.title ? item.title : item.name"
-           imageSize="300"
+           [imageSize]="getImageSize()"
            (imgStateEvent)="imageStateChange($event)"
            [ngClass]="borderRadius ? 'radius' : ''"
 ></app-image>

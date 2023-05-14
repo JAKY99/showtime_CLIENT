@@ -11,6 +11,7 @@ export class PosterImageComponent implements OnInit {
   constructor() { }
 
   @Input() borderRadius: boolean = true;
+  @Input() originalSize: boolean = false;
 
   @Input() item: {
     name: string;
@@ -25,7 +26,13 @@ export class PosterImageComponent implements OnInit {
   imageState: string = "setup";
 
   ngOnInit(): void {
+  }
 
+  getImageSize(){
+    if (this.originalSize){
+      return "original"
+    }
+    return "300"
   }
 
   imageStateChange($event: string) {
