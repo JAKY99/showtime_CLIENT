@@ -13,7 +13,8 @@ export interface TvCreditsCast{
   "popularity" :  number | null,
   "character" : string | null,
   "credit_id" : string | null,
-  "order" : number | null
+  "order" : number | null,
+  "profile_path" : string | null,
 }
 
 export interface TvCreditsCrew{

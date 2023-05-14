@@ -6,8 +6,14 @@ import {ProductionCountry} from "../common/production-country";
 import {TvSeasonDetails} from "./tv-season-details";
 import {SpokenLanguage} from "../common/spoken-language";
 import {TvCredits} from "./tv-credits";
+import {Trailer} from "../common/trailer";
 
 export interface TvDetails {
+  runtime: any;
+  reviews: any;
+  "videos":{
+    "results": Array<Trailer>
+  } ,
   "backdrop_path": string,
   "created_by": Array<TvCreatedBy>,
   "episode_run_time": Array<number>,

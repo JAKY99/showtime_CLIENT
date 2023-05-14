@@ -125,6 +125,7 @@ import { DesktopBackdropCardComponent } from './components/web/desktop-backdrop-
 import { DesktopCarouselComponent } from './components/web/desktop-carousel/desktop-carousel.component';
 import { DesktopMovieDetailsComponent } from './components/web/desktop-movie-details/desktop-movie-details.component'
 import {ScrollPanelModule} from "primeng/scrollpanel";
+import { DesktopTvDetailsComponent } from './components/web/desktop-tv-details/desktop-tv-details.component';
 
 @NgModule({
   declarations: [
@@ -203,6 +204,7 @@ import {ScrollPanelModule} from "primeng/scrollpanel";
     ResponseCommentComponent,
     CommentResponseComponent,
     DesktopMovieDetailsComponent,
+    DesktopTvDetailsComponent,
   ],
   imports: [
     HttpClientModule,
