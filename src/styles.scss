@@ -49,6 +49,11 @@ $profileContainerHeight: 6.5rem;
   }
 }
 
+img{
+  max-width: 100%;
+  display: block;
+}
+
 .p-divider {
   margin: .2rem 0;
 
@@ -100,6 +105,10 @@ $profileContainerHeight: 6.5rem;
 
   &-big {
     font-size: 1.8rem;
+  }
+
+  &-big-2 {
+    font-size: 2.5rem;
   }
 
   &.dark {
@@ -379,6 +388,14 @@ $profileContainerHeight: 6.5rem;
   &:hover{
     background: transparent;
   }
+}
+
+.glass{
+  background: rgba(77, 77, 77, 0.45);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 @keyframes p-progress-spinner-color {

@@ -29,5 +29,5 @@ export interface MovieCreditsCrew {
   "name": string | null,
   "original_name": string | null,
   "popularity": number | null,
-  "profil_path": string | null
+  "profile_path": string | null
 }

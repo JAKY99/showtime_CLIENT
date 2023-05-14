@@ -1,15 +1,15 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
+import {Component, OnInit} from '@angular/core';
+import {faChevronDown, faClose} from "@fortawesome/free-solid-svg-icons";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'app-media-details-dialog',
   templateUrl: './media-details-dialog.component.html',
-  styleUrls: ['./media-details-dialog.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./media-details-dialog.component.scss']
 })
 export class MediaDetailsDialogComponent implements OnInit {
 
-  faChevronDown = faChevronDown;
+  closeIcon = faChevronDown;
 
   viewedDialogShown: boolean = false;
   viewedDialogPosition: string = 'bottom';
@@ -17,9 +17,21 @@ export class MediaDetailsDialogComponent implements OnInit {
   requestedMovieId: number = 0;
   requestedTvId: number = 0;
 
-  constructor() { }
+  public isMobileDevice: boolean = false;
+  public isTabletDevice: boolean = false;
+  public isDesktopDevice: boolean = false;
+
+  constructor(private deviceService: DeviceDetectorService) { }
 
   ngOnInit(): void {
+    this.isMobileDevice = this.deviceService.isMobile();
+    this.isTabletDevice = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
+
+    if (this.isDesktopDevice) {
+      this.viewedDialogPosition = 'center'
+      this.closeIcon = faClose;
+    }
   }
 
   close(){

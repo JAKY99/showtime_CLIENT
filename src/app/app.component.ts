@@ -19,7 +19,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.primengConfig.ripple = true;
+    this.primengConfig.ripple = false;
     this.isMobileDevice = this.deviceService.isMobile();
     this.isTabletDevice = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();

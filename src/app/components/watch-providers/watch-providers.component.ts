@@ -28,6 +28,7 @@ export class WatchProvidersComponent implements OnInit {
   @Input() streamProviders: boolean = true;
   @Input() rentProviders: boolean = true;
   @Input() buyProviders: boolean = true;
+  @Input() title: boolean = true;
   @Output() noData = new EventEmitter();
 
   swiperConfig: any = {
