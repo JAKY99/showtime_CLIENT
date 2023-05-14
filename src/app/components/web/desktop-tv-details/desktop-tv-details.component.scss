@@ -1,0 +1,182 @@
+@import "styles";
+.backdrop-img{
+  position: absolute;
+  min-width: 100%;
+  max-width: 100%;
+  img{
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    background: linear-gradient(to bottom, transparent, $main-color);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+.movie-details-main-section{
+  position: relative;
+  display: block;
+  z-index: 9000;
+  margin: 20rem 8rem 8rem;
+
+  .movie-details-top-section{
+    display: grid;
+    grid-template-columns: 25% 1fr 25%;
+    gap: $margin-big;
+
+    .movie-details-poster-section{
+      max-height: 62vh;
+      padding: $margin-big-2 + 1 $margin-default $margin-default;
+      display: flex;
+      flex-direction: column;
+      gap: $margin-default;
+      align-items: center;
+      .votes{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: $margin-big;
+        .rate{
+          font-size: $font-big-2 + 1;
+          color: $secondary-color;
+          font-weight: 700;
+        }
+
+        .review{
+          p{
+            font-size: $font-big;
+            font-weight: 300;
+            margin: $margin-small;
+            span{
+              font-size: $font-big-2;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .movie-details-section{
+    padding: $margin-big-2 + 1 $margin-big $margin-big;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: $margin-big;
+
+    &-title{
+      display: flex;
+      flex-direction: column;
+      gap: $margin-small;
+      font-size: $font-big;
+      font-weight: 300;
+
+      .title{
+        font-size: $font-big-2 + 1;
+        font-weight: 800;
+      }
+    }
+    &-actions{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: $margin-big-2;
+
+      .seen-icon{
+        svg{
+          width: 3.5rem!important;
+          height: 3.5rem!important;
+        }
+      }
+    }
+
+    &-more-details{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .row{
+        display: grid;
+        grid-template-columns: 30% 1fr;
+        gap: $margin-big;
+        align-items: center;
+
+        .subrow{
+          display: flex;
+          align-items: center;
+          gap: $margin-default;
+          flex-wrap: wrap;
+        }
+      }
+    }
+  }
+
+  .movie-details-credits-section{
+    max-height: 62vh;
+    overflow: hidden;
+    padding: $margin-big $margin-big $margin-small;
+
+    .actor-container{
+      display: flex;
+      align-items: center;
+      gap: $margin-big;
+
+      .actor-image{
+        width: 90px;
+        height: 90px;
+        border-radius: 9999px;
+        object-fit: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .actor-infos {
+        display: flex;
+        flex-direction: column;
+        gap: $margin-small;
+        .name {
+          font-size: $font-big;
+          font-weight: 800;
+        }
+        .character{
+          color: #c0c0c0;
+          font-size: $font-default;
+        }
+      }
+    }
+  }
+}
+
+.movie-details-trailers-section{
+  margin-top: 10rem;
+  .trailers{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: $margin-big;
+  }
+}
+
+.movie-details-comments{
+  margin-top: 10rem;
+}
+
+.text-shadow {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.active-action{
+  color: $secondary-color!important;
+}
+

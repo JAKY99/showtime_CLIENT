@@ -1,0 +1,131 @@
+<app-image class="backdrop-img" *ngIf="!loading.tv" [imagePath]="tv.backdrop_path"
+           imageSize="original" [lazyLoading]="false"
+></app-image>
+<div class="movie-details-main-section" *ngIf="!loading.tv">
+  <div class="movie-details-top-section">
+    <div class="movie-details-poster-section glass">
+      <app-poster-image style="width: 75%" [item]="posterImage" [borderRadius]="true"
+                        [originalSize]="true"></app-poster-image>
+      <div class="votes">
+        <div class="rate">{{getRateFormat()}}</div>
+        <div class="review">
+          <p><span>{{tv.vote_count}}</span> ratings</p>
+          <p><span>{{tv.reviews.total_results}}</span> reviews</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="movie-details-section glass">
+      <div class="movie-details-section-title">
+        <span class="title text-shadow">{{tv.name}}</span>
+        <span class="original-title text-shadow">Original title: {{tv.original_name}}</span>
+        <div class="mt-3" style="font-size: 1.4rem; font-weight: bold">
+          <span>Series ({{getTVYear(tv.first_air_date)}} - {{getTVYear(tv.last_air_date)}})</span>
+          <span class="mx-3" style="font-size: .8rem">•</span>
+          <span>{{tv.number_of_seasons}} season</span>
+          <span class="mx-3" style="font-size: .8rem">•</span>
+          <span>{{tv.number_of_episodes}} episodes</span>
+        </div>
+      </div>
+      <div class="movie-details-section-actions">
+        <ng-template>
+
+          <app-seen-check pTooltip="Toggle seen status" tooltipPosition="top"
+                          class="seen-icon cursor-pointer" (click)="addSerieToWatchedList()"
+                          [isChecked]="!!userTv.viewInfo.checked"></app-seen-check>
+
+          <fa-icon pTooltip="Toggle watchlist" tooltipPosition="top"
+                   [class]="isInWatchlist ? 'active-action' : ''"
+                   class="cursor-pointer bookmark-icon st-icon-big st-icon-small" [icon]="faBookmark"></fa-icon>
+
+          <fa-icon pTooltip="Toggle favorite" tooltipPosition="top"
+                   [class]="isInFavoriteList ? 'active-action' : ''"
+                   class="fa-icon st-icon-big cursor-pointer" [icon]="faFavorites"></fa-icon>
+
+        </ng-template>
+      </div>
+      <div class="movie-details-section-description">
+        <p class="line-height-3 m-0" style="font-size: 1.2rem">
+          {{tv.overview}}
+        </p>
+      </div>
+      <div class="movie-details-section-more-details">
+        <h2 style="font-size: 1.8rem">Details</h2>
+        <div class="row">
+          <h2>Genres</h2>
+          <div class="subrow">
+            <div *ngFor="let genre of tv.genres">
+              <app-tag
+                [title]="genre.name"
+                [rounded]="true"
+                [full]="true"
+                class="unselectable"
+              ></app-tag>
+            </div>
+          </div>
+        </div>
+        <p-divider *ngIf="countryOrigin"></p-divider>
+        <div class="row" *ngIf="countryOrigin">
+          <h2>Country of origin</h2>
+          <h3>{{countryOrigin.name}}</h3>
+        </div>
+        <p-divider></p-divider>
+        <div class="available-on-platform row" >
+          <h2>Stream platforms</h2>
+          <app-watch-providers *ngIf="!loading.watchProviders && !isWatchProvidersEmpty; else availablePlatformNone" [items]="watchProviders" (noData)="WatchProvidersEmpty($event)" [rentProviders]="false"
+                               [buyProviders]="false" [title]="false"></app-watch-providers>
+          <ng-template #availablePlatformNone>
+            <h3 >None in your region</h3>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="movie-details-credits-section glass">
+      <p-scrollPanel [style]="{width: '100%', height: '100%'}" [scrollTop]="true">
+        <h2 class="text-center" style="font-size: 2.8rem">Cast & Crew</h2>
+        <div class="flex flex-column gap-4">
+          <div *ngFor="let cast of tv.credits.cast?.slice(0, 30)">
+            <div class="actor-container">
+              <div class="img-container">
+                <img *ngIf="cast.profile_path"
+                     width="60px" height="60px"
+                     [src]="getImageCompletePath(cast.profile_path, '500')"
+                     [alt]="cast.original_name"
+                     class="actor-image"
+                >
+                <div *ngIf="!cast.profile_path" class="no-img actor-image">
+                  <fa-icon [icon]="faUser" style="font-size: 2.8rem"></fa-icon>
+                </div>
+              </div>
+              <div class="actor-infos">
+                <span class="name">{{cast.original_name}}</span>
+                <span class="character">as {{cast.character}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-scrollPanel>
+    </div>
+  </div>
+
+  <div class="movie-details-trailers-section">
+    <h2 class="text-center" style="font-size: 2.8rem">Trailer{{resultsTrailer.length > 1 ? 's' : ''}}</h2>
+    <div class="trailers">
+      <div class="trailer flex-column align-self-center mb-3" *ngFor="let trailer of resultsTrailer">
+        <iframe
+          width="800"
+          height="500"
+          [src]=trailer.trailerUrl
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-actor-details-dialog #actorDetailsDialogRef></app-actor-details-dialog>
+
