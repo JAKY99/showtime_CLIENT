@@ -11,11 +11,11 @@ export class MediaDetailsDialogComponent implements OnInit {
 
   closeIcon = faChevronDown;
 
-  viewedDialogShown: boolean = true;
+  viewedDialogShown: boolean = false;
   viewedDialogPosition: string = 'bottom';
 
   requestedMovieId: number = 0;
-  requestedTvId: number = 1396;
+  requestedTvId: number = 0;
 
   public isMobileDevice: boolean = false;
   public isTabletDevice: boolean = false;
