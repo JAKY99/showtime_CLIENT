@@ -14,6 +14,7 @@ import {
 } from "../../components/edit-profile/edit-profile-dialog/edit-profile-dialog.component";
 import {ProfileTopSectionComponent} from "../../components/profile-top-section/profile-top-section.component";
 import {DeviceDetectorService} from "ngx-device-detector";
+import {TvService} from "../../services/tv/tv.service";
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
@@ -27,7 +28,7 @@ export class ProfilePageComponent implements OnInit {
 
   @ViewChild('lastWatchedSeriesRef') lastWatchedSeriesChild: CarouselImageListComponent | undefined;
   @ViewChild('favoritesSeriesRef') favoritesSeriesChild: CarouselImageListComponent | undefined;
-  @ViewChild('watchlistSeriesRef') watchlistSeriesChild: CarouselImageListComponent | undefined;
+  @ViewChild('watchingSeriesRef') watchlistSeriesChild: CarouselImageListComponent | undefined;
 
   @ViewChild('lastWatchedMoviesRef') lastWatchedMoviesChild: CarouselImageListComponent | undefined;
   @ViewChild('favoritesMoviesRef') favoritesMoviesChild: CarouselImageListComponent | undefined;
@@ -40,7 +41,7 @@ export class ProfilePageComponent implements OnInit {
 
   lastWatchedSeries: TvDetails[] = [];
   favoritesSeries: TvDetails[] = [];
-  watchlistSeries: TvDetails[] = [];
+  watchingSeries: TvDetails[] = [];
   faEllipsisVertical = faEllipsisVertical;
   lastWatchedMovies: MovieDetailsModel[] = [];
   favoritesMovies: MovieDetailsModel[] = [];
@@ -57,7 +58,7 @@ export class ProfilePageComponent implements OnInit {
   watchlistMoviesTotal: number = 0;
   lastWatchedSeriesTotal: number = 0;
   favoritesSeriesTotal: number = 0;
-  watchlistSeriesTotal: number = 0;
+  watching: number = 0;
   items: MenuItem[]=[];
   lastWatchedMoviesRangeServiceName: String = "MovieService";
   favoritesMoviesRangeServiceName: String = "MovieService";
@@ -80,11 +81,12 @@ export class ProfilePageComponent implements OnInit {
   favoritesSeriesRangeMethodName: String = "";
   watchlistSeriesRangeMethodName: String = "";
 
-  constructor(private ProfileService: ProfileService,
+  constructor(private profileService: ProfileService,
               private MovieService: MovieService,
               private TokenStorageService: TokenStorageService,
               private confirmationService: ConfirmationService,
-              private deviceService: DeviceDetectorService
+              private deviceService: DeviceDetectorService,
+              private tvService: TvService
   ) {
   }
 
@@ -130,7 +132,7 @@ export class ProfilePageComponent implements OnInit {
 
   async fetchProfileData() {
     try {
-      await this.ProfileService.fetchProfile().subscribe((resp) => {
+      await this.profileService.fetchProfile().subscribe((resp) => {
         setTimeout(() => {
           this.numberMoviesWatched = resp.body.numberOfWatchedMovies;
           this.numberSeriesWatched = resp.body.numberOfWatchedSeries;
@@ -138,6 +140,7 @@ export class ProfilePageComponent implements OnInit {
           this.timeWatchedSeriesMonthDaysHours = resp.body.totalTimeWatchedSeries;
 
           this.fetchLastWatchedMovies();
+          this.fetchLastWatchedSeries()
         }, 100)
       })
     } catch (e) {
@@ -150,16 +153,42 @@ export class ProfilePageComponent implements OnInit {
   private async fetchLastWatchedSeries() {
     try {
       // @ts-ignore
-      await this.ProfileService.fetchLastWatchedSeries().subscribe((resp) => {
-        setTimeout(() => {
-          // @ts-ignore
-          this.lastWatchedSeries = resp.lastWatchedSeries;
-          // @ts-ignore
-          this.favoritesSeries = resp.favoritesSeries;
-          // @ts-ignore
-          this.watchlistSeries = resp.watchlistSeries;
-        }, 100)
+      await this.profileService.fetchLastWatchedSeries().subscribe((resp) => {
+          resp.forEach((item: any) => {
+            this.tvService.fetchTvDetailsRaw(item).toPromise().then(
+              respDetails => {
+                respDetails = JSON.parse(respDetails.data);
+                this.lastWatchedSeries.push(respDetails);
+              })
+            // @ts-ignore
+            this.lastWatchedSeriesChild?.isLoading = false;
+          })
       })
+
+      await this.profileService.fetchfavoritesSeries().subscribe((resp) => {
+        resp.forEach((item: any) => {
+          this.tvService.fetchTvDetailsRaw(item).toPromise().then(
+            respDetails => {
+              respDetails = JSON.parse(respDetails.data);
+              this.favoritesSeries.push(respDetails);
+            })
+          // @ts-ignore
+          this.favoritesSeriesChild?.isLoading = false;
+        })
+      })
+      await this.tvService.fetchTvWatching().toPromise()
+        .then(resp => {
+          resp.forEach((item: any) => {
+            this.tvService.fetchTvDetailsRaw(item).toPromise().then(
+              respDetails => {
+                respDetails = JSON.parse(respDetails.data);
+                this.watchingSeries.push(respDetails);
+              })
+            // @ts-ignore
+            this.watchlistSeriesChild?.isLoading = false;
+          })
+        })
+      //
     } catch (e) {
       console.log(e)
     }
@@ -169,7 +198,7 @@ export class ProfilePageComponent implements OnInit {
     try {
       let dataToFetch: MovieDetailsModel[] = [];
       // @ts-ignore
-      await this.ProfileService.fetchLastWatchedMovie().subscribe(async (resp) => {
+      await this.profileService.fetchLastWatchedMovie().subscribe(async (resp) => {
         // @ts-ignore
         resp = resp.body
         this.lastWatchedMovies = [];

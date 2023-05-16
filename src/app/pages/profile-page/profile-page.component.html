@@ -14,31 +14,35 @@
   <div class="tab-view-section mt-3">
     <p-tabView (onChange)="handleChangeTabView($event)">
       <p-tabPanel header="Series" class="series-panel">
+
+
+
         <div class="last-watched carousel-container">
           <div class="header-title">
-            <h2 class="m-3 mb-3 text-white text-base">Last watched</h2>
+            <h2 class="m-3 mb-3 text-white text-base">Last watched </h2>
             <span class="see-all-btn" (click)="openViewAllProfileList('lastWatchedSeries')"
                   *ngIf="lastWatchedSeriesTotal>10">See all</span>
           </div>
-          <app-carousel-image-list #lastWatchedSeriesRef [items]="lastWatchedSeries"
+          <app-carousel-image-list  *ngIf="lastWatchedSeries.length; else emptyWatched" #lastWatchedSeriesRef [items]="lastWatchedSeries"
                                    (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+          <ng-template #emptyWatched >
+            <p class="m-3 mb-3 text-white text-base"><i>No Series watched, please go and like some</i></p>
+          </ng-template>
         </div>
+
+
         <div class="favorites carousel-container">
           <div class="header-title">
             <h2 class="m-3 mb-3 text-white text-base">Favorites</h2>
-            <span class="see-all-btn" (click)="openViewAllProfileList('favoritesSeries')"
-                  *ngIf="favoritesSeriesTotal>10">See all</span>
           </div>
           <app-carousel-image-list #favoritesSeriesRef [items]="favoritesSeries"
                                    (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
         </div>
         <div class="watchlist carousel-container">
           <div class="header-title">
-            <h2 class="m-3 mb-3 text-white text-base">Watchlist</h2>
-            <span class="see-all-btn" (click)="openViewAllProfileList('watchlistSeries')"
-                  *ngIf="watchlistSeriesTotal>10">See all</span>
+            <h2 class="m-3 mb-3 text-white text-base">Watching</h2>
           </div>
-          <app-carousel-image-list #watchlistSeriesRef [items]="watchlistSeries"
+          <app-carousel-image-list #watchingSeriesRef [items]="watchingSeries"
                                    (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
         </div>
       </p-tabPanel>
@@ -133,13 +137,13 @@
         </div>
         <app-desktop-carousel [small]="true" [items]="watchlistMovies" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
       </div>
-      <div class="last-watched carousel-container mt-6" *ngIf="watchlistSeries.length">
+      <div class="last-watched carousel-container mt-6" *ngIf="watchingSeries.length">
         <div class="header-title">
           <h2 class="m-3 mb-3 text-white text-base">Watchlist Series</h2>
           <span class="see-all-btn" (click)="openViewAllProfileList('watchlistSeries')"
                 *ngIf="lastWatchedSeriesTotal>10">See all</span>
         </div>
-        <app-desktop-carousel [small]="true" [items]="watchlistSeries" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
+        <app-desktop-carousel [small]="true" [items]="watchingSeries" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
       </div>
     </div>
   </div>

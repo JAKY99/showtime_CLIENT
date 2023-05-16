@@ -26,15 +26,18 @@ export class ProfileService {
   }
 
   fetchLastWatchedSeries() {
-    let url = GlobalConstants.API_URL + "/api/v1/user/profile/lazy/lastWatchedSeries";
-    // @ts-ignore
-    return this.http.post<string>(
-      url,
-      this.tokenStorage.getClientUsername(),
-      // @ts-ignore
-      httpOptions);
-
+    let url = `${GlobalConstants.API_URL}/api/v1/user/fetchLastTvSeriesWatched/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername()
+    });
   }
+  fetchfavoritesSeries() {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/fetchfavoritesSeries/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
   fetchLastWatchedMovie() {
     let url = GlobalConstants.API_URL + "/api/v1/user/profile/lazy/lastWatchedMovies";
     // @ts-ignore

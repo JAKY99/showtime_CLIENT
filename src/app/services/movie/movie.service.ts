@@ -207,8 +207,8 @@ export class MovieService {
       movieName: title,
       userMail: this.tokenStorage.getClientUsername()
     });
-
   }
+
   lastWatchedMoviesRange(currentLength: number) {
     let url = `${GlobalConstants.API_URL}/api/v1/user/lastWatchedMoviesRange/`
     return this.http.post<any>(url, {

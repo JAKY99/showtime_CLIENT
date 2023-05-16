@@ -3,12 +3,14 @@ import {TvService} from "../../services/tv/tv.service";
 import {ActivatedRoute} from "@angular/router";
 import {TvDetails} from "../../models/tv/tv-details";
 import {GlobalConstants} from "../../common/constants/global-constants";
-import {faBookmark, faStarHalfStroke, faChevronRight, faPlay} from "@fortawesome/free-solid-svg-icons";
+import {faBookmark, faStarHalfStroke, faChevronRight, faPlay, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {stringToDate} from "../../js/date-helper";
 import {TvEpisodeDetails} from "../../models/tv/tv-episode-details";
 import {CarouselImageListComponent} from "../carousel-image-list/carousel-image-list.component";
 import {TvSimilar} from "../../models/tv/tv-similar";
 import {AccordionSeasonsComponent} from "../accordion-seasons/accordion-seasons.component";
+import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-tv-details',
@@ -19,7 +21,7 @@ import {AccordionSeasonsComponent} from "../accordion-seasons/accordion-seasons.
 
 export class TvDetailsComponent implements OnInit {
 
-  constructor(private tvService: TvService, private route: ActivatedRoute) {
+  constructor(private tvService: TvService, private route: ActivatedRoute, private messageService: MessageService) {
   }
 
   @ViewChild('similarTvRef') similarTvChild: CarouselImageListComponent | undefined;
@@ -31,10 +33,12 @@ export class TvDetailsComponent implements OnInit {
 
   faBookmark = faBookmark;
   faStarHalfStroke = faStarHalfStroke;
+  faFavorites : IconDefinition = faHeart;
   faChevronRight = faChevronRight;
   faPlay = faPlay;
   watchProviders: [] = [];
   isWatchProvidersEmpty = false;
+  isInFavoritelist = false;
   seenStatus: string = "Not Seen";
 
   viewedStatus: boolean = false;
@@ -50,9 +54,13 @@ export class TvDetailsComponent implements OnInit {
 
   userTv = {
     bookmark: [],
+
     viewInfo: {
       checked: '',
       status: 'Not Seen',
+    },
+    favorite: {
+      checked: '',
     }
   }
 
@@ -174,6 +182,11 @@ export class TvDetailsComponent implements OnInit {
         this.loading.watchProviders = false;
       }
     )
+
+    await this.tvService.isTvInFavoritelist(this.requestedTvId).subscribe((resp) => {
+      this.userTv.favorite.checked = resp ? 'checked' : '';
+      this.isInFavoritelist = resp;
+    })
   }
 
   async updateLastSeenEpisode() {
@@ -235,5 +248,32 @@ export class TvDetailsComponent implements OnInit {
 
   updateSpecificEpisodeInSeasonAccordion() {
     this.accordionSeasonsChild?.updateSpecificEpisodeStatus(this.lastEpisode);
+  }
+
+  async toggleTvInFavoritelist() {
+    await this.tvService.toggleTvInFavoritelist(this.requestedTvId).subscribe((resp) => {
+      this.isInFavoritelist = resp;
+      this.userTv.favorite.checked = resp ? 'checked' : '';
+      if (resp) {
+        this.addSingleToast(
+          'success',
+          'Tv Show added to favorite list',
+          'You can see your favorite list in the profile page',
+          false
+        )
+      }
+      if (!resp) {
+        this.addSingleToast(
+          'success',
+          'Tv Show removed to favorite list',
+          'You can see your favorite list in the profile page',
+          false
+        )
+      }
+    })
+  }
+
+  addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
+    this.messageService.add({severity:severity, summary:title, detail:details, sticky: sticky});
   }
 }
