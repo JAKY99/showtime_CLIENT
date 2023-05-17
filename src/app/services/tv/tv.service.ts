@@ -220,6 +220,14 @@ export class TvService {
     });
   }
 
+  isTvInFavoritelist(requestedTvId: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isTvInFavoritelist/`
+    return this.http.post<any>(url, {
+      tmdbId: requestedTvId,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
   fetchTvWatched() {
     let url = `${GlobalConstants.API_URL}/api/v1/user/fetchTvWatched/`
     return this.http.post<any>(url, {
@@ -236,6 +244,14 @@ export class TvService {
     // "/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_genres="+genre+"?api_key=" + GlobalConstants.TMDB_KEY
     // "trending/all/week?api_key=" + GlobalConstants.TMDB_KEY
     return this.RedisService.getDataFromRedisCache(url);
+  }
+
+  toggleTvInFavoritelist(tmdbTvId: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/toggleTvInFavoritelist/`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbTvId,
+      userMail: this.tokenStorage.getClientUsername()
+    });
   }
 
 }
