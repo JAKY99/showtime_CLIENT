@@ -44,7 +44,6 @@ export class MoviesPageComponent implements OnInit {
   popularTv: TvDetails[] = [];
   items: MenuItem[] = [];
   userLocationData = {
-    ipv4: "",
     country_code2: ""
   };
   PopularMovies: MovieDetailsModel[] = [];
@@ -66,6 +65,9 @@ export class MoviesPageComponent implements OnInit {
       .then(resp => {
         this.userLocationData = resp;
       })
+      .catch(err => {
+        this.userLocationData = this.userGeoService.emulateLocation();
+      });
     this.trendingService.fetchMovieTrendings().subscribe(resp => {
       resp = JSON.parse(resp.data);
       this.trendingsList = resp.results;

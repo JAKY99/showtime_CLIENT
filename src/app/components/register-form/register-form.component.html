@@ -6,7 +6,6 @@
     <h1 class="title"><span class="text-white">Show</span>Time</h1>
   </div>
   <div class="card mt-3 mb-3">
-    <p-toast></p-toast>
     <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="true" ></p-steps>
   </div>
   <form id="formPersonalInfo" [formGroup]="personalInformationForm" class="flex flex-column justify-content-center gap-4" (ngSubmit)="goAccountInfo()">
@@ -104,5 +103,4 @@
       ></button>
     </div>
   </form>
-  <p-toast position="bottom-center"></p-toast>
 </div>
