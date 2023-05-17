@@ -50,7 +50,6 @@ export class HomePageComponent implements OnInit {
   popularTv: TvDetails[] = [];
   items: MenuItem[] = [];
   userLocationData = {
-    ipv4: "",
     country_code2: ""
   };
   isMobileDevice: boolean = false;
@@ -78,7 +77,11 @@ export class HomePageComponent implements OnInit {
     await this.userGeoService.fetchLocationData().toPromise()
       .then(resp => {
         this.userLocationData = resp;
+        console.log(resp)
       })
+      .catch(err => {
+        this.userLocationData = this.userGeoService.emulateLocation();
+      });
     this.trendingService.fetchAllTrendings().subscribe(resp => {
       resp = JSON.parse(resp.data);
       this.trendingsList = resp.results;
