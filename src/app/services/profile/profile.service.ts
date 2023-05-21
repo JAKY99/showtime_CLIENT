@@ -38,6 +38,13 @@ export class ProfileService {
     });
   }
 
+  fetchTvWatchlist() {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/fetchTvWatchlist/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
   fetchLastWatchedMovie() {
     let url = GlobalConstants.API_URL + "/api/v1/user/profile/lazy/lastWatchedMovies";
     // @ts-ignore

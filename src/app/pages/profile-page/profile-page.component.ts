@@ -28,7 +28,8 @@ export class ProfilePageComponent implements OnInit {
 
   @ViewChild('lastWatchedSeriesRef') lastWatchedSeriesChild: CarouselImageListComponent | undefined;
   @ViewChild('favoritesSeriesRef') favoritesSeriesChild: CarouselImageListComponent | undefined;
-  @ViewChild('watchingSeriesRef') watchlistSeriesChild: CarouselImageListComponent | undefined;
+  @ViewChild('watchingSeriesRef') watchingSeriesChild: CarouselImageListComponent | undefined;
+  @ViewChild('watchlistSeriesRef') watchlistSeriesChild: CarouselImageListComponent | undefined;
 
   @ViewChild('lastWatchedMoviesRef') lastWatchedMoviesChild: CarouselImageListComponent | undefined;
   @ViewChild('favoritesMoviesRef') favoritesMoviesChild: CarouselImageListComponent | undefined;
@@ -42,6 +43,7 @@ export class ProfilePageComponent implements OnInit {
   lastWatchedSeries: TvDetails[] = [];
   favoritesSeries: TvDetails[] = [];
   watchingSeries: TvDetails[] = [];
+  watchListSeries: TvDetails[] = [];
   faEllipsisVertical = faEllipsisVertical;
   lastWatchedMovies: MovieDetailsModel[] = [];
   favoritesMovies: MovieDetailsModel[] = [];
@@ -183,6 +185,18 @@ export class ProfilePageComponent implements OnInit {
               respDetails => {
                 respDetails = JSON.parse(respDetails.data);
                 this.watchingSeries.push(respDetails);
+              })
+            // @ts-ignore
+            this.watchingSeriesChild?.isLoading = false;
+          })
+        })
+      await this.profileService.fetchTvWatchlist().toPromise()
+        .then(resp => {
+          resp.forEach((item: any) => {
+            this.tvService.fetchTvDetailsRaw(item).toPromise().then(
+              respDetails => {
+                respDetails = JSON.parse(respDetails.data);
+                this.watchListSeries.push(respDetails);
               })
             // @ts-ignore
             this.watchlistSeriesChild?.isLoading = false;

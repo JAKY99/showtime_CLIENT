@@ -39,8 +39,12 @@ export class TvDetailsComponent implements OnInit {
   watchProviders: [] = [];
   isWatchProvidersEmpty = false;
   isInFavoritelist = false;
+  isInWatchlist = false;
   seenStatus: string = "Not Seen";
 
+  isLoadingStatusWatchList: boolean = false;
+  isLoadingStatusSerie: boolean = false;
+  isLoadingStatusFavorite: boolean = false;
   viewedStatus: boolean = false;
   viewedDialogShown: boolean = false;
   globalConstants = GlobalConstants;
@@ -53,13 +57,14 @@ export class TvDetailsComponent implements OnInit {
   similarTv: TvSimilar[] = [];
 
   userTv = {
-    bookmark: [],
-
     viewInfo: {
       checked: '',
       status: 'Not Seen',
     },
     favorite: {
+      checked: '',
+    },
+    bookmark: {
       checked: '',
     }
   }
@@ -187,6 +192,12 @@ export class TvDetailsComponent implements OnInit {
       this.userTv.favorite.checked = resp ? 'checked' : '';
       this.isInFavoritelist = resp;
     })
+
+    await this.tvService.isTvInWatchlist(this.requestedTvId).subscribe((resp) => {
+      console.log(resp)
+      this.userTv.bookmark.checked = resp ? 'checked' : '';
+      this.isInWatchlist = resp;
+    })
   }
 
   async updateLastSeenEpisode() {
@@ -226,6 +237,8 @@ export class TvDetailsComponent implements OnInit {
   }
 
   async addSerieToWatchedList() {
+    this.isLoadingStatusSerie = true;
+
     await this.tvService.addSerieToWatchedList(
       this.tv.id,
       this.tv.name
@@ -234,6 +247,8 @@ export class TvDetailsComponent implements OnInit {
         this.loading.isLoadingChildren = true;
         this.fetchWatchedSerieInfos();
         this.updateSerieInfosFromChild(this.requestedTvId);
+        this.isLoadingStatusSerie = false;
+
       }
     )
   }
@@ -251,6 +266,8 @@ export class TvDetailsComponent implements OnInit {
   }
 
   async toggleTvInFavoritelist() {
+    this.isLoadingStatusFavorite = true;
+
     await this.tvService.toggleTvInFavoritelist(this.requestedTvId).subscribe((resp) => {
       this.isInFavoritelist = resp;
       this.userTv.favorite.checked = resp ? 'checked' : '';
@@ -261,6 +278,8 @@ export class TvDetailsComponent implements OnInit {
           'You can see your favorite list in the profile page',
           false
         )
+        this.isLoadingStatusFavorite = false;
+
       }
       if (!resp) {
         this.addSingleToast(
@@ -269,9 +288,38 @@ export class TvDetailsComponent implements OnInit {
           'You can see your favorite list in the profile page',
           false
         )
+        this.isLoadingStatusFavorite = false;
+
       }
     })
   }
+
+  async toggleTvInWatchlist() {
+    this.isLoadingStatusWatchList = true;
+    await this.tvService.toggleTvInWatchlist(this.requestedTvId).subscribe((resp) => {
+      this.isInWatchlist = resp;
+      this.userTv.bookmark.checked = resp ? 'checked' : '';
+      if (resp) {
+        this.addSingleToast(
+          'success',
+          'Tv Show added to your Watchlist',
+          'You can see your Watchlist in the profile page',
+          false
+        )
+        this.isLoadingStatusWatchList = false;
+      }
+      if (!resp) {
+        this.addSingleToast(
+          'success',
+          'Tv Show removed to your Watchlist or already seen',
+          'You can see your Watchlist in the profile page',
+          false
+        )
+        this.isLoadingStatusWatchList = false;
+      }
+    })
+  }
+
 
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
     this.messageService.add({severity:severity, summary:title, detail:details, sticky: sticky});

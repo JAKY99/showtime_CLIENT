@@ -11,10 +11,13 @@
 
           <p class="epCount"> {{season.nbEpisodesWatched}} / {{season.episodes.length}}</p>
           <i
+            *ngIf="!isLoadingStatus"
             (click)="updateSeasonStatus(season.id)"
             [class]="season.watchedStatus"
             class="fa-solid fa-circle-check watched-status-check st-icon ">
           </i>
+          <p-progressSpinner *ngIf="isLoadingStatus"  styleClass="custom-spinner" strokeWidth="8"></p-progressSpinner>
+
         </div>
       </div>
 

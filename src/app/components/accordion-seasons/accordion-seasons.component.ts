@@ -36,6 +36,7 @@ export class AccordionSeasonsComponent implements OnInit {
 
   viewedStatus: boolean = false;
   viewedDialogShown: boolean = false;
+  isLoadingStatus: boolean = false;
 
 
   // @ts-ignore
@@ -92,6 +93,8 @@ export class AccordionSeasonsComponent implements OnInit {
   }
 
   async updateSeasonStatus( seasonId: number){
+    this.isLoadingStatus = true;
+
     if(this.viewedStatus){
       this.viewedDialogShown = true;
     }else{
@@ -110,6 +113,8 @@ export class AccordionSeasonsComponent implements OnInit {
             }
           })
           this.resultsSerieEmitterEventv2.emit(this.tvId);
+          this.isLoadingStatus = false;
+
         }
       )
     }
