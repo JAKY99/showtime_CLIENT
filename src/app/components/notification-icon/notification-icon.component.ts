@@ -95,6 +95,29 @@ export class NotificationIconComponent implements OnInit {
           }, 500)
         }
       });
+      // @ts-ignore
+      that.client.subscribe("/topic/usernotification/" + this.env, (message) => {
+        if (message.body) {
+          that.loading = true
+          let result = JSON.parse(message.body);
+          if (localStorage.getItem('isAndroid') === 'true') {
+            // @ts-ignore
+            window['Android'].createNotification('Showtime App', result.message);
+            this.newNotification = true;
+            // @ts-ignore
+            this.fetchNotifications();
+          }
+          if (localStorage.getItem('isAndroid') !== 'true') {
+            this.addSingleToast('success', 'Notification', 'You have a new notification');
+            this.newNotification = true;
+            // @ts-ignore
+            this.fetchNotifications();
+          }
+          setTimeout(() => {
+            this.loading = false
+          }, 500)
+        }
+      });
     }, this.onSocketfailure);
   }
 
