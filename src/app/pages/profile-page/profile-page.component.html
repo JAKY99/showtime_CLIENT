@@ -16,6 +16,38 @@
       <p-tabPanel header="Series" class="series-panel">
 
 
+        <div class="favorites carousel-container">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">Favorites</h2>
+          </div>
+          <app-carousel-image-list *ngIf="favoritesSeries.length; else emptyFav" #favoritesSeriesRef [items]="favoritesSeries"
+                                   (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+          <ng-template #emptyFav >
+            <p class="m-3 mb-3 text-white text-base"><i>No Series in favorite, please go and like some !</i></p>
+          </ng-template>
+        </div>
+
+        <div class="watchlist carousel-container">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">Watching</h2>
+          </div>
+          <app-carousel-image-list *ngIf="watchingSeries.length; else emptyWatching" #watchingSeriesRef [items]="watchingSeries"
+                                   (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+          <ng-template #emptyWatching >
+            <p class="m-3 mb-3 text-white text-base"><i>No Series watching, please go and check some !</i></p>
+          </ng-template>
+        </div>
+
+        <div class="watchlist carousel-container">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">WatchList</h2>
+          </div>
+          <app-carousel-image-list *ngIf="watchListSeries.length; else emptyWatchlist" #watchlistSeriesRef [items]="watchListSeries"
+                                   (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+          <ng-template #emptyWatchlist >
+            <p class="m-3 mb-3 text-white text-base"><i>Nothing in watchlist, please go and check some !</i></p>
+          </ng-template>
+        </div>
 
         <div class="last-watched carousel-container">
           <div class="header-title">
@@ -26,25 +58,11 @@
           <app-carousel-image-list  *ngIf="lastWatchedSeries.length; else emptyWatched" #lastWatchedSeriesRef [items]="lastWatchedSeries"
                                    (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
           <ng-template #emptyWatched >
-            <p class="m-3 mb-3 text-white text-base"><i>No Series watched, please go and like some</i></p>
+            <p class="m-3 mb-3 text-white text-base"><i>No Series watched, please go and check some !</i></p>
           </ng-template>
         </div>
 
 
-        <div class="favorites carousel-container">
-          <div class="header-title">
-            <h2 class="m-3 mb-3 text-white text-base">Favorites</h2>
-          </div>
-          <app-carousel-image-list #favoritesSeriesRef [items]="favoritesSeries"
-                                   (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
-        </div>
-        <div class="watchlist carousel-container">
-          <div class="header-title">
-            <h2 class="m-3 mb-3 text-white text-base">Watching</h2>
-          </div>
-          <app-carousel-image-list #watchingSeriesRef [items]="watchingSeries"
-                                   (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
-        </div>
       </p-tabPanel>
       <p-tabPanel header="Movies" class="movies-panel">
         <div class="last-watched carousel-container" *ngIf="lastWatchedMovies.length">
@@ -90,7 +108,7 @@
       </div>
       <div class="stats-desktop">
         <app-profile-stat-time [isBig]="true" title="tv time" [time]=timeWatchedSeriesMonthDaysHours></app-profile-stat-time>
-        <app-profile-stat-number [isBig]="true" title="episodes watched" [number]=numberSeriesWatched></app-profile-stat-number>
+        <app-profile-stat-number [isBig]="true" title="Seasons watched" [number]=numberSeriesWatched></app-profile-stat-number>
         <app-profile-stat-time [isBig]="true" title="movie time" [time]=timeWatchedMovieMonthDaysHours></app-profile-stat-time>
         <app-profile-stat-number [isBig]="true" title="movies watched" [number]=numberMoviesWatched></app-profile-stat-number>
       </div>

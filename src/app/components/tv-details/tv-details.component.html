@@ -9,9 +9,12 @@
 
   <div class="watched-section">
     <div class="status">
-      <i (click)="addSerieToWatchedList()"
+      <i
+        *ngIf="!isLoadingStatusSerie"
+        (click)="addSerieToWatchedList()"
          [class]="userTv.viewInfo.checked"
          class="fa-solid fa-circle-check watched-status-check st-icon"></i>
+      <p-progressSpinner *ngIf="isLoadingStatusSerie"  styleClass="custom-spinner" strokeWidth="8"></p-progressSpinner>
 
       <app-tag
         [title]="seenStatus"
@@ -23,14 +26,20 @@
 
     </div>
     <div class="tv-actions-icon">
-      <div (click)="toggleTvInFavoritelist()" class="bookmark">
+      <div  *ngIf="!isLoadingStatusFavorite"
+            (click)="toggleTvInFavoritelist()" class="bookmark">
         <fa-icon [class]="userTv.favorite.checked" class="fa-icon st-icon st-icon-small" [icon]="faFavorites"></fa-icon>
       </div>
+      <p-progressSpinner *ngIf="isLoadingStatusFavorite" styleClass="custom-spinner" strokeWidth="8"></p-progressSpinner>
 
-      <div class="bookmark">
+
+      <div   *ngIf="!isLoadingStatusWatchList"
+             (click)="toggleTvInWatchlist()" class="bookmark">
         <fa-icon class="bookmark-icon st-icon st-icon-small" [icon]="faBookmark"></fa-icon>
-        <span *ngIf="userTv.bookmark.length" class="badge">{{userTv.bookmark.length}}</span>
+        <span *ngIf="userTv.bookmark.checked" class="badge"></span>
       </div>
+      <p-progressSpinner *ngIf="isLoadingStatusWatchList" styleClass="custom-spinner" strokeWidth="8"></p-progressSpinner>
+
     </div>
   </div>
 

@@ -220,8 +220,18 @@ export class TvService {
     });
   }
 
+
+
   isTvInFavoritelist(requestedTvId: number) {
     let url = `${GlobalConstants.API_URL}/api/v1/user/isTvInFavoritelist/`
+    return this.http.post<any>(url, {
+      tmdbId: requestedTvId,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
+  isTvInWatchlist(requestedTvId: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/isTvInWatchlistSeries/`
     return this.http.post<any>(url, {
       tmdbId: requestedTvId,
       userMail: this.tokenStorage.getClientUsername()
@@ -239,10 +249,6 @@ export class TvService {
   fetchListByGenre(idGenre : number): Observable <any>{
     let url = GlobalConstants.TMDB_BASE_URL + "discover/tv?api_key=" + GlobalConstants.TMDB_KEY +"&with_genres=" + idGenre +
       "&language=en-US&sort_by=popularity.desc";
-
-    // let url = GlobalConstants.TMDB_BASE_URL +
-    // "/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_genres="+genre+"?api_key=" + GlobalConstants.TMDB_KEY
-    // "trending/all/week?api_key=" + GlobalConstants.TMDB_KEY
     return this.RedisService.getDataFromRedisCache(url);
   }
 
@@ -253,5 +259,14 @@ export class TvService {
       userMail: this.tokenStorage.getClientUsername()
     });
   }
+
+  toggleTvInWatchlist(tmdbTvId: number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/toggleTvInWatchlist/`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbTvId,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
+
 
 }
