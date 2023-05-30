@@ -28,7 +28,7 @@ export class AppComponent {
   title = 'Showtime';
 
   isNavbarMobileShown() {
-    return this.isMobileDevice || this.isTabletDevice && (this.router.url.includes('/movies') ||
+    return (this.isMobileDevice || this.isTabletDevice) && (this.router.url.includes('/movies') ||
       this.router.url.includes('/home') ||
       this.router.url.includes('/series') ||
       this.router.url.includes('/social') ||
