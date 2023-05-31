@@ -13,6 +13,7 @@ import {ChangePasswordPageComponent} from './pages/change-password-page/change-p
 import {MainSearchPageComponent} from "./pages/main-search-page/main-search-page.component";
 import {PrivacyPageComponent} from "./pages/privacy-page/privacy-page.component";
 import {CheckupdateGuard} from "./checkupdate.guard";
+import {Page404Component} from "./pages/page404/page404.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -56,7 +57,8 @@ const routes: Routes = [
     path:'search',
     component: MainSearchPageComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  { path: '**', component: Page404Component },
 ];
 
 @NgModule({

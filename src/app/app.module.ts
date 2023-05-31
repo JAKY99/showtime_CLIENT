@@ -126,10 +126,12 @@ import { DesktopCarouselComponent } from './components/web/desktop-carousel/desk
 import { DesktopMovieDetailsComponent } from './components/web/desktop-movie-details/desktop-movie-details.component'
 import {ScrollPanelModule} from "primeng/scrollpanel";
 import { DesktopTvDetailsComponent } from './components/web/desktop-tv-details/desktop-tv-details.component';
+import {Page404Component} from "./pages/page404/page404.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    Page404Component,
     LoginFormComponent,
     ResetPasswordFormComponent,
     LoginPageComponent,
