@@ -3,7 +3,9 @@
 .app-movies-page{
   background-color: $main-color;
   padding-top: $margin-big-2 + 1;
-
+.trending-section{
+  margin-left: 0.9rem;
+}
   .top-header{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
