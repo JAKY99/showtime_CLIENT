@@ -17,8 +17,7 @@ jobs:
       - name : change sonarqube project key
         run: |
           rm  sonar-project.properties
-          echo "sonar.projectKey=showtime_CLIENT_dev" >> sonar-project.properties
-          chmod 777 sonar-project.properties
+          echo "sonar.projectKey=staging_showtime_CLIENT" >> sonar-project.properties
       - uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_STAGING }}
