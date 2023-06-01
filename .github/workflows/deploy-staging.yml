@@ -18,7 +18,6 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=showtime_CLIENT_dev
-            -Dsonar.verbose=true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
