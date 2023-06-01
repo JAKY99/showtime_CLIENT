@@ -19,7 +19,7 @@ jobs:
           sed -i 's/sonar.projectKey=showtime_CLIENT/sonar.projectKey=showtime_CLIENT_dev/g' sonar-project.properties
       - uses: sonarsource/sonarqube-scan-action@master
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_STAGING }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   staging-deploy:
     needs: sonarqube-test
