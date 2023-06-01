@@ -14,10 +14,10 @@ jobs:
       - uses: sonarsource/sonarqube-scan-action@master
         with:
           args: >
-            -Dsonar.projectKey=staging_showtime_CLIENT
+            -Dsonar.projectKey=showtime_CLIENT_dev
             -Dsonar.verbose=true
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_STAGING }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   staging-deploy:
     needs: sonarqube-test
