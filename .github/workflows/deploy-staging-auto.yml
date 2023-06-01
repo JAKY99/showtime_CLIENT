@@ -21,7 +21,7 @@ jobs:
         cd /var/www/html/showtime_CLIENT && mv staging.sonar-project.properties sonar-project.properties
         cd /var/www/html/showtime_CLIENT && sed -i "s/SONAR_LOGIN/$sonar_login/g" sonar-project.properties
         cd /var/www/html/showtime_CLIENT && sed -i "s/SONAR_PASSWORD/$sonar_password/g" sonar-project.properties
-        cd /var/www/html/showtime_CLIENT && sed -i "s/SONAR_HOST_URL/$sonar_host_url/g" sonar-project.properties
+        cd /var/www/html/showtime_CLIENT && sed -i "s/SONAR_HOST_URL/$(echo $sonar_host_url | sed 's/[\/&]/\\&/g')/g" sonar-project.properties
         cd /var/www/html/showtime_CLIENT && npm  i &&  ng test --code-coverage --watch=false
         cd /var/www/html/showtime_CLIENT && npm run sonar
   staging-deploy:
