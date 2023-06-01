@@ -11,9 +11,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: sonarsource/sonarqube-scan-action@master
+      - name: change sonarqube project key
         run: |
           sed -i 's/sonar.projectKey=showtime_CLIENT/sonar.projectKey=showtime_CLIENT_dev/g' sonar-project.properties
+      - uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_STAGING }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
