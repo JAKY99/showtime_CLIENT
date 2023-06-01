@@ -17,7 +17,7 @@ jobs:
             -Dsonar.projectKey=staging_showtime_CLIENT
             -Dsonar.verbose=true
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_STAGING }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   staging-deploy:
     needs: sonarqube-test
