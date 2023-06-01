@@ -7,17 +7,23 @@ jobs:
   sonarqube-test:
     environment: staging
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: sonarsource/sonarqube-scan-action@master
-        with:
-          args: >
-            -Dsonar.projectKey=showtime_CLIENT_dev
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  container:
+    image: kevinpsirius/pipeline_deployment_image:v10
+    env:
+      sonar_login: ${{ secrets.SONAR_LOGIN }}
+      sonar_password: ${{ secrets.SONAR_PASSWORD }}
+      $sonar_host_url: ${{ secrets.SONAR_HOST_URL }}
+  steps:
+    - name: sonarqubeScan
+      run: |
+        apt update -y && apt install default-jdk -y
+        cd /var/www/html && git clone https://github.com/JAKY99/showtime_CLIENT.git
+        cd /var/www/html/showtime_CLIENT && mv staging.sonar-project.properties sonar-project.properties
+        cd /var/www/html/showtime_CLIENT && sed -i "s/SONAR_LOGIN/$sonar_login/g" sonar-project.properties
+        cd /var/www/html/showtime_CLIENT && sed -i "s/SONAR_PASSWORD/$sonar_password/g" sonar-project.properties
+         cd /var/www/html/showtime_CLIENT && sed -i "s/SONAR_HOST_URL/$sonar_host_url/g" sonar-project.properties
+        cd /var/www/html/showtime_CLIENT && npm  i &&  ng test --code-coverage --watch=false
+        cd /var/www/html/showtime_CLIENT && npm run sonar
   staging-deploy:
     needs: sonarqube-test
     environment: staging
