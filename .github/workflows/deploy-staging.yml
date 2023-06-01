@@ -15,7 +15,7 @@ jobs:
     env:
       sonar_login: ${{ secrets.SONAR_LOGIN }}
       sonar_password: ${{ secrets.SONAR_PASSWORD }}
-      $sonar_host_url: ${{ secrets.SONAR_HOST_URL }}
+      sonar_host_url: ${{ secrets.SONAR_HOST_URL }}
   steps:
     - name: sonarqubeScan
       run: |
