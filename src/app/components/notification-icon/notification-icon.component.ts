@@ -36,9 +36,6 @@ export class NotificationIconComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.addEventListener('new_notification', (event) => {
-      this.fetchNotifications();
-    });
     this.fetchNotifications();
   }
 
