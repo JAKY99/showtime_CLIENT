@@ -1,8 +1,13 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {MenuItem} from "primeng/api";
+import {MenuItem, MessageService} from "primeng/api";
 import { faClapperboard,faCompass,faTv, faUsers, faUser } from '@fortawesome/free-solid-svg-icons';
 import {Router} from "@angular/router";
 import {faMicrophone} from "@fortawesome/free-solid-svg-icons/faMicrophone";
+import {TokenStorageService} from "../../services/token-storage.service";
+import * as SockJS from "sockjs-client";
+import * as Stomp from "stompjs";
+import {GlobalConstants} from "../../common/constants/global-constants";
+import {HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-navbar',
@@ -20,10 +25,18 @@ export class NavbarComponent implements OnInit {
   faVocal = faMicrophone
 
   items: MenuItem[] = [];
+  newNotification: boolean = false;
+  newNotificationCounter: number = 0;
+  loading: boolean = false;
 
-  constructor(private router: Router) { }
+  url = GlobalConstants.WEBSOCKET_URL
+  env = GlobalConstants.ENV;
+  private header: HttpHeaders | undefined;
+  client: any;
+  constructor(private router: Router,private tokenStorage: TokenStorageService, private messageService: MessageService) { }
 
   ngOnInit(): void {
+    this.connection();
     this.items = [
       {}
     ];
@@ -49,5 +62,61 @@ export class NavbarComponent implements OnInit {
 
   checkAndroid() {
     return localStorage.getItem('isAndroid') === 'true';
+  }
+
+  connection() {
+    let ws = new SockJS(this.url);
+    this.client = Stomp.over(ws);
+    let that = this;
+    // @ts-ignore
+    this.client.connect({}, () => {
+      // @ts-ignore
+      that.client.subscribe("/topic/usernotification/" + this.env + "/" + this.tokenStorage.getClientUsername(), (message) => {
+        if (message.body) {
+          let result = JSON.parse(message.body);
+          if (localStorage.getItem('isAndroid') === 'true') {
+            // @ts-ignore
+            window['Android'].createNotification('Showtime App', result.message);
+            // @ts-ignore
+            window.dispatchEvent(new Event('new_notification'));
+          }
+          if (localStorage.getItem('isAndroid') !== 'true') {
+            this.addSingleToast('success', 'Notification', 'You have a new notification');
+            // this.newNotification = true;
+            // @ts-ignore
+            window.dispatchEvent(new Event('new_notification'));
+          }
+        }
+      });
+      // @ts-ignore
+      that.client.subscribe("/topic/usernotification/" + this.env, (message) => {
+        if (message.body) {
+          // that.loading = true
+          let result = JSON.parse(message.body);
+          if (localStorage.getItem('isAndroid') === 'true') {
+            // @ts-ignore
+            window['Android'].createNotification('Showtime App', result.message);
+            // this.newNotification = true;
+            // @ts-ignore
+            window.dispatchEvent(new Event('new_notification'));
+          }
+          if (localStorage.getItem('isAndroid') !== 'true') {
+            this.addSingleToast('success', 'Notification', 'You have a new notification');
+            // @ts-ignore
+            window.dispatchEvent(new Event('new_notification'));
+          }
+        }
+      });
+    }, this.onSocketfailure);
+  }
+
+  onSocketfailure = () => {
+    setTimeout(() => {
+      this.connection();
+    }, 5000);
+  }
+
+  addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
+    this.messageService.add({severity: severity, summary: title, detail: details, sticky: sticky});
   }
 }
