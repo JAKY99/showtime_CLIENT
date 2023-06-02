@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     // @ts-ignore
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    this.connection();
+
     this.checkUpdate();
 
 
@@ -79,47 +79,7 @@ export class AuthGuard implements CanActivate {
         console.log('check update complete')
       })
   }
-  connection(){
-    let ws = new SockJS(this.url);
-    this.client = Stomp.over(ws);
-    let that = this;
 
-    // @ts-ignore
-    this.client.connect({}, ()=>{
-      // @ts-ignore
-      that.client.subscribe("/topic/user/"+this.env, (message) => {
-        if(message.body) {
-          console.log(message.body)
-          if(message.body != 'New update'){
-            // @ts-ignore
-            window['Android'].createNotification('Showtime App',message.body);
-          }
-          if(message.body === 'New update'){
-            // @ts-ignore
-            window['Android'].updateApp();
-          }
-        }
-      });
-
-      // @ts-ignore
-      that.client.subscribe("/topic/user/"+this.env+"/"+this.tokenStorage.getClientUsername(), (message) => {
-        if(message.body) {
-          let result = JSON.parse(message.body);
-          if(result.status=="rejected"){
-            // @ts-ignore
-            window['Android'].createNotification('Showtime App',result.message);
-            this.addSingleToast('warn','Warning',result.message);
-          }
-        }
-      });
-    },this.onSocketfailure);
-  }
-  onSocketfailure=()=>{
-    setTimeout(()=>{
-      console.log('failure')
-      this.connection();
-    } , 5000);
-  }
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
     this.messageService.add({severity: severity, summary: title, detail: details, sticky: sticky});
   }

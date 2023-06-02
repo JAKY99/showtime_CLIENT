@@ -36,7 +36,9 @@ export class NotificationIconComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.connection();
+    window.addEventListener('new_notification', (event) => {
+      this.fetchNotifications();
+    });
     this.fetchNotifications();
   }
 
@@ -66,66 +68,6 @@ export class NotificationIconComponent implements OnInit {
     )
   }
 
-  connection() {
-    let ws = new SockJS(this.url);
-    this.client = Stomp.over(ws);
-    let that = this;
-    // @ts-ignore
-    this.client.connect({}, () => {
-      // @ts-ignore
-      that.client.subscribe("/topic/usernotification/" + this.env + "/" + this.tokenStorage.getClientUsername(), (message) => {
-        if (message.body) {
-          that.loading = true
-          let result = JSON.parse(message.body);
-          if (localStorage.getItem('isAndroid') === 'true') {
-            // @ts-ignore
-            window['Android'].createNotification('Showtime App', result.message);
-            this.newNotification = true;
-            // @ts-ignore
-            this.fetchNotifications();
-          }
-          if (localStorage.getItem('isAndroid') !== 'true') {
-            this.addSingleToast('success', 'Notification', 'You have a new notification');
-            this.newNotification = true;
-            // @ts-ignore
-            this.fetchNotifications();
-          }
-          setTimeout(() => {
-            this.loading = false
-          }, 500)
-        }
-      });
-      // @ts-ignore
-      that.client.subscribe("/topic/usernotification/" + this.env, (message) => {
-        if (message.body) {
-          that.loading = true
-          let result = JSON.parse(message.body);
-          if (localStorage.getItem('isAndroid') === 'true') {
-            // @ts-ignore
-            window['Android'].createNotification('Showtime App', result.message);
-            this.newNotification = true;
-            // @ts-ignore
-            this.fetchNotifications();
-          }
-          if (localStorage.getItem('isAndroid') !== 'true') {
-            this.addSingleToast('success', 'Notification', 'You have a new notification');
-            this.newNotification = true;
-            // @ts-ignore
-            this.fetchNotifications();
-          }
-          setTimeout(() => {
-            this.loading = false
-          }, 500)
-        }
-      });
-    }, this.onSocketfailure);
-  }
-
-  onSocketfailure = () => {
-    setTimeout(() => {
-      this.connection();
-    }, 5000);
-  }
 
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
     this.messageService.add({severity: severity, summary: title, detail: details, sticky: sticky});
