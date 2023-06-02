@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MenuItem, MessageService} from "primeng/api";
 import { faClapperboard,faCompass,faTv, faUsers, faUser } from '@fortawesome/free-solid-svg-icons';
 import {Router} from "@angular/router";
@@ -8,6 +8,8 @@ import * as SockJS from "sockjs-client";
 import * as Stomp from "stompjs";
 import {GlobalConstants} from "../../common/constants/global-constants";
 import {HttpHeaders} from "@angular/common/http";
+import {NotificationFeedDialogComponent} from "../notification-feed-dialog/notification-feed-dialog.component";
+import {NotificationIconComponent} from "../notification-icon/notification-icon.component";
 
 @Component({
   selector: 'app-navbar',
@@ -33,6 +35,7 @@ export class NavbarComponent implements OnInit {
   env = GlobalConstants.ENV;
   private header: HttpHeaders | undefined;
   client: any;
+  @ViewChild('notificationIconComponentsRef') notificationChild: NotificationIconComponent | undefined;
   constructor(private router: Router,private tokenStorage: TokenStorageService, private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -78,13 +81,12 @@ export class NavbarComponent implements OnInit {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message);
             // @ts-ignore
-            window.dispatchEvent(new Event('new_notification'));
+            this.notificationChild?.fetchNotifications()
           }
           if (localStorage.getItem('isAndroid') !== 'true') {
             this.addSingleToast('success', 'Notification', 'You have a new notification');
-            // this.newNotification = true;
             // @ts-ignore
-            window.dispatchEvent(new Event('new_notification'));
+            this.notificationChild?.fetchNotifications()
           }
         }
       });
@@ -96,14 +98,13 @@ export class NavbarComponent implements OnInit {
           if (localStorage.getItem('isAndroid') === 'true') {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message);
-            // this.newNotification = true;
             // @ts-ignore
-            window.dispatchEvent(new Event('new_notification'));
+            this.notificationChild?.fetchNotifications()
           }
           if (localStorage.getItem('isAndroid') !== 'true') {
             this.addSingleToast('success', 'Notification', 'You have a new notification');
             // @ts-ignore
-            window.dispatchEvent(new Event('new_notification'));
+            this.notificationChild?.fetchNotifications()
           }
         }
       });
