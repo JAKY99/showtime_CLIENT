@@ -62,4 +62,17 @@ export class UserService {
       userData
     );
   }
+
+  ping(metricsId: string): Observable<any> {
+    let url = GlobalConstants.API_URL + "/api/v1/metrics/ping";
+    let data = {
+      "metricsId": metricsId
+    }
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      data,
+      // @ts-ignore
+      httpOptions);
+  }
 }
