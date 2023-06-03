@@ -1,8 +1,14 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from "@angular/router";
 import { faClapperboard, faCompass, faTv, faUser, faUsers, faSignOut, faSearch } from '@fortawesome/free-solid-svg-icons';
 import {TokenStorageService} from "../../../services/token-storage.service";
-import {ConfirmationService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
+import * as SockJS from "sockjs-client";
+import * as Stomp from "stompjs";
+import {GlobalConstants} from "../../../common/constants/global-constants";
+import {HttpHeaders} from "@angular/common/http";
+import {NotificationIconComponent} from "../../notification-icon/notification-icon.component";
+import {UserService} from "../../../services/user/user.service";
 
 @Component({
   selector: 'app-desktop-sidebar',
@@ -20,9 +26,15 @@ export class WebSidebarComponent implements OnInit {
   faSignOut = faSignOut;
   faSearch = faSearch;
 
-  constructor(private router: Router, private TokenStorageService: TokenStorageService, private ConfirmationService: ConfirmationService) { }
+  url = GlobalConstants.WEBSOCKET_URL
+  env = GlobalConstants.ENV;
+  private header: HttpHeaders | undefined;
+  client: any;
+  @ViewChild('notificationIconComponentsRef') notificationChild: NotificationIconComponent | undefined;
+  constructor(private router: Router, private TokenStorageService: TokenStorageService, private ConfirmationService: ConfirmationService,private messageService: MessageService,private userService : UserService) { }
 
   ngOnInit(): void {
+    this.connection();
   }
 
   goToRoute(url: string){
@@ -45,5 +57,68 @@ export class WebSidebarComponent implements OnInit {
       }
     });
   }
+  connection() {
+    let ws = new SockJS(this.url);
+    this.client = Stomp.over(ws);
+    let that = this;
+    // @ts-ignore
+    this.client.connect({}, () => {
+      // @ts-ignore
+      that.client.subscribe("/topic/usernotification/" + this.env + "/" + this.TokenStorageService.getClientUsername(), (message) => {
+        if (message.body) {
+          let result = JSON.parse(message.body);
+          if (localStorage.getItem('isAndroid') === 'true') {
+            // @ts-ignore
+            window['Android'].createNotification('Showtime App', result.message);
+            // @ts-ignore
+            window.dispatchEvent(new Event('new_notification'))
+          }
+          if (localStorage.getItem('isAndroid') !== 'true') {
+            this.addSingleToast('success', 'Notification', 'You have a new notification');
+            // @ts-ignore
+            window.dispatchEvent(new Event('new_notification'))
+          }
+        }
+      });
+      // @ts-ignore
+      that.client.subscribe("/topic/usernotification/" + this.env, (message) => {
+        if (message.body) {
+          // that.loading = true
+          let result = JSON.parse(message.body);
+          if (localStorage.getItem('isAndroid') === 'true') {
+            // @ts-ignore
+            window['Android'].createNotification('Showtime App', result.message);
+            // @ts-ignore
+            window.dispatchEvent(new Event('new_notification'))
+          }
+          if (localStorage.getItem('isAndroid') !== 'true') {
+            this.addSingleToast('success', 'Notification', 'You have a new notification');
+            // @ts-ignore
+            window.dispatchEvent(new Event('new_notification'))
+          }
+        }
+      });
 
+      // @ts-ignore
+      that.client.subscribe("/topic/user/ping/" + this.env, (message) => {
+        if (message.body) {
+          let result = JSON.parse(message.body);
+          this.userService.ping(result.metrics_id).subscribe((res) => {
+          })
+        }
+      });
+
+
+    }, this.onSocketfailure);
+  }
+
+  onSocketfailure = () => {
+    setTimeout(() => {
+      this.connection();
+    }, 5000);
+  }
+
+  addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
+    this.messageService.add({severity: severity, summary: title, detail: details, sticky: sticky});
+  }
 }

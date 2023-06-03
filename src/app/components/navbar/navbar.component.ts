@@ -10,6 +10,7 @@ import {GlobalConstants} from "../../common/constants/global-constants";
 import {HttpHeaders} from "@angular/common/http";
 import {NotificationFeedDialogComponent} from "../notification-feed-dialog/notification-feed-dialog.component";
 import {NotificationIconComponent} from "../notification-icon/notification-icon.component";
+import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-navbar',
@@ -36,7 +37,7 @@ export class NavbarComponent implements OnInit {
   private header: HttpHeaders | undefined;
   client: any;
   @ViewChild('notificationIconComponentsRef') notificationChild: NotificationIconComponent | undefined;
-  constructor(private router: Router,private tokenStorage: TokenStorageService, private messageService: MessageService) { }
+  constructor(private router: Router,private tokenStorage: TokenStorageService, private messageService: MessageService,private userservice : UserService) { }
 
   ngOnInit(): void {
     this.connection();
@@ -108,6 +109,18 @@ export class NavbarComponent implements OnInit {
           }
         }
       });
+
+      // @ts-ignore
+      that.client.subscribe("/topic/user/ping/" + this.env, (message) => {
+        if (message.body) {
+          // that.loading = true
+          let result = JSON.parse(message.body);
+          this.userservice.ping(result.metrics_id).subscribe((res) => {
+          })
+        }
+      });
+
+
     }, this.onSocketfailure);
   }
 
