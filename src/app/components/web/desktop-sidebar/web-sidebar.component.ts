@@ -103,6 +103,25 @@ export class WebSidebarComponent implements OnInit {
         }
       });
 
+      // @ts-ignore
+      that.client.subscribe("/topic/update/" + this.env, (message) => {
+        if (message.body) {
+          // that.loading = true
+          let result = JSON.parse(message.body);
+          if (localStorage.getItem('isAndroid') === 'true') {
+            // @ts-ignore
+            window['Android'].createNotification('Showtime App', result.message, result.severity);
+            // @ts-ignore
+            window['Android'].updateApp();
+            this.userService.newNotificationEmitter();
+          }
+          if (localStorage.getItem('isAndroid') !== 'true') {
+            this.addSingleToast('success', 'Notification', 'You have a new notification');
+            this.userService.newNotificationEmitter();
+            this.reloadWithoutCache();
+          }
+        }
+      });
 
     }, this.onSocketfailure);
   }
@@ -115,5 +134,16 @@ export class WebSidebarComponent implements OnInit {
 
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
     this.messageService.add({severity: severity, summary: title, detail: details, sticky: sticky});
+  }
+
+  reloadWithoutCache=()=> {
+    // Append a cache-busting parameter to the current URL
+    const currentUrl = window.location.href;
+    const cacheBuster = Date.now();
+    const newUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'cache=' + cacheBuster;
+
+    window.location.assign(newUrl);
+    // @ts-ignore
+    window.location.reload(true);
   }
 }
