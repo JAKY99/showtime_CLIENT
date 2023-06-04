@@ -30,7 +30,6 @@ export class WebSidebarComponent implements OnInit {
   env = GlobalConstants.ENV;
   private header: HttpHeaders | undefined;
   client: any;
-  @ViewChild('notificationIconComponentsRef') notificationChild: NotificationIconComponent | undefined;
   constructor(private router: Router, private TokenStorageService: TokenStorageService, private ConfirmationService: ConfirmationService,private messageService: MessageService,private userService : UserService) { }
 
   ngOnInit(): void {
@@ -86,8 +85,7 @@ export class WebSidebarComponent implements OnInit {
           if (localStorage.getItem('isAndroid') === 'true') {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message);
-            // @ts-ignore
-            window.dispatchEvent(new Event('new_notification'))
+            this.userService.newNotificationEmitter();
           }
           if (localStorage.getItem('isAndroid') !== 'true') {
             this.addSingleToast('success', 'Notification', 'You have a new notification');
