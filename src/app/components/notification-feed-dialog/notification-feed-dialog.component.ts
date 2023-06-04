@@ -26,6 +26,9 @@ export class NotificationFeedDialogComponent implements OnInit {
     setTimeout(() => {
       this.hasNewNotifications = this.items.filter(x => x.new).length > 0
     }, 500)
+    this.UserService.newNotificationSignal.subscribe((data:any)=>{
+      this.hasNewNotifications = true;
+    })
   }
 
   close(){
