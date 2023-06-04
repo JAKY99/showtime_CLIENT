@@ -48,6 +48,45 @@
         ></button>
       </div>
     </form>
+    <h2 class="mt-4">Edit Password</h2>
+    <form class="flex flex-column justify-content-center gap-4" (ngSubmit)="submitEditPasswordAccount()">
+      <div [formGroup]="editAccountPasswordForm" class="flex flex-column justify-content-center gap-4">
+        <div class="flex flex-column gap-1">
+          <label for="register-input-password" class="text-white text-sm">New password</label>
+          <p-password id="register-input-password"
+                      formControlName="password"
+                      (ngModelChange)="check()"
+                      [toggleMask]="true"
+                      [feedback]="false"
+                      styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+          ></p-password>
+          <div class="secondary-text-color" *ngIf="editAccountPasswordForm.get('password')?.hasError('required')">Password is required</div>
+          <div class="secondary-text-color w-13rem" *ngIf="editAccountPasswordForm.get('password')?.hasError('pattern')">at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character</div>
+        </div>
+        <div class="flex flex-column gap-1">
+          <label for="input-lastname" class="text-white text-sm">Repeat new password</label>
+          <p-password id="register-input-password-repeat"
+                      formControlName="repeatpassword"
+                      (ngModelChange)="check()"
+                      [toggleMask]="true"
+                      [feedback]="false"
+                      styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+          ></p-password>
+          <div class="secondary-text-color" *ngIf="editAccountPasswordForm.get('repeatpassword')?.hasError('required')">Repeat password is required</div>
+          <div class="secondary-text-color w-13rem" *ngIf="editAccountPasswordForm.get('repeatpassword')?.hasError('pattern')">password with at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character</div>
+          <div class="secondary-text-color" *ngIf="isRepeatNok">Passwords do not match</div>
+        </div>
+        <button
+          id="signin_normal_button2"
+          pButton
+          type="submit"
+          label="Save"
+          [loading]="isSavingInfosPasswordAccountForm"
+          [disabled]="this.isLoginFailed"
+          class="p-button-text st-secondary-btn --small"
+        ></button>
+      </div>
+    </form>
   </div>
 </div>
 

@@ -62,6 +62,13 @@ export class UserService {
       userData
     );
   }
+  editAccountPasswordInfos(userData:any): Observable<any> {
+    const url = GlobalConstants.API_URL + "/api/v1/user/edit-account/password";
+    return this.http.put<any>(
+      url,
+      userData
+    );
+  }
 
   ping(metricsId: string): Observable<any> {
     let url = GlobalConstants.API_URL + "/api/v1/metrics/ping";
