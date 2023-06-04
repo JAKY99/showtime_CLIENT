@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MenuItem, MessageService} from "primeng/api";
 import { faClapperboard,faCompass,faTv, faUsers, faUser } from '@fortawesome/free-solid-svg-icons';
 import {Router} from "@angular/router";
@@ -28,7 +28,6 @@ export class NavbarComponent implements OnInit {
   faVocal = faMicrophone
 
   items: MenuItem[] = [];
-  newNotification: boolean = false;
   newNotificationCounter: number = 0;
   loading: boolean = false;
 
@@ -36,7 +35,7 @@ export class NavbarComponent implements OnInit {
   env = GlobalConstants.ENV;
   private header: HttpHeaders | undefined;
   client: any;
-  @ViewChild('notificationIconComponentsRef') notificationChild: NotificationIconComponent | undefined;
+
   constructor(private router: Router,private tokenStorage: TokenStorageService, private messageService: MessageService,private userservice : UserService) { }
 
   ngOnInit(): void {
@@ -81,13 +80,12 @@ export class NavbarComponent implements OnInit {
           if (localStorage.getItem('isAndroid') === 'true') {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message, result.severity);
-            // @ts-ignore
-            this.notificationChild?.fetchNotifications()
+            this.userservice.newNotificationEmitter();
           }
           if (localStorage.getItem('isAndroid') !== 'true') {
             this.addSingleToast('success', 'Notification', 'You have a new notification');
             // @ts-ignore
-            this.notificationChild?.fetchNotifications()
+
           }
         }
       });
@@ -99,13 +97,12 @@ export class NavbarComponent implements OnInit {
           if (localStorage.getItem('isAndroid') === 'true') {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message, result.severity);
-            // @ts-ignore
-            this.notificationChild?.fetchNotifications()
+            this.userservice.newNotificationEmitter();
+
           }
           if (localStorage.getItem('isAndroid') !== 'true') {
             this.addSingleToast('success', 'Notification', 'You have a new notification');
-            // @ts-ignore
-            this.notificationChild?.fetchNotifications()
+            this.userservice.newNotificationEmitter();
           }
         }
       });

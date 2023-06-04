@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MenuItem, MessageService} from "primeng/api";
 import {faBell} from "@fortawesome/free-solid-svg-icons";
 import {TokenStorageService} from "../../services/token-storage.service";
@@ -31,14 +31,14 @@ export class NotificationIconComponent implements OnInit {
   client: any;
 
   @ViewChild('notificationFeedRef') notificationFeedChild: NotificationFeedDialogComponent | undefined;
-
   constructor(private tokenStorage: TokenStorageService, private UserService: UserService, private messageService: MessageService) {
+
   }
 
   ngOnInit(): void {
-    window.addEventListener('new_notification', (event) => {
+    this.UserService.newNotificationSignal.subscribe((data:any)=>{
       this.fetchNotifications();
-    });
+    })
     this.fetchNotifications();
   }
 

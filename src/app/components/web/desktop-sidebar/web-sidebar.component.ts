@@ -70,13 +70,11 @@ export class WebSidebarComponent implements OnInit {
           if (localStorage.getItem('isAndroid') === 'true') {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message);
-            // @ts-ignore
-            window.dispatchEvent(new Event('new_notification'))
+            this.userService.newNotificationEmitter();
           }
           if (localStorage.getItem('isAndroid') !== 'true') {
             this.addSingleToast('success', 'Notification', 'You have a new notification');
-            // @ts-ignore
-            window.dispatchEvent(new Event('new_notification'))
+            this.userService.newNotificationEmitter();
           }
         }
       });
@@ -93,8 +91,7 @@ export class WebSidebarComponent implements OnInit {
           }
           if (localStorage.getItem('isAndroid') !== 'true') {
             this.addSingleToast('success', 'Notification', 'You have a new notification');
-            // @ts-ignore
-            window.dispatchEvent(new Event('new_notification'))
+            this.userService.newNotificationEmitter();
           }
         }
       });

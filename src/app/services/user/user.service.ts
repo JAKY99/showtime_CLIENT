@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {GlobalConstants} from "../../common/constants/global-constants";
@@ -14,7 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-
+  @Output() newNotificationSignal: EventEmitter<any> = new EventEmitter<any>();
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService) { }
 
   getLoggedInUser(): Observable<any>{
@@ -81,5 +81,8 @@ export class UserService {
       data,
       // @ts-ignore
       httpOptions);
+  }
+  newNotificationEmitter() {
+    this.newNotificationSignal.emit();
   }
 }
