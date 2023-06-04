@@ -56,6 +56,12 @@
           <app-carousel-image-list #lastWatchedMoviesRef [items]="lastWatchedMovies"
                                    (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
         </div>
+        <div class="last-watched carousel-container" *ngIf="!lastWatchedMovies.length">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">Last watched</h2>
+          </div>
+          <p class="m-3 mb-3 text-white text-base"><i>No Movies in watchlist, please go and check some !</i></p>
+        </div>
         <div class="favorites carousel-container" *ngIf="favoritesMovies.length">
           <div class="header-title">
             <h2 class="m-3 mb-3 text-white text-base">Favorites</h2>
@@ -64,7 +70,15 @@
           </div>
           <app-carousel-image-list #favoritesMoviesRef [items]="favoritesMovies"
                                    (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+
         </div>
+        <div class="favorites carousel-container" *ngIf="!favoritesMovies.length">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">Favorites</h2>
+          </div>
+          <p class="m-3 mb-3 text-white text-base"><i>No Movies in favorites, please go and like some !</i></p>
+        </div>
+
         <div class="watchlist carousel-container" *ngIf="watchlistMovies.length">
           <div class="header-title">
             <h2 class="m-3 mb-3 text-white text-base">Watchlist</h2>
@@ -73,6 +87,12 @@
           </div>
           <app-carousel-image-list #watchlistMoviesRef [items]="watchlistMovies"
                                    (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+        </div>
+        <div class="watchlist carousel-container" *ngIf="!watchlistMovies.length">
+          <div class="header-title">
+            <h2 class="m-3 mb-3 text-white text-base">Watchlist</h2>
+          </div>
+          <p class="m-3 mb-3 text-white text-base"><i>Nothing in watchlist, please go and check some !</i></p>
         </div>
       </p-tabPanel>
     </p-tabView>
