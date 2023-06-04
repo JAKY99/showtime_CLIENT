@@ -36,10 +36,14 @@ export class EditProfileComponent implements OnInit {
   private isClickedAvatar = false;
   private isClickedBackground = false;
   public editAccountInfosForm: FormGroup;
+  public editAccountPasswordForm: FormGroup;
   isSavingInfosAccountForm: boolean = false;
-
+  isSavingInfosPasswordAccountForm: boolean = false;
+  isRepeatNok: boolean = true ;
+  public isLoginFailed: boolean = true;
   constructor(private profileService: ProfileService, private tokenStorage: TokenStorageService, private userService: UserService) {
     this.editAccountInfosForm = new FormGroup({})
+    this.editAccountPasswordForm = new FormGroup({})
   }
 
   ngOnInit(): void {
@@ -51,6 +55,18 @@ export class EditProfileComponent implements OnInit {
     });
 
     this.editAccountInfosForm.patchValue({ firstName: this.userData.firstName, lastName: this.userData.lastName });
+// Define a regular expression for the password format
+    const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    this.editAccountPasswordForm = new FormGroup({
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PASSWORD_REGEX)
+      ]),
+      repeatpassword: new FormControl('', [
+        Validators.required,
+        Validators.pattern(PASSWORD_REGEX),
+      ])
+    });
   }
 
   changeFile(event: any): void {
@@ -84,6 +100,8 @@ export class EditProfileComponent implements OnInit {
       }, 2000)
     }
   }
+
+
 
   handleAndroidTempFile(event: any) {
     let type = event.target.value;
@@ -126,5 +144,23 @@ export class EditProfileComponent implements OnInit {
         this.isSavingInfosAccountForm = false;
       }
     );
+  }
+
+  submitEditPasswordAccount() {
+    const userData = {
+      newPassword: this.editAccountPasswordForm.controls['password'].value
+    }
+   this.userService.editAccountPasswordInfos(userData).subscribe(
+     resp => {
+        this.isSavingInfosPasswordAccountForm = resp.body;
+        this.accountInfosSaved.emit();
+       this.editAccountPasswordForm.controls['password'].setValue('');
+        this.editAccountPasswordForm.controls['repeatpassword'].setValue('');
+     })
+  }
+  check() {
+    let repeatpassword = this.editAccountPasswordForm.get('password')?.value == this.editAccountPasswordForm.get('repeatpassword')?.value;
+    this.isRepeatNok=!repeatpassword
+    this.isLoginFailed = !this.editAccountPasswordForm.invalid && repeatpassword? false : true;
   }
 }
