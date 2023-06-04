@@ -80,7 +80,7 @@ export class NavbarComponent implements OnInit {
           let result = JSON.parse(message.body);
           if (localStorage.getItem('isAndroid') === 'true') {
             // @ts-ignore
-            window['Android'].createNotification('Showtime App', result.message);
+            window['Android'].createNotification('Showtime App', result.message, result.severity);
             // @ts-ignore
             this.notificationChild?.fetchNotifications()
           }
@@ -98,7 +98,7 @@ export class NavbarComponent implements OnInit {
           let result = JSON.parse(message.body);
           if (localStorage.getItem('isAndroid') === 'true') {
             // @ts-ignore
-            window['Android'].createNotification('Showtime App', result.message);
+            window['Android'].createNotification('Showtime App', result.message, result.severity);
             // @ts-ignore
             this.notificationChild?.fetchNotifications()
           }
