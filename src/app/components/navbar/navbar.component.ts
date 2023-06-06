@@ -11,6 +11,8 @@ import {HttpHeaders} from "@angular/common/http";
 import {NotificationFeedDialogComponent} from "../notification-feed-dialog/notification-feed-dialog.component";
 import {NotificationIconComponent} from "../notification-icon/notification-icon.component";
 import {UserService} from "../../services/user/user.service";
+import {ProfileService} from "../../services/profile/profile.service";
+import {SlideToggleButtonService} from "../../services/slide-toggle-button/slide-toggle-button.service";
 
 @Component({
   selector: 'app-navbar',
@@ -35,16 +37,31 @@ export class NavbarComponent implements OnInit {
   env = GlobalConstants.ENV;
   private header: HttpHeaders | undefined;
   client: any;
+  isNotificationActive: boolean = false;
 
-  constructor(private router: Router,private tokenStorage: TokenStorageService, private messageService: MessageService,private userservice : UserService) { }
+  constructor(private router: Router,
+              private tokenStorage: TokenStorageService,
+              private messageService: MessageService,
+              private userservice : UserService,
+              private profileService : ProfileService) { }
 
   ngOnInit(): void {
+    this.userservice.userInformationUpdated.subscribe((data:any)=>{
+      this.checkIfNotificationActive();
+    })
+    this.checkIfNotificationActive();
     this.connection();
     this.items = [
       {}
     ];
   }
 
+  checkIfNotificationActive(){
+    this.profileService.fetchProfileAvatar().subscribe((data:any)=>{
+      console.log(data.body.notification_system_status)
+      this.isNotificationActive = data.body.notification_system_status;
+    })
+  }
   getCurrentRoute(){
     return this.router.url;
   }
@@ -77,16 +94,15 @@ export class NavbarComponent implements OnInit {
       that.client.subscribe("/topic/usernotification/" + this.env + "/" + this.tokenStorage.getClientUsername(), (message) => {
         if (message.body) {
           let result = JSON.parse(message.body);
-          if (localStorage.getItem('isAndroid') === 'true') {
+          if (localStorage.getItem('isAndroid') === 'true' && this.isNotificationActive) {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message, result.severity);
-            this.userservice.newNotificationEmitter();
           }
-          if (localStorage.getItem('isAndroid') !== 'true') {
+          if (localStorage.getItem('isAndroid') !== 'true' && this.isNotificationActive) {
             this.addSingleToast('success', 'Notification', 'You have a new notification');
             // @ts-ignore
-
           }
+          this.userservice.newNotificationEmitter();
         }
       });
       // @ts-ignore
@@ -94,16 +110,16 @@ export class NavbarComponent implements OnInit {
         if (message.body) {
           // that.loading = true
           let result = JSON.parse(message.body);
-          if (localStorage.getItem('isAndroid') === 'true') {
+          if (localStorage.getItem('isAndroid') === 'true' && this.isNotificationActive) {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message, result.severity);
-            this.userservice.newNotificationEmitter();
-
           }
-          if (localStorage.getItem('isAndroid') !== 'true') {
+          console.log('notification');
+          if (localStorage.getItem('isAndroid') !== 'true' && this.isNotificationActive) {
+            console.log('notification');
             this.addSingleToast('success', 'Notification', 'You have a new notification');
-            this.userservice.newNotificationEmitter();
           }
+          this.userservice.newNotificationEmitter();
         }
       });
 

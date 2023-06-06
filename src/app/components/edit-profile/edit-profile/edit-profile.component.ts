@@ -54,6 +54,7 @@ export class EditProfileComponent implements OnInit {
         this.userData.isNotificationsActive = !this.userData.isNotificationsActive;
         this.userService.editAccountInfos(this.userData).subscribe(
           resp => {
+            this.userService.userInformationUpdated.emit();
             this.accountInfosSaved.emit();
           },
           error => {
@@ -149,12 +150,14 @@ export class EditProfileComponent implements OnInit {
     const userData: UserAvatarModel = {
       firstName: this.editAccountInfosForm.controls['firstName'].value,
       lastName: this.editAccountInfosForm.controls['lastName'].value,
+      isNotificationsActive: this.userData.isNotificationsActive,
     }
 
     this.userService.editAccountInfos(userData).subscribe(
       resp => {
         this.isSavingInfosAccountForm = false;
         this.accountInfosSaved.emit();
+        this.userService.userInformationUpdated.emit();
       },
       error => {
         this.isSavingInfosAccountForm = false;

@@ -15,6 +15,7 @@ const httpOptions = {
 })
 export class UserService {
   @Output() newNotificationSignal: EventEmitter<any> = new EventEmitter<any>();
+  @Output() userInformationUpdated:  EventEmitter<any> = new EventEmitter<any>();
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService) { }
 
   getLoggedInUser(): Observable<any>{
