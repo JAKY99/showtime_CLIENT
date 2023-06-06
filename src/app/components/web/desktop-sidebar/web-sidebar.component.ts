@@ -9,6 +9,7 @@ import {GlobalConstants} from "../../../common/constants/global-constants";
 import {HttpHeaders} from "@angular/common/http";
 import {NotificationIconComponent} from "../../notification-icon/notification-icon.component";
 import {UserService} from "../../../services/user/user.service";
+import {ProfileService} from "../../../services/profile/profile.service";
 
 @Component({
   selector: 'app-desktop-sidebar',
@@ -30,12 +31,27 @@ export class WebSidebarComponent implements OnInit {
   env = GlobalConstants.ENV;
   private header: HttpHeaders | undefined;
   client: any;
-  constructor(private router: Router, private TokenStorageService: TokenStorageService, private ConfirmationService: ConfirmationService,private messageService: MessageService,private userService : UserService) { }
+  isNotificationActive: boolean = false;
+  constructor(private router: Router,
+              private TokenStorageService: TokenStorageService,
+              private ConfirmationService: ConfirmationService,
+              private messageService: MessageService,
+              private userService : UserService,
+              private profileService : ProfileService) { }
 
   ngOnInit(): void {
+    this.userService.userInformationUpdated.subscribe((data:any)=>{
+      this.checkIfNotificationActive();
+    })
+    this.checkIfNotificationActive();
     this.connection();
   }
-
+  checkIfNotificationActive(){
+    this.profileService.fetchProfileAvatar().subscribe((data:any)=>{
+      console.log(data.body.notification_system_status)
+      this.isNotificationActive = data.body.notification_system_status;
+    })
+  }
   goToRoute(url: string){
     this.router.navigateByUrl(url).then();
   }
@@ -66,15 +82,14 @@ export class WebSidebarComponent implements OnInit {
       that.client.subscribe("/topic/usernotification/" + this.env + "/" + this.TokenStorageService.getClientUsername(), (message) => {
         if (message.body) {
           let result = JSON.parse(message.body);
-          if (localStorage.getItem('isAndroid') === 'true') {
+          if (localStorage.getItem('isAndroid') === 'true'&& this.isNotificationActive) {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message);
-            this.userService.newNotificationEmitter();
           }
-          if (localStorage.getItem('isAndroid') !== 'true') {
+          if (localStorage.getItem('isAndroid') !== 'true'&& this.isNotificationActive) {
             this.addSingleToast('success', 'Notification', 'You have a new notification');
-            this.userService.newNotificationEmitter();
           }
+          this.userService.newNotificationEmitter();
         }
       });
       // @ts-ignore
@@ -82,15 +97,14 @@ export class WebSidebarComponent implements OnInit {
         if (message.body) {
           // that.loading = true
           let result = JSON.parse(message.body);
-          if (localStorage.getItem('isAndroid') === 'true') {
+          if (localStorage.getItem('isAndroid') === 'true'&& this.isNotificationActive) {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message);
-            this.userService.newNotificationEmitter();
           }
-          if (localStorage.getItem('isAndroid') !== 'true') {
+          if (localStorage.getItem('isAndroid') !== 'true'&& this.isNotificationActive) {
             this.addSingleToast('success', 'Notification', 'You have a new notification');
-            this.userService.newNotificationEmitter();
           }
+          this.userService.newNotificationEmitter();
         }
       });
 
