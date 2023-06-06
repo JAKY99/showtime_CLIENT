@@ -28,7 +28,8 @@ export class EditProfileDialogComponent implements OnInit {
   userData = {
     backgroundUrl: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    isNotificationsActive: false,
   };
 
   constructor(private profileService: ProfileService, private messageService: MessageService) { }
@@ -45,6 +46,8 @@ export class EditProfileDialogComponent implements OnInit {
       this.userData.firstName = resp.body.firstName;
       // @ts-ignore
       this.userData.lastName = resp.body.lastName;
+      // @ts-ignore
+      this.userData.isNotificationsActive = resp.body.notification_system_status;
     });
   }
 

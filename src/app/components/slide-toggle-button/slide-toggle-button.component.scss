@@ -1,0 +1,31 @@
+@import "src/styles";
+.slide-toggle {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: $secondary-color;
+
+}
+
+.slide-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.slide-toggle label {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 28px;
+  height: 28px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  opacity: 0.5;
+}
+
+.slide-toggle label.active {
+  opacity: 1;
+  transform: translateX(30px);
+}
