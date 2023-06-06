@@ -4,4 +4,5 @@ export interface UserAvatarModel {
   fullName?: string | undefined;
   profilePicture?: string | undefined;
   country?: string | undefined;
+  isNotificationsActive?: boolean | undefined;
 }
