@@ -1,0 +1,4 @@
+<div class="slide-toggle">
+  <input type="checkbox" [id]="toggleId" [(ngModel)]="isToggled" (change)="toggleChanged()">
+  <label [for]="toggleId" [class.active]="isToggled"></label>
+</div>

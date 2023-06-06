@@ -9,7 +9,7 @@ import {emailValidator} from "../../../common/validators/emailValidator";
 import {GlobalRegex} from "../../../common/constants/global-regex";
 import {UserAvatarModel} from "../../../models/user/user-avatar-model";
 import {UserService} from "../../../services/user/user.service";
-
+import {SlideToggleButtonService} from "../../../services/slide-toggle-button/slide-toggle-button.service";
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -23,7 +23,8 @@ export class EditProfileComponent implements OnInit {
   @Input() userData = {
     backgroundUrl: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    isNotificationsActive: false,
   };
 
   @Output() imageSaved = new EventEmitter<any>();
@@ -41,12 +42,26 @@ export class EditProfileComponent implements OnInit {
   isSavingInfosPasswordAccountForm: boolean = false;
   isRepeatNok: boolean = true ;
   public isLoginFailed: boolean = true;
-  constructor(private profileService: ProfileService, private tokenStorage: TokenStorageService, private userService: UserService) {
+  SYSTEM_NOTIFICATION: string = 'SYSTEM_NOTIFICATION';
+  constructor(private profileService: ProfileService, private tokenStorage: TokenStorageService, private userService: UserService, private slideToggleButtonService: SlideToggleButtonService) {
     this.editAccountInfosForm = new FormGroup({})
     this.editAccountPasswordForm = new FormGroup({})
   }
 
   ngOnInit(): void {
+    this.slideToggleButtonService.slideToggleEventEmitter.subscribe((data: any) => {
+      if (data == 'SYSTEM_NOTIFICATION') {
+        this.userData.isNotificationsActive = !this.userData.isNotificationsActive;
+        this.userService.editAccountInfos(this.userData).subscribe(
+          resp => {
+            this.accountInfosSaved.emit();
+          },
+          error => {
+            this.isSavingInfosAccountForm = false;
+          }
+        );
+      }
+    });
     this.editAccountInfosForm = new FormGroup({
       firstName: new FormControl('', [
         Validators.required,
@@ -100,6 +115,7 @@ export class EditProfileComponent implements OnInit {
       }, 2000)
     }
   }
+
 
 
 
