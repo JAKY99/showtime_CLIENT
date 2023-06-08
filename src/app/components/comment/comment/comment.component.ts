@@ -51,6 +51,7 @@ export class CommentComponent implements OnInit {
         this.commentService.reportComment(this.comment.comments.id).subscribe((resp) => {
               this.messageService.add({severity:'success', summary: 'Success', detail: 'Comment reported successfully'});
               this.comment.comments.validate = false;
+              this.commentService.postCommentEvent.emit();
         })
       },
       reject: () => {
