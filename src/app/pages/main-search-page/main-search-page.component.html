@@ -1,21 +1,26 @@
-<div class="main-search-page p-2 pt-4 h-full overflow-auto">
+<div>
   <app-header-nav></app-header-nav>
-  <app-main-search #mainSearchRef (resultsEmitterEvent)="getMainSearchResults($event)"
-                   (resultsMoreEmitterEvent)="getMainSearchMoreResults($event)"
-  (isLoading)="manageLoading($event)"></app-main-search>
-  <p-divider></p-divider>
-  <h2 class="m-3 mb-4 ml-0 text-white text-base"
-      *ngIf="displayResult === 0">Trending this week</h2>
-  <h2 class="m-3 mb-4 ml-0 text-white text-base"
-      *ngIf="displayResult === 1">Series found : {{totalResults}}</h2>
-  <h2 class="m-3 mb-4 ml-0 text-white text-base"
-      *ngIf="displayResult === 2">Results: {{totalResults}}</h2>
-  <app-poster-list [items]="mainSearchResults.length ? mainSearchResults : trendingResults" (eventEmitter)="openDetailsDialog($event)"></app-poster-list>
-  <div class="text-center mt-4 mb-4" *ngIf="mainSearchResults.length">
-    <button pButton type="button" label="Load More" class="p-button-rounded st-secondary-btn"
-            (click)="loadMoreResults()"
-    [loading]="isLoading"
-    *ngIf="isLoadMoreAvailable"></button>
+  <div class="main-search-page p-2 pt-4 h-full overflow-auto">
+
+
+
+    <app-main-search #mainSearchRef (resultsEmitterEvent)="getMainSearchResults($event)"
+                     (resultsMoreEmitterEvent)="getMainSearchMoreResults($event)"
+    (isLoading)="manageLoading($event)"></app-main-search>
+    <p-divider></p-divider>
+    <h2 class="m-3 mb-4 ml-0 text-white text-base"
+        *ngIf="displayResult === 0">Trending this week</h2>
+    <h2 class="m-3 mb-4 ml-0 text-white text-base"
+        *ngIf="displayResult === 1">Series found : {{totalResults}}</h2>
+    <h2 class="m-3 mb-4 ml-0 text-white text-base"
+        *ngIf="displayResult === 2">Results: {{totalResults}}</h2>
+    <app-poster-list [items]="mainSearchResults.length ? mainSearchResults : trendingResults" (eventEmitter)="openDetailsDialog($event)"></app-poster-list>
+    <div class="text-center mt-4 mb-4" *ngIf="mainSearchResults.length">
+      <button pButton type="button" label="Load More" class="p-button-rounded st-secondary-btn"
+              (click)="loadMoreResults()"
+      [loading]="isLoading"
+      *ngIf="isLoadMoreAvailable"></button>
+    </div>
   </div>
 </div>
 <app-media-details-dialog #mediaDetailsDialogRef ></app-media-details-dialog>
