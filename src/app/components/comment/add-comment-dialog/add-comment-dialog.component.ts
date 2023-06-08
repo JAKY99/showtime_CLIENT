@@ -17,7 +17,8 @@ export class AddCommentDialogComponent implements OnInit {
 
   viewedDialogShown: boolean = false;
   viewedDialogPosition: string = 'bottom';
-  requestedMovieId: number = 0;
+  elementId: number = 0;
+  elementType: string = '';
 
   constructor() { }
 
@@ -32,9 +33,10 @@ export class AddCommentDialogComponent implements OnInit {
     this.eventEmitter.emit();
   }
 
-  open(requestedMovieId: number){
+  open(elementId: number,elementType: string){
     this.viewedDialogShown = true
-    this.requestedMovieId = requestedMovieId;
+    this.elementId = elementId;
+    this.elementType = elementType;
   }
 
 }

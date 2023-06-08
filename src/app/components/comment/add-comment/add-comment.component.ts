@@ -9,7 +9,8 @@ import {MovieDetailsModel} from "../../../models/movie/movie-details-model";
 })
 export class AddCommentComponent implements OnInit {
 
-  @Input() requestedMovieId: number = 0;
+  @Input() elementId: number = 0;
+  @Input() elementType: string = "movie";
   @Output() eventEmitter = new EventEmitter<any>();
 
   text: string = "";
@@ -31,9 +32,9 @@ export class AddCommentComponent implements OnInit {
         resp = JSON.parse(resp.data);
         setTimeout(()=> {
           this.movie = resp;
-          if (this.text.length > 0 && this.requestedMovieId != 0) {
+          if (this.text.length > 0 && this.elementId != 0) {
             console.log(this.movie)
-            this.movieService.postComment(this.requestedMovieId, this.text, this.movie.original_title).subscribe((resp) => {
+            this.movieService.postComment(this.elementId, this.text, this.movie.original_title,this.elementType).subscribe((resp) => {
               this.eventEmitter.emit();
             })
           }

@@ -19,7 +19,8 @@
   </div>
   <app-add-comment #addCommentRef
                    *ngIf="viewedDialogShown"
-                   [requestedMovieId]="requestedMovieId"
+                   [elementId]="elementId"
+                   [elementType]="elementType"
                    (eventEmitter)="close(); emitFetch()"
   ></app-add-comment>
 </p-dialog>

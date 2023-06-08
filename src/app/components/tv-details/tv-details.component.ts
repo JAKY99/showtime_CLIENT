@@ -11,6 +11,8 @@ import {TvSimilar} from "../../models/tv/tv-similar";
 import {AccordionSeasonsComponent} from "../accordion-seasons/accordion-seasons.component";
 import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
 import {MessageService} from "primeng/api";
+import {CommentService} from "../../services/comment/comment.service";
+import {AddCommentDialogComponent} from "../comment/add-comment-dialog/add-comment-dialog.component";
 
 @Component({
   selector: 'app-tv-details',
@@ -21,11 +23,12 @@ import {MessageService} from "primeng/api";
 
 export class TvDetailsComponent implements OnInit {
 
-  constructor(private tvService: TvService, private route: ActivatedRoute, private messageService: MessageService) {
+  constructor(private tvService: TvService, private route: ActivatedRoute, private messageService: MessageService,private commentService: CommentService) {
   }
 
   @ViewChild('similarTvRef') similarTvChild: CarouselImageListComponent | undefined;
   @ViewChild('accordionSeasonsRef') accordionSeasonsChild: AccordionSeasonsComponent | undefined;
+  @ViewChild('addCommentDialogRef') addCommentDialogChild : AddCommentDialogComponent | undefined;
 
   @Input() requestedTvId: number = 0;
 
@@ -55,7 +58,8 @@ export class TvDetailsComponent implements OnInit {
 
   // @ts-ignore
   similarTv: TvSimilar[] = [];
-
+  resultComments: [] = [];
+  resultUserComments: [] = [];
   userTv = {
     viewInfo: {
       checked: '',
@@ -76,9 +80,14 @@ export class TvDetailsComponent implements OnInit {
     watchProviders: true,
     isLoadingChildren: false
   }
+  isCommentSectionActive: boolean = true;
 
   async ngOnInit(): Promise<void> {
+    this.commentService.postCommentEvent.subscribe((data) => {
+      this.fetchComments();
+    });
     await this.fetchWatchedSerieInfos();
+    this.fetchComments();
   }
 
   getRateFormated(): number {
@@ -119,7 +128,7 @@ export class TvDetailsComponent implements OnInit {
   async handleChangeTabView2(e: any) {
     //tab: Comments
     if (e.index === 0) {
-
+      this.fetchComments();
     }
     //tab: Similars
     if (e.index === 1) {
@@ -323,5 +332,18 @@ export class TvDetailsComponent implements OnInit {
 
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
     this.messageService.add({severity:severity, summary:title, detail:details, sticky: sticky});
+  }
+
+  fetchComments() {
+    let type = 'serie';
+    this.commentService.fetchComments(this.requestedTvId,type).subscribe((resp) => {
+      this.resultComments = resp;
+    }, (error) => {
+      console.log(error);
+    })
+  }
+  openAddCommentDialog(){
+    let type = 'serie';
+    this.addCommentDialogChild?.open(this.requestedTvId,type);
   }
 }
