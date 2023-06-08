@@ -209,6 +209,7 @@ import { SlideToggleButtonComponent } from './components/slide-toggle-button/sli
     DesktopMovieDetailsComponent,
     DesktopTvDetailsComponent,
     SlideToggleButtonComponent,
+    MovieDetailComponent
   ],
   imports: [
     HttpClientModule,

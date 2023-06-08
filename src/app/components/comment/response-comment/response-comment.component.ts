@@ -25,14 +25,14 @@ export class ResponseCommentComponent implements OnInit {
   commentId: number = 0;
   resultResponseComments: [] = [];
   text: string = "";
-  constructor(private commentService: CommentService, private movieDetailComponent: MovieDetailComponent) { }
+  constructor(private commentService: CommentService) { }
 
   ngOnInit(): void {
   }
 
   close(){
     this.viewedDialogShown = false
-    this.movieDetailComponent.fetchComments();
+    this.commentService.postCommentEvent.emit();
   }
 
   emitFetch(){

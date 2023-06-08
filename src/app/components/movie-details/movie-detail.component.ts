@@ -19,6 +19,7 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
 import { DomSanitizer } from '@angular/platform-browser';
 import {Trailer} from "../../models/common/trailer";
 import {AddCommentDialogComponent} from "../comment/add-comment-dialog/add-comment-dialog.component";
+import {CommentService} from "../../services/comment/comment.service";
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-detail.component.html',
@@ -30,7 +31,7 @@ export class MovieDetailComponent implements OnInit {
   resultComments: [] = [];
   resultUserComments: [] = [];
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute, private messageService: MessageService,private sanitizer: DomSanitizer) { }
+  constructor(private movieService: MovieService, private route: ActivatedRoute, private messageService: MessageService,private sanitizer: DomSanitizer,private commentService : CommentService) { }
 
   @ViewChild('similarMoviesRef') similarMoviesChild : CarouselImageListComponent | undefined;
   @ViewChild('addCommentDialogRef') addCommentDialogChild : AddCommentDialogComponent | undefined;
@@ -79,6 +80,9 @@ export class MovieDetailComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.commentService.postCommentEvent.subscribe((data) => {
+      this.fetchComments();
+    });
     // @ts-ignore
     await this.movieService.fetchMovieDetails(this.requestedMovieId,
       ['credits', 'videos', 'images']).subscribe(
@@ -283,7 +287,8 @@ export class MovieDetailComponent implements OnInit {
 
 
   fetchComments() {
-    this.movieService.fetchComments(this.requestedMovieId).subscribe((resp) => {
+    let type = 'movie';
+    this.movieService.fetchComments(this.requestedMovieId,type).subscribe((resp) => {
       this.resultComments = resp;
     }, (error) => {
       console.log(error);
@@ -299,6 +304,7 @@ export class MovieDetailComponent implements OnInit {
   }
 
   openAddCommentDialog(){
-    this.addCommentDialogChild?.open(this.requestedMovieId);
+    let type = 'movie';
+    this.addCommentDialogChild?.open(this.requestedMovieId,type);
   }
 }

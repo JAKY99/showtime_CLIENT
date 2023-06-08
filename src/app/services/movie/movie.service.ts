@@ -234,18 +234,20 @@ export class MovieService {
 
   }
 
-  postComment(requestedMovieId: number, commentText: any, movieTitle: string | null) {
+  postComment(elementId: number, commentText: any, elementTitle: string | null,typeElement:string) {
     let url = `${GlobalConstants.API_URL}/api/v1/comment/saveComment`
     return this.http.post<any>(url, {
-      movieId: requestedMovieId,
+      elementId: elementId,
       commentText: commentText,
       userMail: this.tokenStorage.getClientUsername(),
-      movieTitle: movieTitle
+      elementTitle: elementTitle,
+      typeElement:typeElement
+
     });
   }
 
-  fetchComments(requestedMovieId: number): Observable<any> {
-    let url = `${GlobalConstants.API_URL}/api/v1/comment/getComments/${requestedMovieId}`
+  fetchComments(requestedMovieId: number,type:string): Observable<any> {
+    let url = `${GlobalConstants.API_URL}/api/v1/comment/getComments/${requestedMovieId}?type=${type}`
     return this.http.get<any>(url);
   }
 

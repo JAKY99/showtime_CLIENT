@@ -136,7 +136,22 @@
   <div class="tab-view-section2" *ngIf="!loading.tv">
     <p-tabView (onChange)="handleChangeTabView2($event)">
       <p-tabPanel header="Comments">
-        Content 2
+        <div>
+          <div *ngIf="resultUserComments.length" class="comments">
+            <div class="comment" *ngFor="let resultUserComments of resultUserComments">
+              <app-comment [comment]="resultUserComments"></app-comment>
+            </div>
+          </div>
+          <div *ngIf="resultComments.length" class="comments">
+            <div class="comment" *ngFor="let resultComment of resultComments">
+              <app-comment [comment]="resultComment"></app-comment>
+            </div>
+          </div>
+          <div *ngIf="resultComments.length <= 0" class="text-center">
+            <h3>No comments</h3>
+          </div>
+        </div>
+
       </p-tabPanel>
       <p-tabPanel header="More like this">
         <div class="similar-tv">
@@ -147,7 +162,14 @@
       </p-tabPanel>
     </p-tabView>
   </div>
-
+  <div class="flex justify-content-end mb-4 mr-2">
+    <button *ngIf="isCommentSectionActive"
+            pButton pRipple type="button" icon="pi pi-comments"
+            class="p-button-rounded st-secondary-btn floating-comment-btn shadow-6"
+            (click)="openAddCommentDialog()"
+    ></button>
+  </div>
 </div>
 
 
+<app-add-comment-dialog #addCommentDialogRef (eventEmitter)="fetchComments()"></app-add-comment-dialog>

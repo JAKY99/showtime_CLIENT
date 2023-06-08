@@ -18,6 +18,7 @@ export class CommentComponent implements OnInit {
   constructor(private commentService: CommentService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit(): void {
+    console.log(this.comment)
   }
 
   getCommentDate(){

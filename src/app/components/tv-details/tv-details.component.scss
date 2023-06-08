@@ -189,7 +189,22 @@
       }
     }
   }
+  .floating-comment-btn{
+    position: fixed;
+    bottom: $margin-big;
+    right: $margin-big;
+  }
+  .commentInput{
+    background-color: $main-color;
+    color: $white;
+  }
 
+  .comments{
+    display: flex;
+    flex-direction: column;
+    gap: $margin-default;
+    margin-bottom: $margin-big;
+  }
 }
 .watched-section{
   .status{
