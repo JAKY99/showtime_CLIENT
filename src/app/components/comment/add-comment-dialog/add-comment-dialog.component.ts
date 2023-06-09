@@ -19,6 +19,7 @@ export class AddCommentDialogComponent implements OnInit {
   viewedDialogPosition: string = 'bottom';
   elementId: number = 0;
   elementType: string = '';
+  elementName:  string = '';
 
   constructor() { }
 
@@ -33,10 +34,11 @@ export class AddCommentDialogComponent implements OnInit {
     this.eventEmitter.emit();
   }
 
-  open(elementId: number,elementType: string){
+  open(elementId: number,elementType: string,elementName: string){
     this.viewedDialogShown = true
     this.elementId = elementId;
     this.elementType = elementType;
+    this.elementName = elementName;
   }
 
 }

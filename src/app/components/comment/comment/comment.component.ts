@@ -14,6 +14,7 @@ export class CommentComponent implements OnInit {
 
   @ViewChild('responseCommentDialogChild') responseCommentDialogChild : ResponseCommentComponent | undefined;
   @Input() comment: any = {};
+  @Input() showOrigin: boolean = false;
 
   constructor(private commentService: CommentService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 

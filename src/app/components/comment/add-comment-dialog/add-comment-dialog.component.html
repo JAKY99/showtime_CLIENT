@@ -21,6 +21,7 @@
                    *ngIf="viewedDialogShown"
                    [elementId]="elementId"
                    [elementType]="elementType"
+                   [elementName]="elementName"
                    (eventEmitter)="close(); emitFetch()"
   ></app-add-comment>
 </p-dialog>

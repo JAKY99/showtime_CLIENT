@@ -29,7 +29,7 @@
           <div>
             <div *ngIf="resultUserComments.length" class="comments">
               <div class="comment" *ngFor="let resultUserComments of resultUserComments">
-                <app-comment [comment]="resultUserComments"></app-comment>
+                <app-comment [showOrigin]="true" [comment]="resultUserComments"></app-comment>
               </div>
             </div>
             <div *ngIf="resultUserComments.length <= 0" class="text-center">

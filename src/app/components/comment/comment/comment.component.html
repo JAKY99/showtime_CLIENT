@@ -12,6 +12,9 @@
     <div class="content">
       {{comment.comments.content}}
     </div>
+    <div *ngIf="showOrigin" class="mt-5 flex justify-content-end origin content">
+      posted on the  {{comment.comments.typeElement.toLowerCase()}} page : {{comment.elementName}}
+    </div>
   </div>
   <div class="actions">
     <p-divider styleClass="mb-2" class="--darker"></p-divider>

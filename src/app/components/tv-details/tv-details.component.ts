@@ -353,6 +353,6 @@ export class TvDetailsComponent implements OnInit {
     })
   }
   openAddCommentDialog(){
-    this.addCommentDialogChild?.open(this.requestedTvId,this.type);
+    this.addCommentDialogChild?.open(this.requestedTvId,this.type,this.tv.name);
   }
 }
