@@ -92,5 +92,16 @@
       color: $white;
     }
   }
+   .commentInput{
+     background-color: $main-color;
+     color: $white;
+   }
+
+   .comments{
+     display: flex;
+     flex-direction: column;
+     gap: $margin-default;
+     margin-bottom: $margin-big;
+   }
 }
 

@@ -18,7 +18,7 @@
     ></fa-icon>
   </div>
   <app-edit-profile *ngIf="!isLoading && viewedDialogShown"
-                    [userData]="userData" (imageSaved)="imageSavedSuccessFully()"
+                    [userData]="userData" (imageSaved)="imageSavedSuccessFully()" [about]="about"
                     (accountInfosSaved)="accountInfosSavedSuccessFully()"
   ></app-edit-profile>
 

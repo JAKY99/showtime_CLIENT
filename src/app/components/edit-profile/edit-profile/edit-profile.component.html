@@ -1,4 +1,25 @@
 <div class="edit-profile">
+  <h2>About you</h2>
+  <form class="flex flex-column justify-content-center gap-4" (ngSubmit)="submitEditInfosAccountAboutYou()">
+    <div [formGroup]="editAccountInfosAboutYouForm" class="flex flex-column justify-content-center gap-4">
+      <div class="flex flex-column gap-1">
+        <textarea id="input-about-you"
+               formControlName="aboutYou"
+               type="text"
+               pInputText
+        ></textarea>
+      </div>
+      <button
+        id="signin_normal_button_bio"
+        pButton
+        type="submit"
+        label="Save"
+        [loading]="isSavingInfosAboutYouForm"
+        [disabled]="editAccountInfosAboutYouForm.invalid"
+        class="p-button-text st-secondary-btn --small"
+      ></button>
+    </div>
+  </form>
   <h2>Edit Pictures</h2>
   <div class="profile-picture" (click)="openFileDialogAvatar($event,'avatar')" >
     <app-profile-avatar class="p-p"></app-profile-avatar>

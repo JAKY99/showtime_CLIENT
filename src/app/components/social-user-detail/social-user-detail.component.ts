@@ -3,6 +3,7 @@ import {ConfirmationService, MenuItem} from "primeng/api";
 import {SocialService} from "../../services/social/social.service";
 import {faChevronDown, faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
 import {TokenStorageService} from "../../services/token-storage.service";
+import {CommentService} from "../../services/comment/comment.service";
 
 @Component({
   selector: 'app-social-user-detail',
@@ -17,6 +18,7 @@ export class SocialUserDetailComponent implements OnInit {
   Comments : string = ""
   Trophies : string = ""
   items: MenuItem[]=[];
+  resultUserComments: [] = [];
   viewedDialogShown: boolean = false;
   viewedDialogPosition: string = 'bottom';
   faChevronDown = faChevronDown;
@@ -24,10 +26,12 @@ export class SocialUserDetailComponent implements OnInit {
   constructor( private SocialService : SocialService,
                private confirmationService: ConfirmationService,
                private TokenStorageService: TokenStorageService,
-               private changeDetector : ChangeDetectorRef
+               private changeDetector : ChangeDetectorRef,
+                private commentService: CommentService
   ) { }
 
   ngOnInit(): void {
+    this.fetchUserComments();
   }
   ngOnChanges(changes:SimpleChanges): void {
     this.fetchSocialInfo();
@@ -61,7 +65,6 @@ export class SocialUserDetailComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.About = data.body.about==null?"No description yet":data.body.about;
-        this.Comments = data.body.comments==null?"No comments yet":data.body.comments;
         this.Trophies = data.body.trophies==null?"No trophies yet":data.body.trophies;
         this.viewedDialogShown = true;
         this.changeDetector.detectChanges();
@@ -76,10 +79,19 @@ export class SocialUserDetailComponent implements OnInit {
     this.username = username;
     console.log("open");
     this.fetchSocialInfo();
+    this.fetchUserComments();
 
   }
   close(){
     this.viewedDialogShown = false
   }
-
+  fetchUserComments() {
+    console.log(this.username)
+    this.commentService.fetchUserAllComments(this.username).subscribe((resp) => {
+      this.resultUserComments = resp;
+      console.log(this.resultUserComments.length)
+    }, (error) => {
+      console.log(error);
+    })
+  }
 }
