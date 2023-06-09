@@ -69,4 +69,10 @@ export class CommentService {
     let url = `${GlobalConstants.API_URL}/api/v1/movie/recommended-for-user/`;
     return this.http.get<any>(url);
   }
+
+  fetchUserAllComments(username: string): Observable<any> {
+    let url = `${GlobalConstants.API_URL}/api/v1/comment/getAllUserComments/${username}`
+    return this.http.get<any>(url);
+  }
+
 }

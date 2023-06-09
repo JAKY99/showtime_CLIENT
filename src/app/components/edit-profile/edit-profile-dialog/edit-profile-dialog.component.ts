@@ -31,7 +31,7 @@ export class EditProfileDialogComponent implements OnInit {
     lastName: "",
     isNotificationsActive: false,
   };
-
+  about: string = "";
   constructor(private profileService: ProfileService, private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -48,6 +48,10 @@ export class EditProfileDialogComponent implements OnInit {
       this.userData.lastName = resp.body.lastName;
       // @ts-ignore
       this.userData.isNotificationsActive = resp.body.notification_system_status;
+    });
+    this.profileService.fetchAbout().subscribe((resp) => {
+      // @ts-ignore
+      this.about =resp.aboutYou
     });
   }
 

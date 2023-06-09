@@ -87,4 +87,12 @@ export class UserService {
     this.newNotificationSignal.emit();
   }
 
+  editAccountInfosAboutYou(userData: any) {
+    const url = GlobalConstants.API_URL + "/api/v1/user/edit-account/about-you";
+    return this.http.put<any>(
+      url,
+      userData
+    );
+
+  }
 }

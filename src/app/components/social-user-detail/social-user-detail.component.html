@@ -22,11 +22,20 @@
     <app-social-info-section [username]="username"></app-social-info-section>
     <div class="tab-view-section">
       <p-tabView>
-        <p-tabPanel header="About" class="About-panel" [selected]="true">
+        <p-tabPanel header="About" class="About-panel text-white" [selected]="true">
           {{About}}
         </p-tabPanel>
         <p-tabPanel header="Comments" class="Comments-panel">
-          {{Comments}}
+          <div>
+            <div *ngIf="resultUserComments.length" class="comments">
+              <div class="comment" *ngFor="let resultUserComments of resultUserComments">
+                <app-comment [comment]="resultUserComments"></app-comment>
+              </div>
+            </div>
+            <div *ngIf="resultUserComments.length <= 0" class="text-center">
+              <h3>No comments</h3>
+            </div>
+          </div>
         </p-tabPanel>
         <p-tabPanel header="Trophies" class="Trophies-panel">
           {{Trophies}}

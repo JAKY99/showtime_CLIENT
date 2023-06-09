@@ -26,7 +26,7 @@ export class EditProfileComponent implements OnInit {
     lastName: "",
     isNotificationsActive: false,
   };
-
+  @Input() about: string = "";
   @Output() imageSaved = new EventEmitter<any>();
   @Output() accountInfosSaved = new EventEmitter<any>();
 
@@ -38,14 +38,17 @@ export class EditProfileComponent implements OnInit {
   private isClickedBackground = false;
   public editAccountInfosForm: FormGroup;
   public editAccountPasswordForm: FormGroup;
+  public editAccountInfosAboutYouForm: FormGroup;
   isSavingInfosAccountForm: boolean = false;
   isSavingInfosPasswordAccountForm: boolean = false;
+  isSavingInfosAboutYouForm : boolean = false;
   isRepeatNok: boolean = true ;
   public isLoginFailed: boolean = true;
   SYSTEM_NOTIFICATION: string = 'SYSTEM_NOTIFICATION';
   constructor(private profileService: ProfileService, private tokenStorage: TokenStorageService, private userService: UserService, private slideToggleButtonService: SlideToggleButtonService) {
     this.editAccountInfosForm = new FormGroup({})
     this.editAccountPasswordForm = new FormGroup({})
+    this.editAccountInfosAboutYouForm = new FormGroup({})
   }
 
   ngOnInit(): void {
@@ -69,8 +72,14 @@ export class EditProfileComponent implements OnInit {
       ]),
       lastName: new FormControl('', Validators.required)
     });
-
+    this.editAccountInfosAboutYouForm = new FormGroup({
+      aboutYou: new FormControl('', [
+        Validators.required,
+      ]),
+    });
     this.editAccountInfosForm.patchValue({ firstName: this.userData.firstName, lastName: this.userData.lastName });
+    console.log(this.about)
+    this.editAccountInfosAboutYouForm.patchValue({ aboutYou: this.about });
 // Define a regular expression for the password format
     const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     this.editAccountPasswordForm = new FormGroup({
@@ -116,6 +125,7 @@ export class EditProfileComponent implements OnInit {
       }, 2000)
     }
   }
+
 
 
 
@@ -181,5 +191,20 @@ export class EditProfileComponent implements OnInit {
     let repeatpassword = this.editAccountPasswordForm.get('password')?.value == this.editAccountPasswordForm.get('repeatpassword')?.value;
     this.isRepeatNok=!repeatpassword
     this.isLoginFailed = !this.editAccountPasswordForm.invalid && repeatpassword? false : true;
+  }
+
+  submitEditInfosAccountAboutYou() {
+    this.isSavingInfosAboutYouForm = true;
+
+    this.userService.editAccountInfosAboutYou(this.editAccountInfosAboutYouForm.controls['aboutYou'].value).subscribe(
+      resp => {
+        this.isSavingInfosAboutYouForm = false;
+        this.accountInfosSaved.emit();
+        this.userService.userInformationUpdated.emit();
+      },
+      error => {
+        this.isSavingInfosAboutYouForm = false;
+      }
+    );
   }
 }

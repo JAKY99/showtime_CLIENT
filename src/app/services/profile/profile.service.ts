@@ -105,4 +105,13 @@ export class ProfileService {
       // @ts-ignore
       httpOptions);
   }
+  fetchAbout() {
+    let url = GlobalConstants.API_URL + "/api/v1/user/get/about-you";
+    // @ts-ignore
+    return this.http.get<string>(
+      url,
+      this.tokenStorage.getClientUsername(),
+      // @ts-ignore
+      httpOptions);
+  }
 }
