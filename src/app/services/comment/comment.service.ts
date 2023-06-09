@@ -55,13 +55,13 @@ export class CommentService {
     });
   }
 
-  fetchComments(requestedMovieId: number,type:string): Observable<any> {
-    let url = `${GlobalConstants.API_URL}/api/v1/comment/getComments/${requestedMovieId}?type=${type}`
+  fetchComments(elementId: number,type:string): Observable<any> {
+    let url = `${GlobalConstants.API_URL}/api/v1/comment/getComments/${elementId}?type=${type}`
     return this.http.get<any>(url);
   }
 
-  fetchUserComments(requestedMovieId: number): Observable<any> {
-    let url = `${GlobalConstants.API_URL}/api/v1/comment/getUserComments/${requestedMovieId}`
+  fetchUserComments(elementId: number,type:string): Observable<any> {
+    let url = `${GlobalConstants.API_URL}/api/v1/comment/getUserComments/${elementId}?type=${type}`
     return this.http.get<any>(url);
   }
 

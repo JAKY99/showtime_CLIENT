@@ -23,6 +23,7 @@ import {AddCommentDialogComponent} from "../comment/add-comment-dialog/add-comme
 
 export class TvDetailsComponent implements OnInit {
 
+
   constructor(private tvService: TvService, private route: ActivatedRoute, private messageService: MessageService,private commentService: CommentService) {
   }
 
@@ -33,6 +34,7 @@ export class TvDetailsComponent implements OnInit {
   @Input() requestedTvId: number = 0;
 
   serieFullyWatchedEvent: string = "";
+  private type: string ="serie";
 
   faBookmark = faBookmark;
   faStarHalfStroke = faStarHalfStroke;
@@ -85,9 +87,11 @@ export class TvDetailsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.commentService.postCommentEvent.subscribe((data) => {
       this.fetchComments();
+      this.fetchUserComments();
     });
     await this.fetchWatchedSerieInfos();
     this.fetchComments();
+    this.fetchUserComments();
   }
 
   getRateFormated(): number {
@@ -335,15 +339,20 @@ export class TvDetailsComponent implements OnInit {
   }
 
   fetchComments() {
-    let type = 'serie';
-    this.commentService.fetchComments(this.requestedTvId,type).subscribe((resp) => {
+    this.commentService.fetchComments(this.requestedTvId,this.type).subscribe((resp) => {
       this.resultComments = resp;
     }, (error) => {
       console.log(error);
     })
   }
+  fetchUserComments() {
+    this.commentService.fetchUserComments(this.requestedTvId,this.type).subscribe((resp) => {
+      this.resultUserComments = resp;
+    }, (error) => {
+      console.log(error);
+    })
+  }
   openAddCommentDialog(){
-    let type = 'serie';
-    this.addCommentDialogChild?.open(this.requestedTvId,type);
+    this.addCommentDialogChild?.open(this.requestedTvId,this.type);
   }
 }
