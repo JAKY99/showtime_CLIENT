@@ -31,7 +31,6 @@ export class SocialUserDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchUserComments();
   }
   ngOnChanges(changes:SimpleChanges): void {
     this.fetchSocialInfo();
@@ -86,10 +85,8 @@ export class SocialUserDetailComponent implements OnInit {
     this.viewedDialogShown = false
   }
   fetchUserComments() {
-    console.log(this.username)
     this.commentService.fetchUserAllComments(this.username).subscribe((resp) => {
       this.resultUserComments = resp;
-      console.log(this.resultUserComments.length)
     }, (error) => {
       console.log(error);
     })

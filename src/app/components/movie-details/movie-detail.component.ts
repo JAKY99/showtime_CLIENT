@@ -304,7 +304,8 @@ export class MovieDetailComponent implements OnInit {
   }
 
   openAddCommentDialog(){
-    let type = 'movie';
-    this.addCommentDialogChild?.open(this.requestedMovieId,type);
+    if (this.movie.original_title != null) {
+      this.addCommentDialogChild?.open(this.requestedMovieId, this.type, this.movie.original_title);
+    }
   }
 }

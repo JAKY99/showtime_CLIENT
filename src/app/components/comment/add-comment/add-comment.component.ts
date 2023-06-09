@@ -12,7 +12,7 @@ export class AddCommentComponent implements OnInit {
   @Input() elementId: number = 0;
   @Input() elementType: string = "movie";
   @Output() eventEmitter = new EventEmitter<any>();
-
+  @Input() elementName: string = "";
   text: string = "";
 
   // @ts-ignore
@@ -34,7 +34,7 @@ export class AddCommentComponent implements OnInit {
           this.movie = resp;
           if (this.text.length > 0 && this.elementId != 0) {
             console.log(this.movie)
-            this.movieService.postComment(this.elementId, this.text, this.movie.original_title,this.elementType).subscribe((resp) => {
+            this.movieService.postComment(this.elementId, this.text, this.elementName,this.elementType).subscribe((resp) => {
               this.eventEmitter.emit();
             })
           }
