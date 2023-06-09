@@ -79,6 +79,7 @@ export class MovieDetailComponent implements OnInit {
     userViewInfo: true
   }
 
+  type : string = 'movie';
   async ngOnInit(): Promise<void> {
     this.commentService.postCommentEvent.subscribe((data) => {
       this.fetchComments();
@@ -287,8 +288,7 @@ export class MovieDetailComponent implements OnInit {
 
 
   fetchComments() {
-    let type = 'movie';
-    this.movieService.fetchComments(this.requestedMovieId,type).subscribe((resp) => {
+    this.movieService.fetchComments(this.requestedMovieId,this.type).subscribe((resp) => {
       this.resultComments = resp;
     }, (error) => {
       console.log(error);
@@ -296,7 +296,7 @@ export class MovieDetailComponent implements OnInit {
   }
 
   fetchUserComments() {
-    this.movieService.fetchUserComments(this.requestedMovieId).subscribe((resp) => {
+    this.movieService.fetchUserComments(this.requestedMovieId,this.type).subscribe((resp) => {
       this.resultUserComments = resp;
     }, (error) => {
       console.log(error);
