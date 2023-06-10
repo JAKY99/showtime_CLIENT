@@ -114,4 +114,14 @@ export class ProfileService {
       // @ts-ignore
       httpOptions);
   }
+
+  fetchTrophies(username: string) {
+    let url = GlobalConstants.API_URL + "/api/v1/user/social/search/user/detail";
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      username,
+      // @ts-ignore
+      httpOptions);
+  }
 }

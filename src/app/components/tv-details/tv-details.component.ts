@@ -133,9 +133,11 @@ export class TvDetailsComponent implements OnInit {
     //tab: Comments
     if (e.index === 0) {
       this.fetchComments();
+      this.isCommentSectionActive = true;
     }
     //tab: Similars
     if (e.index === 1) {
+      this.isCommentSectionActive = false;
       // @ts-ignore
       await this.tvService.fetchSimilarTv(this.requestedTvId).toPromise()
         .then((resp) => {

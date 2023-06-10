@@ -38,7 +38,9 @@
           </div>
         </p-tabPanel>
         <p-tabPanel header="Trophies" class="Trophies-panel">
-          {{Trophies}}
+          <div class="trophiesList" *ngFor="let trophy of Trophies">
+            <app-trophy-card [trophy]="trophy"></app-trophy-card>
+          </div>
         </p-tabPanel>
         <p-tabPanel header="Stats" class="Search-panel">
         </p-tabPanel>

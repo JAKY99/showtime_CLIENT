@@ -128,6 +128,7 @@ import {ScrollPanelModule} from "primeng/scrollpanel";
 import { DesktopTvDetailsComponent } from './components/web/desktop-tv-details/desktop-tv-details.component';
 import {Page404Component} from "./pages/page404/page404.component";
 import { SlideToggleButtonComponent } from './components/slide-toggle-button/slide-toggle-button.component';
+import { TrophyCardComponent } from './components/trophy-card/trophy-card.component';
 
 @NgModule({
   declarations: [
@@ -209,7 +210,8 @@ import { SlideToggleButtonComponent } from './components/slide-toggle-button/sli
     DesktopMovieDetailsComponent,
     DesktopTvDetailsComponent,
     SlideToggleButtonComponent,
-    MovieDetailComponent
+    MovieDetailComponent,
+    TrophyCardComponent
   ],
   imports: [
     HttpClientModule,
