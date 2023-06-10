@@ -82,6 +82,8 @@ export class ProfilePageComponent implements OnInit {
   lastWatchedSeriesRangeMethodName: String = "";
   favoritesSeriesRangeMethodName: String = "";
   watchlistSeriesRangeMethodName: String = "";
+  Trophies: any[] = [];
+
 
   constructor(private profileService: ProfileService,
               private MovieService: MovieService,
@@ -98,6 +100,7 @@ export class ProfilePageComponent implements OnInit {
     this.isDesktopDevice = this.deviceService.isDesktop();
 
     this.fetchProfileData();
+    this.fetchTrophies();
     this.items = [
       {
         separator:true
@@ -252,7 +255,17 @@ export class ProfilePageComponent implements OnInit {
       console.log(e)
     }
   }
-
+  private async fetchTrophies() {
+    this.profileService.fetchTrophies(this.TokenStorageService.getClientUsername()).subscribe(
+      (data: any) => {
+        this.Trophies = data.body.trophies;
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+    console.log("fetchSocialInfo");
+  }
   public openViewAllProfileList(type: string) {
     // @ts-ignore
     this.viewAllProfileListChild?.open([...this[type]], this[type + "Total"], this[type + "RangeServiceName"], this[type + "RangeMethodName"], this[type + "Title"]);

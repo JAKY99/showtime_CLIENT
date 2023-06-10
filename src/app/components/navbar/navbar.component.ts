@@ -152,6 +152,23 @@ export class NavbarComponent implements OnInit {
         }
       });
 
+      // @ts-ignore
+      that.client.subscribe(`/topic/trophy/${this.env}/${this.tokenStorage.getClientUsername()}`, (message) => {
+        if (message.body) {
+          // that.loading = true
+          let result = JSON.parse(message.body);
+          if (localStorage.getItem('isAndroid') === 'true' && this.isNotificationActive) {
+            // @ts-ignore
+            window['Android'].createNotification('Showtime App', result.message, result.severity);
+          }
+          console.log('notification');
+          if (localStorage.getItem('isAndroid') !== 'true' && this.isNotificationActive) {
+            console.log('notification');
+            this.addSingleToast('success', 'Notification', 'You have a new notification');
+          }
+          this.userservice.newNotificationEmitter();
+        }
+      });
 
     }, this.onSocketfailure);
   }
