@@ -12,7 +12,7 @@
   <p-divider></p-divider>
 
   <div class="tab-view-section mt-3">
-    <p-tabView (onChange)="handleChangeTabView($event)">
+    <p-tabView (onChange)="handleChangeTabView($event)"  [activeIndex]="0">
       <p-tabPanel header="Series" class="series-panel">
 
 
@@ -118,7 +118,7 @@
         <div class="trophiesList" *ngFor="let trophy of Trophies">
           <app-trophy-card [trophy]="trophy"></app-trophy-card>
         </div>
-        <p *ngIf="Trophies.length<=0" class="m-3 mb-3 text-white text-base"><i>Nothing in watchlist, please go and check some !</i></p>
+        <p *ngIf="Trophies.length<=0" class="m-3 mb-3 text-white text-base"><i>No trophy</i></p>
       </p-tabPanel>
     </p-tabView>
   </div>

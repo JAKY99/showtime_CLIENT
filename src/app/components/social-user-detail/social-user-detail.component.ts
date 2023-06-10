@@ -4,6 +4,7 @@ import {SocialService} from "../../services/social/social.service";
 import {faChevronDown, faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
 import {TokenStorageService} from "../../services/token-storage.service";
 import {CommentService} from "../../services/comment/comment.service";
+import {ProfileService} from "../../services/profile/profile.service";
 
 @Component({
   selector: 'app-social-user-detail',
@@ -23,17 +24,26 @@ export class SocialUserDetailComponent implements OnInit {
   viewedDialogPosition: string = 'bottom';
   faChevronDown = faChevronDown;
   faEllipsisVertical = faEllipsisVertical;
+  numberSeriesWatched: number = 0;
+
+  numberMoviesWatched: number = 0;
+
+  timeWatchedMovieMonthDaysHours: string = "0/0/0";
+  timeWatchedSeriesMonthDaysHours: string = "0/0/0";
+  index: number = 0;
   constructor( private SocialService : SocialService,
                private confirmationService: ConfirmationService,
                private TokenStorageService: TokenStorageService,
                private changeDetector : ChangeDetectorRef,
-                private commentService: CommentService
+                private commentService: CommentService,
+               private profileService: ProfileService,
   ) { }
 
   ngOnInit(): void {
   }
   ngOnChanges(changes:SimpleChanges): void {
     this.fetchSocialInfo();
+    this.fetchProfileData();
     this.items = [
       {
         separator:true
@@ -56,6 +66,7 @@ export class SocialUserDetailComponent implements OnInit {
       }
     ];
   }
+
   private async fetchSocialInfo() {
     if(this.username == ""){
       return;
@@ -63,8 +74,8 @@ export class SocialUserDetailComponent implements OnInit {
     this.SocialService.fetchSocialInfoSearchDetail(this.username).subscribe(
       (data: any) => {
         console.log(data);
-        this.About = data.body.about==null?"No description yet":data.body.about;
-        this.Trophies = data.body.trophies==null?"No trophies yet":data.body.trophies;
+        this.About = data.body.about
+        this.Trophies = data.body.trophies
         this.viewedDialogShown = true;
         this.changeDetector.detectChanges();
       },
@@ -79,6 +90,8 @@ export class SocialUserDetailComponent implements OnInit {
     console.log("open");
     this.fetchSocialInfo();
     this.fetchUserComments();
+    this.fetchProfileData();
+    this.ngOnInit()
 
   }
   close(){
@@ -90,5 +103,38 @@ export class SocialUserDetailComponent implements OnInit {
     }, (error) => {
       console.log(error);
     })
+  }
+
+  async handleChangeTabView(e: any) {
+    //tab: series
+    if (e.index === 0) {
+      //fetch series list here
+
+    }
+    //tab: movies
+    if (e.index === 1) {
+      //fetch movies list here
+    }
+    if (e.index === 2) {
+      //fetch movies list here
+    }
+  }
+  async fetchProfileData() {
+    try {
+      await this.profileService.fetchProfileForSocialDetail(this.username).subscribe((resp) => {
+        setTimeout(() => {
+          // @ts-ignore
+          this.numberMoviesWatched = resp.body.numberOfWatchedMovies;
+          // @ts-ignore
+          this.numberSeriesWatched = resp.body.numberOfWatchedSeries;
+          // @ts-ignore
+          this.timeWatchedMovieMonthDaysHours = resp.body.totalTimeWatchedMovies;
+          // @ts-ignore
+          this.timeWatchedSeriesMonthDaysHours = resp.body.totalTimeWatchedSeries;
+        }, 100)
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
