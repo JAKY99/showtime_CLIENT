@@ -124,4 +124,14 @@ export class ProfileService {
       // @ts-ignore
       httpOptions);
   }
+
+  fetchProfileForSocialDetail(username: string) {
+    let url = GlobalConstants.API_URL + "/api/v1/user/profile/lazy/header";
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      username,
+      // @ts-ignore
+      httpOptions);
+  }
 }
