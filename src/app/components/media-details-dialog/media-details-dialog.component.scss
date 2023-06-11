@@ -2,11 +2,11 @@
 
 #movie-details-dialog {
 
-  ::ng-deep .p-dialog-header {
+  .p-dialog-header {
     display: none !important;
   }
 
-  ::ng-deep .p-dialog-content {
+   .p-dialog-content {
     background-color: $main-color !important;
     color: $white;
     padding: 0 !important;
@@ -29,18 +29,22 @@
     }
   }
 
+  .p-dialog-container-movie{
+    position: fixed;
+    bottom: 0;
+  }
   .p-dialog-footer {
     display: none !important;
   }
 
-  ::ng-deep .p-dialog {
+  .p-dialog {
     width: 100%;
     margin: 0 !important;
     max-height: 100% !important;
     min-height: 100% !important;
   }
 
-  ::ng-deep .p-dialog .p-dialog-header .p-dialog-header-icon {
+  .p-dialog .p-dialog-header .p-dialog-header-icon {
     pointer-events: none;
   }
 }

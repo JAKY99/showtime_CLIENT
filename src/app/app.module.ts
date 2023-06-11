@@ -130,6 +130,7 @@ import {Page404Component} from "./pages/page404/page404.component";
 import { SlideToggleButtonComponent } from './components/slide-toggle-button/slide-toggle-button.component';
 import { TrophyCardComponent } from './components/trophy-card/trophy-card.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
