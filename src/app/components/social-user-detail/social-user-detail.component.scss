@@ -2,12 +2,13 @@
 
 
  #app-social-user-detail {
-
+    overflow-x: hidden;
      .p-dialog-header {
        display: none !important;
      }
 
      .p-dialog-content {
+       overflow-x: hidden;
        background-color: $main-color !important;
        color: $white;
        padding: 0 !important;
@@ -35,6 +36,7 @@
      }
 
      .p-dialog {
+       overflow-x: hidden;
        width: 100%;
        margin: 0 !important;
        max-height: 100% !important;
