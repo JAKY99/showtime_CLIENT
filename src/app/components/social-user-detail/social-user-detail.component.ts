@@ -30,7 +30,7 @@ export class SocialUserDetailComponent implements OnInit {
 
   timeWatchedMovieMonthDaysHours: string = "0/0/0";
   timeWatchedSeriesMonthDaysHours: string = "0/0/0";
-  index: number = 0;
+  index: number = 1;
   constructor( private SocialService : SocialService,
                private confirmationService: ConfirmationService,
                private TokenStorageService: TokenStorageService,
@@ -40,7 +40,10 @@ export class SocialUserDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+
   }
+
   ngOnChanges(changes:SimpleChanges): void {
     this.fetchSocialInfo();
     this.fetchProfileData();
@@ -77,7 +80,6 @@ export class SocialUserDetailComponent implements OnInit {
         this.About = data.body.about
         this.Trophies = data.body.trophies
         this.viewedDialogShown = true;
-        this.changeDetector.detectChanges();
       },
       (err: any) => {
         console.log(err);
@@ -91,8 +93,10 @@ export class SocialUserDetailComponent implements OnInit {
     this.fetchSocialInfo();
     this.fetchUserComments();
     this.fetchProfileData();
-    this.ngOnInit()
-
+    this.index = 0;
+    // setTimeout(() => {
+    //   this.index = 0;
+    // } , 1000);
   }
   close(){
     this.viewedDialogShown = false
