@@ -27,6 +27,7 @@
       <app-seen-check (click)="showViewedDialog()" [isChecked]="!!userMovie.viewInfo.checked"></app-seen-check>
     </div>
   </div>
+
   <p-dialog
     class="viewed-dialog"
     [closeOnEscape]="true"
@@ -39,6 +40,7 @@
     [resizable]="false"
     closeIcon=""
   >
+    <div class="flex justify-content-evenly mt-2">
     <ng-template pTemplate="header">
       Mark as ...
     </ng-template>
@@ -58,7 +60,9 @@
       icon="pi pi-eye-slash"
       (click)="removeMovieFromViewInfo()"
     ></button>
+    </div>
   </p-dialog>
+
 
   <p-divider styleClass="p-divider"></p-divider>
 

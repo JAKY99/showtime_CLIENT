@@ -218,44 +218,49 @@
   }
 
   .p-dialog-header {
-    background-color: $main-color;
+    display: none !important;
+  }
+
+  .p-dialog-content {
+    background-color: $main-color !important;
     color: $white;
-    border-radius: 0;
-    padding: $margin-default;
-    font-weight: bold;
+    padding: 0 !important;
+    position: relative;
+    overflow-y: auto;
 
-    .p-dialog-content {
-      background-color: $main-color;
-      color: $white;
-      padding: $margin-default 0 !important;
+    .top-section {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: $margin-small;
-
-      button {
-        text-align: left;
-        color: $white;
-      }
-    }
-
-    .p-dialog-footer {
-      display: flex;
-      flex-direction: column;
-      background-color: $main-color;
+      justify-content: center;
+      align-items: center;
       color: $white;
+      position: absolute;
+      z-index: 9999;
+      width: 30px;
+      height: 30px;
+      top: 1.5rem;
+      right: 1.5rem;
+      border-radius: 50%;
+      font-size: $font-medium;
     }
+  }
 
-    .p-dialog {
-      width: 100%;
-      margin: 0;
-      max-height: 30% !important;
-      min-height: 30% !important;
-    }
+  .p-dialog-container-movie{
+    position: fixed;
+    bottom: 0;
+  }
+  .p-dialog-footer {
+    display: none !important;
+  }
 
-    .p-dialog .p-dialog-header .p-dialog-header-icon {
-      pointer-events: none;
-    }
+  .p-dialog {
+    width: 100%;
+    margin: 0 !important;
+    max-height: 15% !important;
+    min-height: 15% !important;
+  }
+
+  .p-dialog .p-dialog-header .p-dialog-header-icon {
+    pointer-events: none;
   }
   .p-toast{
     width: 100%;

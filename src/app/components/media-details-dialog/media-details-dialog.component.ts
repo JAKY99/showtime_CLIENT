@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {faChevronDown, faClose} from "@fortawesome/free-solid-svg-icons";
 import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'app-media-details-dialog',
   templateUrl: './media-details-dialog.component.html',
-  styleUrls: ['./media-details-dialog.component.scss']
+  styleUrls: ['./media-details-dialog.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MediaDetailsDialogComponent implements OnInit {
 
