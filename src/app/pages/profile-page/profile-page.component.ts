@@ -15,6 +15,7 @@ import {
 import {ProfileTopSectionComponent} from "../../components/profile-top-section/profile-top-section.component";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {TvService} from "../../services/tv/tv.service";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
@@ -90,7 +91,8 @@ export class ProfilePageComponent implements OnInit {
               private TokenStorageService: TokenStorageService,
               private confirmationService: ConfirmationService,
               private deviceService: DeviceDetectorService,
-              private tvService: TvService
+              private tvService: TvService,
+              private router: Router
   ) {
   }
 
@@ -120,7 +122,7 @@ export class ProfilePageComponent implements OnInit {
           });
         }
 
-      }
+      },
     ];
   }
 
