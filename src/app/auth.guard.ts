@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     this.checkUpdate();
-
+    this.checkTermsOfUse();
 
     if (!this.tokenStorage.isTokenExpired() ) {
       return true
@@ -79,7 +79,23 @@ export class AuthGuard implements CanActivate {
         console.log('check update complete')
       })
   }
-
+ checkTermsOfUse(){
+   this.UserService.getTermOfUseAgreementInformation().subscribe((resp)=>{
+      console.log(resp)
+     if(!resp){
+        this.router.navigate(['/privacy']).then(() => {
+          return false
+        });
+     }
+   },(error)=>{
+     if(error.status !== 200){
+       this.router.navigate(['/login']).then(() => {
+          this.tokenStorage.logOut();
+         return false
+       });
+     }
+   }  )
+ }
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
     this.messageService.add({severity: severity, summary: title, detail: details, sticky: sticky});
   }

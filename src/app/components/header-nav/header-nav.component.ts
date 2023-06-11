@@ -10,7 +10,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {faEllipsisVertical, faSearch, faEllipsisV} from '@fortawesome/free-solid-svg-icons';
-import {Confirmation, ConfirmationService, MenuItem} from "primeng/api";
+import {Confirmation, ConfirmationService, MenuItem, PrimeIcons} from "primeng/api";
 import {TokenStorageService} from "../../services/token-storage.service";
 import {Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
@@ -83,6 +83,17 @@ export class HeaderNavComponent implements OnInit {
               this.tokenStorageService.logOut();
             }
           });
+        }
+
+      },
+      {
+        separator: true
+      },
+      {
+        label: 'Terms of use',
+        icon: PrimeIcons.BOOK,
+        command: (event: Event) => {
+          this.router.navigate(['/privacy']);
         }
 
       }

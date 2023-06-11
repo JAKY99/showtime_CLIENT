@@ -95,4 +95,21 @@ export class UserService {
     );
 
   }
+  getTermOfUseAgreementInformation() {
+    const url = GlobalConstants.API_URL + "/api/v1/user/get/terms-of-use-agreement";
+    return this.http.get<any>(
+      url,
+      this.tokenStorage.getClientUsername(),
+    );
+
+  }
+
+  acceptTermOfUseAgreementInformation() {
+    const url = GlobalConstants.API_URL + "/api/v1/user/accept/terms-of-use-agreement";
+    return this.http.get<any>(
+      url,
+      this.tokenStorage.getClientUsername(),
+    );
+
+  }
 }
