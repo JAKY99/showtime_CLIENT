@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     this.checkUpdate();
-    this.checkTermsOfUse();
+
 
     if (!this.tokenStorage.isTokenExpired() ) {
       return true
@@ -46,6 +46,7 @@ export class AuthGuard implements CanActivate {
       this.tokenStorage.logOut();
       return false
     });
+    this.checkTermsOfUse();
   }
 
   checkUpdate(){

@@ -95,7 +95,7 @@ export class UserService {
     );
 
   }
-  getTermOfUseAgreementInformation() {
+  getTermOfUseAgreementInformation():Observable<any> {
     const url = GlobalConstants.API_URL + "/api/v1/user/get/terms-of-use-agreement";
     return this.http.get<any>(
       url,
@@ -104,7 +104,7 @@ export class UserService {
 
   }
 
-  acceptTermOfUseAgreementInformation() {
+  acceptTermOfUseAgreementInformation():Observable<any> {
     const url = GlobalConstants.API_URL + "/api/v1/user/accept/terms-of-use-agreement";
     return this.http.get<any>(
       url,
