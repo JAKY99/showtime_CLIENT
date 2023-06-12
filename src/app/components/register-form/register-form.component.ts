@@ -53,7 +53,8 @@ export class RegisterFormComponent implements OnInit {
 
     }
 // Define a regular expression for the password format
-    const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()/]).{8,}$/;
+
 
     function passwordsMatchValidator(control: AbstractControl): {[key: string]: any} | null {
       const password = control.get('password');

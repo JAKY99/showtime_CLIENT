@@ -28,7 +28,7 @@
         <i class="pi pi-comment"></i>
         <p><span>{{comment.numberResponse}}</span> response{{comment.numberResponse > 1 ? 's' : null}}</p>
       </div>
-      <div class="share flex" (click)="reportComment($event)">
+      <div *ngIf="this.comment.comments.user.username!==this.tokenStorageService.getClientUsername()" class="share flex" (click)="reportComment($event)">
         <i class="pi pi-exclamation-triangle"></i>
         <p>report</p>
       </div>

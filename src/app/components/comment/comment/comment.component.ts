@@ -3,6 +3,7 @@ import {CommentService} from "../../../services/comment/comment.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {AddCommentDialogComponent} from "../add-comment-dialog/add-comment-dialog.component";
 import {ResponseCommentComponent} from "../response-comment/response-comment.component";
+import {TokenStorageService} from "../../../services/token-storage.service";
 
 @Component({
   selector: 'app-comment',
@@ -16,10 +17,14 @@ export class CommentComponent implements OnInit {
   @Input() comment: any = {};
   @Input() showOrigin: boolean = false;
 
-  constructor(private commentService: CommentService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(private commentService: CommentService,
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService,
+              public tokenStorageService : TokenStorageService) { }
 
   ngOnInit(): void {
     console.log(this.comment)
+    console.log(this.comment.comments.user.username)
   }
 
   getCommentDate(){
