@@ -61,6 +61,7 @@ export class ChangePasswordFormComponent implements OnInit {
         this.header = response.headers;
         // @ts-ignore
         this.isLoading = false;
+        console.log(response.body);
         switch (parseInt(response.body)) {
           case 403:
             this.addSingleToast(
@@ -85,9 +86,7 @@ export class ChangePasswordFormComponent implements OnInit {
               'Your password has been successfully changed. You can now login with your new password.',
               true
             )
-            setTimeout(() => {
-              this.router.navigate(['/login']).then(r => r);
-            }, 3000);
+            this.router.navigate(['/login']).then(r => r);
             break;
           default:
             this.addSingleToast(

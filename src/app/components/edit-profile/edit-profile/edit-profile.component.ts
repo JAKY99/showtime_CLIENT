@@ -81,7 +81,7 @@ export class EditProfileComponent implements OnInit {
     console.log(this.about)
     this.editAccountInfosAboutYouForm.patchValue({ aboutYou: this.about });
 // Define a regular expression for the password format
-    const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()/]).{8,}$/;
     this.editAccountPasswordForm = new FormGroup({
       password: new FormControl('', [
         Validators.required,
