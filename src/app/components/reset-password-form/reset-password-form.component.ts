@@ -62,6 +62,14 @@ export class ResetPasswordFormComponent implements OnInit {
               true
             )
             break;
+          case 405:
+            this.addSingleToast(
+              'error',
+              'Reset password',
+              'A reset password link has already been sent to your email address and is still valid .Please check your email and follow the instructions or wait for the link to expire ( 5mn ) .',
+              true
+            )
+            break;
           case 200:
             this.addSingleToast(
               'success',

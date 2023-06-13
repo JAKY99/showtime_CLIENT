@@ -102,7 +102,15 @@ export class LoginFormComponent implements OnInit {
             'error',
             'Authentication error',
             'The email or password you entered is incorrect',
-            true
+            false
+          )
+        }
+        if (err.status === ClientErrorsEnum.ClientErrorTooManyRequests){
+          this.addSingleToast(
+            'error',
+            'Authentication error',
+            'Too many failed login attempts. Please try again later.',
+            false
           )
         }
         this.isLoading = false;
