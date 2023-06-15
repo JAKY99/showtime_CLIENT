@@ -26,8 +26,8 @@ export class CarouselGenresComponent implements OnInit {
   @Input() customCategories : boolean = false;
 
   swiperConfig: any = {
-    slidesPerView: 2.2,
-    spaceBetween: 20,
+    slidesPerView: 'auto',
+    spaceBetween: 25,
     freeMode: true,
     lazy: true,
     grabCursor: true,
