@@ -175,8 +175,8 @@
 
   <p-dialog
     class="viewed-dialog"
-    [closeOnEscape]="true"
-    [dismissableMask]="true"
+    [closeOnEscape]="isClosable"
+    [dismissableMask]="isDissmissable"
     [(visible)]="viewedAddDialogShown"
     [position]="viewedAddDialogPosition"
     [modal]="true"
@@ -195,6 +195,8 @@
         label="Seen again"
         icon="pi pi-plus"
         class="p-button-text viewed-dialog-btn"
+        [loading]="isButtonIncreaseLoading"
+        [disabled]="isButtonDisabled"
         (click)="increaseWatchedNumber()"
       ></button>
       <button
@@ -203,6 +205,8 @@
         label="Not seen"
         class="p-button-text viewed-dialog-btn"
         icon="pi pi-eye-slash"
+        [loading]="isButtonRemoveLoading"
+        [disabled]="isButtonDisabled"
         (click)="removeFromViewInfo()"
       ></button>
     </div>

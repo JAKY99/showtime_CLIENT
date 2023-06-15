@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {GlobalConstants} from "../../common/constants/global-constants";
@@ -12,6 +12,12 @@ import {RedisService} from "../../services/redis/redis.service";
 })
 export class TvService {
 
+  @Output() addSerieToWatchlist: EventEmitter<any> = new EventEmitter<any>();
+  @Output() removeSerieToWatchlist: EventEmitter<any> = new EventEmitter<any>();
+  @Output() addSeasonToWatchlist: EventEmitter<any> = new EventEmitter<any>();
+  @Output() removeSeasonToWatchlist: EventEmitter<any> = new EventEmitter<any>();
+  @Output() addEpisodeToWatchlist : EventEmitter<any> = new EventEmitter<any>();
+  @Output() removeEpisodeToWatchlist : EventEmitter<any> = new EventEmitter<any>();
   constructor(private http: HttpClient,private RedisService : RedisService , private tokenStorage: TokenStorageService) { }
 
   fetchPopular(): Observable<any> {
@@ -311,5 +317,30 @@ export class TvService {
       seasonTmdbId : seasonId,
       seasonNumber : seasonNumber,
     });
+  }
+
+  triggerAddSerieToWatchlist(state : string){
+    console.log("emit",state)
+    this.addSerieToWatchlist.next(state);
+  }
+  triggerRemoveSerieToWatchlist(state : string){
+    console.log("emit",state)
+    this.removeSerieToWatchlist.next(state);
+  }
+  triggerAddSeasonToWatchlist(state : string){
+    console.log("emit",state)
+    this.addSeasonToWatchlist.next(state);
+  }
+  triggerRemoveSeasonoWatchlist(state : string){
+    console.log("emit",state)
+    this.removeSeasonToWatchlist.next(state);
+  }
+  triggerAddEpisodeToWatchlist(state : string){
+    console.log("emit",state)
+    this.addEpisodeToWatchlist.next();
+  }
+  triggerRemoveEpisodeToWatchlist(state : string){
+    console.log("emit",state)
+    this.removeEpisodeToWatchlist.next(state);
   }
 }

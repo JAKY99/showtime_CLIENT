@@ -54,7 +54,28 @@ export class AccordionSeasonsComponent implements OnInit {
 
   todayDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
 
+
   ngOnInit(){
+    this.tvService.addSerieToWatchlist.subscribe((state) => {
+      console.log("state",state)
+      this.tvService.triggerAddSeasonToWatchlist(state)
+      if(state=="start"){
+        this.isLoadingStatus = true;
+      }
+      if(state=="end"){
+        this.isLoadingStatus = false;
+      }
+    })
+    this.tvService.removeSerieToWatchlist.subscribe((state) => {
+      console.log("state",state)
+      this.tvService.triggerRemoveSeasonoWatchlist(state)
+      if(state=="start"){
+        this.isLoadingStatus = true;
+      }
+      if(state=="end"){
+        this.isLoadingStatus = false;
+      }
+    })
     this.fetchAccordionData();
   }
   async fetchAccordionData(){
@@ -144,9 +165,11 @@ export class AccordionSeasonsComponent implements OnInit {
   }
   async updateSeasonStatus( seasonId: number){
     this.isLoadingStatus = true;
+    this.tvService.triggerAddSeasonToWatchlist("start")
     if(this.viewedStatus){
       this.viewedDialogShown = true;
     }else{
+
       await this.tvService.addSeasonToWatchedList(
         this.tvId,
         seasonId
@@ -160,7 +183,9 @@ export class AccordionSeasonsComponent implements OnInit {
                 episode.status = "SEEN";
               })
             }
+
           })
+          this.tvService.triggerAddSeasonToWatchlist("end")
           this.resultsSerieEmitterEventv2.emit(this.tvId);
           this.isLoadingStatus = false;
 
@@ -188,6 +213,7 @@ export class AccordionSeasonsComponent implements OnInit {
   async removeFromViewInfo() {
     this.viewedAddDialogShown = false;
     this.isLoadingStatus = true;
+    this.tvService.triggerRemoveSeasonoWatchlist("start")
     await this.tvService.removeSeasonFromViewInfo(
       this.tvIdSelected,
       this.seasonIdSelected,
@@ -195,6 +221,7 @@ export class AccordionSeasonsComponent implements OnInit {
     ).toPromise()
       .then(
       (resp) => {
+
         this.refreshAccordionData({})
         this.allSeasons.map((season) => {
           if(season.id === this.seasonIdSelected){
@@ -205,6 +232,7 @@ export class AccordionSeasonsComponent implements OnInit {
             })
           }
         })
+        this.tvService.triggerRemoveSeasonoWatchlist("end")
         this.resultsSerieEmitterEventv2.emit(this.tvId);
         this.isLoadingStatus = false;
 
@@ -225,6 +253,18 @@ export class AccordionSeasonsComponent implements OnInit {
     }
     if(status!=="SEEN"){
       this.updateSeasonStatus(seasonId);
+    }
+  }
+
+  toggleLoading(){
+    this.isLoadingStatus = !this.isLoadingStatus;
+  }
+  handleOpenAccordeon(){
+    if(this.isLoadingStatus){
+      this.tvService.triggerAddSeasonToWatchlist("start")
+    }
+    if(!this.isLoadingStatus){
+      this.tvService.triggerAddSeasonToWatchlist("end")
     }
   }
 }
