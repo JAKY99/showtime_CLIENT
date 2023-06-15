@@ -96,12 +96,13 @@ export class ProfilePageComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+ async ngOnInit() {
+    console.log("profile page");
     this.isMobileDevice = this.deviceService.isMobile();
     this.isTabletDevice = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
 
-    this.fetchProfileData();
+    await this.fetchProfileData();
     this.fetchTrophies();
     this.items = [
       {
@@ -141,6 +142,7 @@ export class ProfilePageComponent implements OnInit {
     try {
       await this.profileService.fetchProfile().subscribe((resp) => {
         setTimeout(() => {
+          console.log(resp.body)
           this.numberMoviesWatched = resp.body.numberOfWatchedMovies;
           this.numberSeriesWatched = resp.body.numberOfWatchedSeries;
           this.timeWatchedMovieMonthDaysHours = resp.body.totalTimeWatchedMovies;
@@ -148,7 +150,7 @@ export class ProfilePageComponent implements OnInit {
 
           this.fetchLastWatchedMovies();
           this.fetchLastWatchedSeries()
-        }, 100)
+        }, 0)
       })
     } catch (e) {
       console.log(e)

@@ -11,7 +11,7 @@
     <div class="status">
       <i
         *ngIf="!isLoadingStatusSerie"
-        (click)="addSerieToWatchedList()"
+        (click)="addSerieToWatchedListDialog()"
          [class]="userTv.viewInfo.checked"
          class="fa-solid fa-circle-check watched-status-check st-icon"></i>
       <p-progressSpinner *ngIf="isLoadingStatusSerie"  styleClass="custom-spinner" strokeWidth="8"></p-progressSpinner>
@@ -109,8 +109,9 @@
           <app-episode-card
             [item]="lastEpisode"
             [tvId]="requestedTvId"
-            (resultsSeasonEmitterEvent)="updateLastSeenEpisode(); updateSpecificEpisodeInSeasonAccordion()"
-            (resultsSerieEmitterEvent)="updateSerieInfosFromChild(requestedTvId)"
+            [seasonNumber]="lastEpisode.season_number"
+            [episodeNumber]="lastEpisode.episode_number"
+            (resultEpisodeUpdateEventEmitter)="updateSpecificEpisodeInSeasonAccordion($event);updateLastSeenEpisode();updateSerieInfosFromChild(requestedTvId);"
           >
           </app-episode-card>
 
@@ -120,7 +121,9 @@
             [nbSeasons]="tv.number_of_seasons"
             [item]="serieFullyWatchedEvent"
             [tvId]="tv.id"
-            (resultsSerieEmitterEventv2)="updateSerieInfosFromChild($event); updateLastSeenEpisode()"
+            (resultsSerieEmitterEventv2)="updateSerieInfosFromChild(requestedTvId); updateLastSeenEpisode()"
+            (resultEpisodeUpdateEventEmitter)="updateSpecificEpisodeInSeasonAccordion($event);updateLastSeenEpisode();updateSerieInfosFromChild(requestedTvId);"
+
             #accordionSeasonsRef
           >
           </app-accordion-seasons>
@@ -169,6 +172,41 @@
             (click)="openAddCommentDialog()"
     ></button>
   </div>
+
+  <p-dialog
+    class="viewed-dialog"
+    [closeOnEscape]="true"
+    [dismissableMask]="true"
+    [(visible)]="viewedAddDialogShown"
+    [position]="viewedAddDialogPosition"
+    [modal]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+    closeIcon=""
+  >
+    <div class="flex justify-content-evenly mt-2">
+      <ng-template pTemplate="header">
+        Mark as ...
+      </ng-template>
+      <button
+        pButton pRipple
+        type="button"
+        label="Seen again"
+        icon="pi pi-plus"
+        class="p-button-text viewed-dialog-btn"
+        (click)="increaseWatchedNumber()"
+      ></button>
+      <button
+        pButton pRipple
+        type="button"
+        label="Not seen"
+        class="p-button-text viewed-dialog-btn"
+        icon="pi pi-eye-slash"
+        (click)="removeFromViewInfo()"
+      ></button>
+    </div>
+  </p-dialog>
 </div>
 
 

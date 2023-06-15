@@ -57,6 +57,8 @@ export class TvDetailsComponent implements OnInit {
   tv: TvDetails = {};
   // @ts-ignore
   lastEpisode: TvEpisodeDetails = {};
+  lastEpisodeNumber: number = 0;
+  lastEpisodeSeasonNumber: number = 0;
 
   // @ts-ignore
   similarTv: TvSimilar[] = [];
@@ -83,6 +85,8 @@ export class TvDetailsComponent implements OnInit {
     isLoadingChildren: false
   }
   isCommentSectionActive: boolean = true;
+  viewedAddDialogShown: boolean = false;
+  viewedAddDialogPosition: string = "bottom";
 
   async ngOnInit(): Promise<void> {
     this.commentService.postCommentEvent.subscribe((data) => {
@@ -180,6 +184,8 @@ export class TvDetailsComponent implements OnInit {
       this.requestedTvId
     ).subscribe(
       (resp) => {
+        this.lastEpisodeNumber = resp.episode_number;
+
         this.tvService.fetchTvBySeasonAndEpisode(
           this.requestedTvId,
           resp.season_number,
@@ -250,10 +256,17 @@ export class TvDetailsComponent implements OnInit {
       )
     }
   }
+  addSerieToWatchedListDialog() {
 
+    if(this.userTv.viewInfo.checked === 'SEEN') {
+      this.viewedAddDialogShown = true;
+    }
+    if(this.userTv.viewInfo.checked !== 'SEEN') {
+      this.addSerieToWatchedList();
+    }
+  }
   async addSerieToWatchedList() {
     this.isLoadingStatusSerie = true;
-
     await this.tvService.addSerieToWatchedList(
       this.tv.id,
       this.tv.name
@@ -276,8 +289,8 @@ export class TvDetailsComponent implements OnInit {
       })
   }
 
-  updateSpecificEpisodeInSeasonAccordion() {
-    this.accordionSeasonsChild?.updateSpecificEpisodeStatus(this.lastEpisode);
+  updateSpecificEpisodeInSeasonAccordion($event : any) {
+    this.accordionSeasonsChild?.updateSpecificEpisodeStatus($event);
   }
 
   async toggleTvInFavoritelist() {
@@ -356,5 +369,39 @@ export class TvDetailsComponent implements OnInit {
   }
   openAddCommentDialog(){
     this.addCommentDialogChild?.open(this.requestedTvId,this.type,this.tv.name);
+  }
+
+  async increaseWatchedNumber () {
+    await this.tvService.increaseWatchedNumber(
+      this.tv.id,
+      this.tv.name
+    ).subscribe(
+      (resp) => {
+        this.viewedAddDialogShown = false;
+        this.loading.isLoadingChildren = true;
+        this.fetchWatchedSerieInfos();
+        this.updateSerieInfosFromChild(this.requestedTvId);
+        this.isLoadingStatusSerie = false;
+
+      }
+    )
+
+  }
+
+  removeFromViewInfo() {
+    this.isLoadingStatusSerie = true;
+    this.tvService.removeFromViewInfo(
+      this.tv.id,
+      this.tv.name
+    ).subscribe(
+      (resp) => {
+        this.viewedAddDialogShown = false;
+        this.loading.isLoadingChildren = true;
+        this.fetchWatchedSerieInfos();
+        this.updateSerieInfosFromChild(this.requestedTvId);
+        this.isLoadingStatusSerie = false;
+      }
+    )
+
   }
 }

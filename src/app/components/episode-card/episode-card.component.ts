@@ -28,8 +28,13 @@ export class EpisodeCardComponent implements OnInit {
   @Input() seasonId : number | null;
   // @ts-ignore
   @Input() tvId : number;
+  @Input() seasonNumber : number = 0;
+  @Input() episodeNumber : number = 0;
   @Output() resultsSeasonEmitterEvent = new EventEmitter<any>();
   @Output() resultsSerieEmitterEvent = new EventEmitter<any>();
+  @Output() resultEpisodeUpdateEventEmitter = new EventEmitter<any>();
+  viewedAddDialogShown: boolean = false;
+  viewedAddDialogPosition: string = "bottom";
 
   imageState: string = "setup";
   todayDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
@@ -66,17 +71,54 @@ export class EpisodeCardComponent implements OnInit {
     await this.tvService.addEpisodeToWatchedList(
       this.tvId,
       this.seasonId,
-      this.item.id
+      this.item.id,
+      this.seasonNumber,
+      this.episodeNumber
     ).subscribe(
       (resp) => {
         if(resp === true){
           this._item.status = 'SEEN';
-          this.resultsSeasonEmitterEvent.emit(this.seasonId);
-          this.resultsSerieEmitterEvent.emit(this.tvId);
+          this.resultEpisodeUpdateEventEmitter.emit({item: this._item});
         }
         this.isLoadingStatus = false;
       }
     )
   }
 
+  async increaseWatchedNumber() {
+    this.viewedAddDialogShown = false;
+    this.updateEpisodeStatus()
+  }
+
+  async removeFromViewInfo() {
+    this.viewedAddDialogShown = false;
+    this.isLoadingStatus = true;
+    await this.tvService.removeEpisodeFromViewInfo(
+      this.tvId,
+      this.seasonId,
+      this.item.id,
+      this.seasonNumber,
+      this.episodeNumber
+    ).subscribe(
+      (resp) => {
+        if(resp === true){
+          this._item.status = '';
+          this.resultEpisodeUpdateEventEmitter.emit({item: this._item});
+        }
+        this.isLoadingStatus = false;
+      },
+      (error) => {
+        this.isLoadingStatus = false;
+      }
+    )
+  }
+
+  updateEpisodeStatusDialog() {
+    if (this._item.status !== 'SEEN') {
+      this.updateEpisodeStatus();
+    }
+    if(this._item.status === 'SEEN') {
+      this.viewedAddDialogShown = true;
+    }
+  }
 }
