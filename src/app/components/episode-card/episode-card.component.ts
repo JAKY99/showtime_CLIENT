@@ -41,10 +41,66 @@ export class EpisodeCardComponent implements OnInit {
   isLoadingStatus: boolean = false;
 
   ngOnInit(): void {
+    this.tvService.addSerieToWatchlist.subscribe((state) => {
+      console.log("state",state)
+      if(state=="start"){
+        this.isLoadingStatus = true;
+      }
+      if(state=="end"){
+        this.isLoadingStatus = false;
+      }
+    })
+    this.tvService.removeSerieToWatchlist.subscribe((state) => {
+      console.log("state",state)
+      if(state=="start"){
+        this.isLoadingStatus = true;
+      }
+      if(state=="end"){
+        this.isLoadingStatus = false;
+      }
+    })
     // @ts-ignore
     return this.todayDate;
   }
 
+  ngOnChanges() {
+    this.tvService.addSerieToWatchlist.subscribe((state) => {
+      console.log("state",state)
+      if(state=="start"){
+        this.isLoadingStatus = true;
+      }
+      if(state=="end"){
+        this.isLoadingStatus = false;
+      }
+    })
+    this.tvService.removeSerieToWatchlist.subscribe((state) => {
+      console.log("state",state)
+      if(state=="start"){
+        this.isLoadingStatus = true;
+      }
+      if(state=="end"){
+        this.isLoadingStatus = false;
+      }
+    })
+    this.tvService.addSeasonToWatchlist.subscribe((state) => {
+      console.log("state",state)
+      if(state=="start"){
+        this.isLoadingStatus = true;
+      }
+      if(state=="end"){
+        this.isLoadingStatus = false;
+      }
+    })
+    this.tvService.removeSeasonToWatchlist.subscribe((state) => {
+      console.log("state",state)
+      if(state=="start"){
+        this.isLoadingStatus = true;
+      }
+      if(state=="end"){
+        this.isLoadingStatus = false;
+      }
+    })
+  }
   imageStateChange($event: string) {
     this.imageState = $event;
   }

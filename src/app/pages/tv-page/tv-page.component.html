@@ -17,7 +17,7 @@
     <hr>
   </div>
 
-  <div class="m-3">
+  <div class="m-3  carousel-container">
     <app-carousel-genres></app-carousel-genres>
   </div>
 
@@ -43,7 +43,7 @@
   </div>
 
 
-  <div class="top-rated-tv carousel-container">
+  <div class="top-rated-tv carousel-container mb-8">
     <h2 class="m-3 mb-3 text-white text-base">Top rated Series</h2>
     <app-carousel-image-list #topRatedTvRef id="topRatedTvRefId" [items]="trendingTv" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
   </div>

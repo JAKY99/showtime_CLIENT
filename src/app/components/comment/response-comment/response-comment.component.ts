@@ -4,6 +4,7 @@ import {AddCommentDialogComponent} from "../add-comment-dialog/add-comment-dialo
 import {CommentService} from "../../../services/comment/comment.service";
 import {Observable} from "rxjs";
 import {MovieDetailComponent} from "../../movie-details/movie-detail.component";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-response-comment',
@@ -25,7 +26,7 @@ export class ResponseCommentComponent implements OnInit {
   commentId: number = 0;
   resultResponseComments: [] = [];
   text: string = "";
-  constructor(private commentService: CommentService) { }
+  constructor(private commentService: CommentService, private messageService: MessageService) { }
 
   ngOnInit(): void {
   }
@@ -56,6 +57,10 @@ export class ResponseCommentComponent implements OnInit {
   }
 
   postComment() {
+    if(this.text.length == 0){
+      this.addSingleToast('warn', 'Warning', 'Please enter a comment');
+      return;
+    }
   this.commentService.postResponseComment(this.commentId, this.text).subscribe((resp) => {
     if (resp == true){
       this.emitFetch();
@@ -63,5 +68,8 @@ export class ResponseCommentComponent implements OnInit {
       this.fetchResponseComments();
     }
   })
+  }
+  addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
+    this.messageService.add({severity: severity, summary: title, detail: details, sticky: sticky});
   }
 }

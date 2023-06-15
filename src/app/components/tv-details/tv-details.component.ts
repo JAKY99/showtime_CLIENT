@@ -87,6 +87,11 @@ export class TvDetailsComponent implements OnInit {
   isCommentSectionActive: boolean = true;
   viewedAddDialogShown: boolean = false;
   viewedAddDialogPosition: string = "bottom";
+  isClosable: boolean = true;
+  isDissmissable:boolean = true;
+  isButtonDisabled:boolean = false;
+  isButtonIncreaseLoading: boolean = false;
+  isButtonRemoveLoading: boolean = false;
 
   async ngOnInit(): Promise<void> {
     this.commentService.postCommentEvent.subscribe((data) => {
@@ -266,12 +271,14 @@ export class TvDetailsComponent implements OnInit {
     }
   }
   async addSerieToWatchedList() {
+    this.tvService.triggerAddSerieToWatchlist("start")
     this.isLoadingStatusSerie = true;
     await this.tvService.addSerieToWatchedList(
       this.tv.id,
       this.tv.name
     ).subscribe(
       (resp) => {
+        this.tvService.triggerAddSerieToWatchlist("end")
         this.loading.isLoadingChildren = true;
         this.fetchWatchedSerieInfos();
         this.updateSerieInfosFromChild(this.requestedTvId);
@@ -372,16 +379,27 @@ export class TvDetailsComponent implements OnInit {
   }
 
   async increaseWatchedNumber () {
+    this.tvService.triggerAddSerieToWatchlist("start")
+    this.isClosable = false;
+    this.isDissmissable = false;
+    this.isButtonDisabled = true;
+    this.isButtonIncreaseLoading = true;
+    this.isLoadingStatusSerie = true;
     await this.tvService.increaseWatchedNumber(
       this.tv.id,
       this.tv.name
     ).subscribe(
       (resp) => {
+        this.tvService.triggerAddSerieToWatchlist("end")
         this.viewedAddDialogShown = false;
         this.loading.isLoadingChildren = true;
         this.fetchWatchedSerieInfos();
         this.updateSerieInfosFromChild(this.requestedTvId);
         this.isLoadingStatusSerie = false;
+        this.isClosable = true;
+        this.isDissmissable = true;
+        this.isButtonIncreaseLoading = false;
+        this.isButtonDisabled = false;
 
       }
     )
@@ -389,17 +407,27 @@ export class TvDetailsComponent implements OnInit {
   }
 
   removeFromViewInfo() {
+    this.tvService.triggerRemoveSerieToWatchlist("start")
+    this.isClosable = false;
+    this.isDissmissable = false;
+    this.isButtonDisabled = true;
+    this.isButtonRemoveLoading = true;
     this.isLoadingStatusSerie = true;
     this.tvService.removeFromViewInfo(
       this.tv.id,
       this.tv.name
     ).subscribe(
       (resp) => {
+        this.tvService.triggerRemoveSerieToWatchlist("end")
         this.viewedAddDialogShown = false;
         this.loading.isLoadingChildren = true;
         this.fetchWatchedSerieInfos();
         this.updateSerieInfosFromChild(this.requestedTvId);
         this.isLoadingStatusSerie = false;
+        this.isClosable = true;
+        this.isDissmissable = true;
+        this.isButtonRemoveLoading = false;
+        this.isButtonDisabled = false;
       }
     )
 
