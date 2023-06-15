@@ -161,13 +161,15 @@ export class TvService {
     });
   }
 
-  addEpisodeToWatchedList(tmdbId: number , seasonId : number | null, episodeId : number): Observable<any>{
+  addEpisodeToWatchedList(tmdbId: number , seasonId : number | null, episodeId : number,seasonNumber :  number , episodeNumber : number ): Observable<any>{
     let url = `${GlobalConstants.API_URL}/api/v1/user/addEpisodeInWatchlist/`
     return this.http.post<any>(url, {
       userMail: this.tokenStorage.getClientUsername(),
       tvTmdbId: tmdbId,
       tvSeasonid : seasonId,
-      episodeId : episodeId
+      episodeId : episodeId,
+      seasonNumber : seasonNumber,
+      episodeNumber : episodeNumber
     });
   }
 
@@ -269,4 +271,45 @@ export class TvService {
   }
 
 
+  increaseWatchedNumber(id: number, name: string) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/serie/increaseWatchedNumber/`
+    return this.http.post<any>(url, {
+      tmdbId: id,
+      userMail: this.tokenStorage.getClientUsername(),
+      name: name
+    });
+
+  }
+
+  removeFromViewInfo(id: number, name: string) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/serie/removeSerieFromViewInfo/`
+    return this.http.post<any>(url, {
+      tmdbId: id,
+      userMail: this.tokenStorage.getClientUsername(),
+      name: name
+    });
+
+
+  }
+  removeEpisodeFromViewInfo(tmdbId: number , seasonId : number | null, episodeId : number,seasonNumber :  number , episodeNumber : number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/serie/removeEpisodeFromViewInfo/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tvTmdbId: tmdbId,
+      seasonTmdbId : seasonId,
+      episodeTmdbId : episodeId,
+      seasonNumber : seasonNumber,
+      episodeNumber : episodeNumber
+    });
+  }
+
+  removeSeasonFromViewInfo(tmdbId: number , seasonId : number,seasonNumber :  number) {
+    let url = `${GlobalConstants.API_URL}/api/v1/user/serie/removeSeasonFromViewInfo/`
+    return this.http.post<any>(url, {
+      username: this.tokenStorage.getClientUsername(),
+      tvTmdbId: tmdbId,
+      seasonTmdbId : seasonId,
+      seasonNumber : seasonNumber,
+    });
+  }
 }

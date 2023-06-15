@@ -12,7 +12,7 @@
           <p class="epCount"> {{season.nbEpisodesWatched}} / {{season.episodes.length}}</p>
           <i
             *ngIf="!isLoadingStatus"
-            (click)="updateSeasonStatus(season.id)"
+            (click)="updateSeasonStatusDialog(season.id,season.watchedStatus,season.season_number)"
             [class]="season.watchedStatus"
             class="fa-solid fa-circle-check watched-status-check st-icon ">
           </i>
@@ -29,12 +29,48 @@
           [tvId]="tvId"
           [seasonId]="season.id"
           [item]="episode"
-          (resultsSeasonEmitterEvent)="updateSeasonInfosFromChild($event)"
-          (resultsSerieEmitterEvent)="updateSerieInfosFromChild($event)">
+          [seasonNumber]="season.season_number"
+          [episodeNumber]="episode.episode_number"
+          (resultEpisodeUpdateEventEmitter)="updateEpisodeInfosFromChild($event)"
+        >
         </app-episode-card>
       </ng-container>
     </ng-template>
 
   </p-accordionTab>
   </ng-container>
+  <p-dialog
+    class="viewed-dialog"
+    [closeOnEscape]="true"
+    [dismissableMask]="true"
+    [(visible)]="viewedAddDialogShown"
+    [position]="viewedAddDialogPosition"
+    [modal]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+    closeIcon=""
+  >
+    <div class="flex justify-content-evenly mt-2">
+      <ng-template pTemplate="header">
+        Mark as ...
+      </ng-template>
+      <button
+        pButton pRipple
+        type="button"
+        label="Seen again"
+        icon="pi pi-plus"
+        class="p-button-text viewed-dialog-btn"
+        (click)="increaseWatchedNumber()"
+      ></button>
+      <button
+        pButton pRipple
+        type="button"
+        label="Not seen"
+        class="p-button-text viewed-dialog-btn"
+        icon="pi pi-eye-slash"
+        (click)="removeFromViewInfo()"
+      ></button>
+    </div>
+  </p-dialog>
 </p-accordion>

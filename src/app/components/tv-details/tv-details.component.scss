@@ -189,6 +189,30 @@
       }
     }
   }
+  .viewed-dialog{
+    .p-dialog-container-movie{
+      position: fixed;
+      bottom: 0;
+    }
+    .p-dialog-footer {
+      display: none !important;
+    }
+
+    .p-dialog {
+      width: 100%;
+      margin: 0 !important;
+      max-height: 15% !important;
+      min-height: 15% !important;
+    }
+
+    .p-dialog .p-dialog-header .p-dialog-header-icon {
+      pointer-events: none;
+    }
+    .p-toast{
+      width: 100%;
+    }
+
+  }
   .floating-comment-btn{
     position: fixed;
     bottom: $margin-big;
