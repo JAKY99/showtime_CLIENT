@@ -27,16 +27,16 @@ export class ProfileStatsCarouselComponent implements OnInit {
   }
   swiperConfig: any = {
     slidesPerView: 1.5,
-    spaceBetween: 30,
+    spaceBetween: 50,
     freeMode: true,
     breakpoints: {
       768:{
-        slidesPerView: 4,
+        slidesPerView: 3,
         spaceBetween: 10,
         freeMode: false,
       },
       1024: {
-        slidesPerView: 6,
+        slidesPerView: 3,
         spaceBetween: 10,
         freeMode: false,
       }

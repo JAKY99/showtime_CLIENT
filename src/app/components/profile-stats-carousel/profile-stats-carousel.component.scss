@@ -5,7 +5,22 @@ app-profile-stats-carousel .swiper-container{
   padding: 1rem 1.5rem;
   color: $white;
   height: 9rem;
+
 }
+app-profile-stats-carousel{
+  .stat-container{
+    min-height: max-content;
+    width: 16.5rem;
+    font-size: $font-small;
+  }
+}
+
+.stat-container{
+  min-height: max-content;
+  width: 16.5rem!important;
+  font-size: $font-small;
+}
+
 app-profile-stats-carousel .swiper-wrapper:nth-child(1){
   height: 7rem!important;
   min-width: 25rem!important;
@@ -21,46 +36,4 @@ app-profile-stats-carousel .swiper::-webkit-scrollbar {
 app-profile-stats-carousel .swiper {
   width: 100%;
   height: 100%;
-}
-@media (max-width: 770px) {
-  .stat-container{
-    min-height: max-content;
-    width: 16.5rem;
-    font-size: $font-small;
-
-  }
-  .swiper-container{
-    width: 45rem;
-  }
-  .swiper-slide{
-    margin-right: -7rem !important;
-  }
-}
-@media (min-width: 771px) {
-  .stat-container{
-    min-height: max-content;
-    width: 16.5rem;
-    font-size: $font-small;
-
-  }
-  .swiper-container{
-    width: 45rem;
-  }
-  .swiper-slide{
-    margin-right: 10rem !important;
-  }
-}
-@media (min-width: 1024px) {
-  .stat-container{
-    min-height: max-content;
-    width: 16.5rem;
-    font-size: $font-small;
-
-  }
-  .swiper-container{
-    width: 45rem;
-  }
-  .swiper-slide{
-    margin-right: 16rem !important;
-  }
 }
