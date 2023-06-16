@@ -39,7 +39,6 @@ export class AddCommentComponent implements OnInit {
             return;
           }
           if (this.text.length > 0 && this.elementId != 0) {
-            console.log(this.movie)
             this.movieService.postComment(this.elementId, this.text, this.elementName,this.elementType).subscribe((resp) => {
               this.eventEmitter.emit();
             })

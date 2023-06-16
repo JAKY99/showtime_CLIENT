@@ -61,7 +61,6 @@ export class ChangePasswordFormComponent implements OnInit {
         this.header = response.headers;
         // @ts-ignore
         this.isLoading = false;
-        console.log(response.body);
         switch (parseInt(response.body)) {
           case 403:
             this.addSingleToast(

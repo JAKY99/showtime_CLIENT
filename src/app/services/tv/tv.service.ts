@@ -320,27 +320,21 @@ export class TvService {
   }
 
   triggerAddSerieToWatchlist(state : string){
-    console.log("emit",state)
     this.addSerieToWatchlist.next(state);
   }
   triggerRemoveSerieToWatchlist(state : string){
-    console.log("emit",state)
     this.removeSerieToWatchlist.next(state);
   }
   triggerAddSeasonToWatchlist(state : string){
-    console.log("emit",state)
     this.addSeasonToWatchlist.next(state);
   }
   triggerRemoveSeasonoWatchlist(state : string){
-    console.log("emit",state)
     this.removeSeasonToWatchlist.next(state);
   }
   triggerAddEpisodeToWatchlist(state : string){
-    console.log("emit",state)
     this.addEpisodeToWatchlist.next();
   }
   triggerRemoveEpisodeToWatchlist(state : string){
-    console.log("emit",state)
     this.removeEpisodeToWatchlist.next(state);
   }
 }

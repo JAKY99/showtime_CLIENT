@@ -13,7 +13,6 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
   }
   ngOnChanges(formType : string): void {
-    console.log(formType);
     this.ref.detectChanges();
   }
   public changeFormType(): void {

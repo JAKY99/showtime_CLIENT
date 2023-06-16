@@ -48,7 +48,6 @@ export class WebSidebarComponent implements OnInit {
   }
   checkIfNotificationActive(){
     this.profileService.fetchProfileAvatar().subscribe((data:any)=>{
-      console.log(data.body.notification_system_status)
       this.isNotificationActive = data.body.notification_system_status;
     })
   }
@@ -145,9 +144,8 @@ export class WebSidebarComponent implements OnInit {
             // @ts-ignore
             window['Android'].createNotification('Showtime App', result.message, result.severity);
           }
-          console.log('notification');
+
           if (localStorage.getItem('isAndroid') !== 'true' && this.isNotificationActive) {
-            console.log('notification');
             this.addSingleToast('success', 'Notification', 'You have a new notification');
           }
           this.userService.newNotificationEmitter();

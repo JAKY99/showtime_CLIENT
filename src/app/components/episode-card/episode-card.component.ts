@@ -42,7 +42,7 @@ export class EpisodeCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.tvService.addSerieToWatchlist.subscribe((state) => {
-      console.log("state",state)
+
       if(state=="start"){
         this.isLoadingStatus = true;
       }
@@ -51,7 +51,7 @@ export class EpisodeCardComponent implements OnInit {
       }
     })
     this.tvService.removeSerieToWatchlist.subscribe((state) => {
-      console.log("state",state)
+
       if(state=="start"){
         this.isLoadingStatus = true;
       }
@@ -65,7 +65,7 @@ export class EpisodeCardComponent implements OnInit {
 
   ngOnChanges() {
     this.tvService.addSerieToWatchlist.subscribe((state) => {
-      console.log("state",state)
+
       if(state=="start"){
         this.isLoadingStatus = true;
       }
@@ -74,7 +74,7 @@ export class EpisodeCardComponent implements OnInit {
       }
     })
     this.tvService.removeSerieToWatchlist.subscribe((state) => {
-      console.log("state",state)
+
       if(state=="start"){
         this.isLoadingStatus = true;
       }
@@ -83,7 +83,7 @@ export class EpisodeCardComponent implements OnInit {
       }
     })
     this.tvService.addSeasonToWatchlist.subscribe((state) => {
-      console.log("state",state)
+
       if(state=="start"){
         this.isLoadingStatus = true;
       }
@@ -92,7 +92,7 @@ export class EpisodeCardComponent implements OnInit {
       }
     })
     this.tvService.removeSeasonToWatchlist.subscribe((state) => {
-      console.log("state",state)
+
       if(state=="start"){
         this.isLoadingStatus = true;
       }

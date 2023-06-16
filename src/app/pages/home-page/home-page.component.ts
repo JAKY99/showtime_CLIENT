@@ -77,7 +77,6 @@ export class HomePageComponent implements OnInit {
     await this.userGeoService.fetchLocationData().toPromise()
       .then(resp => {
         this.userLocationData = resp;
-        console.log(resp)
       })
       .catch(err => {
         this.userLocationData = this.userGeoService.emulateLocation();

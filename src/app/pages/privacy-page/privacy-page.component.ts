@@ -14,7 +14,6 @@ export class PrivacyPageComponent implements OnInit {
   termOfUseAgreementInformation : boolean = false;
   ngOnInit(): void {
     this.userService.getTermOfUseAgreementInformation().subscribe((res)=>{
-      console.log(res)
       // @ts-ignore
         this.termOfUseAgreementInformation = res;
     },(error)=>{

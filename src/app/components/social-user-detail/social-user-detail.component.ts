@@ -76,7 +76,6 @@ export class SocialUserDetailComponent implements OnInit {
     }
     this.SocialService.fetchSocialInfoSearchDetail(this.username).subscribe(
       (data: any) => {
-        console.log(data);
         this.About = data.body.about
         this.Trophies = data.body.trophies
         this.viewedDialogShown = true;
@@ -85,11 +84,9 @@ export class SocialUserDetailComponent implements OnInit {
         console.log(err);
       }
     );
-    console.log("fetchSocialInfo");
   }
   open(username: string){
     this.username = username;
-    console.log("open");
     this.fetchSocialInfo();
     this.fetchUserComments();
     this.fetchProfileData();

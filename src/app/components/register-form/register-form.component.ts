@@ -59,9 +59,7 @@ export class RegisterFormComponent implements OnInit {
     function passwordsMatchValidator(control: AbstractControl): {[key: string]: any} | null {
       const password = control.get('password');
       const repeatPassword = control.get('repeatpassword');
-      console.log(password?.value,repeatPassword?.value);
       let check = password && repeatPassword && password.value !== repeatPassword.value ? null : { 'passwordsMatch': true };
-      console.log(check)
       return password && repeatPassword && password.value === repeatPassword.value ? null: { 'passwordsNotMatch': true };
     }
 

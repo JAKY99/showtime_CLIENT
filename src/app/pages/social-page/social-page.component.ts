@@ -94,7 +94,6 @@ export class SocialPageComponent implements OnInit {
   private async fetchSocialInfo() {
     this.SocialService.fetchTopTenUserSocial().subscribe(
       (data: any) => {
-        console.log(data);
         data.map((user: SocialUserModel) => {
           if (user.profilePicture == null || user.profilePicture == "") {
             user.profilePicture = "https://showtime-prod-bucket-storage.s3.us-east-2.amazonaws.com/781836.jpg";
@@ -106,7 +105,6 @@ export class SocialPageComponent implements OnInit {
         console.log(err);
       }
     );
-    console.log("fetchSocialInfo");
   }
 
   handleChangeSearch() {
@@ -123,7 +121,6 @@ export class SocialPageComponent implements OnInit {
 
     this.SocialService.fetchSocialInfoSearch(userToFind).subscribe(
       (data: any) => {
-        console.log(data);
         this.showSearch = true;
         data.body.map((user: SocialUserModel) => {
           if (user.profilePicture == null || user.profilePicture == "") {

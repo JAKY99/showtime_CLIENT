@@ -27,7 +27,7 @@ export class ProfileStatTimeComponent implements OnInit {
 
       // @ts-ignore
       time = parseInt(time,10)
-      // console.log(time)
+
       if (index === 0) {
         // @ts-ignore
         this.monthTime = time;

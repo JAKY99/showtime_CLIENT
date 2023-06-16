@@ -85,7 +85,7 @@ export class MainSearchComponent implements OnInit {
   }
 
   applySort($event: any){
-    // console.log($event)
+
   }
   handleChangeSearch(){
     if(this.search.searchGlobalValue == ""){
