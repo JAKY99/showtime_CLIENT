@@ -105,9 +105,10 @@ export class AccordionSeasonsComponent implements OnInit {
           }).subscribe(
             (respFork) => {
               this.tvSeasonDetails = JSON.parse(respFork.details.data);
+              console.log(this.tvSeasonDetails)
               this.tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
               this.tvSeasonDetails.watchedStatus = respFork.status
-              this.allSeasons.push(this.tvSeasonDetails);
+              this.allSeasons[this.tvSeasonDetails.season_number] = this.tvSeasonDetails;
             })
 
         }
@@ -140,6 +141,7 @@ export class AccordionSeasonsComponent implements OnInit {
             )
           }).subscribe(
             (respFork) => {
+
               this.tvSeasonDetails = JSON.parse(respFork.details.data);
               this.tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
               this.tvSeasonDetails.watchedStatus = respFork.status
