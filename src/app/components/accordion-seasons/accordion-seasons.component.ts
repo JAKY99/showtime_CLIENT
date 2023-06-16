@@ -81,7 +81,6 @@ export class AccordionSeasonsComponent implements OnInit {
   }
   async fetchAccordionData() {
     this.allSeasons = [];
-    let tempSeasons: TvSeasonDetails[] = [];
     let self = this
     for (let i = 1; i < this.nbSeasons + 1; i++) {
       await new Promise( async function (resolve, reject) {
@@ -104,12 +103,10 @@ export class AccordionSeasonsComponent implements OnInit {
             tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
             // @ts-ignore
             tvSeasonDetails.watchedStatus = respFork.status;
-            tempSeasons[tvSeasonDetails.season_number - 1] = tvSeasonDetails;
-            if(tempSeasons.length === self.nbSeasons){
-              console.log(tempSeasons)
-              self.allSeasons = tempSeasons;
+            self.allSeasons[tvSeasonDetails.season_number - 1] = tvSeasonDetails;
+            self.firstLoadingDone.emit(true);
+            if(self.allSeasons.length === self.nbSeasons){
               self.loading.seasons = false;
-              self.firstLoadingDone.emit(true);
               self.allSeasons.sort((a: { season_number: number; }, b: { season_number: number; }) => a.season_number - b.season_number);
               resolve(true)
             }
