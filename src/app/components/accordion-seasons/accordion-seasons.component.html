@@ -1,7 +1,7 @@
 <p-accordion (onOpen)="handleOpenAccordeon()" class="accordionSeries" [multiple]="true">
   <ng-container *ngFor="let season of allSeasons">
   <p-accordionTab
-    *ngIf=" season.episodes && season.episodes.length > 1"
+    *ngIf="season!==undefined && season.episodes && season.episodes.length > 1"
     id="season-{{season.season_number}}">
 
     <ng-template pTemplate="header">
