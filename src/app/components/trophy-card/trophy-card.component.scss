@@ -11,10 +11,11 @@
   display: flex;
   gap: $margin-default;
   margin-bottom: 1rem;
+  align-items: baseline;
 }
 
 .trophy-item__content {
-  height: 3rem;
+  height: auto;
   flex: 1;
 }
 
@@ -24,11 +25,12 @@
 }
 .trophy-item__detail{
   color: $white;
+  font-size: $font-small;
 
 }
 .trophy-item__date {
   color: $secondary-color;
-  font-size: $font-small-2;
+  font-size: $font-small;
   margin-right: 0.5rem;
 }
 
