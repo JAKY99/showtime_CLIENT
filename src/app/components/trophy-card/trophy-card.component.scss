@@ -1,17 +1,16 @@
 @import "src/styles";
 
+
+
 .trophy-item {
+  color: $white;
+  background-color: $divider-color;
+  padding: $margin-default;
+  border-radius: 10px;
+  min-height: 100px;
   display: flex;
-  padding: 0.8rem;
-  margin-bottom: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(5px);
-  border-radius: 0.8rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  align-items: baseline;
+  gap: $margin-default;
+  margin-bottom: 1rem;
 }
 
 .trophy-item__content {
@@ -19,11 +18,17 @@
   flex: 1;
 }
 
-.trophy-item__title,
-.trophy-item__detail,
+.trophy-item__title{
+  color: $white;
+
+}
+.trophy-item__detail{
+  color: $white;
+
+}
 .trophy-item__date {
-  font-size: $font-small;
-  color: #666666;
+  color: $secondary-color;
+  font-size: $font-small-2;
   margin-right: 0.5rem;
 }
 
@@ -49,7 +54,7 @@
 }
 
 .bronze{
-  color: #cd7f32!important;
+  color: #CC9933!important;
 }
 .silver{
   color: #c0c0c0!important;

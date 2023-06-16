@@ -30,18 +30,15 @@
       <p-tabView [activeIndex]="index">
 
         <p-tabPanel header="About" class="About-panel" >
-          <ng-template pTemplate="content">
             <div *ngIf="About!=null" class="text-center text-white">
               <h3> {{About}}</h3>
             </div>
             <div *ngIf="About==null" class="text-center">
               <h3>No informations</h3>
             </div>
-          </ng-template>
         </p-tabPanel>
 
-        <p-tabPanel header="Comments" class="Comments-panel">
-          <ng-template pTemplate="content">
+        <p-tabPanel [selected]="true" header="Comments" class="Comments-panel">
           <div>
             <div *ngIf="resultUserComments.length" class="commentsContainer">
               <div class="comment" *ngFor="let resultUserComments of resultUserComments">
@@ -52,18 +49,15 @@
               <h3>No comments</h3>
             </div>
           </div>
-          </ng-template>
         </p-tabPanel>
 
-        <p-tabPanel header="Trophies" class="Trophies-panel">
-            <ng-template pTemplate="content">
+        <p-tabPanel  header="Trophies" class="Trophies-panel">
                 <div class="trophiesList" *ngFor="let trophy of Trophies">
                   <app-trophy-card [trophy]="trophy"></app-trophy-card>
                 </div>
                 <div *ngIf="Trophies.length==0" class="text-center">
                   <h3>No trophies</h3>
                 </div>
-            </ng-template>
           </p-tabPanel>
 
       </p-tabView>
