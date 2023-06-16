@@ -78,44 +78,29 @@ export class AccordionSeasonsComponent implements OnInit {
     })
     this.fetchAccordionData();
   }
-  async fetchAccordionData(){
+  async fetchAccordionData() {
     this.allSeasons = [];
-    // pour amélio => call la série > choper le nb de saisons & ses ids pour économ le 1er fetchTvBySeason
-    for (let i = 1; i < this.nbSeasons+1; i++) {
-      // @ts-ignore
-      await this.tvService.fetchTvBySeason(this.tvId,i).subscribe(
-        (resp) => {
-          resp = JSON.parse(resp.data);
-          // oui je fait 2 fois un fetchTvBySeason , le 1er juste pour récup l'id et faire les autres query
-          // si je query pas une 2e fois j'ai tous mes résultats qui arrivent en border
 
-          forkJoin({
-            nbEpisodes : this.tvService.fetchNbEpisodesWatchedInSerie(
-              this.tvId,
-              resp.id
-            ),
-            status : this.tvService.fetchTvSeasonWatchedStatus(
-              this.tvId,
-              resp.id
-            ),
-            details : this.tvService.fetchTvBySeason(
-              this.tvId,
-              resp.season_number
-            )
-          }).subscribe(
-            (respFork) => {
-              this.tvSeasonDetails = JSON.parse(respFork.details.data);
-              this.tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
-              this.tvSeasonDetails.watchedStatus = respFork.status
-              this.allSeasons[this.tvSeasonDetails.season_number-1] = this.tvSeasonDetails;
-              this.allSeasons.sort((a, b) => (a.season_number - b.season_number));
-            })
+    for (let i = 1; i < this.nbSeasons + 1; i++) {
+      const resp = await this.tvService.fetchTvBySeason(this.tvId, i).toPromise();
+      const parsedResp = JSON.parse(resp.data);
 
-        }
-      )
+      const forkJoinObservable = forkJoin({
+        nbEpisodes: this.tvService.fetchNbEpisodesWatchedInSerie(this.tvId, parsedResp.id).toPromise(),
+        status: this.tvService.fetchTvSeasonWatchedStatus(this.tvId, parsedResp.id).toPromise(),
+        details: this.tvService.fetchTvBySeason(this.tvId, parsedResp.season_number).toPromise()
+      });
+
+      forkJoinObservable.subscribe((respFork) => {
+        this.tvSeasonDetails = JSON.parse(respFork.details.data);
+        this.tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
+        this.tvSeasonDetails.watchedStatus = respFork.status;
+        this.allSeasons[this.tvSeasonDetails.season_number - 1] = this.tvSeasonDetails;
+        this.allSeasons.sort((a, b) => a.season_number - b.season_number);
+      });
     }
-
   }
+
   async refreshAccordionData($event: any){
     // pour amélio => call la série > choper le nb de saisons & ses ids pour économ le 1er fetchTvBySeason
     for (let i = 0; i < this.nbSeasons+1; i++) {
