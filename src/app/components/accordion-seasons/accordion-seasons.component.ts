@@ -81,7 +81,7 @@ export class AccordionSeasonsComponent implements OnInit {
   async fetchAccordionData(){
     this.allSeasons = [];
     // pour amélio => call la série > choper le nb de saisons & ses ids pour économ le 1er fetchTvBySeason
-    for (let i = 0; i < this.nbSeasons+1; i++) {
+    for (let i = 1; i < this.nbSeasons+1; i++) {
       // @ts-ignore
       await this.tvService.fetchTvBySeason(this.tvId,i).subscribe(
         (resp) => {
@@ -105,10 +105,10 @@ export class AccordionSeasonsComponent implements OnInit {
           }).subscribe(
             (respFork) => {
               this.tvSeasonDetails = JSON.parse(respFork.details.data);
-              console.log(this.tvSeasonDetails)
+
               this.tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
               this.tvSeasonDetails.watchedStatus = respFork.status
-              this.allSeasons[this.tvSeasonDetails.season_number] = this.tvSeasonDetails;
+              this.allSeasons[this.tvSeasonDetails.season_number-1] = this.tvSeasonDetails;
             })
 
         }
