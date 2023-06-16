@@ -112,6 +112,10 @@
      font-size: $font-small;
 
    }
+   .tabview-container {
+     height: 400px; /* Ajustez la hauteur selon vos besoins */
+     overflow: auto;
+   }
 
 }
 
