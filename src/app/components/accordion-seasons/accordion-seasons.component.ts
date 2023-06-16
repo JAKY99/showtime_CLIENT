@@ -105,16 +105,16 @@ export class AccordionSeasonsComponent implements OnInit {
           }).subscribe(
             (respFork) => {
               this.tvSeasonDetails = JSON.parse(respFork.details.data);
-
               this.tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
               this.tvSeasonDetails.watchedStatus = respFork.status
               this.allSeasons[this.tvSeasonDetails.season_number-1] = this.tvSeasonDetails;
+              this.allSeasons.sort((a, b) => (a.season_number - b.season_number));
             })
 
         }
       )
     }
-    this.allSeasons.sort((a, b) => (a.season_number - b.season_number));
+
   }
   async refreshAccordionData($event: any){
     // pour amélio => call la série > choper le nb de saisons & ses ids pour économ le 1er fetchTvBySeason
