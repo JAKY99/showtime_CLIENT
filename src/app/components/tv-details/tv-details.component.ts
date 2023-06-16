@@ -24,6 +24,7 @@ import {AddCommentDialogComponent} from "../comment/add-comment-dialog/add-comme
 export class TvDetailsComponent implements OnInit {
 
 
+
   constructor(private tvService: TvService, private route: ActivatedRoute, private messageService: MessageService,private commentService: CommentService) {
   }
 
@@ -92,6 +93,8 @@ export class TvDetailsComponent implements OnInit {
   isButtonDisabled:boolean = false;
   isButtonIncreaseLoading: boolean = false;
   isButtonRemoveLoading: boolean = false;
+  isAccordionLoadingData: boolean = true;
+  isWatchNextLoadingData: boolean = true;
 
   async ngOnInit(): Promise<void> {
     this.commentService.postCommentEvent.subscribe((data) => {
@@ -431,4 +434,9 @@ export class TvDetailsComponent implements OnInit {
     )
 
   }
+
+  handleFirstLoadingAccordionDone($event: any) {
+    this.isAccordionLoadingData = false;
+  }
+
 }

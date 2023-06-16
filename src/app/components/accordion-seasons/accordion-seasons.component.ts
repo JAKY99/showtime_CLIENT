@@ -33,7 +33,7 @@ export class AccordionSeasonsComponent implements OnInit {
 
   @Output() resultsSerieEmitterEventv2 = new EventEmitter<any>();
   @Output() resultEpisodeUpdateEventEmitter = new EventEmitter<any>();
-
+  @Output() firstLoadingDone = new EventEmitter<any>();
 
   viewedStatus: boolean = false;
   viewedDialogShown: boolean = false;
@@ -80,7 +80,7 @@ export class AccordionSeasonsComponent implements OnInit {
   }
   async fetchAccordionData() {
     this.allSeasons = [];
-
+    let tempSeasons: TvSeasonDetails[] = [];
     for (let i = 1; i < this.nbSeasons + 1; i++) {
       const resp = await this.tvService.fetchTvBySeason(this.tvId, i).toPromise();
       const parsedResp = JSON.parse(resp.data);
@@ -95,8 +95,13 @@ export class AccordionSeasonsComponent implements OnInit {
         this.tvSeasonDetails = JSON.parse(respFork.details.data);
         this.tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
         this.tvSeasonDetails.watchedStatus = respFork.status;
-        this.allSeasons[this.tvSeasonDetails.season_number - 1] = this.tvSeasonDetails;
+        tempSeasons[this.tvSeasonDetails.season_number - 1] = this.tvSeasonDetails;
         this.allSeasons.sort((a, b) => a.season_number - b.season_number);
+        if(tempSeasons.length === this.nbSeasons){
+          this.allSeasons = tempSeasons;
+          this.loading.seasons = false;
+          this.firstLoadingDone.emit(true);
+        }
       });
     }
   }
