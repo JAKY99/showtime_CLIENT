@@ -5,7 +5,22 @@ app-profile-stats-carousel .swiper-container{
   padding: 1rem 1.5rem;
   color: $white;
   height: 9rem;
+
 }
+app-profile-stats-carousel{
+  .stat-container{
+    min-height: max-content;
+    width: 16.5rem;
+    font-size: $font-small;
+  }
+}
+
+.stat-container{
+  min-height: max-content;
+  width: 16.5rem!important;
+  font-size: $font-small;
+}
+
 app-profile-stats-carousel .swiper-wrapper:nth-child(1){
   height: 7rem!important;
   min-width: 25rem!important;
