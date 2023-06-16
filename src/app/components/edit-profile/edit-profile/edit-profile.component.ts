@@ -78,7 +78,6 @@ export class EditProfileComponent implements OnInit {
       ]),
     });
     this.editAccountInfosForm.patchValue({ firstName: this.userData.firstName, lastName: this.userData.lastName });
-    console.log(this.about)
     this.editAccountInfosAboutYouForm.patchValue({ aboutYou: this.about });
 // Define a regular expression for the password format
     const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()/]).{8,}$/;
@@ -96,14 +95,13 @@ export class EditProfileComponent implements OnInit {
 
   changeFile(event: any): void {
     this.imgChangeEvt = event;
-    console.log(event)
     this.pictureCropDialogChild?.open();
   }
 
   openFileDialogAvatar = async (event: any, type: string) => {
 
     if (localStorage.getItem('isAndroid') == 'true' && !this.isClickedAvatar) {
-      console.log("openFileDialogAvatar")
+
       this.isClickedAvatar = true;
       let url = "/api/v1/user/tempForCrop/uploadProfilePicture"
       // @ts-ignore
@@ -116,7 +114,7 @@ export class EditProfileComponent implements OnInit {
   openFileDialogBackground = async (event: any, type: string) => {
     if (localStorage.getItem('isAndroid') == 'true' && !this.isClickedBackground) {
       this.isClickedBackground = true;
-      console.log("openFileDialogBackground")
+
       let url = "/api/v1/user/tempForCrop/uploadBackgroundPicture"
       // @ts-ignore
       window['Android']?.updateVariableForCrop(this.tokenStorage.getToken(), this.tokenStorage.getClientUsername(), url);
@@ -132,11 +130,9 @@ export class EditProfileComponent implements OnInit {
 
   handleAndroidTempFile(event: any) {
     let type = event.target.value;
-    console.log(event)
-    console.log(type)
+
     if (localStorage.getItem('isAndroid') == 'true') {
       this.profileService.fetchTempFileUrl().subscribe((resp) => {
-        console.log(resp)
         if (type === 'avatar') {
           // @ts-ignore
           this.imageUrl = resp.body.profilePicture
@@ -150,7 +146,7 @@ export class EditProfileComponent implements OnInit {
           this.isBackground = true;
         }
         this.pictureCropDialogChild?.open();
-        console.log(this.imageUrl)
+
       })
     }
   }

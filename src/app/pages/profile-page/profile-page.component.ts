@@ -97,7 +97,6 @@ export class ProfilePageComponent implements OnInit {
   }
 
  async ngOnInit() {
-    console.log("profile page");
     this.isMobileDevice = this.deviceService.isMobile();
     this.isTabletDevice = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
@@ -142,7 +141,6 @@ export class ProfilePageComponent implements OnInit {
     try {
       await this.profileService.fetchProfile().subscribe((resp) => {
         setTimeout(() => {
-          console.log(resp.body)
           this.numberMoviesWatched = resp.body.numberOfWatchedMovies;
           this.numberSeriesWatched = resp.body.numberOfWatchedSeries;
           this.timeWatchedMovieMonthDaysHours = resp.body.totalTimeWatchedMovies;
@@ -246,7 +244,6 @@ export class ProfilePageComponent implements OnInit {
           // @ts-ignore
           resp = JSON.parse(resp.data);
           this.watchlistMovies.push(resp);
-          // console.log(resp)
         });
         // @ts-ignore
         this.lastWatchedMoviesTotal = resp.totalWatchedMovies;
@@ -268,7 +265,6 @@ export class ProfilePageComponent implements OnInit {
         console.log(err);
       }
     );
-    console.log("fetchSocialInfo");
   }
   public openViewAllProfileList(type: string) {
     // @ts-ignore

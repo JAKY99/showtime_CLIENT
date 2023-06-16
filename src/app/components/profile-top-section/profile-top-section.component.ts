@@ -67,7 +67,6 @@ export class ProfileTopSectionComponent implements OnInit {
     try {
       this.isLoading = true;
       let file = event.target.files[0];
-      console.log(file)
       const formData = new FormData();
       formData.append('file', file);
       formData.append('email', this.tokenStorage.getClientUsername());

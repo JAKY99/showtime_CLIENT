@@ -62,7 +62,7 @@ export class CarouselGenresComponent implements OnInit {
           setTimeout(() => {
             this.tvGenres = resp.genres;
             this.loading.tvGenres = false;
-            // console.log(this.tvGenres)
+
           }, 100)
         }
       )

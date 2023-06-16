@@ -50,7 +50,6 @@ export class LoginFormComponent implements OnInit {
         this.router.navigate(['/home']).then();
       }
       if(params['authGoogleError']!==undefined){
-        console.log("error")
         this.addSingleToast(
           'error',
           'Authentication error',
@@ -170,7 +169,6 @@ export class LoginFormComponent implements OnInit {
 
   insertGoogleLoginButton() {
     this.loadGoogleSignInScript();
-    console.log('test')
     // Delete old element if exists
     document.getElementById('g_id_onload')?.remove();
     document.getElementsByClassName('g_id_signin')?.item(0)?.remove();

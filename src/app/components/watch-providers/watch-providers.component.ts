@@ -70,7 +70,6 @@ export class WatchProvidersComponent implements OnInit {
     await this.userGeoService.fetchLocationData().toPromise()
       .then(resp => {
         this.userGeoData = resp;
-        console.log(resp)
       })
       .catch(err => {
         this.userGeoData = this.userGeoService.emulateLocation();

@@ -99,7 +99,6 @@ export class TvPageComponent implements OnInit {
     await this.tvService.fetchAllTvGenres().subscribe(
       (resp) => {
         resp = JSON.parse(resp.data);
-        // console.log(resp)
         setTimeout(() => {
           this.tvGenres = resp;
           this.loading.genres = false;

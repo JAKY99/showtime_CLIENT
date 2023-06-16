@@ -17,11 +17,9 @@ export class CheckupdateGuard implements CanActivate {
     return true;
   }
   checkUpdate(){
-    console.log('check update')
     this.UserService.getCurrentVersion().subscribe(
       data => {
         let sessionVersion = sessionStorage.getItem('version');
-        console.log(data)
         let currentVersion = data.body.version
         if(sessionVersion===null){
           sessionStorage.setItem('version',currentVersion);
@@ -44,7 +42,7 @@ export class CheckupdateGuard implements CanActivate {
         console.log(error);
       },
       () => {
-        console.log('check update complete')
+
       })
   }
 }

@@ -23,8 +23,7 @@ export class CommentComponent implements OnInit {
               public tokenStorageService : TokenStorageService) { }
 
   ngOnInit(): void {
-    console.log(this.comment)
-    console.log(this.comment.comments.user.username)
+
   }
 
   getCommentDate(){
@@ -38,7 +37,7 @@ export class CommentComponent implements OnInit {
     if (comment.spoiler == false && comment.validate == true){
       this.commentService.likeComment(comment.id, comment.user).subscribe((resp) => {
         this.comment = resp;
-        console.log(this.comment)
+
       })
     }
 

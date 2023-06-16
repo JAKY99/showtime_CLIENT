@@ -31,6 +31,7 @@ export class AuthGuard implements CanActivate {
 
 
     if (!this.tokenStorage.isTokenExpired() ) {
+      this.checkTermsOfUse();
       return true
     } else if (this.tokenStorage.isTokenExpired() && !this.tokenStorage.isRefreshTokenExpired()) {
       try {
@@ -46,15 +47,13 @@ export class AuthGuard implements CanActivate {
       this.tokenStorage.logOut();
       return false
     });
-    this.checkTermsOfUse();
+
   }
 
   checkUpdate(){
-    console.log('check update')
     this.UserService.getCurrentVersion().subscribe(
       data => {
         let sessionVersion = sessionStorage.getItem('version');
-        console.log(data)
         let currentVersion = data.body.version
         if(sessionVersion===null){
             sessionStorage.setItem('version',currentVersion);
@@ -77,12 +76,10 @@ export class AuthGuard implements CanActivate {
         console.log(error);
         },
       () => {
-        console.log('check update complete')
       })
   }
  checkTermsOfUse(){
    this.UserService.getTermOfUseAgreementInformation().subscribe((resp)=>{
-      console.log(resp)
      if(!resp){
         this.router.navigate(['/privacy']).then(() => {
           return false

@@ -57,7 +57,7 @@ export class AccordionSeasonsComponent implements OnInit {
 
   ngOnInit(){
     this.tvService.addSerieToWatchlist.subscribe((state) => {
-      console.log("state",state)
+
       this.tvService.triggerAddSeasonToWatchlist(state)
       if(state=="start"){
         this.isLoadingStatus = true;
@@ -67,7 +67,7 @@ export class AccordionSeasonsComponent implements OnInit {
       }
     })
     this.tvService.removeSerieToWatchlist.subscribe((state) => {
-      console.log("state",state)
+
       this.tvService.triggerRemoveSeasonoWatchlist(state)
       if(state=="start"){
         this.isLoadingStatus = true;
@@ -101,55 +101,40 @@ export class AccordionSeasonsComponent implements OnInit {
     }
   }
 
-  async refreshAccordionData($event: any){
-    // pour amélio => call la série > choper le nb de saisons & ses ids pour économ le 1er fetchTvBySeason
-    for (let i = 0; i < this.nbSeasons+1; i++) {
-      // @ts-ignore
-      await this.tvService.fetchTvBySeason(this.tvId,i).subscribe(
-        (resp) => {
-          resp = JSON.parse(resp.data);
-          // oui je fait 2 fois un fetchTvBySeason , le 1er juste pour récup l'id et faire les autres query
-          // si je query pas une 2e fois j'ai tous mes résultats qui arrivent en border
+  async refreshAccordionData($event: any) {
+    for (let i = 0; i < this.nbSeasons + 1; i++) {
+      const resp = await this.tvService.fetchTvBySeason(this.tvId, i).toPromise();
+      const parsedResp = JSON.parse(resp.data);
 
-          forkJoin({
-            nbEpisodes : this.tvService.fetchNbEpisodesWatchedInSerie(
-              this.tvId,
-              resp.id
-            ),
-            status : this.tvService.fetchTvSeasonWatchedStatus(
-              this.tvId,
-              resp.id
-            ),
-            details : this.tvService.fetchTvBySeason(
-              this.tvId,
-              resp.season_number
-            )
-          }).subscribe(
-            (respFork) => {
+      const forkJoinObservable = forkJoin({
+        nbEpisodes: this.tvService.fetchNbEpisodesWatchedInSerie(this.tvId, parsedResp.id).toPromise(),
+        status: this.tvService.fetchTvSeasonWatchedStatus(this.tvId, parsedResp.id).toPromise(),
+        details: this.tvService.fetchTvBySeason(this.tvId, parsedResp.season_number).toPromise()
+      });
 
-              this.tvSeasonDetails = JSON.parse(respFork.details.data);
-              this.tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
-              this.tvSeasonDetails.watchedStatus = respFork.status
+      forkJoinObservable.subscribe((respFork) => {
+        this.tvSeasonDetails = JSON.parse(respFork.details.data);
+        this.tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
+        this.tvSeasonDetails.watchedStatus = respFork.status;
 
-              this.allSeasons.map((season) => {
-                if(season.id === this.tvSeasonDetails.id){
-                  season.nbEpisodesWatched = respFork.nbEpisodes;
-                  season.watchedStatus = respFork.status
-                  season.episodes?.map((episode) => {
-                    if(episode.episode_number === $event.item.episode_number){
-                      episode.status = $event.item.status;
-                    }
-                  })
-                }
-                return season;
-              })
-            })
-
-        }
-      )
+        this.allSeasons.map((season) => {
+          if (season.id === this.tvSeasonDetails.id) {
+            season.nbEpisodesWatched = respFork.nbEpisodes;
+            season.watchedStatus = respFork.status;
+            season.episodes?.map((episode) => {
+              if (episode.episode_number === $event.item.episode_number) {
+                episode.status = $event.item.status;
+              }
+            });
+          }
+          return season;
+        });
+      });
     }
-    this.allSeasons.sort((a, b) => (a.season_number - b.season_number));
+
+
   }
+
   async updateSeasonStatus( seasonId: number){
     this.isLoadingStatus = true;
     this.tvService.triggerAddSeasonToWatchlist("start")
@@ -182,7 +167,7 @@ export class AccordionSeasonsComponent implements OnInit {
   }
 
   async updateSpecificEpisodeStatus($event: any) {
-    console.log($event)
+
     await this.refreshAccordionData($event);
 
 

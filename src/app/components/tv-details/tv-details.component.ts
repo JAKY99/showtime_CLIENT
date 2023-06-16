@@ -220,7 +220,6 @@ export class TvDetailsComponent implements OnInit {
     })
 
     await this.tvService.isTvInWatchlist(this.requestedTvId).subscribe((resp) => {
-      console.log(resp)
       this.userTv.bookmark.checked = resp ? 'checked' : '';
       this.isInWatchlist = resp;
     })

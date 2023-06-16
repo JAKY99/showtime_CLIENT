@@ -22,8 +22,7 @@ export class ProfileStatsCarouselComponent implements OnInit {
   ngOnInit(): void {
   }
   ngOnChanges() {
-    // console.log("changes")
-    // console.log(`${this.numberSeriesWatched} ${this.numberMoviesWatched} ${this.timeWatchedMovieMonthDaysHours} ${this.timeWatchedSeriesMonthDaysHours}`)
+
   }
   swiperConfig: any = {
     slidesPerView: 1,
