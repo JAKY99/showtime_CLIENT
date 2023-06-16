@@ -105,47 +105,12 @@
      gap: $margin-default;
      margin-bottom: $margin-big;
    }
-   @media (max-width: 770px) {
-     .stat-container{
-       min-height: max-content;
-       width: 16.5rem;
-       font-size: $font-small;
 
-     }
-     .swiper-container{
-       width: 45rem;
-     }
-     .swiper-slide{
-       margin-right: -7rem !important;
-     }
-   }
-   @media (min-width: 771px) {
-     .stat-container{
-       min-height: max-content;
-       width: 16.5rem;
-       font-size: $font-small;
+   .stat-container{
+     min-height: max-content;
+     width: 16.5rem;
+     font-size: $font-small;
 
-     }
-     .swiper-container{
-       width: 45rem;
-     }
-     .swiper-slide{
-       margin-right: 10rem !important;
-     }
-   }
-   @media (min-width: 1024px) {
-     .stat-container{
-       min-height: max-content;
-       width: 16.5rem;
-       font-size: $font-small;
-
-     }
-     .swiper-container{
-       width: 45rem;
-     }
-     .swiper-slide{
-       margin-right: 16rem !important;
-     }
    }
 
 }
