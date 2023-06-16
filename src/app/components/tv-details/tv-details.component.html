@@ -114,9 +114,10 @@
             (resultEpisodeUpdateEventEmitter)="updateSpecificEpisodeInSeasonAccordion($event);updateLastSeenEpisode();updateSerieInfosFromChild(requestedTvId);"
           >
           </app-episode-card>
-
+          <div class="flex align-items-end">
           <h2 class="m-1 mb-3 mt-5 text-white text-base">All Episodes</h2>
           <p-progressSpinner  *ngIf="isAccordionLoadingData" styleClass="custom-spinner-accordion" strokeWidth="2"></p-progressSpinner>
+          </div>
           <app-accordion-seasons
             *ngIf="!loading.isLoadingChildren"
             [nbSeasons]="tv.number_of_seasons"

@@ -104,10 +104,11 @@ export class AccordionSeasonsComponent implements OnInit {
             // @ts-ignore
             tvSeasonDetails.watchedStatus = respFork.status;
             self.allSeasons[tvSeasonDetails.season_number - 1] = tvSeasonDetails;
-            self.firstLoadingDone.emit(true);
+
             if(self.allSeasons.length === self.nbSeasons){
               self.loading.seasons = false;
               self.allSeasons.sort((a: { season_number: number; }, b: { season_number: number; }) => a.season_number - b.season_number);
+              self.firstLoadingDone.emit(true);
               resolve(true)
             }
             resolve(true)
