@@ -68,19 +68,28 @@ export class MoviesPageComponent implements OnInit {
       .catch(err => {
         this.userLocationData = this.userGeoService.emulateLocation();
       });
-    this.trendingService.fetchMovieTrendings().subscribe(resp => {
-      resp = JSON.parse(resp.data);
-      this.trendingsList = resp.results;
+    this.trendingService.fetchTrendingMovies().subscribe(resp => {
+      this.trendingsList = [
+        ...JSON.parse(resp.upcomingMovies$.data).results,
+        ...JSON.parse(resp.netflixMovies$.data).results
+      ];
+
+      const uniqueTrendingsList = this.trendingsList.filter((movie, index, self) => {
+        // Check if the movie's id is unique within the array
+        return index === self.findIndex((m) => m.id === movie.id);
+      });
+
+      this.trendingsList = uniqueTrendingsList;
       // @ts-ignore
       this.trendingsChild?.isLoading = false;
     });
-    this.movieService.fetchPopular().subscribe(resp => {
+    this.movieService.fetchPopularMovies().subscribe(resp => {
       resp = JSON.parse(resp.data);
       this.PopularMovies = resp.results;
       // @ts-ignore
       this.PopularMoviesChild?.isLoading = false;
     })
-    this.movieService.fetchInTheaters(this.userLocationData.country_code2).subscribe(resp => {
+    this.movieService.fetchMoviesComingThisMonth().subscribe(resp => {
       resp = JSON.parse(resp.data);
       this.moviesInTheaters = resp.results;
       // @ts-ignore
