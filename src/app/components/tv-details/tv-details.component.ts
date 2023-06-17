@@ -439,4 +439,5 @@ export class TvDetailsComponent implements OnInit {
     this.isAccordionLoadingData = false;
   }
 
+
 }

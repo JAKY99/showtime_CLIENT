@@ -103,17 +103,21 @@ export class AccordionSeasonsComponent implements OnInit {
             tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
             // @ts-ignore
             tvSeasonDetails.watchedStatus = respFork.status;
-            self.allSeasons[tvSeasonDetails.season_number - 1] = tvSeasonDetails;
-
-            if(self.allSeasons.length === self.nbSeasons){
+            if(tvSeasonDetails.season_number>0){
+              console.log(tvSeasonDetails.season_number)
+              self.allSeasons[i] = tvSeasonDetails;
+            }
+            self.allSeasons.sort((a: { season_number: number; }, b: { season_number: number; }) => a.season_number - b.season_number);
+            if(i === self.nbSeasons){
               self.loading.seasons = false;
-              self.allSeasons.sort((a: { season_number: number; }, b: { season_number: number; }) => a.season_number - b.season_number);
               self.firstLoadingDone.emit(true);
               resolve(true)
             }
             resolve(true)
           });
         }catch (e) {
+          self.firstLoadingDone.emit(true);
+          console.log(e)
           reject(e)
         }
     });

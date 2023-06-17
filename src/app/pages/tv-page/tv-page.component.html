@@ -22,10 +22,9 @@
   </div>
 
   <div class="top-rated-tv carousel-container">
-    <h2 class="m-3 mb-3 text-white text-base">Airing Today</h2>
+    <h2 class="m-3 mb-3 text-white text-base">Airing This Week</h2>
     <app-carousel-image-list #airingTodayTvRef id="airingTodayTvRefId" [items]="airingTodayTv" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
   </div>
-
   <div class="to-be-seen">
     <h2 class="m-3 mb-3 text-white text-base">Watching</h2>
     <app-carousel-image-list *ngIf="tvWatching.length; else emptyWatching" #watching id="watchingId" [items]="tvWatching" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
@@ -43,11 +42,14 @@
   </div>
 
 
-  <div class="top-rated-tv carousel-container mb-8">
+  <div class="top-rated-tv carousel-container ">
     <h2 class="m-3 mb-3 text-white text-base">Top rated Series</h2>
     <app-carousel-image-list #topRatedTvRef id="topRatedTvRefId" [items]="trendingTv" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
   </div>
-
+  <div class="trending-animation-tv carousel-container mb-8">
+    <h2 class="m-3 mb-3 text-white text-base">Trending animation </h2>
+    <app-carousel-image-list #topAnimationRef id="topAnimationRefId" [items]="topAnimation" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
 
   <app-media-details-dialog #mediaDetailsDialogRef ></app-media-details-dialog>
 

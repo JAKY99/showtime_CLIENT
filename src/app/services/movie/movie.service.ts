@@ -75,7 +75,10 @@ export class MovieService {
     // return this.HazelcastService.getDataFromHazelcastCache(url)
     // return this.http.get<any>(url);
   }
-
+  fetchMostSpectacularMovies(): Observable<any> {
+    const url = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&language=en-US&page=1&sort_by=vote_count.desc&vote_average.gte=7.5&with_genres=18`;
+    return this.RedisService.getDataFromRedisCache(url);
+  }
   fetchMovieDetails(movieId: number, responseToAppend?: Array<string>): Observable<MovieDetailsModel>{
 
     let url = GlobalConstants.TMDB_BASE_URL + "movie/"+ movieId +
