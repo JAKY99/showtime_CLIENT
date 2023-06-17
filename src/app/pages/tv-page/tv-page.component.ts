@@ -119,8 +119,6 @@ export class TvPageComponent implements OnInit {
   scrollTo(elementId : string): void {
     let element = document.getElementById(elementId);
     element?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-
-    // this.viewportScroller.scrollToAnchor(elementId);
   }
 
 

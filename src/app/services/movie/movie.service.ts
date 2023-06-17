@@ -29,6 +29,17 @@ export class MovieService {
     // return this.HazelcastService.getDataFromHazelcastCache(url)
     // return this.http.get<any>(url);
   }
+  fetchMoviesComingThisMonth(): Observable<any> {
+    const currentDate = new Date();
+    const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, 1); // Get the start date of the 3-month period
+    const currentDateStr = currentDate.toISOString().split('T')[0];
+    const startDateStr = startDate.toISOString().split('T')[0];
+
+    const url = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&language=en-US&page=1&primary_release_date.gte=${startDateStr}&primary_release_date.lte=${currentDateStr}&with_release_type=3&with_origin_country=US|FR`;
+
+    return this.RedisService.getDataFromRedisCache(url);
+  }
+
 
   fetchNewMovies(): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL +
@@ -44,8 +55,6 @@ export class MovieService {
       GlobalConstants.TMDB_KEY +
       "&language=en-US&page=1";
     return this.RedisService.getDataFromRedisCache(url)
-    // return this.HazelcastService.getDataFromHazelcastCache(url)
-    // return this.http.get<any>(url);
   }
 
   fetchUpcoming(): Observable<any> {
@@ -54,8 +63,6 @@ export class MovieService {
       GlobalConstants.TMDB_KEY +
       "&language=en-US&page=1";
     return this.RedisService.getDataFromRedisCache(url)
-    // return this.HazelcastService.getDataFromHazelcastCache(url)
-    // return this.http.get<any>(url);
   }
   fetchPopular(): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL +
@@ -63,8 +70,6 @@ export class MovieService {
       GlobalConstants.TMDB_KEY +
       "&language=en-US&page=1";
     return this.RedisService.getDataFromRedisCache(url)
-    // return this.HazelcastService.getDataFromHazelcastCache(url)
-    // return this.http.get<any>(url);
   }
   fetchNowPlaying(): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL +
@@ -72,11 +77,18 @@ export class MovieService {
       GlobalConstants.TMDB_KEY +
       "&language=en-US&page=1";
     return this.RedisService.getDataFromRedisCache(url)
-    // return this.HazelcastService.getDataFromHazelcastCache(url)
-    // return this.http.get<any>(url);
   }
   fetchMostSpectacularMovies(): Observable<any> {
     const url = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&language=en-US&page=1&sort_by=vote_count.desc&vote_average.gte=7.5&with_genres=18`;
+    return this.RedisService.getDataFromRedisCache(url);
+  }
+  fetchPopularMovies(): Observable<any> {
+    const currentDate = new Date();
+    const startOfYear = new Date(currentDate.getFullYear() - 5, 0, 1);
+    const startOfYearStr = startOfYear.toISOString().split('T')[0];
+    const endOfYearStr = currentDate.toISOString().split('T')[0];
+    const url = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&language=en-US&page=1&primary_release_date.gte=${startOfYearStr}&primary_release_date.lte=${endOfYearStr}&with_origin_country=GB&vote_average.gte=7.5&sort_by=popularity.desc&without_original_language=jp`;
+console.log(url)
     return this.RedisService.getDataFromRedisCache(url);
   }
   fetchMovieDetails(movieId: number, responseToAppend?: Array<string>): Observable<MovieDetailsModel>{
@@ -92,9 +104,6 @@ export class MovieService {
       })
     }
     return this.RedisService.getDataFromRedisCache(url)
-    // return this.HazelcastService.getDataFromHazelcastCache(url)
-    // return this.http.get<MovieDetailsModel>(url);
-
   }
   async generateUrlToFetch(movieIdList: number[], responseToAppend?: Array<string>): Promise<string[]>{
     let urls = [];
@@ -125,14 +134,12 @@ export class MovieService {
     let url = GlobalConstants.TMDB_BASE_URL + "movie/"+ movieId +
       "/watch/providers?api_key=" + GlobalConstants.TMDB_KEY;
     return this.RedisService.getDataFromRedisCache(url)
-    // return this.http.get<any>(url);
   }
 
   fetchSimilarMovies(movieId: number): Observable<any>{
     let url = GlobalConstants.TMDB_BASE_URL + "/movie/"+ movieId +
       "/similar?api_key="+ GlobalConstants.TMDB_KEY+"&language=en-US&page=1"
     return this.RedisService.getDataFromRedisCache(url)
-    // return this.http.get<any>(url);
   }
 
   fetchMovieWatchedStatus(tmdbId: number,movieName : string|null): Observable<any>{
