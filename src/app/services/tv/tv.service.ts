@@ -21,12 +21,10 @@ export class TvService {
   constructor(private http: HttpClient,private RedisService : RedisService , private tokenStorage: TokenStorageService) { }
 
   fetchPopular(): Observable<any> {
-    let url = GlobalConstants.TMDB_BASE_URL +
-      "tv/popular?api_key=" +
-      GlobalConstants.TMDB_KEY +
-      "&language=en-US&page=1&with_origin_country=US&vote_average.gte=7.5&without_original_language=jp";
+    const euCountries = "FR";
+
+    const url = `${GlobalConstants.TMDB_BASE_URL}discover/tv?api_key=${GlobalConstants.TMDB_KEY}&language=en-US&page=1&sort_by=popularity.desc&with_origin_country=${euCountries}&vote_average.gte=7.5&without_original_language=jp`;
     return this.RedisService.getDataFromRedisCache(url);
-    // return this.http.get<any>(url);
   }
 
   fetchTvTopRated(): Observable<any> {
