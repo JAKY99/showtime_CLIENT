@@ -104,7 +104,6 @@ export class AccordionSeasonsComponent implements OnInit {
             // @ts-ignore
             tvSeasonDetails.watchedStatus = respFork.status;
             if(tvSeasonDetails.season_number>0){
-              console.log(tvSeasonDetails.season_number)
               self.allSeasons[i] = tvSeasonDetails;
             }
             self.allSeasons.sort((a: { season_number: number; }, b: { season_number: number; }) => a.season_number - b.season_number);
