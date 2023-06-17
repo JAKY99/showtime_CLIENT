@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {forkJoin, Observable} from "rxjs";
 import {GlobalConstants} from "../../common/constants/global-constants";
 import {TvDetails} from "../../models/tv/tv-details";
 import {TokenStorageService} from "../token-storage.service";
@@ -24,29 +24,51 @@ export class TvService {
     let url = GlobalConstants.TMDB_BASE_URL +
       "tv/popular?api_key=" +
       GlobalConstants.TMDB_KEY +
-      "&language=en-US&page=1";
+      "&language=en-US&page=1&with_origin_country=US&vote_average.gte=7.5&without_original_language=jp";
     return this.RedisService.getDataFromRedisCache(url);
     // return this.http.get<any>(url);
   }
 
   fetchTvTopRated(): Observable<any> {
-    let url = GlobalConstants.TMDB_BASE_URL +
-      "tv/top_rated?api_key=" +
-      GlobalConstants.TMDB_KEY +
-      "&language=en-US&page=1";
+    const currentDate = new Date();
+    const startOfYear = new Date(currentDate.getFullYear() - 5, 0, 1);
+    const startOfYearStr = startOfYear.toISOString().split('T')[0];
+    const endOfYearStr = currentDate.toISOString().split('T')[0];
+    const url = `${GlobalConstants.TMDB_BASE_URL}discover/tv?api_key=${GlobalConstants.TMDB_KEY}&without_genres=16,10751&language=en-US&page=1&sort_by=popularity.desc&air_date.gte=${startOfYearStr}&air_date.lte=${endOfYearStr}&with_origin_country=US&vote_average.gte=7&without_original_language=jp`;
+
     return this.RedisService.getDataFromRedisCache(url);
-    // return this.http.get<any>(url);
   }
 
   fetchAiringToday(): Observable<any> {
-    let url = GlobalConstants.TMDB_BASE_URL +
-      "tv/airing_today?api_key=" +
-      GlobalConstants.TMDB_KEY +
-      "&language=en-US&page=1";
-    return this.RedisService.getDataFromRedisCache(url);
-    // return this.http.get<any>(url);
+    const startOfWeek = new Date();
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    const endOfWeek = new Date();
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+    const startOfWeekStr = startOfWeek.toISOString().split('T')[0];
+    const endOfWeekStr = endOfWeek.toISOString().split('T')[0];
+    const usUrl = `${GlobalConstants.TMDB_BASE_URL}discover/tv?api_key=${GlobalConstants.TMDB_KEY}&language=en-US&page=1&sort_by=popularity.desc&air_date.gte=${startOfWeekStr}&air_date.lte=${endOfWeekStr}&with_origin_country=US&vote_average.gte=7.5&without_original_language=jp`;
+
+    return this.RedisService.getDataFromRedisCache(usUrl);
   }
 
+  fetchTopAnimation(): Observable<any> {
+    const startOfWeek = new Date();
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    const endOfWeek = new Date();
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+    const startOfWeekStr = startOfWeek.toISOString().split('T')[0];
+    const endOfWeekStr = endOfWeek.toISOString().split('T')[0];
+    const apiKey = GlobalConstants.TMDB_KEY;
+    const trendingMangaUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}&language=en-US&page=1&sort_by=popularity.desc&with_genres=16&air_date.gte=${startOfWeekStr}&air_date.lte=${endOfWeekStr}&without_original_language=jp&vote_average.gte=8`;
+
+    return this.RedisService.getDataFromRedisCache(trendingMangaUrl);
+  }
+  fetchMostLikedSocialSeries(): Observable<any> {
+    const url = `${GlobalConstants.TMDB_BASE_URL}discover/tv?api_key=${GlobalConstants.TMDB_KEY}&language=en-US&page=1&sort_by=vote_count.desc&vote_average.gte=7.5&with_genres=18&with_origin_country=US`;
+    return this.RedisService.getDataFromRedisCache(url);
+  }
   fetchOnTheAir(): Observable<any> {
     let url = GlobalConstants.TMDB_BASE_URL +
       "tv/on_the_air?api_key=" +

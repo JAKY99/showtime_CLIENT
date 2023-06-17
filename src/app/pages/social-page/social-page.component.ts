@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 import {MovieDetailsModel} from "../../models/movie/movie-details-model";
 import {MediaDetailsDialogComponent} from "../../components/media-details-dialog/media-details-dialog.component";
 import {MovieService} from "../../services/movie/movie.service";
+import {TvService} from "../../services/tv/tv.service";
 
 @Component({
   selector: 'app-social-page',
@@ -41,19 +42,20 @@ export class SocialPageComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private TokenStorageService: TokenStorageService,
     private movieService: MovieService,
-    private router: Router
+    private router: Router,
+    private tvService: TvService
   ) {
   }
 
   ngOnInit(): void {
-    this.movieService.fetchNowPlaying().toPromise()
+    this.tvService.fetchMostLikedSocialSeries().toPromise()
       .then(resp => {
         resp = JSON.parse(resp.data);
         this.topLikedMovies = resp.results;
         // @ts-ignore
         this.topLikedChild?.isLoading = false;
       })
-    this.movieService.fetchPopular().toPromise()
+    this.movieService.fetchMostSpectacularMovies().toPromise()
       .then(resp => {
         resp = JSON.parse(resp.data);
         this.topWatchedMovies = resp.results;

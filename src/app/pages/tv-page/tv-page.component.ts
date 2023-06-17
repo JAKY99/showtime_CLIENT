@@ -18,6 +18,7 @@ export class TvPageComponent implements OnInit {
   @ViewChild('airingTodayTvRef') airingTodayTvChild: CarouselImageListComponent | undefined;
   @ViewChild('watching') watching: CarouselImageListComponent | undefined;
   @ViewChild('watched') watched: CarouselImageListComponent | undefined;
+  @ViewChild('topAnimationRef') topAnimationRefChild: CarouselImageListComponent | undefined;
   @ViewChild('mediaDetailsDialogRef') mediaDetailsDialogChild: MediaDetailsDialogComponent | undefined;
 
   // @ts-ignore
@@ -28,6 +29,7 @@ export class TvPageComponent implements OnInit {
   airingTodayTv: TvDetails[] = [];
   tvWatching: TvDetails[] = [];
   tvWatched: TvDetails[] = [];
+  topAnimation: TvDetails[] = [];
   constructor(
     private tvService: TvService,
     private route: ActivatedRoute
@@ -105,6 +107,13 @@ export class TvPageComponent implements OnInit {
         }, 100)
       }
     )
+    this.tvService.fetchTopAnimation().toPromise()
+      .then(resp => {
+        resp = JSON.parse(resp.data);
+        this.topAnimation = resp.results;
+        // @ts-ignore
+        this.topAnimationRefChild?.isLoading = false;
+      })
   }
 
   scrollTo(elementId : string): void {

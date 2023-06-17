@@ -71,11 +71,11 @@
     </ng-container>
   </div>
   <div class="top-rated-movie carousel-container">
-    <h2 class="ml-2 text-white text-base">Top liked movies</h2>
+    <h2 class="ml-2 text-white text-base">Showtime-approved series</h2>
     <app-carousel-image-list #topLikedMoviesRef [items]="topLikedMovies" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
   </div>
   <div class="top-rated-movie carousel-container mb-8">
-    <h2 class="ml-2 text-white text-base">This weeks top watched</h2>
+    <h2 class="ml-2 text-white text-base">Showtime-approved movies</h2>
     <app-carousel-image-list #topWatchedMoviesRef [items]="topWatchedMovies" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
   </div>
 </div>

@@ -24,7 +24,9 @@ app-carousel-image-list .swiper-slide app-poster-image img {
   height: 100%;
   object-fit: cover;
 }
-
+app-carousel-image-list .swiper-wrapper{
+  height: 15rem;
+}
 @media screen and (min-width: 768px) {
   app-carousel-image-list .swiper-container{
 
