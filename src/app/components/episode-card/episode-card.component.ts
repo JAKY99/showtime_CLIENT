@@ -25,7 +25,7 @@ export class EpisodeCardComponent implements OnInit {
   }
 
   // @ts-ignore
-  @Input() seasonId : number | null;
+  @Input() seasonId : number ;
   // @ts-ignore
   @Input() tvId : number;
   @Input() seasonNumber : number = 0;

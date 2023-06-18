@@ -107,6 +107,12 @@ export class TvService {
     return this.RedisService.getDataFromRedisCache(url);
     // return this.http.get<any>(url);
   }
+  fetchSeasonOnlyDetails(tvId: number , seasonNumber : number): Observable<any>{
+    let url = GlobalConstants.TMDB_BASE_URL + "tv/"+ tvId +
+      "/season/" +seasonNumber + "?api_key=" + GlobalConstants.TMDB_KEY;
+    return this.RedisService.getDataFromRedisCache(url);
+    // return this.http.get<any>(url);
+  }
 
   fetchTvBySeason(tvId: number , seasonNumber : number): Observable<any>{
     let url = GlobalConstants.TMDB_BASE_URL + "tv/"+ tvId +
@@ -317,16 +323,22 @@ export class TvService {
 
 
   }
-  removeEpisodeFromViewInfo(tmdbId: number , seasonId : number | null, episodeId : number,seasonNumber :  number , episodeNumber : number) {
+  removeEpisodeFromViewInfo(tmdbId: number ,
+                            seasonId : number ,
+                            episodeId : number,
+                            seasonNumber :  number ,
+                            episodeNumber : number) {
     let url = `${GlobalConstants.API_URL}/api/v1/user/serie/removeEpisodeFromViewInfo/`
-    return this.http.post<any>(url, {
+    let data = {
       userMail: this.tokenStorage.getClientUsername(),
       tvTmdbId: tmdbId,
       seasonTmdbId : seasonId,
       episodeTmdbId : episodeId,
       seasonNumber : seasonNumber,
       episodeNumber : episodeNumber
-    });
+    }
+    return this.http.post<any>(url,
+      data);
   }
 
   removeSeasonFromViewInfo(tmdbId: number , seasonId : number,seasonNumber :  number) {

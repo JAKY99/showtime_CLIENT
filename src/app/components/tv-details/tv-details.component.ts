@@ -25,6 +25,7 @@ export class TvDetailsComponent implements OnInit {
 
 
 
+
   constructor(private tvService: TvService, private route: ActivatedRoute, private messageService: MessageService,private commentService: CommentService) {
   }
 
@@ -60,7 +61,7 @@ export class TvDetailsComponent implements OnInit {
   lastEpisode: TvEpisodeDetails = {};
   lastEpisodeNumber: number = 0;
   lastEpisodeSeasonNumber: number = 0;
-
+  lastEpisodeSeasonTmdbId: number = 0;
   // @ts-ignore
   similarTv: TvSimilar[] = [];
   resultComments: [] = [];
@@ -193,7 +194,6 @@ export class TvDetailsComponent implements OnInit {
     ).subscribe(
       (resp) => {
         this.lastEpisodeNumber = resp.episode_number;
-
         this.tvService.fetchTvBySeasonAndEpisode(
           this.requestedTvId,
           resp.season_number,
@@ -202,6 +202,10 @@ export class TvDetailsComponent implements OnInit {
           (resp2) => {
             resp2 = JSON.parse(resp2.data);
             this.lastEpisode = resp2;
+            this.tvService.fetchSeasonOnlyDetails(this.requestedTvId, resp.season_number).subscribe((resp3) => {
+              resp3 = JSON.parse(resp3.data);
+              this.lastEpisodeSeasonTmdbId = resp3.id;
+            });
           }
         );
 

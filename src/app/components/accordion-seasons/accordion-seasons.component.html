@@ -13,7 +13,7 @@
           <i
             *ngIf="!isLoadingStatus"
             (click)="updateSeasonStatusDialog(season.id,season.watchedStatus,season.season_number)"
-            [class]="season.watchedStatus"
+            [class]="season.watchedStatus.toString()"
             class="fa-solid fa-circle-check watched-status-check st-icon ">
           </i>
           <p-progressSpinner *ngIf="isLoadingStatus"  styleClass="custom-spinner" strokeWidth="8"></p-progressSpinner>

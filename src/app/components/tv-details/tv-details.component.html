@@ -109,6 +109,7 @@
           <app-episode-card
             [item]="lastEpisode"
             [tvId]="requestedTvId"
+            [seasonId]="this.lastEpisodeSeasonTmdbId"
             [seasonNumber]="lastEpisode.season_number"
             [episodeNumber]="lastEpisode.episode_number"
             (resultEpisodeUpdateEventEmitter)="updateSpecificEpisodeInSeasonAccordion($event);updateLastSeenEpisode();updateSerieInfosFromChild(requestedTvId);"
