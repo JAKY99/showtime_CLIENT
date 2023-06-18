@@ -77,12 +77,15 @@ export class AccordionSeasonsComponent implements OnInit {
         this.isLoadingStatus = false;
       }
     })
+    this.tvService.addEpisodeToWatchlist.subscribe((state) => {
+
+    });
     this.fetchAccordionData();
   }
   async fetchAccordionData() {
     this.allSeasons = [];
     let self = this
-    for (let i = 1; i < this.nbSeasons + 1; i++) {
+    for (let i = 0; i < this.nbSeasons + 1; i++) {
       await new Promise( async function (resolve, reject) {
         try{
           const resp =  await self.tvService.fetchTvBySeason(self.tvId, i).toPromise();
@@ -103,9 +106,8 @@ export class AccordionSeasonsComponent implements OnInit {
             tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
             // @ts-ignore
             tvSeasonDetails.watchedStatus = respFork.status;
-            if(tvSeasonDetails.season_number>0){
-              self.allSeasons[i] = tvSeasonDetails;
-            }
+            self.allSeasons[i] = tvSeasonDetails;
+
             self.allSeasons.sort((a: { season_number: number; }, b: { season_number: number; }) => a.season_number - b.season_number);
             if(i === self.nbSeasons){
               self.loading.seasons = false;
@@ -123,33 +125,36 @@ export class AccordionSeasonsComponent implements OnInit {
     }
   }
   async refreshAccordionData($event: any) {
+    let self = this
     for (let i = 0; i < this.nbSeasons + 1; i++) {
-      const resp = await this.tvService.fetchTvBySeason(this.tvId, i).toPromise();
-      const parsedResp = JSON.parse(resp.data);
+      await new Promise( async function (resolve, reject) {
+        try{
+          const resp =  await self.tvService.fetchTvBySeason(self.tvId, i).toPromise();
+          // @ts-ignore
+          const parsedResp = JSON.parse(resp.data);
 
-      const forkJoinObservable = forkJoin({
-        nbEpisodes: this.tvService.fetchNbEpisodesWatchedInSerie(this.tvId, parsedResp.id).toPromise(),
-        status: this.tvService.fetchTvSeasonWatchedStatus(this.tvId, parsedResp.id).toPromise(),
-        details: this.tvService.fetchTvBySeason(this.tvId, parsedResp.season_number).toPromise()
-      });
+          const forkJoinObservable = forkJoin({
+            nbEpisodes: self.tvService.fetchNbEpisodesWatchedInSerie(self.tvId, parsedResp.id).toPromise(),
+            status: self.tvService.fetchTvSeasonWatchedStatus(self.tvId, parsedResp.id).toPromise(),
+            details: self.tvService.fetchTvBySeason(self.tvId, parsedResp.season_number).toPromise()
+          });
 
-      forkJoinObservable.subscribe((respFork) => {
-        this.tvSeasonDetails = JSON.parse(respFork.details.data);
-        this.tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
-        this.tvSeasonDetails.watchedStatus = respFork.status;
-
-        this.allSeasons.map((season) => {
-          if (season.id === this.tvSeasonDetails.id) {
-            season.nbEpisodesWatched = respFork.nbEpisodes;
-            season.watchedStatus = respFork.status;
-            season.episodes?.map((episode) => {
-              if (episode.episode_number === $event.item.episode_number) {
-                episode.status = $event.item.status;
-              }
-            });
-          }
-          return season;
-        });
+          forkJoinObservable.subscribe((respFork) => {
+            let tvSeasonDetails:TvSeasonDetails;
+            // @ts-ignore
+            tvSeasonDetails = JSON.parse(respFork.details.data);
+            // @ts-ignore
+            tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
+            // @ts-ignore
+            tvSeasonDetails.watchedStatus = respFork.status;
+            self.allSeasons[i] = tvSeasonDetails;
+            resolve(true)
+          });
+        }catch (e) {
+          self.firstLoadingDone.emit(true);
+          console.log(e)
+          reject(e)
+        }
       });
     }
 

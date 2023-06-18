@@ -88,7 +88,7 @@ export class MovieService {
     const startOfYearStr = startOfYear.toISOString().split('T')[0];
     const endOfYearStr = currentDate.toISOString().split('T')[0];
     const url = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&language=en-US&page=1&primary_release_date.gte=${startOfYearStr}&primary_release_date.lte=${endOfYearStr}&with_origin_country=GB&vote_average.gte=7.5&sort_by=popularity.desc&without_original_language=jp`;
-console.log(url)
+
     return this.RedisService.getDataFromRedisCache(url);
   }
   fetchMovieDetails(movieId: number, responseToAppend?: Array<string>): Observable<MovieDetailsModel>{
