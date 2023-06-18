@@ -1,0 +1,43 @@
+@import "src/styles";
+
+.app-header-nav {
+  padding: 0 $margin-default;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: $main-color;
+  position: fixed;
+  top: 0;
+  transition: top 0.2s ease-in-out;
+  width: 100%;
+  z-index: 999;
+
+  &.--desktop {
+    padding: $margin-big $margin-big-2;
+    width: calc(100% - 300px);
+    grid-template-columns: 1fr;
+
+    .right-section {
+      gap: $margin-big-2;
+
+      & > * {
+      font-size: $font-medium;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .right-section {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: $margin-default + 0.5;
+  }
+
+  .search-icon-action {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1.2rem;
+    color: $white;
+  }
+}

@@ -1,6 +1,7 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, Input, ViewEncapsulation} from '@angular/core';
 import {PrimeNGConfig} from 'primeng/api';
 import {Router} from "@angular/router";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'app-root',
@@ -10,20 +11,36 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
 
-  blockedDocument: boolean = false;
+  public isMobileDevice: boolean = false;
+  public isTabletDevice: boolean = false;
+  public isDesktopDevice: boolean = false;
 
-  constructor(private primengConfig: PrimeNGConfig, public router: Router) {
+  constructor(private primengConfig: PrimeNGConfig, public router: Router, private deviceService: DeviceDetectorService) {
   }
+
   ngOnInit() {
-    this.primengConfig.ripple = true;
+    this.primengConfig.ripple = false;
+    this.isMobileDevice = this.deviceService.isMobile();
+    this.isTabletDevice = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
   }
+
   title = 'Showtime';
 
-  toggleBlockDocument(){
-    this.blockedDocument = !this.blockedDocument;
+  isNavbarMobileShown() {
+    return (this.isMobileDevice || this.isTabletDevice) && (this.router.url.includes('/movies') ||
+      this.router.url.includes('/home') ||
+      this.router.url.includes('/series') ||
+      this.router.url.includes('/social') ||
+      this.router.url.includes('/profil'));
   }
 
-  isRouteLogin(){
-    return this.router.url == '/login';
+  isNavbarDesktopShown() {
+    return this.isDesktopDevice && (this.router.url.includes('/movies') ||
+      this.router.url.includes('/home') ||
+      this.router.url.includes('/series') ||
+      this.router.url.includes('/social') ||
+      this.router.url.includes('/search') ||
+      this.router.url.includes('/profil'));
   }
 }

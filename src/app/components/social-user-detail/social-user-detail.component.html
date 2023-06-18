@@ -1,0 +1,66 @@
+<p-dialog
+  id="app-social-user-detail"
+  [closeOnEscape]="false"
+  [dismissableMask]="true"
+  [(visible)]="viewedDialogShown"
+  [position]="viewedDialogPosition"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+  closeIcon=""
+  [transitionOptions]="'300ms cubic-bezier(1, 1, 1, 1)'"
+>
+  <div>
+    <div class="top-section">
+      <fa-icon class="close-icon st-icon st-icon-small dark"
+               [icon]="faChevronDown"
+               (click)="close()"
+      ></fa-icon>
+    </div>
+    <app-social-top-section [username]="username"  [isOwner]="false"></app-social-top-section>
+    <app-social-info-section [username]="username"></app-social-info-section>
+    <app-profile-stats-carousel [numberSeriesWatched]=numberSeriesWatched
+                                [timeWatchedSeriesMonthDaysHours]=timeWatchedSeriesMonthDaysHours
+                                [numberMoviesWatched]=numberMoviesWatched
+                                [timeWatchedMovieMonthDaysHours]=timeWatchedMovieMonthDaysHours
+    ></app-profile-stats-carousel>
+    <p-divider></p-divider>
+    <div class="tab-view-section">
+      <p-tabView [activeIndex]="index">
+
+        <p-tabPanel header="About" class="About-panel" >
+            <div *ngIf="About!=null" class="text-center text-white">
+              <h3> {{About}}</h3>
+            </div>
+            <div *ngIf="About==null" class="text-center">
+              <h3>No informations</h3>
+            </div>
+        </p-tabPanel>
+
+        <p-tabPanel [selected]="true" header="Comments" class="Comments-panel">
+          <div>
+            <div *ngIf="resultUserComments.length" class="commentsContainer">
+              <div class="comment" *ngFor="let resultUserComments of resultUserComments">
+                <app-comment [showOrigin]="true" [comment]="resultUserComments"></app-comment>
+              </div>
+            </div>
+            <div *ngIf="resultUserComments.length <= 0" class="text-center">
+              <h3>No comments</h3>
+            </div>
+          </div>
+        </p-tabPanel>
+
+        <p-tabPanel  header="Trophies" class="Trophies-panel">
+                <div class="trophiesList glass" *ngFor="let trophy of Trophies">
+                  <app-trophy-card [trophy]="trophy"></app-trophy-card>
+                </div>
+                <div *ngIf="Trophies.length==0" class="text-center">
+                  <h3>No trophies</h3>
+                </div>
+          </p-tabPanel>
+
+      </p-tabView>
+    </div>
+  </div>
+</p-dialog>

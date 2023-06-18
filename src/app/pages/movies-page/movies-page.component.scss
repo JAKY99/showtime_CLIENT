@@ -1,0 +1,79 @@
+@import "src/styles";
+
+.app-movies-page{
+  background-color: $main-color;
+  padding-top: $margin-big-2 + 1;
+.trending-section{
+  margin-left: 0.9rem;
+}
+  .top-header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .search-icon-action{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+
+    .options-icon-action{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+  }
+
+  .carousel-container:last-child{
+    margin-bottom: 5rem;
+  }
+}
+
+.overflow-auto{
+  overflow-x: hidden!important;
+}
+
+@media screen and (min-width: 768px) {
+  .app-home-page{
+
+    .carousel-container{
+      h2{
+        font-size: $font-medium!important;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .app-home-page{
+
+    .carousel-container{
+      h2{
+        font-size: $font-big!important;
+      }
+    }
+  }
+}
+
+
+.context-menu {
+  position: fixed;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  z-index: 1000;
+}
+
+.context-menu-item {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.context-menu-item:hover {
+  background-color: #f0f0f0;
+}

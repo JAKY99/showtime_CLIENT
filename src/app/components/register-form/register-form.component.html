@@ -1,0 +1,105 @@
+
+
+<div class=" register-page flex flex-column justify-content-center gap-4">
+  <div class="register-header text-center">
+    <h1 class="title"><span class="text-white">Show</span>Time</h1>
+  </div>
+  <div class="card mt-3 mb-3">
+    <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="true" ></p-steps>
+  </div>
+  <form id="formPersonalInfo" [formGroup]="personalInformationForm" class="flex flex-column justify-content-center gap-4" (ngSubmit)="goAccountInfo()">
+    <div  class="flex flex-column justify-content-center gap-4">
+
+      <div class="flex flex-column text-center gap-1">
+        <label for="register-input-firstname" class="uppercase text-white text-sm">Firstname</label>
+        <input id="register-input-firstname"
+               formControlName="firstname"
+               type="text"
+               pInputText
+        />
+        <div  class="secondary-text-color" *ngIf="personalInformationForm.get('firstname')?.hasError('minlength')">Minimum length is 2</div>
+        <div class="secondary-text-color" *ngIf="personalInformationForm.get('firstname')?.hasError('maxlength')">Maximum length is 10</div>
+        <div class="secondary-text-color" *ngIf="personalInformationForm.get('firstname')?.hasError('required')">This field is required</div>
+      </div>
+
+      <div class="flex flex-column text-center gap-1">
+        <label for="register-input-firstname" class="uppercase text-white text-sm">Lastname</label>
+        <input id="register-input-lastname"
+               formControlName="lastname"
+               type="text"
+               pInputText
+        />
+
+        <div  class="secondary-text-color" *ngIf="personalInformationForm.get('lastname')?.hasError('minlength')">Minimum length is 2</div>
+        <div class="secondary-text-color" *ngIf="personalInformationForm.get('lastname')?.hasError('maxlength')">Maximum length is 10</div>
+        <div class="secondary-text-color" *ngIf="personalInformationForm.get('lastname')?.hasError('required')">This field is required</div>
+        <a class="text-white text-sm tdn mt-3" routerLink="/login" >Got an account?</a>
+      </div>
+    </div>
+    <div class="flex justify-content-center">
+      <button pButton
+              type="submit"
+              label="Next"
+              [loading]="isLoading"
+              [disabled]="personalInformationForm.invalid"
+      ></button>
+    </div>
+  </form>
+  <form id="formAccountInfo" class="flex flex-column justify-content-center gap-4" style="display:none!important" (ngSubmit)="submitLogin()">
+    <div [formGroup]="registerForm" class="flex flex-column justify-content-center gap-4">
+
+      <div class="flex flex-column text-center gap-1">
+        <label for="register-input-email" class="uppercase text-white text-sm">Email</label>
+        <input id="register-input-email"
+                formControlName="email"
+                type="text"
+                pInputText
+        />
+        <div class="secondary-text-color" *ngIf="registerForm.get('email')?.hasError('required')">Email is required</div>
+        <div class="secondary-text-color" *ngIf="registerForm.get('email')?.hasError('email')">Invalid email format</div>
+        <div class="secondary-text-color" *ngIf="registerForm.get('email')?.hasError('invalidEmail')">Email is not valid</div>
+      </div>
+
+      <div class="flex flex-column text-center gap-1">
+        <label for="register-input-password" class="uppercase text-white text-sm">Password</label>
+        <p-password id="register-input-password"
+        formControlName="password"
+                    (ngModelChange)="check()"
+        [toggleMask]="true"
+        [feedback]="false"
+        styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+         ></p-password>
+        <div class="secondary-text-color" *ngIf="registerForm.get('password')?.hasError('required')">Password is required</div>
+        <div class="secondary-text-color w-13rem" *ngIf="registerForm.get('password')?.hasError('pattern')">at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character</div>
+      </div>
+      <div class="flex flex-column text-center gap-1">
+        <label for="register-input-password" class="uppercase text-white text-sm">Repeat Password</label>
+        <p-password id="register-input-password-repeat"
+        formControlName="repeatpassword"
+                    (ngModelChange)="check()"
+        [toggleMask]="true"
+        [feedback]="false"
+        styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+         ></p-password>
+        <div class="secondary-text-color" *ngIf="registerForm.get('repeatpassword')?.hasError('required')">Repeat password is required</div>
+        <div class="secondary-text-color w-13rem" *ngIf="registerForm.get('repeatpassword')?.hasError('pattern')">password with at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character</div>
+        <div class="secondary-text-color" *ngIf="isRepeatNok">Passwords do not match</div>
+        <a class="text-white text-sm tdn mt-3" routerLink="/login" >Got an account?</a>
+      </div>
+    </div>
+    <div class="flex justify-content-center">
+      <button pButton
+              type="button"
+              label="Previous"
+              class="mr-4"
+              (click)="goPrevious()"
+      ></button>
+      <button pButton
+              type="submit"
+              label="Sign up"
+              [loading]="isLoading"
+              [disabled]="this.isLoginFailed"
+      ></button>
+    </div>
+  </form>
+</div>

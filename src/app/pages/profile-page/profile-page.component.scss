@@ -1,0 +1,73 @@
+@import "src/styles";
+
+.app-profile-page {
+  background-color: $main-color;
+  overflow-x: hidden;
+  padding-top: $margin-big-2 + 1;
+  .top-header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    //background-color: $main-color;
+    background-color: transparentize($main-color, .5);
+    position: relative;
+    z-index: 90;
+    .search-icon-action{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+
+    .options-icon-action{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+  }
+}
+
+.tab-view-section {
+  padding: .7rem 1rem;
+  margin-bottom: 4rem;
+
+  .carousel-container{
+    .header-title{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: $margin-default;
+
+      .see-all-btn{
+        color: $secondary-color;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.--desktop{
+  margin-top: $margin-big-2 + 2;
+  .top-section-desktop{
+    padding: $margin-big-2 + 1;
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    gap: $margin-big-2;
+  }
+
+  .stats-desktop{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: $margin-big;
+  }
+
+  h2{
+    font-size: $font-big !important;
+  }
+}

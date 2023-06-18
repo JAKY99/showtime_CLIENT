@@ -1,0 +1,84 @@
+<div class="app-social-page h-full">
+  <app-header-nav></app-header-nav>
+  <form [formGroup]="searchForm"  class="search-input-container mt-6" (ngSubmit)="handleUserSearch($event)">
+    <div class="search-input-container">
+        <span class="p-input-icon-left search-input">
+          <i><fa-icon [icon]="faSearch"></fa-icon></i>
+          <input type="text" pInputText placeholder="Search people (Name and email)"
+                 formControlName="userToFind" (input)="handleChangeSearch()"
+                name="globalSearch"/>
+        </span>
+    </div>
+  </form>
+
+  <div id="userContainer" class="mt-6 mb-8" *ngIf="!showSearch">
+    <div>
+      <h2 class="ml-2 text-white text-base">Top 10 moviegoers</h2>
+    </div>
+
+    <ng-container *ngFor="let user of topuserList;let indexOfelement=index;">
+      <div class="top3User user-row" *ngIf="indexOfelement<3" (click)="showDetailUser(user.username)">
+        <div class="user-infos">
+          <div class="profile-picture-container">
+            <img [src]=user.profilePicture class="profilePicBadge">
+            <p-badge styleClass="rank-number" *ngIf="user.rank" [value]="user.rank.toString()"></p-badge>
+          </div>
+          <div class="n-margin-name-top">
+            <p class="profile-name-top">{{user.fullName}}</p>
+          </div>
+        </div>
+        <div class="profile-score-top-container">
+          <span class="profile-score-top">{{user.score}} </span>
+          <fa-icon [icon]="faTrophy"> </fa-icon>
+        </div>
+      </div>
+      <div class="user-row" *ngIf="indexOfelement>3" (click)="showDetailUser(user.username)">
+        <div class="user-infos">
+          <div class="profile-picture-container">
+            <img [src]=user.profilePicture class="profilePicBadgeSearch" >
+          </div>
+          <div class="n-margin-name">
+            <p class="profile-name">{{user.fullName}}</p>
+          </div>
+        </div>
+        <div class="profile-score-container">
+          <span class="profile-score">{{user.score}} </span>
+          <fa-icon [icon]="faTrophy"> </fa-icon>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <p-divider></p-divider>
+  <div *ngIf="showSearch">
+    <div>
+      <h2 class="text-white text-base searchResults " id="searchResults" >Search results for {{ search }} : {{foundUserList.length}}</h2>
+    </div>
+    <ng-container *ngFor="let user of foundUserList">
+      <div class="user-row" (click)="showDetailUser(user.username)">
+        <div class="user-infos">
+          <div class="profile-picture-container">
+            <img [src]=user.profilePicture class="profilePicBadgeSearch" >
+          </div>
+          <div class="n-margin-name">
+            <p class="profile-name">{{user.fullName}}</p>
+          </div>
+        </div>
+        <div class="profile-score-container">
+          <span class="profile-score">{{user.score}} </span>
+          <fa-icon [icon]="faTrophy"> </fa-icon>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="top-rated-movie carousel-container">
+    <h2 class="ml-2 text-white text-base">Showtime-approved series</h2>
+    <app-carousel-image-list #topLikedMoviesRef [items]="topLikedMovies" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+  <div class="top-rated-movie carousel-container mb-8">
+    <h2 class="ml-2 text-white text-base">Showtime-approved movies</h2>
+    <app-carousel-image-list #topWatchedMoviesRef [items]="topWatchedMovies" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+</div>
+
+<app-social-user-detail #showDetailUserDialog ></app-social-user-detail>
+

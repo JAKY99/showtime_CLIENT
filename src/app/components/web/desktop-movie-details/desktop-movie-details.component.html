@@ -1,0 +1,153 @@
+<app-image class="backdrop-img" *ngIf="!loading.movie" [imagePath]="movie.backdrop_path"
+           imageSize="original" [lazyLoading]="false"
+></app-image>
+<div class="movie-details-main-section" *ngIf="!loading.movie">
+  <div class="movie-details-top-section">
+    <div class="movie-details-poster-section glass">
+      <app-poster-image style="width: 75%" [item]="posterImage" [borderRadius]="true"
+                        [originalSize]="true"></app-poster-image>
+      <div class="votes">
+        <div class="rate">{{getRateFormat()}}</div>
+        <div class="review">
+          <p><span>{{movie.vote_count}}</span> ratings</p>
+          <p><span>{{movie.reviews.total_results}}</span> reviews</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="movie-details-section glass">
+      <div class="movie-details-section-title">
+        <span class="title text-shadow">{{movie.title}}</span>
+        <span class="original-title text-shadow">Original title: {{movie.original_title}}</span>
+      </div>
+      <div class="movie-details-section-actions">
+        <ng-template [ngIf]="!loading.userViewInfo">
+
+          <app-seen-check pTooltip="Toggle seen status" tooltipPosition="top"
+                          class="seen-icon cursor-pointer" (click)="showViewedDialog()"
+                          [isChecked]="!!userMovie.viewInfo.checked"></app-seen-check>
+
+          <fa-icon pTooltip="Toggle watchlist" tooltipPosition="top"
+                   (click)="toggleWatchlistMovie()" [class]="isInWatchlist ? 'active-action' : ''"
+                   class="cursor-pointer bookmark-icon st-icon-big st-icon-small" [icon]="faBookmark"></fa-icon>
+
+          <fa-icon pTooltip="Toggle favorite" tooltipPosition="top"
+                   (click)="toggleMovieInFavoriteList()" [class]="isInFavoriteList ? 'active-action' : ''"
+                   class="fa-icon st-icon-big cursor-pointer" [icon]="faFavorites"></fa-icon>
+
+        </ng-template>
+      </div>
+      <div class="movie-details-section-description">
+        <p class="line-height-3 mb-0" style="font-size: 1.2rem">
+          {{movie.overview}}
+        </p>
+      </div>
+      <div class="movie-details-section-more-details">
+        <h2 style="font-size: 1.8rem">Details</h2>
+        <div class="row">
+          <h2>Genres</h2>
+          <div class="subrow">
+            <div *ngFor="let genre of movie.genres">
+              <app-tag
+                [title]="genre.name"
+                [rounded]="true"
+                [full]="true"
+                class="unselectable"
+              ></app-tag>
+            </div>
+          </div>
+        </div>
+        <p-divider></p-divider>
+        <div class="row">
+          <h2>Release date</h2>
+          <h3>{{getMovieYear()}}</h3>
+        </div>
+        <p-divider></p-divider>
+        <div class="row">
+          <h2>Runtime</h2>
+          <h3>{{movie.runtime}} min</h3>
+        </div>
+      </div>
+    </div>
+    <div class="movie-details-credits-section glass">
+      <p-scrollPanel [style]="{width: '100%', height: '100%'}" [scrollTop]="true">
+        <h2 class="text-center" style="font-size: 2.8rem">Cast & Crew</h2>
+        <div class="flex flex-column gap-4">
+          <div *ngFor="let cast of movie.credits.cast?.slice(0, 30)">
+            <div class="actor-container" (click)="openActorDetails(cast.id)">
+              <div class="img-container">
+                <img *ngIf="cast.profile_path"
+                     width="60px" height="60px"
+                     [src]="getImageCompletePath(cast.profile_path, '500')"
+                     [alt]="cast.original_name"
+                     class="actor-image"
+                >
+                <div *ngIf="!cast.profile_path" class="no-img actor-image">
+                  <fa-icon [icon]="faUser" style="font-size: 2.8rem"></fa-icon>
+                </div>
+              </div>
+              <div class="actor-infos">
+                <span class="name">{{cast.original_name}}</span>
+                <span class="character">as {{cast.character}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-scrollPanel>
+    </div>
+  </div>
+
+  <div class="movie-details-trailers-section">
+    <h2 class="text-center" style="font-size: 2.8rem">Trailer{{resultsTrailer.length > 1 ? 's' : ''}}</h2>
+    <div class="trailers">
+      <div class="trailer flex-column align-self-center mb-3" *ngFor="let trailer of resultsTrailer">
+        <iframe
+          width="800"
+          height="500"
+          [src]=trailer.trailerUrl
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  class="viewed-dialog"
+  [closeOnEscape]="true"
+  [dismissableMask]="true"
+  [(visible)]="viewedDialogShown"
+  [position]="viewedDialogPosition"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+  closeIcon=""
+>
+  <ng-template pTemplate="header">
+    Mark as ...
+  </ng-template>
+  <button
+    pButton pRipple
+    type="button"
+    label="Seen again"
+    icon="pi pi-plus"
+    class="p-button-text viewed-dialog-btn"
+    (click)="increaseWatchedNumber()"
+  ></button>
+  <button
+    pButton pRipple
+    type="button"
+    label="Not seen"
+    class="p-button-text viewed-dialog-btn"
+    icon="pi pi-eye-slash"
+    (click)="removeMovieFromViewInfo()"
+  ></button>
+</p-dialog>
+
+<app-actor-details-dialog #actorDetailsDialogRef></app-actor-details-dialog>
+

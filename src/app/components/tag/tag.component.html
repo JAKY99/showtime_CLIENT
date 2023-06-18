@@ -1,0 +1,7 @@
+<div class="app-tag" [class]="getClass()">
+  <i *ngIf="icon" [class]="icon"></i>
+  <span>
+    {{upperCase ? title?.toUpperCase(): title}}
+  </span>
+  <p-progressSpinner *ngIf="!title"  styleClass="custom-spinner" strokeWidth="8"></p-progressSpinner>
+</div>

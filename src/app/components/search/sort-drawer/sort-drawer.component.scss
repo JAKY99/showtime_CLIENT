@@ -1,0 +1,64 @@
+@import "./src/styles";
+
+#app-sort-drawer{
+  width: 100%;
+  margin: 0;
+
+  .p-dialog-header{
+    background-color: $white;
+    color: $input-text-color;
+    border-top-right-radius: 10px;
+    border-top-left-radius-radius: 10px;
+    padding: $margin-big;
+    font-weight: bold;
+  }
+  .p-dialog-title{
+    font-size: $font-default!important;
+  }
+  .p-dialog-content{
+    background-color: $white;
+    color: black;
+    padding: 0 $margin-big !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: $margin-small;
+
+    button{
+      text-align: left;
+      color: $white;
+    }
+  }
+  .p-dialog {
+    width: 100%;
+    margin: 0;
+    padding-bottom: $margin-default;
+    background-color: $white;
+  }
+
+  .p-dialog-header-icons{
+    position: absolute;
+  }
+
+  .p-dialog .p-dialog-header .p-dialog-header-icon {
+    pointer-events: none;
+  }
+
+  .field-checkbox{
+    display: flex;
+    justify-content: space-between;
+
+    label{
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+
+  .p-button.p-button-text{
+    background: none;
+    color: $secondary-color;
+    padding: 0;
+    transform: translateX(.5rem);
+    font-weight: 600;
+  }
+}

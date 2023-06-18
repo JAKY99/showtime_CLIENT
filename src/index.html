@@ -2,13 +2,77 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>ShowtimeWEB</title>
+  <title>Showtime APP</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
   <app-root></app-root>
 </body>
+<script type="application/javascript">
+  var global = window;
+
+  var xDown = null;
+  var yDown = null;
+
+  document.addEventListener("touchstart", function(evt) {
+    xDown = evt.touches[0].clientX;
+    yDown = evt.touches[0].clientY;
+  });
+
+
+   let touchEndHandler =(evt)=> {
+    if (!xDown || !yDown) {
+      return;
+    }
+
+    var xUp = evt.changedTouches[0].clientX;
+    var yUp = evt.changedTouches[0].clientY;
+
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+      /* most significant */
+      if (xDiff > 0) {
+        /* left swipe */
+        // window['Android'].onSwipeLeft();
+      } else {
+        /* right swipe */
+        // window['Android'].onSwipeRight();
+      }
+    } else {
+      if (yDiff > 0) {
+        /* up swipe */
+        // window['Android'].onSwipeUp();
+      } else {
+        /* down swipe */
+        if(!document.getElementsByClassName("close-icon").length){return}
+        let checkHeightStart = yDown / window.innerHeight;
+        let checkHeightEnd = yUp / window.innerHeight;
+        if(checkHeightStart < 0.42 && checkHeightEnd < 0.8 && checkHeightEnd > 0.47 ){
+          document.getElementsByClassName("close-icon")[document.getElementsByClassName("close-icon").length-1].dispatchEvent(new Event("click"))
+        }
+      }
+    }
+    /* reset values */
+    xDown = null;
+    yDown = null;
+  }
+  // document.addEventListener("touchend",(event)=>touchEndHandler(event));
+
+
+  /* login google handler */
+  handleLoginGoogle = (token) => {
+    const event =  new CustomEvent('google_sign_in', {'detail': token});
+    window.dispatchEvent(event);
+  }
+</script>
 </html>

@@ -1,0 +1,22 @@
+<div id="header-nav-js-id"
+     [ngClass]="isDesktopDevice ? 'app-header-nav --desktop' : 'app-header-nav shadow-3'">
+  <app-logo *ngIf="logoShown" class="app-logo" alignment="left" style="font-size: 0.7rem"></app-logo>
+  <div class="right-section">
+    <app-notification-icon class="flex"></app-notification-icon>
+    <fa-icon class="search-icon-action" [icon]="faSearch" (click)="redirectTo('search')"></fa-icon>
+    <fa-icon *ngIf="displayProfileMenu" class="search-icon-action" [icon]="faEllipsisV" (click)="profileMenu.toggle($event)"></fa-icon>
+    <app-header-avatar *ngIf="displayAvatar" (click)="avatarMenu.toggle($event)"></app-header-avatar>
+  </div>
+</div>
+<p-slideMenu #avatarMenu [model]="items" [popup]="true"></p-slideMenu>
+<p-slideMenu #profileMenu [model]="items" [popup]="true"></p-slideMenu>
+
+<p-confirmDialog  #cd header="Confirmation" class="--hide-content">
+  <ng-template pTemplate="header">
+    <h3>{{customHeader}}</h3>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button class="--small" type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+    <button class="st-secondary-btn --small" type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+  </ng-template>
+</p-confirmDialog>

@@ -1,0 +1,53 @@
+<div *ngIf="!loading">
+  <div class="swiper-container stream-subscription" *ngIf="platformsStreamSub.length">
+    <div *ngIf="title">
+      <h2 class="text-white no-margin">Stream</h2>
+    </div>
+    <swiper
+      [config]="swiperConfig"
+    >
+      <ng-template swiperSlide *ngFor="let item of platformsStreamSub">
+        <app-image
+          class="watch-provider-logo"
+          imageSize="original"
+          [imagePath]="item.logo_path"
+          [lazyLoading]="false"
+        ></app-image>
+      </ng-template>
+    </swiper>
+  </div>
+  <div class="swiper-container rent" *ngIf="platformsRent.length">
+    <div>
+      <h2 class="text-white">Rent</h2>
+    </div>
+    <swiper
+      [config]="swiperConfig"
+    >
+      <ng-template swiperSlide *ngFor="let item of platformsRent">
+        <app-image
+          class="watch-provider-logo"
+          imageSize="original"
+          [imagePath]="item.logo_path"
+          [lazyLoading]="false"
+        ></app-image>
+      </ng-template>
+    </swiper>
+  </div>
+  <div class="buy" *ngIf="platformsBuy.length">
+    <div>
+      <h2 class="text-white">Buy</h2>
+    </div>
+    <swiper
+      [config]="swiperConfig"
+    >
+      <ng-template swiperSlide *ngFor="let item of platformsBuy">
+        <app-image
+          class="watch-provider-logo"
+          imageSize="original"
+          [imagePath]="item.logo_path"
+          [lazyLoading]="false"
+        ></app-image>
+      </ng-template>
+    </swiper>
+  </div>
+</div>

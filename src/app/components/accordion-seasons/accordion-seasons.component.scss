@@ -1,0 +1,87 @@
+@import "src/styles";
+
+.accordionSeries {
+
+  .p-accordion{
+    .p-accordion-header {
+
+      margin: $margin-small 0;
+
+      .p-accordion-header-link {
+        background: $divider-color !important;
+        color: $white !important;
+        border: none;
+        overflow: hidden;
+        padding: $margin-small $margin-default;
+
+        .p-accordion-toggle-icon{
+          font-size: $font-small-2;
+        }
+      }
+    }
+  }
+  .p-toggleable-content{
+    position: relative;
+  }
+
+  .p-accordion .p-accordion-content {
+    border: none;
+    background: none;
+    padding: 0;
+    margin-bottom: $margin-big;
+    margin-top: $margin-default;
+    display: flex;
+    flex-direction: column;
+    gap: $margin-default;
+  }
+  .seasonName{
+    font-size: $font-default
+  }
+  .p-progressbar {
+    border-radius: 0;
+
+    .p-progressbar-value {
+      background: $secondary-color;
+    }
+  }
+}
+.progressionBar{
+  height: 3px;
+  position: absolute;
+  width: 100% ;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.accordionSeries {
+  .flexer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row wrap;
+    width: 100%;
+  }
+  .seasonName{
+    width: 50%;
+  }
+  .seenCounter{
+    width: 50%;
+    justify-content: flex-end;
+    .epCount{
+      margin-right: 1rem;
+      font-weight: 400;
+    }
+  }
+}
+
+.SEEN {
+  color: #F65C63 !important;
+}
+
+.WATCHING{
+  color: #F65C63 !important;
+  font-weight: 100!important;
+}
+
+

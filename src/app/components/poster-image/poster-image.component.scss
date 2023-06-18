@@ -1,0 +1,24 @@
+@import 'src/styles';
+
+app-poster-image {
+
+  .poster-image {
+    position: relative;
+
+    &.radius img{
+      border-radius: 10px;
+    }
+
+    .container{
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}

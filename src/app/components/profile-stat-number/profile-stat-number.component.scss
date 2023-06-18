@@ -1,0 +1,38 @@
+@import "src/styles.scss";
+
+.stat-container{
+  background-color: $divider-color;
+  padding: $margin-small;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: $profileContainerWidth;
+  gap: $margin-small;
+  height: $profileContainerHeight;
+
+  .title{
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .number{
+    color: $secondary-color;
+    font-weight: 900;
+    font-size: $font-big-2;
+    margin: 0;
+  }
+  &.--big{
+    .title{
+      font-size: $font-big-2;
+    }
+    .number{
+      font-size: $font-big-2 + .5;
+    }
+    height: $profileContainerHeight + 4;
+    width: $profileContainerWidth + 4;
+  }
+}
+

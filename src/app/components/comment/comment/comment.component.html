@@ -1,0 +1,39 @@
+<div id="comment">
+  <div class="comment-container-top">
+    <div class="comment-top-section">
+      <app-comment-avatar [profilePicture]="comment.comments.user.profilePicture"></app-comment-avatar>
+      <div class="username">
+        <span>{{comment.comments.user.fullName}}</span>
+        <span class="date">{{comment.comments.validate == true ? 'Published'
+          : comment.comments.validate == false && comment.comments.spoiler == true ? 'Spoiler refused'
+          : 'Pending'}} {{getCommentDate()}} day{{getCommentDate() > 1 ? 's': null}} ago</span>
+      </div>
+    </div>
+    <div class="content">
+      {{comment.comments.content}}
+    </div>
+    <div *ngIf="showOrigin" class="mt-5 flex justify-content-end origin content">
+      posted on the  {{comment.comments.typeElement.toLowerCase()}} page : {{comment.elementName}}
+    </div>
+  </div>
+  <div class="actions">
+    <p-divider styleClass="mb-2" class="--darker"></p-divider>
+    <div class="buttons">
+      <div class="likes flex" (click)= "likeComment(comment.comments)">
+        <i *ngIf="comment.liked" class="pi pi-heart-fill"></i>
+        <i *ngIf="!comment.liked" class="pi pi-heart"></i>
+        <p><span>{{comment.comments.likes.length}}</span> like{{comment.comments.likes.length > 1 ? 's' : null}}</p>
+      </div>
+      <div class="likes flex" (click)="respondToComment()">
+        <i class="pi pi-comment"></i>
+        <p><span>{{comment.numberResponse}}</span> response{{comment.numberResponse > 1 ? 's' : null}}</p>
+      </div>
+      <div *ngIf="this.comment.comments.user.username!==this.tokenStorageService.getClientUsername()" class="share flex" (click)="reportComment($event)">
+        <i class="pi pi-exclamation-triangle"></i>
+        <p>report</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-response-comment #responseCommentDialogChild (eventEmitter)="fetchResponseComments(comment.comments.id)"></app-response-comment>

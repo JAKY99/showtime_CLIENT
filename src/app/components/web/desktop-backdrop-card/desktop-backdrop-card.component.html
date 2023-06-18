@@ -1,0 +1,20 @@
+<div [ngClass]="small ? 'container --small' : 'container --default'" *ngIf="!isLoading">
+  <app-image (click)="goToContentDetails(item)" [imagePath]="item.backdrop_path" imageSize="original"
+             [lazyLoading]="false"></app-image>
+  <div class="infos-section" (click)="goToContentDetails(item)">
+    <div class="left-section">
+      <div class="title">{{item.title ? item.title : item.name}}</div>
+      <div class="year">{{getMovieYear(item.release_date ? item.release_date : item.first_air_date)}}</div>
+      <div class="rate"><span class="secondary-text-color">{{getRateFormated(item.vote_average)}}</span> Rating</div>
+    </div>
+  </div>
+  <div class="right-section">
+    <app-tag (click)="toggleMediaWatchList()" [title]="isInWatchlist ? 'In WatchList' : 'WatchList'"
+             [full]="isInWatchlist" [rounded]="true" [size]="3" [upperCase]="true" [isColored]="isInWatchlist"></app-tag>
+    <fa-icon (click)="toggleMediaFavorite()" [class]="isInFavoriteList ? 'favorite-active' : ''"
+             class="fa-icon st-icon" [icon]="faFavorites"></fa-icon>
+  </div>
+</div>
+<div *ngIf="isLoading">
+  <p-skeleton width="700px" height="390px"></p-skeleton>
+</div>

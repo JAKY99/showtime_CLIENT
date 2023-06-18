@@ -1,0 +1,76 @@
+@import "./src/styles";
+
+#app-tv-page {
+  background-color: $main-color;
+  overflow-x: hidden;
+
+  .p-divider{
+    margin: .2rem 0;
+    &.p-divider-horizontal:before{
+      border-color: $divider-color!important;
+    }
+  }
+
+  .backdrop-section{
+    position: relative;
+    .backdrop-img{
+      img{
+        width: 100%;
+        height: auto;
+      }
+    }
+    .mainTitle{
+      color: white;
+      position: absolute;
+      top: 20%;
+      width: 100%;
+      text-align: center;
+      z-index: 3;
+      font-size: 3em;
+    }
+    .blackFilter{
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.4);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+    }
+  }
+
+  h3{
+    color: white;
+    padding: 1em;
+  }
+  .containerContent {
+    gap: 1.2rem;
+    padding: .7rem 1rem;
+  }
+  .menuShort{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    padding: .7rem 2rem;
+    .p-button-info{
+      background: white;
+      color: $navbar-bg;
+      border: none;
+      margin: .5rem 1rem;
+      width: auto ;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 0.5rem 1.5rem;
+    }
+    hr{
+      width: 100%;
+      opacity: 50%;
+      margin: 2rem 0;
+    }
+
+  }
+}
+
+.watchPlease{
+
+}

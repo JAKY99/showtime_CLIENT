@@ -1,0 +1,61 @@
+@import 'src/styles';
+
+.one-episode {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-auto-columns: .8fr 1fr .3fr;
+  gap: $margin-default;
+  background-color: $divider-color;
+  color: white;
+  border-radius: 5px;
+  -webkit-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.5);
+  box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.5);
+  overflow: hidden;
+
+  app-image{
+    .container {
+      grid-column: 1;
+      width: auto;
+      height: 100px;
+      overflow: hidden;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .infos-episode{
+    grid-column: 2;
+    height: auto;
+    padding: .5rem 0 .5rem;
+    .episode-title{
+      margin-top: 0;
+    }
+  }
+  .overview-episode{
+    font-size: 0.8rem;
+    margin: 0;
+  }
+  .title-episode-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .view-info{
+    grid-column: 3;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+.red{
+  color: #F65C63;
+}
+
+.custom-spinner{
+  width: 10px;
+  height: 10px;
+}

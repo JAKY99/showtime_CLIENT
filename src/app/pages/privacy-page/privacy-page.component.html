@@ -1,0 +1,44 @@
+<div class="app-privacy-page">
+  <div class="p-3 h-full">
+    <div class="top-header">
+      <app-go-back *ngIf="termOfUseAgreementInformation"></app-go-back>
+      <app-logo class="app-logo" style="font-size: 0.7rem"></app-logo>
+    </div>
+    <h1 class="text-red-50 text-base">Terms of Use</h1>
+    <p class="text-white text-base">Please read these terms and conditions carefully before using our mobile application.</p>
+    <p class="text-white text-base">By accessing or using the application, you agree to be bound by these terms and conditions. If you do not agree with any part of these terms and conditions, you must not use the application.</p>
+    <p class="text-white text-base">1. Use of the Application:</p>
+    <p class="text-white text-base">a. The application is provided on an "as is" basis. We do not guarantee the availability, accuracy, or completeness of the content and services provided through the application.</p>
+    <p class="text-white text-base">b. You acknowledge and agree that the application service may be stopped or discontinued at any time without prior notice. We shall not be liable for any damages or losses resulting from the closure or discontinuation of the application service.</p>
+    <p class="text-white text-base">2. Intellectual Property:</p>
+    <p class="text-white text-base">a. All intellectual property rights, including copyrights and trademarks, in the application and its content belong to us or our licensors.</p>
+    <p class="text-white text-base">b. You may not use, reproduce, distribute, or modify any part of the application or its content without our prior written consent.</p>
+    <h1 class="text-red-50 text-base">Privacy Policy</h1>
+    <p class="text-white text-base">We value your privacy and are committed to protecting your personal information.</p>
+    <p class="text-white text-base">We understand that your email is a sensitive piece of data, and we want to assure you that we do not use it for commercial purposes.</p>
+    <p class="text-white text-base">We also want to make it clear that we use Amazon Web Services (AWS) to host our platform, which includes storing profile pictures on an open S3 bucket. Please note that the open S3 bucket means that the profile images are accessible to the public.</p>
+    <p class="text-white text-base">However, we take the necessary precautions to ensure that your personal information, excluding your profile picture, is secure and protected from unauthorized access.</p>
+    <p class="text-white text-base">We will not share, sell, or rent any of your personal information to third parties for marketing purposes.</p>
+    <p class="text-white text-base">We only use your email for the purpose of communicating with you about our platform and providing you with updates that may be of interest to you.</p>
+    <p class="text-white text-base">Please note that by using our platform and providing us with your email, you consent to the collection and use of your personal information in accordance with our Privacy Policy.</p>
+    <p class="text-white text-base">If you have any concerns or questions regarding our privacy practices, please feel free to contact us at showtime.app.contact@gmail.com.</p>
+    <p class="text-white text-base">We appreciate your trust in us and will continue to work hard to earn and maintain it.</p>
+    <p class="text-white text-base">Best regards  , Showtime team.</p>
+    <div *ngIf="!termOfUseAgreementInformation" class="flex justify-content-evenly pt-6">
+      <button pButton label="Accept"
+              type="button"
+              class="p-button-text st-secondary-btn"
+              icon="pi pi-check"
+              (click)="accept()"
+      ></button>
+      <button pButton label="Refuse"
+              type="button"
+              class="p-button-text st-secondary-btn"
+              icon="pi pi-times"
+              (click)="refuse()"
+      ></button>
+    </div>
+
+  </div>
+</div>
+

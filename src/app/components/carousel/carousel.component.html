@@ -1,0 +1,22 @@
+<div class="swiper-container">
+  <swiper *ngIf="!isLoading"
+          [config]="swiperConfig"
+  >
+    <ng-template swiperSlide *ngFor="let item of items; let i = index">
+      <div>
+        <p-badge styleClass="rank-number" [value]="(i + 1).toString()"></p-badge>
+        <app-poster-image [item]="item"
+                          (click)="goToContentDetails(item)"></app-poster-image>
+      </div>
+    </ng-template>
+  </swiper>
+  <swiper *ngIf="isLoading"
+          [config]="swiperConfig"
+  >
+    <ng-template swiperSlide *ngFor="let number of [0,1,2,3,4,5,6]">
+      <div class="skeleton">
+        <p-skeleton width="195px" height="295px"></p-skeleton>
+      </div>
+    </ng-template>
+  </swiper>
+</div>

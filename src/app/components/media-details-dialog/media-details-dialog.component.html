@@ -1,0 +1,25 @@
+<p-dialog
+  id="movie-details-dialog"
+  [closeOnEscape]="false"
+  [dismissableMask]="true"
+  [(visible)]="viewedDialogShown"
+  [position]="viewedDialogPosition"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+  closeIcon=""
+  [transitionOptions]="'200ms cubic-bezier(1, 1, 1, 1)'"
+>
+  <div class="top-section cursor-pointer unselectable fixed" (click)="close()">
+    <fa-icon class="close-icon st-icon st-icon-small dark"
+             [ngClass]="isDesktopDevice ? 'st-icon-big-2' : ''"
+             [icon]="closeIcon"
+    ></fa-icon>
+  </div>
+  <app-desktop-movie-details *ngIf="isDesktopDevice && requestedMovieId" [requestedMovieId]="requestedMovieId"></app-desktop-movie-details>
+  <app-movie-details *ngIf="!isDesktopDevice && requestedMovieId" [requestedMovieId]="requestedMovieId"></app-movie-details>
+
+  <app-desktop-tv-details *ngIf="isDesktopDevice && requestedTvId" [requestedTvId]="requestedTvId"></app-desktop-tv-details>
+  <app-tv-details *ngIf="!isDesktopDevice && requestedTvId" [requestedTvId]="requestedTvId"></app-tv-details>
+</p-dialog>

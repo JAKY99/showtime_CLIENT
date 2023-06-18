@@ -1,3 +1,82 @@
-<div class="m-4">
-  <p>home-page works!</p>
+<div class="app-home-page h-full overflow-auto" *ngIf="isMobileDevice || isTabletDevice">
+  <app-header-nav></app-header-nav>
+  <div class="trending-section carousel-container">
+    <h2 class="m-3 mb-4 text-white text-base">Trending</h2>
+    <app-carousel #trendings [items]="trendingsList" (eventEmitter)="openDetailsDialog($event)"></app-carousel>
+  </div>
+  <div class="text-center m-6">
+    <button pButton type="button" label="Generate my recommendations" class="p-button-rounded st-secondary-btn"
+            (click)="openRecommendMediaDialog()"></button>
+  </div>
+  <div class="in-theaters-movie carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Movies in theaters</h2>
+    <app-carousel-image-list #moviesInTheatersRef [items]="moviesInTheaters"
+                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+  <div class="top-rated-movie carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Top Rated Movies</h2>
+    <app-carousel-image-list #topRatedMoviesRef [items]="topRatedMovies"
+                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+  <div class="upcoming carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Upcoming Movies</h2>
+    <app-carousel-image-list #upComingRef [items]="upComingMovies"
+                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+  <div class="top-rated-tv carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Top Rated Series</h2>
+    <app-carousel-image-list #topRatedTvRef [items]="topRatedTv"
+                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
+  <div class="popular-tv carousel-container">
+    <h2 class="m-3 mb-3 text-white text-base">Popular Series</h2>
+    <app-carousel-image-list #popularTvRef [items]="popularTv"
+                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+  </div>
 </div>
+
+<div *ngIf="isDesktopDevice">
+  <app-header-nav></app-header-nav>
+  <div class="trending-section carousel-container mt-6 ml-4 mb-8">
+    <div class="flex-ac-jb pr-6 text-white">
+      <h2 class="m-3 mb-4">Trending</h2>
+      <div class="flex-ac-jb --gap-small">
+        <span>See All</span>
+        <fa-icon [icon]="faArrowRight"></fa-icon>
+      </div>
+    </div>
+    <app-desktop-carousel [items]="trendingsList" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
+  </div>
+  <div class="in-theaters-movie carousel-container ml-4 mb-8">
+    <div class="flex-ac-jb pr-6 text-white">
+      <h2 class="m-3 mb-4">Movies In Theaters</h2>
+      <div class="flex-ac-jb --gap-small">
+        <span>See All</span>
+        <fa-icon [icon]="faArrowRight"></fa-icon>
+      </div>
+    </div>
+    <app-desktop-carousel [small]="true" [items]="moviesInTheaters" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
+  </div>
+  <div class="top-rated carousel-container ml-4 mb-8">
+    <div class="flex-ac-jb pr-6 text-white">
+      <h2 class="m-3 mb-4">Popular TV Shows</h2>
+      <div class="flex-ac-jb --gap-small">
+        <span>See All</span>
+        <fa-icon [icon]="faArrowRight"></fa-icon>
+      </div>
+    </div>
+    <app-desktop-carousel [small]="true" [items]="topRatedTv" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
+  </div>
+  <div class="top-rated carousel-container ml-4 mb-8">
+    <div class="flex-ac-jb pr-6 text-white">
+      <h2 class="m-3 mb-4">Top Rated Movies</h2>
+      <div class="flex-ac-jb --gap-small">
+        <span>See All</span>
+        <fa-icon [icon]="faArrowRight"></fa-icon>
+      </div>
+    </div>
+    <app-desktop-carousel [small]="true" [items]="topRatedMovies" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
+  </div>
+</div>
+<app-media-details-dialog #mediaDetailsDialogRef></app-media-details-dialog>
+<app-recommended-media-dialog #recommendMediaDialogRef></app-recommended-media-dialog>

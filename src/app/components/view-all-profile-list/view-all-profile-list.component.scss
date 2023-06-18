@@ -1,0 +1,47 @@
+@import "src/styles";
+
+.view-all-profile-list {
+
+  .p-dialog-header {
+    display: none !important;
+  }
+
+  .p-dialog-content {
+    background-color: $main-color !important;
+    color: $white;
+    padding: $margin-small;
+    position: relative;
+    overflow-y: auto;
+
+    .top-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: $white;
+      z-index: 9999;
+      border-radius: 50%;
+      font-size: $font-medium;
+      padding: 0 $margin-small;
+
+      h2{
+        margin: 0;
+        font-size: $font-medium;
+      }
+    }
+  }
+
+  .p-dialog-footer {
+    display: none !important;
+  }
+
+  .p-dialog {
+    width: 100%;
+    margin: 0 !important;
+    max-height: 100% !important;
+    min-height: 100% !important;
+  }
+
+  .p-dialog .p-dialog-header .p-dialog-header-icon {
+    pointer-events: none;
+  }
+}

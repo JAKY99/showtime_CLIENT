@@ -1,4 +1,419 @@
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
 $main-color: #2E3441;
 $secondary-color: #F65C63;
+$white: #FFFFFF;
+$navbar-bg: rgba(0, 0, 0, 0.7);
+$divider-color: #4C5364;
+$input-bg-color: #F1F1F1;
+$input-text-color: #4c5364;
+
+$margin-small: .5rem;
+$margin-default: 1rem;
+$margin-big: 2rem;
+$margin-big-2: 2.5rem;
+
+$font-small-3: .4rem;
+$font-small-2: .6rem;
+$font-small: .8rem;
+$font-default: 1rem;
+$font-medium: 1.3rem;
+$font-big: 1.5rem;
+$font-big-2: 1.8rem;
+
+$profileContainerWidth: 13.5rem;
+$profileContainerHeight: 6.5rem;
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+  //html {
+  //  transform: rotate(-90deg);
+  //  transform-origin: left top;
+  //  width: 100vh;
+  //  overflow-x: hidden;
+  //  position: absolute;
+  //  top: 100%;
+  //  left: 0;
+  //}
+}
+
+img{
+  max-width: 100%;
+  display: block;
+}
+
+.p-divider {
+  margin: .2rem 0;
+
+  &.p-divider-horizontal:before {
+    border-color: $divider-color !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+.secondary-text-color {
+  color: $secondary-color;
+}
+
+.secondary-bg-color {
+  background-color: $secondary-color;
+}
+
+* {
+  font-family: Lato, sans-serif;
+}
+
+*.unselectable {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.st-icon {
+  color: $white;
+  font-size: 1.5rem;
+
+  &-small-2 {
+    font-size: .8rem;
+  }
+
+  &-small-1 {
+    font-size: 1rem;
+  }
+
+  &-small {
+    font-size: 1.2rem;
+  }
+
+  &-big {
+    font-size: 1.8rem;
+  }
+
+  &-big-2 {
+    font-size: 2.5rem;
+  }
+
+  &.dark {
+    color: $white !important;
+  }
+
+  &.checked {
+    color: $secondary-color !important;
+  }
+}
+
+.p-tabview .p-tabview-nav {
+  background-color: transparent;
+  border: none;
+}
+
+.p-tabview-nav {
+  justify-content: space-between;
+  gap: 0;
+  border-bottom: 1px solid $white !important;
+  padding: 0;
+}
+
+.p-tabview .p-tabview-nav li {
+  width: 100%;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  background-color: transparent;
+  color: $white;
+  outline: none;
+  border: none;
+  font-weight: 500;
+  font-size: $font-small;
+  justify-content: center;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background-color: transparent;
+  border-color: $secondary-color;
+  color: $secondary-color;
+}
+
+.p-tabview .p-tabview-nav .p-tabview-ink-bar {
+  background-color: $secondary-color;
+}
+
+.p-tabview .p-tabview-panels {
+  background-color: transparent;
+  padding: 1.2rem 0;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight {
+  outline: none !important;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+  box-shadow: none;
+}
+
+.p-inputtext {
+  &:enabled:hover {
+    border-color: transparent;
+  }
+
+  &:enabled:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none;
+    border-color: transparent;
+  }
+}
+
+.p-button {
+
+  &.--small {
+    width: 100%;
+    height: 2rem;
+    font-size: $font-small;
+  }
+
+  &.st-secondary-btn {
+    background-color: $secondary-color;
+    border: none;
+
+
+    &.p-button-rounded.--small {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    &.p-button-text.--small {
+      width: 100%;
+      height: 2rem;
+      font-size: $font-small;
+    }
+
+    &:enabled:focus {
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    &:enabled:focus {
+      background: $secondary-color;
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  &.p-button-text {
+    color: $white;
+
+    &.primary {
+      background-color: $secondary-color;
+      color: $white;
+      text-align: center;
+    }
+
+    &.--small {
+      width: 100%;
+      height: 2rem;
+      font-size: $font-small;
+    }
+
+    &.--text-type {
+      background-color: transparent;
+      color: black;
+      text-align: left;
+      padding-left: 0;
+    }
+
+    &:enabled:active {
+      background: $input-bg-color;
+      color: $secondary-color;
+      border-color: transparent;
+    }
+
+    &:enabled:focus {
+      background: $input-bg-color;
+      color: $secondary-color;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    &:enabled:hover {
+      background: $input-bg-color;
+      color: $secondary-color;
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+}
+
+.p-divider {
+  &.p-divider-horizontal:before {
+    border-color: $divider-color !important;
+  }
+}
+
+
+.--small {
+  .p-divider {
+    margin: $margin-small 0 !important;
+  }
+}
+
+.p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
+  border-color: $secondary-color;
+}
+
+.p-radiobutton .p-radiobutton-box.p-highlight {
+  border-color: $secondary-color;
+  background: $secondary-color;
+}
+
+.p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+  border-color: $secondary-color;
+  background: $secondary-color;
+}
+
+.p-radiobutton .p-radiobutton-box:not(.p-disabled).p-focus {
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus {
+  box-shadow: none;
+}
+
+.p-progressbar {
+  height: 1rem;
+
+  .p-progressbar-value {
+    background: $secondary-color;
+  }
+}
+
+.--no-event {
+  pointer-events: none;
+}
+
+.p-toolbar {
+  background: $main-color;
+  border: none;
+  padding: $margin-small;
+}
+
+.--hide-content {
+  .p-confirm-dialog {
+    .p-dialog-content {
+      display: none;
+    }
+
+    .p-dialog-header{
+      background-color: $main-color;
+      color: $white;
+    }
+
+    .p-dialog-footer{
+      padding-top: $margin-default;
+      background-color: $main-color;
+    }
+  }
+}
+
+.flex-ac-jc{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.--gap{
+    gap: $margin-default;
+  }
+}
+
+.flex-ac-jb{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &.--gap-small{
+    gap: $margin-small;
+  }
+  &.--gap-default{
+    gap: $margin-default;
+  }
+}
+
+.p-tabmenu .p-tabmenu-nav{
+  background: transparent;
+  border: none;
+  &:hover{
+    background: transparent;
+  }
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link{
+  background: transparent;
+  color: $white;
+
+  &:hover{
+    background: transparent;
+  }
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link{
+  background: transparent;
+  border: none;
+  color: $secondary-color;
+  &:hover{
+    background: transparent;
+  }
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link:not(.p-disabled):focus{
+  box-shadow: none;
+  &:hover{
+    background: transparent;
+  }
+}
+
+.glass{
+  background: rgba(77, 77, 77, 0.45);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+@keyframes p-progress-spinner-color {
+  100%,
+  0% {
+    stroke: $white;
+  }
+  40% {
+    stroke: $secondary-color;
+  }
+  66% {
+    stroke: $white;
+  }
+  80%,
+  90% {
+    stroke: $secondary-color;
+  }
+}
+
 
 

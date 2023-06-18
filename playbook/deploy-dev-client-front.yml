@@ -1,0 +1,20 @@
+- name: connect ssh and launch staging version of deploy-client.sh
+  hosts: server1
+  remote_user: ubuntu
+
+  tasks:
+  - name: clear folder before sync
+    shell: rm -rf kubernetes-showtime-project/build_front_client_staging/*
+
+  - name: Rsync CI folder to remote prod folder
+    synchronize:
+      src: /var/www/html/showtime_CLIENT/dist/
+      dest: /home/ubuntu/kubernetes-showtime-project/build_front_client_staging/
+      recursive: yes
+      rsync_opts:
+        - "--delete"
+        - "--omit-dir-times"
+        - "--no-perms"
+  - name: launch deploy script for staging client front
+    shell: cd kubernetes-showtime-project/host_staging && sudo bash deploy-client.sh
+    register: result

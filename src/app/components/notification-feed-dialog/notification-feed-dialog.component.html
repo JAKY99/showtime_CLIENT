@@ -1,0 +1,39 @@
+<p-dialog
+  class="notification-feed-dialog"
+  [closeOnEscape]="false"
+  [dismissableMask]="true"
+  [(visible)]="viewedDialogShown"
+  [position]="viewedDialogPosition"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+  closeIcon=""
+  [transitionOptions]="'300ms cubic-bezier(1, 1, 1, 1)'"
+>
+  <div class="top-section">
+    <fa-icon class="close-icon st-icon st-icon-small dark"
+             [icon]="faChevronRight"
+             (click)="close()"
+    ></fa-icon>
+  </div>
+  <h2 class="text-center">Notifications</h2>
+  <p-toolbar>
+    <div class="p-toolbar-group-left"></div>
+    <div class="p-toolbar-group-right">
+      <p-button (click)="updateNotificationStatus()" *ngIf="hasNewNotifications" class="clear-notif" icon="pi pi-envelope"></p-button>
+    </div>
+  </p-toolbar>
+  <div class="list">
+      <div class="card" *ngFor="let item of items">
+        <div class="row-card row-1">
+          <div *ngIf="item.new" class="notif-status"></div>
+          <i [class]="item.icon"></i>
+          <span>{{item.label}}</span>
+        </div>
+        <div class="row-card row-2">
+          <span>{{getNotifDate(item.dateCreated)}} days ago.</span>
+        </div>
+      </div>
+  </div>
+</p-dialog>

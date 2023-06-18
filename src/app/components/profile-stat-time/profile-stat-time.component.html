@@ -1,0 +1,23 @@
+<div class="stat-container shadow-3" [ngClass]="isBig ? '--big' : ''">
+  <span class="title">{{title}}</span>
+  <div class="time-container">
+    <div class="time">
+      <p class="value">
+        <span *ngIf="monthTime < 10 && monthTime != 0"></span>{{monthTime}}
+      </p>
+      <span class="label">Month</span>
+    </div>
+    <div class="time">
+      <p class="value">
+        <span *ngIf="daysTime < 10 && daysTime != 0"></span>{{daysTime}}
+      </p>
+      <span class="label">Days</span>
+    </div>
+    <div class="time">
+      <p class="value">
+        <span *ngIf="hoursTime < 10 && hoursTime != 0"></span>{{hoursTime}}
+      </p>
+      <span class="label">Hours</span>
+    </div>
+  </div>
+</div>

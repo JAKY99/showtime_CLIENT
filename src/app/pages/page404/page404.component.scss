@@ -1,0 +1,14 @@
+@import "src/styles";
+.app-404-page{
+  background-color: #2E3441;
+  height: 100vh!important;
+}
+
+h1{
+  color: $secondary-color;
+}
+
+.button{
+  background-color: $secondary-color;
+  border: none;
+}

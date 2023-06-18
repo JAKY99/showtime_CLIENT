@@ -1,0 +1,69 @@
+@import "src/styles";
+
+
+
+.trophy-item {
+  color: $white;
+  background-color: $divider-color;
+  padding: $margin-default;
+  border-radius: 10px;
+  min-height: 100px;
+  display: flex;
+  gap: $margin-default;
+  margin-bottom: 1rem;
+  align-items: baseline;
+}
+
+.trophy-item__content {
+  height: auto;
+  flex: 1;
+}
+
+.trophy-item__title{
+  color: $white;
+
+}
+.trophy-item__detail{
+  color: $white;
+  font-size: $font-small;
+
+}
+.trophy-item__date {
+  color: $secondary-color;
+  font-size: $font-small;
+  margin-right: 0.5rem;
+}
+
+.trophy-item__icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.trophy-item__icon img {
+  width: 2.8rem;
+  height: 2.8rem;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-left: 0.8rem;
+}
+
+.trophy-item__icon fa-icon {
+
+  font-size: $font-big;
+  color: #999999;
+}
+
+.bronze{
+  color: #CC9933!important;
+}
+.silver{
+  color: #c0c0c0!important;
+}
+.gold{
+  color: #ffd700!important;
+}
+.platine{
+  color: #e5e4e2!important;
+}

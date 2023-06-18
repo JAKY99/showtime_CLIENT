@@ -1,0 +1,220 @@
+<div id="app-movie-details" class="h-full">
+  <div class="backdrop-section">
+    <app-image *ngIf="!loading.movie" class="backdrop-img" [imagePath]="movie.backdrop_path"
+               [imageTitle]="movie.original_title"
+               imageSize="original"
+    ></app-image>
+    <p-skeleton *ngIf="loading.movie" width="100%" height="14rem"></p-skeleton>
+  </div>
+
+  <div class="watched-section">
+    <div class="status">
+      <app-tag
+        [title]="seenStatus"
+        [size]="2"
+        [rounded]="true"
+        icon="fa-regular fa-eye"
+      >
+      </app-tag>
+    </div>
+    <div class="movie-actions-icon">
+      <div (click)="toggleMovieInFavoritelist()" class="bookmark">
+        <fa-icon [class]="userMovie.favorite.checked" class="fa-icon st-icon st-icon-small" [icon]="faFavorites"></fa-icon>
+      </div>
+      <i (click)="toggleWatchlistMovie()" class="bookmark">
+        <fa-icon [class]="userMovie.bookmark.checked" class="bookmark-icon st-icon st-icon-small" [icon]="faBookmark"></fa-icon>
+      </i>
+      <app-seen-check (click)="showViewedDialog()" [isChecked]="!!userMovie.viewInfo.checked"></app-seen-check>
+    </div>
+  </div>
+
+  <p-dialog
+    class="viewed-dialog"
+    [closeOnEscape]="true"
+    [dismissableMask]="true"
+    [(visible)]="viewedDialogShown"
+    [position]="viewedDialogPosition"
+    [modal]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+    closeIcon=""
+  >
+    <div class="flex justify-content-evenly mt-2">
+    <ng-template pTemplate="header">
+      Mark as ...
+    </ng-template>
+    <button
+      pButton pRipple
+      type="button"
+      label="Seen again"
+      icon="pi pi-plus"
+      class="p-button-text viewed-dialog-btn"
+      (click)="increaseWatchedNumber()"
+    ></button>
+    <button
+      pButton pRipple
+      type="button"
+      label="Not seen"
+      class="p-button-text viewed-dialog-btn"
+      icon="pi pi-eye-slash"
+      (click)="removeMovieFromViewInfo()"
+    ></button>
+    </div>
+  </p-dialog>
+
+
+  <p-divider styleClass="p-divider"></p-divider>
+
+  <div class="primary-infos">
+    <div class="title-row">
+      <div>
+        <h2 *ngIf="!loading.movie" class="movie-title">{{movie.title}}</h2>
+        <p-skeleton *ngIf="loading.movie" width="8rem" height="1.2rem" styleClass="mb-2"></p-skeleton>
+      </div>
+    </div>
+    <div class="sub-row">
+      <div class="rate-icon-container">
+        <fa-icon class="rate-icon st-icon-small-2" [icon]="faStarHalfStroke"></fa-icon>
+        <span *ngIf="!loading.movie" class="rate-number">{{getRateFormated()}}</span>
+        <p-skeleton *ngIf="loading.movie" width="1.5rem" height=".5rem" styleClass="secondary-bg-color"></p-skeleton>
+        <fa-icon class="rate-icon st-icon-small-2" [icon]="faChevronRight"></fa-icon>
+      </div>
+      <div class="movie-year-container">
+        <span *ngIf="!loading.movie">{{getMovieYear()}}</span>
+        <p-skeleton *ngIf="loading.movie" width="1.5rem" height=".5rem"></p-skeleton>
+      </div>
+      <div class="tags-infos-container">
+        <app-tag
+          [size]="1"
+          [title]="movie.adult ? 'Adult' : 'Public'"
+          [rounded]="true"
+        ></app-tag>
+        <app-tag
+          [size]="1"
+          [title]="movie.status"
+          [rounded]="true"
+        ></app-tag>
+        <app-tag
+          [size]="1"
+          [title]="movie.original_language"
+          [rounded]="true"
+          [upperCase]="true"
+        ></app-tag>
+      </div>
+    </div>
+  </div>
+
+  <p-divider styleClass="p-divider"></p-divider>
+
+  <div class="secondary-section">
+    <div class="secondary-infos" *ngIf="!loading.movie">
+      <div class="genre-tags">
+        <div *ngFor="let genre of movie.genres">
+          <app-tag
+            [size]="1"
+            [title]="genre.name"
+            [borderRadius]="true"
+            [full]="true"
+          ></app-tag>
+        </div>
+      </div>
+      <div class="description">
+        <app-description [description]="movie.overview" [maxLine]="2"></app-description>
+      </div>
+      <div class="actors-list" *ngIf="movie.credits">
+        <app-carousel-actors-list [items]="movie.credits"></app-carousel-actors-list>
+      </div>
+    </div>
+    <div *ngIf="loading.movie">
+      <div>
+        <div class="custom-skeleton p-3">
+          <div class="flex mb-3">
+            <div>
+              <p-skeleton width="10rem" styleClass="mb-1 mt-1"></p-skeleton>
+            </div>
+          </div>
+          <p-skeleton width="100%" height="100px"></p-skeleton>
+          <div class="flex justify-content-between mt-3 gap-3">
+            <div *ngFor="let i of [1,2,3]">
+              <div class="flex align-content-center">
+                <p-skeleton shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+                <div>
+                  <p-skeleton width="5rem" height=".6rem" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton width="2rem" height=".5rem" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton height=".5rem"></p-skeleton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-divider *ngIf="!isWatchProvidersEmpty" styleClass="p-divider"></p-divider>
+
+  <div class="available-on-platform" *ngIf="!loading.watchProviders && !isWatchProvidersEmpty">
+    <app-watch-providers [items]="watchProviders" (noData)="WatchProvidersEmpty($event)"
+                         [buyProviders]="false"
+                         [rentProviders]="false"
+    ></app-watch-providers>
+  </div>
+
+  <div class="tab-view-section" *ngIf="!loading.movie">
+    <p-tabView (onChange)="handleChangeTabView($event)">
+      <p-tabPanel header="Trailers">
+        <ng-template pTemplate="content">
+          <div class="trailers flex flex-column">
+            <div class="trailer flex-column align-self-center mb-3" *ngFor="let trailer of resultsTrailer">
+              <iframe
+                width="auto"
+                height="200"
+                [src]=trailer.trailerUrl
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+
+              </iframe>
+              <span class="title">{{trailer.name}}</span>
+            </div>
+          </div>
+        </ng-template>
+      </p-tabPanel>
+      <p-tabPanel header="Comments">
+        <div>
+          <div *ngIf="resultUserComments.length" class="comments">
+            <div class="comment" *ngFor="let resultUserComments of resultUserComments">
+              <app-comment [comment]="resultUserComments"></app-comment>
+            </div>
+          </div>
+          <div *ngIf="resultComments.length" class="comments">
+            <div class="comment" *ngFor="let resultComment of resultComments">
+              <app-comment [comment]="resultComment"></app-comment>
+            </div>
+          </div>
+          <div *ngIf="resultComments.length <= 0" class="text-center">
+            <h3>No comments</h3>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="More like this">
+        <div class="similar-movies">
+          <h2 class="text-white no-margin">Similar Movies</h2>
+          <app-carousel-image-list #similarMoviesRef [items]="similarMovies" (eventEmitter)="handleMovieChange($event)"></app-carousel-image-list>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+  <button *ngIf="isCommentSectionActive"
+          pButton pRipple type="button" icon="pi pi-comments"
+          class="p-button-rounded st-secondary-btn floating-comment-btn shadow-6"
+          (click)="openAddCommentDialog()"
+  ></button>
+</div>
+
+<app-add-comment-dialog #addCommentDialogRef (eventEmitter)="fetchComments()"></app-add-comment-dialog>
+<app-add-comment-dialog #addCommentDialogRef (eventEmitter)="fetchUserComments()"></app-add-comment-dialog>
+
+

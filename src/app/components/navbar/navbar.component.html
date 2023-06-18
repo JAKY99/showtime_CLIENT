@@ -1,0 +1,36 @@
+<div class="app-navbar-container shadow-8 unselectable">
+  <div class="background-blur"></div>
+  <div id="navbar-explore-btn" (click)="goToRoute('/home')"
+       [class]="getCurrentRoute().includes('/home') ? getActiveClass() : 'nav-button'">
+    <fa-icon class="icon" [icon]="faCompass"></fa-icon>
+    <span class="nav-title">Explore</span>
+  </div>
+  <div id="navbar-movies-btn" (click)="goToRoute('/movies')"
+       [class]="getCurrentRoute().includes('/movies') ? getActiveClass() : 'nav-button'">
+    <fa-icon class="icon" [icon]="faClapperboard"></fa-icon>
+    <span class="nav-title">Movies</span>
+  </div>
+  <div id="navbar-series-btn" (click)="goToRoute('/series')"
+       [class]="getCurrentRoute().includes('/series') ? getActiveClass() : 'nav-button'">
+    <fa-icon class="icon" [icon]="faTv"></fa-icon>
+    <span class="nav-title">Series</span>
+  </div>
+  <div id="navbar-social-btn" (click)="goToRoute('/social')"
+       [class]="getCurrentRoute().includes('/social') ? getActiveClass() : 'nav-button'">
+    <fa-icon class="icon" [icon]="faUsers"></fa-icon>
+    <span class="nav-title">Social</span>
+  </div>
+  <div id="navbar-profil-btn" (click)="goToRoute('/profile')"
+       [class]="getCurrentRoute().includes('/profile') ? getActiveClass() : 'nav-button'">
+    <fa-icon class="icon" [icon]="faUser"></fa-icon>
+    <span class="nav-title">Profile</span>
+  </div>
+  <div id="navbar-vocal-btn"
+       class="nav-button"
+       *ngIf="checkAndroid()"
+        (click)="toggleVocalSearch()">
+
+    <fa-icon class="icon" [icon]="faVocal"></fa-icon>
+    <span class="nav-title">Vocal</span>
+  </div>
+</div>

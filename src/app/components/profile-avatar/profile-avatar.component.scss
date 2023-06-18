@@ -1,0 +1,17 @@
+@import "src/styles";
+
+.profile-avatar {
+  img, .avatar-style{
+    width: 160px;
+    height: 160px;
+    background: $white;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 3px solid $secondary-color;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

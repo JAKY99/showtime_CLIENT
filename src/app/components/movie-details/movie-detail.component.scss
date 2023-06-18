@@ -1,0 +1,286 @@
+@import "../../../styles";
+
+#app-movie-details{
+  overflow-x: hidden;
+
+  .p-divider {
+    margin: .2rem 0;
+
+    &.p-divider-horizontal:before {
+      border-color: $divider-color !important;
+    }
+  }
+
+  .p-card{
+    background-color: $main-color;
+    border: none;
+    box-shadow: none;
+  }
+
+  .commentInput{
+    background-color: $main-color;
+    color: $white;
+  }
+
+  .p-button{
+    background-color: $secondary-color;
+    color: $white;
+  }
+
+  .p-float-label {
+    .p-float-input{
+      background-color: $main-color;
+    }
+  }
+
+  .backdrop-section {
+    max-height: 220px;
+    overflow-y: hidden;
+
+    .backdrop-img {
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .watched-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .7rem 1rem;
+
+    .movie-actions-icon {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      .st-icon {
+        color: $white;
+      }
+
+      .bookmark {
+        position: relative;
+
+        .badge {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          top: -3px;
+          left: -3px;
+          width: .6rem;
+          height: .6rem;
+          font-size: $font-small-3;
+          color: $white;
+          font-weight: 700;
+          background-color: $secondary-color;
+          border-radius: 100px;
+        }
+      }
+    }
+  }
+
+  .primary-infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.2rem;
+    padding: .7rem 1rem;
+
+    .title-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .movie-title {
+      margin: 0;
+      color: $white;
+    }
+
+    .sub-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: $margin-default;
+
+      .rate {
+        &-icon {
+          color: $secondary-color;
+
+          &-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+
+            .rate-number {
+              color: $secondary-color;
+              font-weight: 400;
+              font-size: $font-small;
+            }
+          }
+        }
+      }
+
+      .movie-year-container {
+        color: $white;
+        font-weight: 400;
+        font-size: $font-small;
+      }
+
+      .tags-infos-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: $margin-small;
+      }
+    }
+  }
+
+  .secondary-infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: .7rem 1rem;
+    margin-top: $margin-default;
+
+    .genre-tags {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: $margin-small;
+    }
+
+    .description {
+      p {
+        font-size: $font-small;
+        color: $white;
+      }
+    }
+  }
+
+  .available-on-platform {
+    padding: 1rem 1rem;
+  }
+
+  .tab-view-section {
+    padding: .7rem 1rem;
+    margin-bottom: $margin-big;
+
+    .trailers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      .trailer {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: $margin-small;
+        margin-bottom: $margin-default;
+        color: $white;
+        position: relative;
+
+        .trailer-img {
+          img {
+            width: 40vw;
+            height: 10vh;
+            border-radius: 10px;
+            background-size: cover;
+          }
+        }
+
+        .title {
+          margin-left: $margin-default;
+          align-self: flex-start;
+        }
+      }
+    }
+
+    .similar-movies {
+      h2 {
+        font-size: $font-default;
+        padding: 0 1rem;
+
+        &.no-margin {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  .viewed-dialog {
+
+  }
+
+  .p-dialog-header {
+    display: none !important;
+  }
+
+  .p-dialog-content {
+    background-color: $main-color !important;
+    color: $white;
+    padding: 0 !important;
+    position: relative;
+    overflow-y: auto;
+
+    .top-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $white;
+      position: absolute;
+      z-index: 9999;
+      width: 30px;
+      height: 30px;
+      top: 1.5rem;
+      right: 1.5rem;
+      border-radius: 50%;
+      font-size: $font-medium;
+    }
+  }
+.viewed-dialog{
+  .p-dialog-container-movie{
+    position: fixed;
+    bottom: 0;
+  }
+  .p-dialog-footer {
+    display: none !important;
+  }
+
+  .p-dialog {
+    width: 100%;
+    margin: 0 !important;
+    max-height: 15% !important;
+    min-height: 15% !important;
+  }
+
+  .p-dialog .p-dialog-header .p-dialog-header-icon {
+    pointer-events: none;
+  }
+  .p-toast{
+    width: 100%;
+  }
+
+}
+
+  .floating-comment-btn{
+    position: fixed;
+    bottom: $margin-big;
+    right: $margin-big;
+  }
+
+  .comments{
+    display: flex;
+    flex-direction: column;
+    gap: $margin-default;
+    margin-bottom: $margin-big;
+  }
+
+}
+
+

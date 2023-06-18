@@ -1,0 +1,22 @@
+<div class="main-search">
+  <form (ngSubmit)="multiSearch(true)">
+    <div class="back-arrow" (click)="goBack()">
+      <i class="fa-solid fa-arrow-left"></i>
+    </div>
+    <div class="search-input-container">
+      <span class="p-input-icon-left">
+        <i class="fa fa-search"></i>
+        <input type="text" pInputText [placeholder]=placeholder
+               [(ngModel)]="search.searchGlobalValue"  (input)="handleChangeSearch()" name="globalSearch"/>
+      </span>
+    </div>
+  </form>
+<!--  <div class="filter-container">
+    <button icon="fa fa-sort" pButton type="button" label="Sort by"
+            class="p-button p-button-text" (click)="openSortDrawer()"></button>
+    <button icon="fa fa-filter" pButton type="button" label="Filter by"
+            class="p-button p-button-text"></button>
+  </div>-->
+</div>
+
+<app-sort-drawer #sortDrawerRef (sortEventEmitter)="applySort($event)"></app-sort-drawer>

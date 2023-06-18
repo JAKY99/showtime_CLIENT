@@ -1,0 +1,60 @@
+@import "src/styles.scss";
+
+.stat-container{
+  background-color: $divider-color;
+  padding: $margin-small;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: $profileContainerWidth;
+  gap: $margin-small;
+  height: $profileContainerHeight;
+
+  .title{
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .time-container{
+    display: flex;
+    gap: $margin-big;
+
+    .time{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .value{
+        color: $secondary-color;
+        font-weight: 900;
+        font-size: $font-big-2;
+        margin: 0;
+      }
+
+      .label{
+        font-size: $font-small;
+      }
+    }
+  }
+
+  &.--big{
+    .title{
+      font-size: $font-big-2;
+    }
+    .time-container{
+      .time{
+        .value{
+          font-size: $font-big-2 + .5;
+        }
+        .label{
+          font-size: $font-medium;
+        }
+      }
+    }
+    height: $profileContainerHeight + 4;
+    width: $profileContainerWidth + 4;
+  }
+}

@@ -1,0 +1,91 @@
+@import "./src/styles";
+
+app-navbar {
+  .app-navbar-container{
+    width: 95%;
+    padding: 0 1rem 0 1rem;
+    max-width: 1000px;
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: $navbar-bg;
+    z-index: 666;
+    min-height: 65px;
+    max-height: 65px;
+    border-radius: 8px 8px 18px 18px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1rem;
+
+    .background-blur{
+      z-index: 1;
+      backdrop-filter: blur(10px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px 8px 18px 18px;
+    }
+
+    .nav-button{
+      z-index: 666;
+      color: $white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 400;
+      transition: color 200ms ease-in-out;
+
+      .icon{
+        font-size: 1.4rem;
+      }
+
+      .nav-title{
+        font-size: $font-small;
+      }
+
+      &.activeMenu{
+        color: $secondary-color!important;
+        font-weight: 400;
+      }
+    }
+  }
+  /* Define the animation */
+  @keyframes pulse {
+    from { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    to { transform: scale(1); }
+  }
+
+  /* Apply the animation to the microphone icon */
+  .navbar-vocal-btn-pulse {
+    animation-name: pulse;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+  }
+  /* Add the class "animating" to the icon when it is clicked */
+  navbar-vocal-btn.animating {
+    animation-name: pulse;
+  }
+  @keyframes change-color {
+    0% { color: #FFFFFF; }
+    20% { color: #e1c0c0 !important; }
+    40% { color: #e39c9f !important; }
+    60% { color: #d97f84 !important; }
+    80% { color: #ee6b79 !important; }
+    100% { color: #F65C63 !important; }
+  }
+
+  /* Apply the animation to the element */
+  .changing-color {
+    animation-name: change-color;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+  }
+
+}

@@ -1,0 +1,12 @@
+<li class="trophy-item">
+  <div class="trophy-item__content">
+    <p class="trophy-item__title">Title: {{name}}</p>
+    <p class="trophy-item__detail">Detail: {{description}}</p>
+
+  </div>
+  <div class="trophy-item__icon">
+    <img *ngIf="image.length > 0" src="{{image}}" alt="trophy">
+    <fa-icon class="{{type}}" [icon]="faTrophy"> </fa-icon>
+    <p class="trophy-item__date">Date: {{date}}</p>
+  </div>
+</li>

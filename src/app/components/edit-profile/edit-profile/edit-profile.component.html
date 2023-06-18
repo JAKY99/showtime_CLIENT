@@ -1,0 +1,117 @@
+<div class="edit-profile">
+  <h2>About you</h2>
+  <form class="flex flex-column justify-content-center gap-4" (ngSubmit)="submitEditInfosAccountAboutYou()">
+    <div [formGroup]="editAccountInfosAboutYouForm" class="flex flex-column justify-content-center gap-4">
+      <div class="flex flex-column gap-1">
+        <textarea id="input-about-you"
+               formControlName="aboutYou"
+               type="text"
+               pInputText
+        ></textarea>
+      </div>
+      <button
+        id="signin_normal_button_bio"
+        pButton
+        type="submit"
+        label="Save"
+        [loading]="isSavingInfosAboutYouForm"
+        [disabled]="editAccountInfosAboutYouForm.invalid"
+        class="p-button-text st-secondary-btn --small"
+      ></button>
+    </div>
+  </form>
+  <h2>Edit Pictures</h2>
+  <div class="profile-picture" (click)="openFileDialogAvatar($event,'avatar')" >
+    <app-profile-avatar class="p-p"></app-profile-avatar>
+    <label for="inputTag" >
+      <i class="pi pi-image"></i>
+      Select Profile Image
+      <input id="inputTag" type="file" (change)="changeFile($event); isAvatar = true; isBackground = false"/>
+      <input id="callbackUploadTempCropHandler" type="hidden" (change)="handleAndroidTempFile($event)">
+    </label>
+  </div>
+  <div class="background-picture mt-3"  (click)="openFileDialogBackground($event,'backgroundImg')">
+    <img [src]="userData.backgroundUrl" alt="">
+    <label for="inputTagBg">
+      <i class="pi pi-image"></i>
+      Select Cover Image
+      <input id="inputTagBg" type="file" (change)="changeFile($event); isAvatar = false; isBackground = true"/>
+    </label>
+  </div>
+  <div class="edit-infos">
+    <h2 class="mt-4">Edit Infos</h2>
+    <form class="flex flex-column justify-content-center gap-4" (ngSubmit)="submitEditInfosAccount()">
+      <div [formGroup]="editAccountInfosForm" class="flex flex-column justify-content-center gap-4">
+        <div class="flex flex-column gap-1">
+          <label for="input-firstname" class="text-white text-sm">First name</label>
+          <input id="input-firstname"
+                 formControlName="firstName"
+                 type="text"
+                 pInputText
+          />
+        </div>
+        <div class="flex flex-column gap-1">
+          <label for="input-lastname" class="text-white text-sm">Last name</label>
+          <input id="input-lastname"
+                 formControlName="lastName"
+                 type="text"
+                 pInputText
+          />
+        </div>
+        <button
+          id="signin_normal_button"
+          pButton
+          type="submit"
+          label="Save"
+          [loading]="isSavingInfosAccountForm"
+          [disabled]="editAccountInfosForm.invalid"
+          class="p-button-text st-secondary-btn --small"
+        ></button>
+      </div>
+    </form>
+    <h2 class="mt-4">Edit Password</h2>
+    <form class="flex flex-column justify-content-center gap-4" (ngSubmit)="submitEditPasswordAccount()">
+      <div [formGroup]="editAccountPasswordForm" class="flex flex-column justify-content-center gap-4">
+        <div class="flex flex-column gap-1">
+          <label for="register-input-password" class="text-white text-sm">New password</label>
+          <p-password id="register-input-password"
+                      formControlName="password"
+                      (ngModelChange)="check()"
+                      [toggleMask]="true"
+                      [feedback]="false"
+                      styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+          ></p-password>
+          <div class="secondary-text-color" *ngIf="editAccountPasswordForm.get('password')?.hasError('required')">Password is required</div>
+          <div class="secondary-text-color w-13rem" *ngIf="editAccountPasswordForm.get('password')?.hasError('pattern')">at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character</div>
+        </div>
+        <div class="flex flex-column gap-1">
+          <label for="input-lastname" class="text-white text-sm">Repeat new password</label>
+          <p-password id="register-input-password-repeat"
+                      formControlName="repeatpassword"
+                      (ngModelChange)="check()"
+                      [toggleMask]="true"
+                      [feedback]="false"
+                      styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+          ></p-password>
+          <div class="secondary-text-color" *ngIf="editAccountPasswordForm.get('repeatpassword')?.hasError('required')">Repeat password is required</div>
+          <div class="secondary-text-color w-13rem" *ngIf="editAccountPasswordForm.get('repeatpassword')?.hasError('pattern')">password with at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character</div>
+          <div class="secondary-text-color" *ngIf="isRepeatNok">Passwords do not match</div>
+        </div>
+        <button
+          id="signin_normal_button2"
+          pButton
+          type="submit"
+          label="Save"
+          [loading]="isSavingInfosPasswordAccountForm"
+          [disabled]="this.isLoginFailed"
+          class="p-button-text st-secondary-btn --small"
+        ></button>
+      </div>
+    </form>
+    <h2 class="mt-4">Enable/Disable Notifications</h2>
+    <app-slide-toggle-button [isToggled]="userData.isNotificationsActive" [eventName]="SYSTEM_NOTIFICATION" ></app-slide-toggle-button>
+  </div>
+</div>
+
+<app-picture-crop-dialog #pictureCropDialogRef [imageUrl]="imageUrl"  [imgChangeEvt]="imgChangeEvt" [isAvatar]="isAvatar"
+                         [isBackground]="isBackground" (imageSaved)="imageSaved.emit()"></app-picture-crop-dialog>

@@ -1,0 +1,31 @@
+@import "src/styles";
+.register-page{
+  height: 100vh;
+}
+h1{
+  color: $secondary-color;
+}
+
+button{
+  background-color: $secondary-color;
+  border: none;
+}
+:host ::ng-deep .p-steps .p-steps-item .p-menuitem-link{
+
+  background-color: $main-color;
+  color: #ffffff !important;
+  font-weight: bold;
+
+}
+:host ::ng-deep  .p-steps .p-steps-item:before {
+  border-top: 1px solid #c90a0a;
+  color: #ffffff !important;
+  font-weight: bold;
+}
+:host ::ng-deep .p-steps .p-steps-item.p-highlight .p-steps-title {
+  font-weight: 700;
+  color: #ffffff !important;
+}
+.tdn{
+  text-decoration: none;
+}

@@ -1,0 +1,43 @@
+@import "src/styles";
+
+.user-social-infos {
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: $margin-default;
+  position: relative;
+  background-color: #060606;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  .textDetail {
+    color: $secondary-color !important;
+    font-weight: bold !important;
+  }
+
+  .bottom-section{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .3rem;
+
+    .label {
+      color: #A6A6A6;
+      font-weight: 300;
+    }
+
+    .value {
+      font-weight: bold;
+    }
+  }
+
+  .fs-icon {
+    font-size: 1rem;
+  }
+}

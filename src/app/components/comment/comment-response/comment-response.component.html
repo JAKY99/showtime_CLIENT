@@ -1,0 +1,13 @@
+<div id="responseComment">
+  <div class="comment-container-top">
+    <div class="comment-top-section">
+      <app-comment-avatar [profilePicture]="comment.user.profilePicture"></app-comment-avatar>
+      <div class="username">
+        <span>{{comment.user.fullName}}</span>
+      </div>
+    </div>
+    <div class="content">
+      {{comment.content}}
+    </div>
+  </div>
+</div>

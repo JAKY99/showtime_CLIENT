@@ -1,0 +1,121 @@
+@import "src/styles";
+
+
+ #app-social-user-detail {
+    overflow-x: hidden;
+     .p-dialog-header {
+       display: none !important;
+     }
+
+     .p-dialog-content {
+       overflow-x: hidden;
+       background-color: $main-color !important;
+       color: $white;
+       padding: 0 !important;
+       position: relative;
+       overflow-y: auto;
+
+       .top-section {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         color: $white;
+         position: absolute;
+         z-index: 9999;
+         width: 30px;
+         height: 30px;
+         top: 1rem;
+         left: 1rem;
+         border-radius: 50%;
+         font-size: $font-medium;
+       }
+     }
+
+     .p-dialog-footer {
+       display: none !important;
+     }
+
+     .p-dialog {
+       overflow-x: hidden;
+       width: 100%;
+       margin: 0 !important;
+       max-height: 100% !important;
+       min-height: 100% !important;
+     }
+
+     .p-dialog .p-dialog-header .p-dialog-header-icon {
+       pointer-events: none;
+     }
+
+  .tab-view-section {
+    padding: .7rem 1rem;
+    margin-bottom: 4rem;
+    position: relative;
+    .p-tabview-nav-link{
+      padding: $margin-default $margin-small $margin-default + .5;
+    }
+    .carousel-container{
+      .header-title{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: $margin-default;
+
+        .see-all-btn{
+          color: $secondary-color;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .top-header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    //background-color: $main-color;
+    background-color: transparentize($main-color, .5);
+    position: relative;
+    z-index: 90;
+    .search-icon-action{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+
+    .options-icon-action{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: $margin-default + .5rem;
+      font-size: 1.4rem;
+      color: $white;
+    }
+  }
+   .commentInput{
+     background-color: $main-color;
+     color: $white;
+   }
+
+   .commentsContainer{
+     display: flex;
+     flex-direction: column;
+     gap: $margin-default;
+     margin-bottom: $margin-big;
+   }
+
+   .stat-container{
+     min-height: max-content;
+     width: 16.5rem;
+     font-size: $font-small;
+
+   }
+   .tabview-container {
+     height: 400px; /* Ajustez la hauteur selon vos besoins */
+     overflow: auto;
+   }
+
+}
+

@@ -1,0 +1,23 @@
+@import './src/styles';
+
+app-go-back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+  position: absolute;
+  z-index: 9999;
+  width: 30px;
+  height: 30px;
+  top: 1rem;
+  left: 1rem;
+  border-radius: 50%;
+  font-size: $font-medium;
+
+  .navigation-btn{
+    padding: .3rem .6rem;
+    border-radius: 8px;
+    background-color: $navbar-bg;
+    backdrop-filter: blur(10px);
+  }
+}

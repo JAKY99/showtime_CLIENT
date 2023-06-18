@@ -1,0 +1,67 @@
+@import "src/styles";
+
+.edit-profile{
+  padding: $margin-big-2 + 2 $margin-default;
+
+  .profile-picture,
+  .background-picture{
+    background-color: $divider-color;
+    padding: $margin-small;
+    border-radius: 5px;
+
+    input{
+      display: none;
+    }
+
+    label{
+      cursor: pointer;
+      background-color: $secondary-color;
+      padding: $margin-small $margin-default;
+      display: flex;
+      align-items: center;
+      gap: $margin-small;
+      border-radius: 8px;
+    }
+  }
+
+  .profile-picture{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: $margin-default;
+
+    .p-p{
+      .profile-avatar{
+        img{
+          width: 50px !important;
+          height: 50px !important;
+        }
+      }
+    }
+  }
+
+  .background-picture{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: $margin-default;
+    img{
+      width: 50px;
+      height: 40px;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+  }
+
+  .edit-infos{
+    input{
+      background: transparent;
+      color: $white;
+      font-size: $font-small;
+    }
+
+    .p-inputtext:enabled:focus{
+      outline: 1px solid $secondary-color ;
+    }
+  }
+}

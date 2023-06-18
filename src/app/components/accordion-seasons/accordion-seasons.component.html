@@ -1,0 +1,76 @@
+<p-accordion (onOpen)="handleOpenAccordeon()" class="accordionSeries" [multiple]="true">
+  <ng-container *ngFor="let season of allSeasons">
+  <p-accordionTab
+    *ngIf="season!==undefined && season.episodes && season.episodes.length > 1"
+    id="season-{{season.season_number}}">
+
+    <ng-template pTemplate="header">
+      <div class="flexer">
+        <h2 class="seasonName">{{season.name}}</h2>
+        <div class="flexer seenCounter" >
+
+          <p class="epCount"> {{season.nbEpisodesWatched}} / {{season.episodes.length}}</p>
+          <i
+            *ngIf="!isLoadingStatus"
+            (click)="updateSeasonStatusDialog(season.id,season.watchedStatus,season.season_number)"
+            [class]="season.watchedStatus.toString()"
+            class="fa-solid fa-circle-check watched-status-check st-icon ">
+          </i>
+          <p-progressSpinner *ngIf="isLoadingStatus"  styleClass="custom-spinner" strokeWidth="8"></p-progressSpinner>
+
+        </div>
+      </div>
+
+      <p-progressBar class="progressionBar" [value]="season.nbEpisodesWatched/season.episodes.length*100"></p-progressBar>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <ng-container *ngFor="let episode of season.episodes">
+        <app-episode-card
+          [tvId]="tvId"
+          [seasonId]="season.id"
+          [item]="episode"
+          [seasonNumber]="season.season_number"
+          [episodeNumber]="episode.episode_number"
+          (resultEpisodeUpdateEventEmitter)="updateEpisodeInfosFromChild($event)"
+        >
+        </app-episode-card>
+      </ng-container>
+    </ng-template>
+
+  </p-accordionTab>
+  </ng-container>
+  <p-dialog
+    class="viewed-dialog"
+    [closeOnEscape]="true"
+    [dismissableMask]="true"
+    [(visible)]="viewedAddDialogShown"
+    [position]="viewedAddDialogPosition"
+    [modal]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+    closeIcon=""
+  >
+    <div class="flex justify-content-evenly mt-2">
+      <ng-template pTemplate="header">
+        Mark as ...
+      </ng-template>
+      <button
+        pButton pRipple
+        type="button"
+        label="Seen again"
+        icon="pi pi-plus"
+        class="p-button-text viewed-dialog-btn"
+        (click)="increaseWatchedNumber()"
+      ></button>
+      <button
+        pButton pRipple
+        type="button"
+        label="Not seen"
+        class="p-button-text viewed-dialog-btn"
+        icon="pi pi-eye-slash"
+        (click)="removeFromViewInfo()"
+      ></button>
+    </div>
+  </p-dialog>
+</p-accordion>

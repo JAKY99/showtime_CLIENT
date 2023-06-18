@@ -1,0 +1,42 @@
+@import "src/styles";
+#app-notification-icon{
+  position: relative;
+  display: flex;
+  .color-transition {
+    color: #fff;
+    animation: color-animation 2s ease-in-out infinite;
+  }
+
+  @keyframes color-animation {
+    0% {
+      color: #fff;
+    }
+    50% {
+      color: $secondary-color;
+    }
+    100% {
+      color: #fff;
+    }
+  }
+  .options-icon-action{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.2rem;
+    color: $white;
+  }
+
+  .notif-counter{
+    position: absolute;
+    top: -12px;
+    right: -4px;
+    span{
+      font-size: .5rem;
+      min-width: .7rem;
+      height: .7rem;
+      line-height: .7rem;
+    }
+  }
+}
+
+

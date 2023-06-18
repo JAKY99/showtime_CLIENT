@@ -1,0 +1,27 @@
+<div *ngIf="!isDesktopDevice; else desktop" class="--mobile">
+  <div class="top-banner-section">
+    <div class="user-profile-background" *ngIf="!isDesktopDevice">
+      <img [src]="backgroundUrl" (press)="null//openFileDialog()"  (click)="null//openFileDialog()" >
+    </div>
+    <app-profile-avatar #profileAvatarRef class="app-profile-avatar"></app-profile-avatar>
+    <input id="background-upload-input" (focusout)="loadBackground()"
+           (change)="onFileChange($event)" type="file" #fileInput accept="image/*" style="display: none">
+
+    <input id="background-upload-input-android" (focusout)="loadBackground()"
+           (change)="onFileChangeAndroid()" type="text"  style="display: none">
+  </div>
+  <div class="user-basic-infos">
+    <h2>{{fullName}}</h2>
+  </div>
+</div>
+
+<ng-template #desktop>
+  <div class="--desktop">
+    <div class="profile-infos">
+      <app-profile-avatar #profileAvatarRef class="app-profile-avatar"></app-profile-avatar>
+      <div class="user-basic-infos">
+        <h2 class="text-center mt-4 mb-0">{{fullName}}</h2>
+      </div>
+    </div>
+  </div>
+</ng-template>
