@@ -17,7 +17,7 @@ jobs:
         run: |
           apt update -y && apt install default-jdk -y
           cd /var/www/html && git clone https://github.com/JAKY99/showtime_CLIENT.git
-          git checkout develop
+          cd /var/www/html/showtime_CLIENT && git checkout develop
           cd /var/www/html/showtime_CLIENT && mv staging.sonar-project.properties sonar-project.properties
           cd /var/www/html/showtime_CLIENT && sed -i "s/SONAR_LOGIN/$sonar_login/g" sonar-project.properties
           cd /var/www/html/showtime_CLIENT && sed -i "s/SONAR_HOST_URL/$(echo $sonar_host_url | sed 's/[\/&]/\\&/g')/g" sonar-project.properties
@@ -36,7 +36,7 @@ jobs:
       - name: Generate new dist for staging
         run: |
           cd /var/www/html && git clone https://github.com/JAKY99/showtime_CLIENT.git
-          cd /var/www/html/showtime_CLIENT && node --max-old-space-size=2048 $(which npm) i && ng test --watch=false && node --max-old-space-size=2048 $(which ng) build --configuration staging --source-map=false --build-optimizer=false --optimization=false --progress=false --statsJson=false  --aot=true --showCircularDependencies=false --namedChunks=false --outputHashing=none --vendorChunk=false
+          cd /var/www/html/showtime_CLIENT && git checkout develop && node --max-old-space-size=2048 $(which npm) i && ng test --watch=false && node --max-old-space-size=2048 $(which ng) build --configuration staging --source-map=false --build-optimizer=false --optimization=false --progress=false --statsJson=false  --aot=true --showCircularDependencies=false --namedChunks=false --outputHashing=none --vendorChunk=false
 
 
       - name: Generate SSH connection to server with ansible for staging
