@@ -1,28 +1,54 @@
 <div class="app-movies-page h-full overflow-auto">
   <app-header-nav></app-header-nav>
-  <div class="trending-section carousel-container">
+
+  <div class="backdrop-section">
+    <h1 *ngIf="!loading.movie" class="mainTitle">Movies</h1>
+    <div *ngIf="!loading.movie" class="blackFilter"></div>
+    <app-image *ngIf="!loading.movie" class="backdrop-img"
+               [imagePath]="this.moviesInTheaters[0].backdrop_path"
+               imageSize="original"
+    ></app-image>
+    <p-skeleton *ngIf="loading.movie" width="100%" height="14rem"></p-skeleton>
+  </div>
+  <div class="menuShort ">
+    <button pButton (click)="scrollTo('trendingMovies')" type="button" class="p-button-info">Trending</button>
+    <button pButton (click)="scrollTo('movieInTheather')" type="button" class="p-button-info">Movies in Theather</button>
+    <button pButton (click)="scrollTo('popularMovie')" type="button" class="p-button-info">Popular Movies</button>
+    <button pButton (click)="scrollTo('topRatedMovie')" type="button" class="p-button-info">Top Rated</button>
+    <button pButton (click)="scrollTo('upComingMovie')" type="button" class="p-button-info">Upcoming</button>
+    <hr>
+  </div>
+  <div class="trending-section carousel-container" id="trendingMovies">
     <h2 class="m-3 mb-4 text-white text-base">Trending</h2>
     <app-carousel-image-list #trendings [items]="trendingsList" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
   </div>
-  <div class="in-theaters-movie carousel-container">
+  <div class="in-theaters-movie carousel-container"  id="movieInTheather">
     <h2 class="m-3 mb-3 text-white text-base">Movies in theaters</h2>
     <app-carousel-image-list #moviesInTheatersRef [items]="moviesInTheaters"
-                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+                             (eventEmitter)="openDetailsDialog($event)"
+
+    ></app-carousel-image-list>
   </div>
-  <div class="top-rated-movie carousel-container">
+  <div class="top-rated-movie carousel-container" id="popularMovie">
     <h2 class="m-3 mb-3 text-white text-base">Popular movies</h2>
     <app-carousel-image-list #PopularMoviesRef [items]="PopularMovies"
-                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+                             (eventEmitter)="openDetailsDialog($event)"
+
+    ></app-carousel-image-list>
   </div>
-  <div class="top-rated-movie carousel-container">
+  <div class="top-rated-movie carousel-container" id="topRatedMovie">
     <h2 class="m-3 mb-3 text-white text-base">Top Rated Movies</h2>
     <app-carousel-image-list #topRatedMoviesRef [items]="topRatedMovies"
-                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+                             (eventEmitter)="openDetailsDialog($event)"
+
+    ></app-carousel-image-list>
   </div>
-  <div class="upcoming carousel-container">
+  <div class="upcoming carousel-container" id="upComingMovie">
     <h2 class="m-3 mb-3 text-white text-base">Upcoming Movies</h2>
     <app-carousel-image-list #upComingRef [items]="upComingMovies"
-                             (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
+                             (eventEmitter)="openDetailsDialog($event)"
+
+    ></app-carousel-image-list>
   </div>
 
 </div>

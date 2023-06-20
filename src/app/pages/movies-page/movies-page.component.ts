@@ -47,7 +47,9 @@ export class MoviesPageComponent implements OnInit {
     country_code2: ""
   };
   PopularMovies: MovieDetailsModel[] = [];
-
+  loading = {
+    movie: true,
+  }
 
   constructor(
     private userService: UserService,
@@ -84,6 +86,7 @@ export class MoviesPageComponent implements OnInit {
       this.trendingsList = uniqueTrendingsList;
       // @ts-ignore
       this.trendingsChild?.isLoading = false;
+      this.loading.movie = false;
     });
     this.movieService.fetchPopularMovies().subscribe(resp => {
       resp = JSON.parse(resp.data);
@@ -128,6 +131,10 @@ export class MoviesPageComponent implements OnInit {
 
   openRecommendMediaDialog() {
     this.recommendMediaDialogChild?.open();
+  }
+  scrollTo(elementId : string): void {
+    let element = document.getElementById(elementId);
+    element?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 
 }
