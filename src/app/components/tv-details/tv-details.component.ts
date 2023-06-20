@@ -202,7 +202,6 @@ export class TvDetailsComponent implements OnInit {
           ).subscribe(
             (resp2) => {
               resp2 = JSON.parse(resp2.data);
-              console.log(resp2)
               this.lastEpisode = resp2;
               this.tvService.fetchSeasonOnlyDetails(this.requestedTvId, resp.season_number).subscribe((resp3) => {
                 resp3 = JSON.parse(resp3.data);
@@ -252,7 +251,6 @@ export class TvDetailsComponent implements OnInit {
           ).subscribe(
             (resp2) => {
               resp2 = JSON.parse(resp2.data);
-              console.log(resp2)
               this.lastEpisode = resp2;
               this.tvService.fetchSeasonOnlyDetails(this.requestedTvId, resp.season_number).subscribe((resp3) => {
                 resp3 = JSON.parse(resp3.data);
