@@ -8,7 +8,9 @@
   </div>
 
   <div class="watched-section">
-    <div class="status">
+
+    <div class="status flex align-items-center ">
+      <app-seen-check class="mr-1"(click)="showViewedDialog()" [isChecked]="!!userMovie.viewInfo.checked"></app-seen-check>
       <app-tag
         [title]="seenStatus"
         [size]="2"
@@ -24,7 +26,7 @@
       <i (click)="toggleWatchlistMovie()" class="bookmark">
         <fa-icon [class]="userMovie.bookmark.checked" class="bookmark-icon st-icon st-icon-small" [icon]="faBookmark"></fa-icon>
       </i>
-      <app-seen-check (click)="showViewedDialog()" [isChecked]="!!userMovie.viewInfo.checked"></app-seen-check>
+
     </div>
   </div>
 
