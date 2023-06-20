@@ -2,7 +2,7 @@
   <app-header-nav></app-header-nav>
   <div class="trending-section carousel-container">
     <h2 class="m-3 mb-4 text-white text-base">Trending</h2>
-    <app-carousel #trendings [items]="trendingsList" (eventEmitter)="openDetailsDialog($event)"></app-carousel>
+    <app-carousel-image-list #trendings [items]="trendingsList" (eventEmitter)="openDetailsDialog($event)"></app-carousel-image-list>
   </div>
   <div class="text-center m-6">
     <button pButton type="button" label="Generate my recommendations" class="p-button-rounded st-secondary-btn"
