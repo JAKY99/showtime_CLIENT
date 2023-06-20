@@ -129,12 +129,8 @@ export class MoviesPageComponent implements OnInit {
     this.mediaDetailsDialogChild?.open($event);
   }
 
-  openRecommendMediaDialog() {
-    this.recommendMediaDialogChild?.open();
-  }
   scrollTo(elementId : string): void {
     let element = document.getElementById(elementId);
     element?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
-
 }

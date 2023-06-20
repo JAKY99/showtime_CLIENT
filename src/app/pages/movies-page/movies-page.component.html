@@ -5,7 +5,7 @@
     <h1 *ngIf="!loading.movie" class="mainTitle">Movies</h1>
     <div *ngIf="!loading.movie" class="blackFilter"></div>
     <app-image *ngIf="!loading.movie" class="backdrop-img"
-               [imagePath]="this.moviesInTheaters[0].backdrop_path"
+               [imagePath]="this.moviesInTheaters.length> 0 ? this.moviesInTheaters[0].backdrop_path : ''"
                imageSize="original"
     ></app-image>
     <p-skeleton *ngIf="loading.movie" width="100%" height="14rem"></p-skeleton>
