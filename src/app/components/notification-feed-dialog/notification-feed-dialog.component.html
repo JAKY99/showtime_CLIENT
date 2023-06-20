@@ -25,15 +25,20 @@
     </div>
   </p-toolbar>
   <div class="list">
-      <div class="card" *ngFor="let item of items">
-        <div class="row-card row-1">
-          <div *ngIf="item.new" class="notif-status"></div>
-          <i [class]="item.icon"></i>
-          <span>{{item.label}}</span>
-        </div>
-        <div class="row-card row-2">
-          <span>{{getNotifDate(item.dateCreated)}} days ago.</span>
-        </div>
+    <div class="card" *ngFor="let item of items; let i = index">
+      <div class="row-card row-1">
+        <div *ngIf="item.new" class="notif-status"></div>
+        <i [class]="item.icon"></i>
+        <span>{{item.label}}</span>
       </div>
+      <div class="flex justify-content-end" >
+      <fa-icon class="search-icon-action" [icon]="faEllipsisV" (click)="updateSelectedNotification(item);profilemenu.toggle($event)"></fa-icon>
+        <p-slideMenu  #profilemenu [model]="itemsNotification"  appendTo="body" [popup]="true"></p-slideMenu>
+      </div>
+      <div class="row-card row-2">
+        <span>{{getNotifDate(item.dateCreated)}} days ago.</span>
+      </div>
+    </div>
   </div>
 </p-dialog>
+

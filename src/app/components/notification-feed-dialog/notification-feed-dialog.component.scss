@@ -92,5 +92,11 @@
       }
     }
   }
-
+  .search-icon-action {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1.2rem;
+    color: $white;
+  }
 }

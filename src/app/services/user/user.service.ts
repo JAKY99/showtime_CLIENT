@@ -112,4 +112,32 @@ export class UserService {
     );
 
   }
+
+  deleteNotification(id: number | undefined) {
+    let url = GlobalConstants.API_URL + "/api/v1/user/delete/notifications";
+    let data = {
+      "id": id,
+      "username": this.tokenStorage.getClientUsername()
+    }
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      data,
+      // @ts-ignore
+      httpOptions);
+  }
+
+  markAsReadNotification(id: number | undefined) {
+    let url = GlobalConstants.API_URL + "/api/v1/user/markasread/notifications";
+    let data = {
+      "id": id,
+      "username": this.tokenStorage.getClientUsername()
+    }
+    // @ts-ignore
+    return this.http.post<string>(
+      url,
+      data,
+      // @ts-ignore
+      httpOptions);
+  }
 }

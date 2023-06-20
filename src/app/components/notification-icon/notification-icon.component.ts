@@ -53,6 +53,7 @@ export class NotificationIconComponent implements OnInit {
             this.newNotification = true;
           }
           this.notificationItems.push({
+            id: item.id,
             label: item.message,
             icon: 'pi pi-fw pi-bell',
             new: item.status === 'UNREAD',
@@ -74,16 +75,9 @@ export class NotificationIconComponent implements OnInit {
   }
 
   updateNotificationStatus() {
-    this.newNotification = false;
-    this.notificationItems.map(x => {
-      if (x.new) {
-        x.new = false;
-      }
-    });
-    // @ts-ignore
-    this.newNotificationCounter = this.notificationItems.filter(x => x.status === "UNREAD").length
-    return true
+    this.fetchNotifications();
   }
+
 
   openNotificationFeedDialog() {
     this.notificationFeedChild?.open();
