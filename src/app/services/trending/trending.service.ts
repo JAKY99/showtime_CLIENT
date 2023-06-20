@@ -48,7 +48,6 @@ export class TrendingService {
     const amazonRequest = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&vote_average.gte=3.5&language=en-US&page=1&sort_by=popularity.desc&primary_release_date.gte=${startOfWeekStr}&primary_release_date.lte=${endOfWeekStr}&with_watch_providers=${amazon}&watch_region=US`;
     const disneyplusRequest = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&vote_average.gte=3.5&language=en-US&page=1&sort_by=popularity.desc&primary_release_date.gte=${startOfWeekStr}&primary_release_date.lte=${endOfWeekStr}&with_watch_providers=${disneyplus}&watch_region=US`;
     const huluRequest = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&vote_average.gte=3.5&language=en-US&page=1&sort_by=popularity.desc&primary_release_date.gte=${startOfWeekStr}&primary_release_date.lte=${endOfWeekStr}&with_watch_providers=${hulu}&watch_region=US`;
-console.log(netflixRequest)
     const netflixRequest$ = this.RedisService.getDataFromRedisCache(netflixRequest);
     const amazonRequest$ = this.RedisService.getDataFromRedisCache(amazonRequest);
     const disneyplusRequest$ = this.RedisService.getDataFromRedisCache(disneyplusRequest);
