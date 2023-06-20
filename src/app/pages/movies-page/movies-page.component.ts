@@ -70,8 +70,10 @@ export class MoviesPageComponent implements OnInit {
       });
     this.trendingService.fetchTrendingMovies().subscribe(resp => {
       this.trendingsList = [
-        ...JSON.parse(resp.upcomingMovies$.data).results,
-        ...JSON.parse(resp.netflixMovies$.data).results
+        ...JSON.parse(resp.netflixRequest$.data).results,
+        ...JSON.parse(resp.amazonRequest$.data).results,
+        ...JSON.parse(resp.disneyplusRequest$.data).results,
+        ...JSON.parse(resp.huluRequest$.data).results,
       ];
 
       const uniqueTrendingsList = this.trendingsList.filter((movie, index, self) => {

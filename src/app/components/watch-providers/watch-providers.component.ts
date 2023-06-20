@@ -123,6 +123,7 @@ export class WatchProvidersComponent implements OnInit {
     })
     // @ts-ignore
     if(item?.flatrate) this.platformsStreamSub = item.flatrate;
+    console.log(this.platformsStreamSub)
   }
 
 }

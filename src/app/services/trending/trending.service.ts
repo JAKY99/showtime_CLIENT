@@ -33,20 +33,30 @@ export class TrendingService {
   }
   fetchTrendingMovies(): Observable<any> {
     const startOfWeek = new Date();
-    startOfWeek.setDate(startOfWeek.getDate() - 10);
+    startOfWeek.setDate(startOfWeek.getDate() - 180);
     const endOfWeek = new Date();
     endOfWeek.setDate(startOfWeek.getDate() + 6);
 
     const startOfWeekStr = startOfWeek.toISOString().split('T')[0];
     const endOfWeekStr = endOfWeek.toISOString().split('T')[0];
-    const upcomingUrl = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&language=en-US&page=1&sort_by=popularity.desc&primary_release_date.gte=${startOfWeekStr}&primary_release_date.lte=${endOfWeekStr}&with_origin_country=US&vote_average.gte=8&without_original_language=jp`;
-    const netflixUrl = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&&primary_release_date.gte=${startOfWeekStr}&primary_release_date.lte=${endOfWeekStr}language=en-US&page=1&sort_by=popularity.desc&with_watch_providers=8`;
+    const netflix = 8;
+    const amazon = 9;
+    const disneyplus = 384;
+    const hulu = 15;
 
-    const upcomingMovies$ = this.RedisService.getDataFromRedisCache(upcomingUrl);
-    const netflixMovies$ = this.RedisService.getDataFromRedisCache(netflixUrl);
+    const netflixRequest = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&vote_average.gte=3.5&language=en-US&page=1&sort_by=popularity.desc&primary_release_date.gte=${startOfWeekStr}&primary_release_date.lte=${endOfWeekStr}&with_watch_providers=${netflix}&watch_region=US`;
+    const amazonRequest = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&vote_average.gte=3.5&language=en-US&page=1&sort_by=popularity.desc&primary_release_date.gte=${startOfWeekStr}&primary_release_date.lte=${endOfWeekStr}&with_watch_providers=${amazon}&watch_region=US`;
+    const disneyplusRequest = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&vote_average.gte=3.5&language=en-US&page=1&sort_by=popularity.desc&primary_release_date.gte=${startOfWeekStr}&primary_release_date.lte=${endOfWeekStr}&with_watch_providers=${disneyplus}&watch_region=US`;
+    const huluRequest = `${GlobalConstants.TMDB_BASE_URL}discover/movie?api_key=${GlobalConstants.TMDB_KEY}&vote_average.gte=3.5&language=en-US&page=1&sort_by=popularity.desc&primary_release_date.gte=${startOfWeekStr}&primary_release_date.lte=${endOfWeekStr}&with_watch_providers=${hulu}&watch_region=US`;
+console.log(netflixRequest)
+    const netflixRequest$ = this.RedisService.getDataFromRedisCache(netflixRequest);
+    const amazonRequest$ = this.RedisService.getDataFromRedisCache(amazonRequest);
+    const disneyplusRequest$ = this.RedisService.getDataFromRedisCache(disneyplusRequest);
+    const huluRequest$ = this.RedisService.getDataFromRedisCache(huluRequest);
 
-    return forkJoin({upcomingMovies$, netflixMovies$});
+    return forkJoin({ netflixRequest$, amazonRequest$, disneyplusRequest$, huluRequest$ });
   }
+
 
 
 }
