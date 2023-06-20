@@ -229,16 +229,17 @@
     gap: $margin-default;
     margin-bottom: $margin-big;
   }
-}
-.watched-section{
-  .status{
-    display: flex;
-    i{
-      margin-right: 0.5rem;
+  .watched-section{
+    .status{
+      display: flex;
+      i{
+        margin-right: 0.5rem;
+      }
     }
   }
+  .custom-spinner-accordion{
+    height: 2.5rem!important;
+    width: 2.5rem!important;
+  }
 }
-.custom-spinner-accordion{
-  height: 2.5rem!important;
-  width: 2.5rem!important;
-}
+
