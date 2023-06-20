@@ -143,7 +143,7 @@ export class EpisodeCardComponent implements OnInit {
 
   async increaseWatchedNumber() {
     this.viewedAddDialogShown = false;
-    this.updateEpisodeStatus()
+    this.reUpdateEpisodeStatus()
   }
 
   async removeFromViewInfo() {
@@ -176,5 +176,23 @@ export class EpisodeCardComponent implements OnInit {
     if(this._item.status === 'SEEN') {
       this.viewedAddDialogShown = true;
     }
+  }
+  async reUpdateEpisodeStatus() {
+    this.isLoadingStatus = true;
+    await this.tvService.reAddEpisodeToWatchedList(
+      this.tvId,
+      this.seasonId,
+      this.item.id,
+      this.seasonNumber,
+      this.episodeNumber
+    ).subscribe(
+      (resp) => {
+        if(resp === true){
+          this._item.status = 'SEEN';
+          this.resultEpisodeUpdateEventEmitter.emit({item: this._item});
+        }
+        this.isLoadingStatus = false;
+      }
+    )
   }
 }

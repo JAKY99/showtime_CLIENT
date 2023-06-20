@@ -8,7 +8,7 @@
     ></app-image>
   </div>
   <div class="infos-episode">
-    <h4 class="episode-title">Episode <span class="red">{{item.episode_number}}</span> - Season <span class="red">{{item.season_number}}</span> </h4>
+    <h4 *ngIf="item.name!=='No episode to watch'" class="episode-title">Episode <span class="red">{{item.episode_number}}</span> - Season <span class="red">{{item.season_number}}</span> </h4>
     <div class="title-episode-card">
       <p class="overview-episode" *ngIf="todayDate >= item.air_date">{{item.name}}</p>
       <div *ngIf="todayDate < item.air_date">
