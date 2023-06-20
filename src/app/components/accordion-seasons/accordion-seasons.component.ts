@@ -144,10 +144,9 @@ export class AccordionSeasonsComponent implements OnInit {
             // @ts-ignore
             tvSeasonDetails = JSON.parse(respFork.details.data);
             // @ts-ignore
-            tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
+            self.allSeasons[i].nbEpisodesWatched = respFork.nbEpisodes;
             // @ts-ignore
-            tvSeasonDetails.watchedStatus = respFork.status;
-            self.allSeasons[i] = tvSeasonDetails;
+            self.allSeasons[i].watchedStatus = respFork.status;
             resolve(true)
           });
         }catch (e) {
@@ -161,9 +160,10 @@ export class AccordionSeasonsComponent implements OnInit {
 
   }
 
-  async updateSeasonStatus( seasonId: number){
+  async updateSeasonStatus( seasonId: number,seasonNumber: number){
     this.isLoadingStatus = true;
     this.tvService.triggerAddSeasonToWatchlist("start")
+    let self = this;
     if(this.viewedStatus){
       this.viewedDialogShown = true;
     }else{
@@ -172,25 +172,45 @@ export class AccordionSeasonsComponent implements OnInit {
         this.tvId,
         seasonId
       ).subscribe(
-        (resp) => {
-          this.allSeasons.map((season) => {
-            if(season.id === seasonId){
-              season.watchedStatus = resp;
-              season.nbEpisodesWatched = season.episodes.length;
-              season.episodes.map((episode) => {
-                episode.status = "SEEN";
-              })
-            }
+        async (respFork) => {
+          await new Promise( async function (resolve, reject) {
+            try{
+              const resp =  await self.tvService.fetchTvBySeason(self.tvId, seasonNumber).toPromise();
+              // @ts-ignore
+              const parsedResp = JSON.parse(resp.data);
 
-          })
-          this.tvService.triggerAddSeasonToWatchlist("end")
-          this.resultsSerieEmitterEventv2.emit(this.tvId);
-          this.isLoadingStatus = false;
+              const forkJoinObservable = forkJoin({
+                nbEpisodes: self.tvService.fetchNbEpisodesWatchedInSerie(self.tvId, parsedResp.id).toPromise(),
+                status: self.tvService.fetchTvSeasonWatchedStatus(self.tvId, parsedResp.id).toPromise(),
+                details: self.tvService.fetchTvBySeason(self.tvId, parsedResp.season_number).toPromise()
+              });
+
+              forkJoinObservable.subscribe((respFork) => {
+                let tvSeasonDetails:TvSeasonDetails;
+                // @ts-ignore
+                tvSeasonDetails = JSON.parse(respFork.details.data);
+                // @ts-ignore
+                tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
+                // @ts-ignore
+                tvSeasonDetails.watchedStatus = respFork.status;
+                self.allSeasons[seasonNumber] = tvSeasonDetails;
+                self.tvService.triggerAddSeasonToWatchlist("end")
+                self.resultsSerieEmitterEventv2.emit(self.tvId);
+                self.isLoadingStatus = false;
+                resolve(true)
+              });
+            }catch (e) {
+              self.firstLoadingDone.emit(true);
+              console.log(e)
+              reject(e)
+            }
+          });
 
         }
       )
     }
   }
+
 
   async updateSpecificEpisodeStatus($event: any) {
 
@@ -204,8 +224,9 @@ export class AccordionSeasonsComponent implements OnInit {
     this.resultEpisodeUpdateEventEmitter.emit($event);
   }
 
-  increaseWatchedNumber() {
-    this.viewedAddDialogShown = false;
+  async increaseWatchedNumber() {
+    await this.reAddSeason(this.seasonIdSelected, this.seasonNumber)
+
   }
 
   async removeFromViewInfo() {
@@ -250,7 +271,7 @@ export class AccordionSeasonsComponent implements OnInit {
       this.viewedAddDialogShown = true;
     }
     if(status!=="SEEN"){
-      this.updateSeasonStatus(seasonId);
+      this.updateSeasonStatus(seasonId,seasonNumber);
     }
   }
 
@@ -263,6 +284,57 @@ export class AccordionSeasonsComponent implements OnInit {
     }
     if(!this.isLoadingStatus){
       this.tvService.triggerAddSeasonToWatchlist("end")
+    }
+  }
+  async reAddSeason( seasonId: number,seasonNumber: number){
+    this.viewedAddDialogShown = false;
+    this.isLoadingStatus = true;
+    this.tvService.triggerAddSeasonToWatchlist("start")
+    let self = this;
+    if(this.viewedStatus){
+      this.viewedDialogShown = true;
+    }else{
+
+      await this.tvService.reAddSeasonToWatchedList(
+        this.tvId,
+        seasonId
+      ).subscribe(
+        async (respFork) => {
+          await new Promise( async function (resolve, reject) {
+            try{
+              const resp =  await self.tvService.fetchTvBySeason(self.tvId, seasonNumber).toPromise();
+              // @ts-ignore
+              const parsedResp = JSON.parse(resp.data);
+
+              const forkJoinObservable = forkJoin({
+                nbEpisodes: self.tvService.fetchNbEpisodesWatchedInSerie(self.tvId, parsedResp.id).toPromise(),
+                status: self.tvService.fetchTvSeasonWatchedStatus(self.tvId, parsedResp.id).toPromise(),
+                details: self.tvService.fetchTvBySeason(self.tvId, parsedResp.season_number).toPromise()
+              });
+
+              forkJoinObservable.subscribe((respFork) => {
+                let tvSeasonDetails:TvSeasonDetails;
+                // @ts-ignore
+                tvSeasonDetails = JSON.parse(respFork.details.data);
+                // @ts-ignore
+                tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
+                // @ts-ignore
+                tvSeasonDetails.watchedStatus = respFork.status;
+                self.allSeasons[seasonNumber] = tvSeasonDetails;
+                self.tvService.triggerAddSeasonToWatchlist("end")
+                self.resultsSerieEmitterEventv2.emit(self.tvId);
+                self.isLoadingStatus = false;
+                resolve(true)
+              });
+            }catch (e) {
+              self.firstLoadingDone.emit(true);
+              console.log(e)
+              reject(e)
+            }
+          });
+
+        }
+      )
     }
   }
 }

@@ -175,6 +175,14 @@ export class TvService {
       userMail: this.tokenStorage.getClientUsername()
     });
   }
+  reAddSerieToWatchedList(tmdbId: number,SerieName : string): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/serie/incrementAddSerieInWatchlist`
+    return this.http.post<any>(url, {
+      tmdbId: tmdbId,
+      SerieName: SerieName,
+      userMail: this.tokenStorage.getClientUsername()
+    });
+  }
   removeSerieToWatchedList(tmdbId: number,SerieName : string): Observable<any>{
     let url = `${GlobalConstants.API_URL}/api/v1/user/removeSerieInWatchlist/`
     return this.http.post<any>(url, {
@@ -192,9 +200,28 @@ export class TvService {
       tvSeasonid : seasonId
     });
   }
+  reAddSeasonToWatchedList(tmdbId: number , seasonId : number): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/serie/incrementAddSeasonInWatchlist/`
+    return this.http.post<any>(url, {
+      tvTmdbId: tmdbId,
+      userMail: this.tokenStorage.getClientUsername(),
+      tvSeasonid : seasonId
+    });
+  }
 
   addEpisodeToWatchedList(tmdbId: number , seasonId : number | null, episodeId : number,seasonNumber :  number , episodeNumber : number ): Observable<any>{
     let url = `${GlobalConstants.API_URL}/api/v1/user/addEpisodeInWatchlist/`
+    return this.http.post<any>(url, {
+      userMail: this.tokenStorage.getClientUsername(),
+      tvTmdbId: tmdbId,
+      tvSeasonid : seasonId,
+      episodeId : episodeId,
+      seasonNumber : seasonNumber,
+      episodeNumber : episodeNumber
+    });
+  }
+  reAddEpisodeToWatchedList(tmdbId: number , seasonId : number | null, episodeId : number,seasonNumber :  number , episodeNumber : number ): Observable<any>{
+    let url = `${GlobalConstants.API_URL}/api/v1/user/serie/incrementAddEpisodeInWatchlist/`
     return this.http.post<any>(url, {
       userMail: this.tokenStorage.getClientUsername(),
       tvTmdbId: tmdbId,

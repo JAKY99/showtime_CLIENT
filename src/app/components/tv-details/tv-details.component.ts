@@ -193,22 +193,28 @@ export class TvDetailsComponent implements OnInit {
       this.requestedTvId
     ).subscribe(
       (resp) => {
-        this.lastEpisodeNumber = resp.episode_number;
-        this.tvService.fetchTvBySeasonAndEpisode(
-          this.requestedTvId,
-          resp.season_number,
-          resp.episode_number
-        ).subscribe(
-          (resp2) => {
-            resp2 = JSON.parse(resp2.data);
-            this.lastEpisode = resp2;
-            this.tvService.fetchSeasonOnlyDetails(this.requestedTvId, resp.season_number).subscribe((resp3) => {
-              resp3 = JSON.parse(resp3.data);
-              this.lastEpisodeSeasonTmdbId = resp3.id;
-            });
-          }
-        );
+        if(resp.name!=="No episode to watch"){
+          this.lastEpisodeNumber = resp.episode_number;
+          this.tvService.fetchTvBySeasonAndEpisode(
+            this.requestedTvId,
+            resp.season_number,
+            resp.episode_number
+          ).subscribe(
+            (resp2) => {
+              resp2 = JSON.parse(resp2.data);
+              console.log(resp2)
+              this.lastEpisode = resp2;
+              this.tvService.fetchSeasonOnlyDetails(this.requestedTvId, resp.season_number).subscribe((resp3) => {
+                resp3 = JSON.parse(resp3.data);
+                this.lastEpisodeSeasonTmdbId = resp3.id;
+              });
+            }
+          );
 
+        }
+        if(resp.name=="No episode to watch"){
+          return this.lastEpisode = resp;
+        }
       }
     )
 
@@ -237,16 +243,28 @@ export class TvDetailsComponent implements OnInit {
       this.requestedTvId
     ).subscribe(
       (resp) => {
-        this.tvService.fetchTvBySeasonAndEpisode(
-          this.requestedTvId,
-          resp.season_number,
-          resp.episode_number
-        ).subscribe(
-          (resp2) => {
-            resp2 = JSON.parse(resp2.data);
-            this.lastEpisode = resp2;
-          }
-        );
+        if(resp.name!=="No episode to watch"){
+          this.lastEpisodeNumber = resp.episode_number;
+          this.tvService.fetchTvBySeasonAndEpisode(
+            this.requestedTvId,
+            resp.season_number,
+            resp.episode_number
+          ).subscribe(
+            (resp2) => {
+              resp2 = JSON.parse(resp2.data);
+              console.log(resp2)
+              this.lastEpisode = resp2;
+              this.tvService.fetchSeasonOnlyDetails(this.requestedTvId, resp.season_number).subscribe((resp3) => {
+                resp3 = JSON.parse(resp3.data);
+                this.lastEpisodeSeasonTmdbId = resp3.id;
+              });
+            }
+          );
+
+        }
+        if(resp.name=="No episode to watch"){
+          return this.lastEpisode = resp;
+        }
 
       }
     )
@@ -293,7 +311,26 @@ export class TvDetailsComponent implements OnInit {
       }
     )
   }
+  async reAddSerieToWatchedList() {
+    this.tvService.triggerAddSerieToWatchlist("start")
+    this.isLoadingStatusSerie = true;
+    await this.tvService.reAddSerieToWatchedList(
+      this.tv.id,
+      this.tv.name
+    ).subscribe(
+      (resp) => {
+        this.tvService.triggerAddSerieToWatchlist("end")
+        this.loading.isLoadingChildren = true;
+        this.fetchWatchedSerieInfos();
+        this.updateSerieInfosFromChild(this.requestedTvId);
+        this.isClosable = true;
+        this.isDissmissable = true;
+        this.isButtonIncreaseLoading = false;
+        this.isButtonDisabled = false;
 
+      }
+    )
+  }
   updateSerieInfosFromChild($event: any) {
     this.tvService.fetchTvWatchedStatus($event).subscribe(
       (resp) => {
@@ -391,25 +428,7 @@ export class TvDetailsComponent implements OnInit {
     this.isButtonDisabled = true;
     this.isButtonIncreaseLoading = true;
     this.isLoadingStatusSerie = true;
-    await this.tvService.increaseWatchedNumber(
-      this.tv.id,
-      this.tv.name
-    ).subscribe(
-      (resp) => {
-        this.tvService.triggerAddSerieToWatchlist("end")
-        this.viewedAddDialogShown = false;
-        this.loading.isLoadingChildren = true;
-        this.fetchWatchedSerieInfos();
-        this.updateSerieInfosFromChild(this.requestedTvId);
-        this.isLoadingStatusSerie = false;
-        this.isClosable = true;
-        this.isDissmissable = true;
-        this.isButtonIncreaseLoading = false;
-        this.isButtonDisabled = false;
-
-      }
-    )
-
+    await this.reAddSerieToWatchedList();
   }
 
   removeFromViewInfo() {
