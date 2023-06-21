@@ -158,6 +158,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   private async fetchLastWatchedSeries() {
+    this.lastWatchedSeries = [];
     try {
       // @ts-ignore
       await this.profileService.fetchLastWatchedSeries().subscribe((resp) => {
@@ -173,6 +174,7 @@ export class ProfilePageComponent implements OnInit {
       })
 
       await this.profileService.fetchfavoritesSeries().subscribe((resp) => {
+        this.favoritesSeries = [];
         resp.forEach((item: any) => {
           this.tvService.fetchTvDetailsRaw(item).toPromise().then(
             respDetails => {
@@ -183,6 +185,7 @@ export class ProfilePageComponent implements OnInit {
           this.favoritesSeriesChild?.isLoading = false;
         })
       })
+      this.watchingSeries = [];
       await this.tvService.fetchTvWatching().toPromise()
         .then(resp => {
           resp.forEach((item: any) => {
@@ -195,6 +198,7 @@ export class ProfilePageComponent implements OnInit {
             this.watchingSeriesChild?.isLoading = false;
           })
         })
+      this.watchListSeries = [];
       await this.profileService.fetchTvWatchlist().toPromise()
         .then(resp => {
           resp.forEach((item: any) => {
@@ -284,4 +288,36 @@ export class ProfilePageComponent implements OnInit {
     this.profileTopSectionChild?.profileAvatarChild?.loadAvatar();
   }
 
+  refreshList(listname: string) {
+    this
+
+  }
+
+  handleUpdate(listToUpdate: string) {
+    console.log(listToUpdate)
+    switch (listToUpdate) {
+      case "lastWatchedMovies":
+        this.fetchLastWatchedMovies();
+        break;
+      case "favoritesMovies":
+        this.fetchLastWatchedMovies();
+        break;
+      case "watchlistMovies":
+        this.fetchLastWatchedMovies();
+        break;
+      case "lastWatchedSeries":
+        this.fetchLastWatchedSeries();
+        break;
+      case "favoritesSeries":
+        this.fetchLastWatchedSeries();
+        break;
+      case "watchListSeries":
+        this.fetchLastWatchedSeries();
+        break;
+      case "watchingSeries":
+        this.fetchLastWatchedSeries();
+        break;
+    }
+
+  }
 }
