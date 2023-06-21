@@ -17,7 +17,7 @@ export class DesktopCarouselComponent implements OnInit {
   @Input() items: any[] = [];
   @Input() small: boolean = false;
   @Output() eventEmitter = new EventEmitter<any>();
-
+  @Output() update = new EventEmitter<any>();
   constructor(private router: Router) { }
 
   ngOnInit(): void {

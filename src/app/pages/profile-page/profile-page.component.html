@@ -148,7 +148,7 @@
           <span class="see-all-btn" (click)="openViewAllProfileList('lastWatchedMovies')"
                 *ngIf="lastWatchedSeriesTotal>10">See all</span>
         </div>
-        <app-desktop-carousel [small]="true" [items]="lastWatchedMovies" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
+        <app-desktop-carousel [small]="true" [items]="lastWatchedMovies" (update)="handleUpdate('lastWatchedMovies')" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
       </div>
       <div class="last-watched carousel-container mt-6" *ngIf="lastWatchedSeries.length">
         <div class="header-title">
@@ -156,7 +156,7 @@
           <span class="see-all-btn" (click)="openViewAllProfileList('lastWatchedSeries')"
                 *ngIf="lastWatchedSeriesTotal>10">See all</span>
         </div>
-        <app-desktop-carousel [small]="true" [items]="lastWatchedSeries" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
+        <app-desktop-carousel [small]="true" [items]="lastWatchedSeries" (update)="handleUpdate('lastWatchedSeries')" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
       </div>
       <div class="last-watched carousel-container mt-6" *ngIf="favoritesMovies.length">
         <div class="header-title">
@@ -164,7 +164,7 @@
           <span class="see-all-btn" (click)="openViewAllProfileList('favoritesMovies')"
                 *ngIf="lastWatchedSeriesTotal>10">See all</span>
         </div>
-        <app-desktop-carousel [small]="true" [items]="favoritesMovies" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
+        <app-desktop-carousel [small]="true" [items]="favoritesMovies" (update)="handleUpdate('favoritesMovies')" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
       </div>
       <div class="last-watched carousel-container mt-6" *ngIf="favoritesSeries.length">
         <div class="header-title">
@@ -172,7 +172,7 @@
           <span class="see-all-btn" (click)="openViewAllProfileList('favoritesSeries')"
                 *ngIf="lastWatchedSeriesTotal>10">See all</span>
         </div>
-        <app-desktop-carousel [small]="true" [items]="favoritesSeries" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
+        <app-desktop-carousel [small]="true" [items]="favoritesSeries" (update)="handleUpdate('favoritesSeries')"  (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
       </div>
       <div class="last-watched carousel-container mt-6" *ngIf="watchlistMovies.length">
         <div class="header-title">
@@ -180,7 +180,7 @@
           <span class="see-all-btn" (click)="openViewAllProfileList('watchlistMovies')"
                 *ngIf="lastWatchedSeriesTotal>10">See all</span>
         </div>
-        <app-desktop-carousel [small]="true" [items]="watchlistMovies" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
+        <app-desktop-carousel [small]="true" [items]="watchlistMovies" (update)="handleUpdate('watchlistMovies')" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
       </div>
       <div class="last-watched carousel-container mt-6" *ngIf="watchingSeries.length">
         <div class="header-title">
@@ -188,7 +188,7 @@
           <span class="see-all-btn" (click)="openViewAllProfileList('watchlistSeries')"
                 *ngIf="lastWatchedSeriesTotal>10">See all</span>
         </div>
-        <app-desktop-carousel [small]="true" [items]="watchingSeries" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
+        <app-desktop-carousel [small]="true" [items]="watchingSeries" (update)="handleUpdate('watchlistMovies')" (eventEmitter)="openDetailsDialog($event)"></app-desktop-carousel>
       </div>
     </div>
   </div>

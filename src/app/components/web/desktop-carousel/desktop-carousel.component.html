@@ -2,6 +2,6 @@
         [config]="small ? swiperConfigSmall : swiperConfigDefault"
 >
   <ng-template swiperSlide *ngFor="let item of items; let i = index">
-    <app-desktop-backdrop-card [small]="small" [item]="item" (eventEmitter)="eventEmitter.emit(item)"></app-desktop-backdrop-card>
+    <app-desktop-backdrop-card [small]="small" [item]="item" (update)="this.update.emit()"(eventEmitter)="eventEmitter.emit(item)"></app-desktop-backdrop-card>
   </ng-template>
 </swiper>
