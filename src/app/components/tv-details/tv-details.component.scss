@@ -211,9 +211,9 @@
     .p-toast{
       width: 100%;
     }
-    .p-button.p-button-text {
-      background-color: transparent;
-      border-color: transparent;
+    .p-button{
+      background-color: $secondary-color;
+      color: $white;
     }
   }
   .floating-comment-btn{
