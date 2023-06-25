@@ -49,9 +49,17 @@ export class MainSearchPageComponent implements OnInit {
       // @ts-ignore
       this.tvService.fetchListByGenre(this.param).subscribe(resp => {
         resp = JSON.parse(resp.data);
-        this.trendingResults = resp.results;
+        // this.trendingResults = resp.results;
         this.displayResult = 1;
         this.totalResults = resp.total_results
+        // @ts-ignore
+        this.mainSearchChild?.search.page = 1;
+        this.isLoadMoreAvailable = true;
+        this.mainSearchResults = resp.results;
+        this.totalResults = resp.total_results;
+        if(resp.page === resp.total_pages){
+          this.isLoadMoreAvailable = false;
+        }
       });
     }
 
@@ -59,6 +67,7 @@ export class MainSearchPageComponent implements OnInit {
   }
 
   getMainSearchResults($event: any){
+    console.log($event)
     // @ts-ignore
     this.mainSearchChild?.search.page = 1;
     this.isLoadMoreAvailable = true;
@@ -67,6 +76,12 @@ export class MainSearchPageComponent implements OnInit {
     this.displayResult = 2
     if($event.page === $event.total_pages){
       this.isLoadMoreAvailable = false;
+    }
+    if($event.results.length === 0){
+      this.trendingService.fetchAllTrendings().subscribe(resp => {
+        resp = JSON.parse(resp.data);
+        this.trendingResults = resp.results;
+      });
     }
   }
 
