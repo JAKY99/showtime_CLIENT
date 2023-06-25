@@ -351,8 +351,8 @@ export class TvDetailsComponent implements OnInit {
       }
       if (!resp) {
         this.addSingleToast(
-          'success',
-          'Tv Show removed to your Watchlist or already seen',
+          'warn',
+          'Tv Show removed from your Watchlist or already seen / watching',
           'You can see your Watchlist in the profile page',
           false
         )
