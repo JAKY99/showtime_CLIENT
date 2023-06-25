@@ -59,6 +59,16 @@ export class EpisodeCardComponent implements OnInit {
         this.isLoadingStatus = false;
       }
     })
+    this.tvService.addEpisodeToWatchlist.subscribe((state) => {
+      if(state.item.id == this._item.id){
+        this.episodeStatus()
+      }
+    });
+    this.tvService.removeEpisodeToWatchlist.subscribe((state) => {
+      if(state.item.id == this._item.id){
+        this.episodeStatus()
+      }
+    });
     // @ts-ignore
     return this.todayDate;
   }
@@ -133,8 +143,8 @@ export class EpisodeCardComponent implements OnInit {
     ).subscribe(
       (resp) => {
         if(resp === true){
-          this._item.status = 'SEEN';
           this.resultEpisodeUpdateEventEmitter.emit({item: this._item});
+          this.tvService.triggerAddEpisodeToWatchlist({item: this._item});
         }
         this.isLoadingStatus = false;
       }
@@ -160,6 +170,7 @@ export class EpisodeCardComponent implements OnInit {
         if(resp === true){
           this._item.status = '';
           this.resultEpisodeUpdateEventEmitter.emit({item: this._item});
+          this.tvService.triggerRemoveEpisodeToWatchlist({item: this._item});
         }
         this.isLoadingStatus = false;
       },
@@ -190,6 +201,7 @@ export class EpisodeCardComponent implements OnInit {
         if(resp === true){
           this._item.status = 'SEEN';
           this.resultEpisodeUpdateEventEmitter.emit({item: this._item});
+          this.tvService.triggerAddEpisodeToWatchlist({item: this._item});
         }
         this.isLoadingStatus = false;
       }

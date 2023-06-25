@@ -51,5 +51,16 @@ export class SearchService {
     url += `&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`;
     return this.http.get<any>(url);
   }
+  fetchListByGenreWithPage(idGenre : number,page:number): Observable <any>{
+    let url = GlobalConstants.TMDB_BASE_URL + "discover/tv?api_key=" + GlobalConstants.TMDB_KEY +"&with_genres=" + idGenre +
+      "&language=en-US&sort_by=popularity.desc&page="+page;
+    return this.RedisService.getDataFromRedisCache(url);
+  }
+  fetchListByGenreWithPageAndQuery(idGenre : number,page:number,searchText:string): Observable <any>{
+    let url = GlobalConstants.TMDB_BASE_URL + "discover/tv?api_key=" + GlobalConstants.TMDB_KEY +"&with_genres=" + idGenre +
+      "&language=en-US&sort_by=popularity.desc&page="+page+"&with_keywords="+searchText;
+    console.log(url)
+    return this.RedisService.getDataFromRedisCache(url);
+  }
 
 }

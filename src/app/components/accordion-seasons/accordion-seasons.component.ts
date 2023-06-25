@@ -78,7 +78,10 @@ export class AccordionSeasonsComponent implements OnInit {
       }
     })
     this.tvService.addEpisodeToWatchlist.subscribe((state) => {
-
+      this.refreshAccordionEpisodeData(state)
+    });
+    this.tvService.removeEpisodeToWatchlist.subscribe((state) => {
+      this.refreshAccordionEpisodeData(state)
     });
     this.fetchAccordionData();
   }
@@ -156,8 +159,6 @@ export class AccordionSeasonsComponent implements OnInit {
         }
       });
     }
-
-
   }
 
   async updateSeasonStatus( seasonId: number,seasonNumber: number){
@@ -211,17 +212,50 @@ export class AccordionSeasonsComponent implements OnInit {
     }
   }
 
+  async refreshAccordionEpisodeData($event: any) {
+    console.log($event)
+    let self = this
+    let i = $event.item.season_number;
+    let j = $event.item.episode_number;
+    await new Promise( async function (resolve, reject) {
+      try{
+        const resp =  await self.tvService.fetchTvBySeason(self.tvId, i).toPromise();
+        // @ts-ignore
+        const parsedResp = JSON.parse(resp.data);
 
+        const forkJoinObservable = forkJoin({
+          nbEpisodes: self.tvService.fetchNbEpisodesWatchedInSerie(self.tvId, parsedResp.id).toPromise(),
+          status: self.tvService.fetchTvSeasonWatchedStatus(self.tvId, parsedResp.id).toPromise(),
+          details: self.tvService.fetchTvBySeason(self.tvId, parsedResp.season_number).toPromise()
+        });
+
+        forkJoinObservable.subscribe((respFork) => {
+          let tvSeasonDetails:TvSeasonDetails;
+          // @ts-ignore
+          tvSeasonDetails = JSON.parse(respFork.details.data);
+          // @ts-ignore
+          self.allSeasons[i].nbEpisodesWatched = respFork.nbEpisodes;
+          // @ts-ignore
+          self.allSeasons[i].watchedStatus = respFork.status;
+          resolve(true)
+        });
+      }catch (e) {
+        self.firstLoadingDone.emit(true);
+        console.log(e)
+        reject(e)
+      }
+    });
+  }
   async updateSpecificEpisodeStatus($event: any) {
 
-    await this.refreshAccordionData($event);
+    // await this.refreshAccordionData($event);
 
 
   }
 
   updateEpisodeInfosFromChild($event: any) {
-    this.refreshAccordionData($event);
-    this.resultEpisodeUpdateEventEmitter.emit($event);
+    // this.refreshAccordionData($event);
+    // this.resultEpisodeUpdateEventEmitter.emit($event);
   }
 
   async increaseWatchedNumber() {

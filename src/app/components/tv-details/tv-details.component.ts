@@ -105,6 +105,35 @@ export class TvDetailsComponent implements OnInit {
     await this.fetchWatchedSerieInfos();
     this.fetchComments();
     this.fetchUserComments();
+
+
+
+
+
+    this.tvService.addSeasonToWatchlist.subscribe((state) => {
+      console.log("add season from tv details")
+      this.updateLastSeenEpisode();
+      this.fetchWatchedSerieInfos();
+      this.updateSerieInfosFromChild(this.requestedTvId);
+    });
+    this.tvService.removeSeasonToWatchlist.subscribe((state) => {
+      this.updateLastSeenEpisode();
+      this.fetchWatchedSerieInfos();
+      this.updateSerieInfosFromChild(this.requestedTvId);
+    });
+    this.tvService.addEpisodeToWatchlist.subscribe((state) => {
+      this.updateLastSeenEpisode();
+      this.fetchWatchedSerieInfos();
+      this.updateSerieInfosFromChild(this.requestedTvId);
+    });
+    this.tvService.removeEpisodeToWatchlist.subscribe((state) => {
+      this.updateLastSeenEpisode();
+      this.fetchWatchedSerieInfos();
+      this.updateSerieInfosFromChild(this.requestedTvId);
+    });
+
+
+
   }
 
   getRateFormated(): number {
@@ -329,8 +358,8 @@ export class TvDetailsComponent implements OnInit {
       }
     )
   }
-  updateSerieInfosFromChild($event: any) {
-    this.tvService.fetchTvWatchedStatus($event).subscribe(
+  updateSerieInfosFromChild(tvTmdbId: any) {
+    this.tvService.fetchTvWatchedStatus(tvTmdbId).subscribe(
       (resp) => {
         this.seenStatus = resp.status;
         this.userTv.viewInfo.checked = resp.status.replace(" ", "").toUpperCase();

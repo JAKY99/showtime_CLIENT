@@ -25,6 +25,7 @@ export class MainSearchComponent implements OnInit {
     page: 1
   }
   placeholder: string = this.movieOnly?"Search movies...":"Search movies, series...";
+  private searchGenre: any="";
 
   constructor(private searchService: SearchService,
               private navigationService: NavigationService,
@@ -37,6 +38,10 @@ export class MainSearchComponent implements OnInit {
         this.movieOnly = true;
         this.placeholder = "Search movies...";
       }
+      if(params['genre']){
+        this.searchGenre=params['genre'];
+      }
+
     });
   }
 
@@ -68,8 +73,23 @@ export class MainSearchComponent implements OnInit {
             this.isLoading.emit(false);
           });
       }
-
     }
+    if (this.search.searchGlobalValue.length === 0){
+      if(this.searchGenre.length>0){
+        this.searchService.fetchListByGenreWithPage(this.searchGenre,this.search.page)
+          .toPromise().then(res => {
+          res = JSON.parse(res.data);
+          if (newSearch){
+            this.resultsEmitterEvent.emit(res);
+          }else{
+            this.resultsMoreEmitterEvent.emit(res);
+          }
+          this.isLoading.emit(false);
+        });
+      }
+    }
+
+
   }
 
   async multiSearchFilters(sort: string = ""){

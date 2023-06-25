@@ -378,22 +378,25 @@ export class TvService {
     });
   }
 
-  triggerAddSerieToWatchlist(state : string){
+  triggerAddSerieToWatchlist(state : any){
     this.addSerieToWatchlist.next(state);
   }
-  triggerRemoveSerieToWatchlist(state : string){
+  triggerRemoveSerieToWatchlist(state : any){
     this.removeSerieToWatchlist.next(state);
   }
-  triggerAddSeasonToWatchlist(state : string){
+  triggerAddSeasonToWatchlist(state : any){
     this.addSeasonToWatchlist.next(state);
   }
-  triggerRemoveSeasonoWatchlist(state : string){
+  triggerRemoveSeasonoWatchlist(state : any){
     this.removeSeasonToWatchlist.next(state);
   }
-  triggerAddEpisodeToWatchlist(state : string){
-    this.addEpisodeToWatchlist.next();
+  triggerAddEpisodeToWatchlist(state : any){
+    console.log(state)
+    this.addEpisodeToWatchlist.next(state);
   }
-  triggerRemoveEpisodeToWatchlist(state : string){
+  triggerRemoveEpisodeToWatchlist(state : any){
     this.removeEpisodeToWatchlist.next(state);
   }
+
+
 }
