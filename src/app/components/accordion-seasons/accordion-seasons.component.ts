@@ -144,10 +144,9 @@ export class AccordionSeasonsComponent implements OnInit {
             // @ts-ignore
             tvSeasonDetails = JSON.parse(respFork.details.data);
             // @ts-ignore
-            tvSeasonDetails.nbEpisodesWatched = respFork.nbEpisodes;
+            self.allSeasons[i].nbEpisodesWatched = respFork.nbEpisodes;
             // @ts-ignore
-            tvSeasonDetails.watchedStatus = respFork.status;
-            self.allSeasons[i] = tvSeasonDetails;
+            self.allSeasons[i].watchedStatus = respFork.status;
             resolve(true)
           });
         }catch (e) {
@@ -157,8 +156,6 @@ export class AccordionSeasonsComponent implements OnInit {
         }
       });
     }
-
-
   }
 
   async updateSeasonStatus( seasonId: number){
