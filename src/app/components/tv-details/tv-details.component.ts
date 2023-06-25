@@ -360,7 +360,7 @@ export class TvDetailsComponent implements OnInit {
       }
     })
   }
-
+//
 
   addSingleToast(severity: string, title: string, details: string, sticky?: boolean) {
     this.messageService.add({severity:severity, summary:title, detail:details, sticky: sticky});
